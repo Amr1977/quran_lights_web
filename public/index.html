@@ -15,6 +15,17 @@
 <html>
 
 <head>
+
+    <style>
+        .wrapper {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            grid-column-gap: 10px;
+            grid-row-gap: 1em;
+        }
+    
+    </style>
+
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
     <script>
         // Initialize Firebase
@@ -30,9 +41,26 @@
         function sortNumber(a, b) {
             return a - b;
         }
+        function addSuraCells(data) {
+            document.getElementById('reviews').childNodes = [];
+            var currentTimeStamp = Math.floor(Date.now() / 1000);
+            var refreshPeriod = 30 * 24 * 60 * 60;
+
+            for(i = 1;i <= 114; i++){
+                var element = document.createElement("div");
+                var timeStampsArray = data[i];
+                var maxStamp = timeStampsArray[timeStampsArray.length - 1];
+                var timeDifferenceRatio = 1 - (currentTimeStamp - maxStamp)* 1.0 / refreshPeriod;
+                console.log(timeDifferenceRatio);
+                element.style.backgroundColor = "rgb(0," + (255.0 * timeDifferenceRatio).toFixed(0) + ",0)";
+                element.appendChild(document.createTextNode(i + " " + maxStamp));
+                document.getElementById('reviews').appendChild(element);
+            }
+        }
+
+        
         firebase.initializeApp(config);
     </script>
-    <script src="https://d3js.org/d3.v4.js"></script>
 
     <meta charset=utf-8 />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,8 +72,6 @@
     <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
 
     <link rel="stylesheet" href="main.css">
-
-
 
     <script type="text/javascript">
         /**
@@ -177,8 +203,6 @@
                     var providerData = user.providerData;
                     var myUserId = firebase.auth().currentUser.uid;
 
-                    document.getElementById('reviews').textContent = 'No DATA!'
-
                     var database = firebase.database();
                     var reviewsRef = firebase.database().ref('users/' + myUserId + '/Master/reviews');
                     reviewsRef.once('value', function (snapshot) {
@@ -201,7 +225,9 @@
                         for (var suraIndex in suras.keys) {
                             suras[suraIndex].sort(sortNumber);
                         }
-                        document.getElementById('reviews').textContent = JSON.stringify(suras);
+                        document.getElementById('reviews').textContent = '';
+                        addSuraCells(suras);
+                        // document.getElementById('reviews').textContent = JSON.stringify(suras);
                     });
 
                     // [START_EXCLUDE]
@@ -238,30 +264,20 @@
             initApp();
         };
     </script>
+
+
 </head>
 
 <body>
     <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
-
-        <!-- Header section containing title -->
-        <header class="mdl-layout__header mdl-color-text--white mdl-color--light-blue-700">
-            <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-grid">
-                <div class="mdl-layout__header-row mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--8-col-desktop">
-                    <a href="/">
-                        <h3>بسم الله</h3>
-                    </a>
-                </div>
-            </div>
-        </header>
-
         <main class="mdl-layout__content mdl-color--grey-100">
             <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-grid">
 
                 <!-- Container for the demo -->
                 <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
-                    <div class="mdl-card__title mdl-color--light-blue-600 mdl-color-text--white">
+                    <!-- <div class="mdl-card__title mdl-color--light-blue-600 mdl-color-text--white">
                         <h2 class="mdl-card__title-text">Firebase Email &amp; Password Authentication</h2>
-                    </div>
+                    </div> -->
                     <div class="mdl-card__supporting-text mdl-color-text--grey-600">
                         <p>Enter an email and password below and either sign in to an existing account or sign up</p>
 
@@ -281,9 +297,11 @@
                             <div>Firebase auth <code>currentUser</code> object value:</div>
                             <pre><code id="quickstart-account-details">null</code></pre>
                         </div>
-
-                        <div id="reviews">
+                        
+                        <div id="reviews" class="wrapper">
                             No Content.
+                            
+
                         </div>
                     </div>
                 </div>
