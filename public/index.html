@@ -22,7 +22,14 @@
             grid-template-columns: repeat(10, 1fr);
             grid-column-gap: 10px;
             grid-row-gap: 1em;
+            background: rgb(20,20,20);
         }
+
+        #sura-cell {
+    border-radius: 25px;
+    background: #73AD21;
+    padding: 20px; 
+}
     
     </style>
 
@@ -48,6 +55,7 @@
 
             for(i = 1;i <= 114; i++){
                 var element = document.createElement("div");
+                element.id = "sura-cell";
                 var timeStampsArray = data[i];
                 var maxStamp = timeStampsArray[timeStampsArray.length - 1];
                 var timeDifferenceRatio = 1 - (currentTimeStamp - maxStamp)* 1.0 / refreshPeriod;
