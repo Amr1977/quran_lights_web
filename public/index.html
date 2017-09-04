@@ -187,8 +187,13 @@
             "Al-Nas"];
         //console.log(SuraNamesEn);
 
-        function refreshSura(suraIndex){
+        function refreshSura(suraIndex, timeStamp){
+            console.log("refresh for sura index " + suraIndex + " at "+ timeStamp);
+            var newEntry = firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/Master/reviews/' + timeStamp);
+            newEntry.set(suraIndex);
+            firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/Master/update_stamp').set(timeStamp);
 
+            //location.reload();
         }
 
         function addSuraCells(data) {
@@ -217,7 +222,7 @@
                 }
                 element.appendChild(document.createTextNode(text));
                 element.onclick = function () {
-                    console.log("refresh for sura index " + this.index + " at "+ currentTimeStamp);
+                    refreshSura(this.index, currentTimeStamp);
                 }
 
                 document.getElementById('reviews').appendChild(element);
