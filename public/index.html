@@ -23,12 +23,16 @@
             grid-column-gap: 10px;
             grid-row-gap: 1em;
             background: rgb(0, 0, 0);
+            padding: 20px;
+            margin: auto;
+            border-radius: 25px;
         }
 
         #sura-cell {
             border-radius: 25px;
             background: #73AD21;
             padding: 20px;
+            font-weight: 700;
         }
     </style>
 
@@ -190,7 +194,7 @@
                     element.style.border = "thick solid rgb(255,0,0)";
                 }
 
-                var text = SuraNamesEn[i] + " [" + timeStampsArray.length + "] \n" + daysElapsed + "D";
+                var text = i + " " + SuraNamesEn[i] + " [" + timeStampsArray.length + "] \n" + daysElapsed + "D";
                 if (timeDifferenceRatio > 0.3) {
                     element.style.color = "black";
                 } else {
