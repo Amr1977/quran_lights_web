@@ -42,7 +42,6 @@
         #sura-cell:hover {
             background: rgb(0, 255, 0);
         }
-
     </style>
 
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
@@ -187,8 +186,8 @@
             "Al-Nas"];
         //console.log(SuraNamesEn);
 
-        function refreshSura(suraIndex, timeStamp){
-            console.log("refresh for sura index " + suraIndex + " at "+ timeStamp);
+        function refreshSura(suraIndex, timeStamp) {
+            console.log("refresh for sura index " + suraIndex + " at " + timeStamp);
             var newEntry = firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/Master/reviews/' + timeStamp);
             newEntry.set(suraIndex);
             firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/Master/update_stamp').set(timeStamp);
@@ -448,11 +447,16 @@
                 <!-- Container for the demo -->
                 <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
                     <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                        <p>
+                            <a target="_blank" href="https://itunes.apple.com/us/app/quran-lights/id1218872513?mt=8"> Quran Lights on App Store  </a>
+                        </p>
                         <input class="mdl-textfield__input" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email"
                         /> &nbsp;&nbsp;&nbsp;
                         <input class="mdl-textfield__input" style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password"
                         />
+
                         <br/><br/>
+
                         <button disabled class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-in" name="signin">Sign In</button>                        &nbsp;&nbsp;&nbsp;
                         <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-up" name="signup">Sign Up</button>                        &nbsp;&nbsp;&nbsp;
                         <button class="mdl-button mdl-js-button mdl-button--raised" disabled id="quickstart-verify-email" name="verify-email">Send Email Verification</button>                        &nbsp;&nbsp;&nbsp;
