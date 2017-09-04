@@ -39,6 +39,10 @@
             cursor: pointer;
         }
 
+        #sura-cell:hover {
+            background: rgb(0, 255, 0);
+        }
+
     </style>
 
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
@@ -66,7 +70,8 @@
             return textByLine;
         }
 
-        var SuraNamesEn = ["Al-Fatiha",
+        var SuraNamesEn = [
+            "Al-Fatiha",
             "Al-Baqara",
             "Al Imran",
             "An-Nisa",
@@ -182,6 +187,10 @@
             "Al-Nas"];
         //console.log(SuraNamesEn);
 
+        function refreshSura(suraIndex){
+
+        }
+
         function addSuraCells(data) {
             document.getElementById('reviews').childNodes = [];
             var currentTimeStamp = Math.floor(Date.now() / 1000);
@@ -199,7 +208,7 @@
                     element.style.border = "thick solid rgb(255,0,0)";
                 }
 
-                var text = i + " " + SuraNamesEn[i] + " [" + timeStampsArray.length + "] \n" + daysElapsed + "D";
+                var text = i + " " + SuraNamesEn[i - 1] + " [" + timeStampsArray.length + "] \n" + daysElapsed + "D";
                 if (timeDifferenceRatio >= 0.3) {
                     element.style.color = "black";
                 } else {
@@ -400,7 +409,7 @@
                     // [START_EXCLUDE]
                     document.getElementById('quickstart-sign-in-status').textContent = 'Signed out';
                     document.getElementById('quickstart-sign-in').textContent = 'Sign in';
-                    document.getElementById('quickstart-account-details').textContent = 'null';
+                    //document.getElementById('quickstart-account-details').textContent = 'null';
                     // [END_EXCLUDE]
                 }
                 // [START_EXCLUDE silent]
