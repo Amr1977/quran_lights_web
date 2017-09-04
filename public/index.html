@@ -205,8 +205,8 @@
                 var element = document.createElement("button");
                 element.index = i;
                 element.id = "sura-cell";
-                var timeStampsArray = data[i];
-                var maxStamp = timeStampsArray[timeStampsArray.length - 1];
+                var timeStampsArray = data[i] != null ? data[i] : [];
+                var maxStamp = timeStampsArray.length > 0 ? timeStampsArray[timeStampsArray.length - 1] : (currentTimeStamp - refreshPeriod);
                 var timeDifferenceRatio = 1 - (currentTimeStamp - maxStamp) * 1.0 / refreshPeriod;
                 element.style.backgroundColor = "rgb(0," + (255.0 * timeDifferenceRatio).toFixed(0) + ",0)";
                 var daysElapsed = ((currentTimeStamp - maxStamp) / (60 * 60 * 24.0)).toFixed(0);
@@ -228,7 +228,6 @@
                 document.getElementById('reviews').appendChild(element);
             }
         }
-
 
         firebase.initializeApp(config);
     </script>
