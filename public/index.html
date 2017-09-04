@@ -19,18 +19,17 @@
     <style>
         .wrapper {
             display: grid;
-            grid-template-columns: repeat(10, 1fr);
+            grid-template-columns: repeat(11, 1fr);
             grid-column-gap: 10px;
             grid-row-gap: 1em;
-            background: rgb(20,20,20);
+            background: rgb(0, 0, 0);
         }
 
         #sura-cell {
-    border-radius: 25px;
-    background: #73AD21;
-    padding: 20px; 
-}
-    
+            border-radius: 25px;
+            background: #73AD21;
+            padding: 20px;
+        }
     </style>
 
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
@@ -45,9 +44,18 @@
             messagingSenderId: "35819574492"
         };
         var suras = {};
+        var SuraNames = [];
         function sortNumber(a, b) {
             return a - b;
         }
+
+        function readFileLines(fileName) {
+                var fs = require("fs");
+                var text = fs.readFileSync(fileName);
+                var textByLine = text.split("\n");
+                return textByLine;
+            }
+
         function addSuraCells(data) {
             document.getElementById('reviews').childNodes = [];
             var currentTimeStamp = Math.floor(Date.now() / 1000);
@@ -62,7 +70,19 @@
                 console.log(timeDifferenceRatio);
                 element.style.backgroundColor = "rgb(0," + (255.0 * timeDifferenceRatio).toFixed(0) + ",0)";
                 var daysElapsed = ((currentTimeStamp - maxStamp) / (60*60*24.0)).toFixed(0);
-                element.appendChild(document.createTextNode(i + "[" + daysElapsed + "]"));
+                if (daysElapsed >= 30) {
+                    element.style.border = "thick solid rgb(255,0,0)";
+                }
+
+                var text = i + "[" + timeStampsArray.length + "] \n" + daysElapsed + "D";
+                if (timeDifferenceRatio > 0.3) {
+                    element.style.color = "black";
+                } else {
+
+                }
+                
+
+                element.appendChild(document.createTextNode(text));
                 document.getElementById('reviews').appendChild(element);
             }
         }
@@ -189,6 +209,8 @@
             });
             // [END sendpasswordemail];
         }
+        
+        
         /**
          * initApp handles setting up UI event listeners and registering Firebase auth listeners:
          *  - firebase.auth().onAuthStateChanged: This listener is called when the user is signed in or
@@ -288,8 +310,6 @@
                         <h2 class="mdl-card__title-text">Firebase Email &amp; Password Authentication</h2>
                     </div> -->
                     <div class="mdl-card__supporting-text mdl-color-text--grey-600">
-                        <p>Enter an email and password below and either sign in to an existing account or sign up</p>
-
                         <input class="mdl-textfield__input" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email"
                         /> &nbsp;&nbsp;&nbsp;
                         <input class="mdl-textfield__input" style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password"
