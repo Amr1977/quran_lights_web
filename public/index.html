@@ -198,6 +198,7 @@
 
             for (i = 1; i <= 114; i++) {
                 var element = document.createElement("button");
+                element.index = i;
                 element.id = "sura-cell";
                 var timeStampsArray = data[i];
                 var maxStamp = timeStampsArray[timeStampsArray.length - 1];
@@ -215,6 +216,9 @@
                     element.style.color = "white";
                 }
                 element.appendChild(document.createTextNode(text));
+                element.onclick = function () {
+                    console.log("refresh for sura index " + this.index + " at "+ currentTimeStamp);
+                }
 
                 document.getElementById('reviews').appendChild(element);
             }
