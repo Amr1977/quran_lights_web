@@ -193,7 +193,7 @@
             newEntry.set(suraIndex);
             firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/Master/update_stamp').set(timeStamp);
 
-            //location.reload();
+            location.reload();
         }
 
         function addSuraCells(data) {
