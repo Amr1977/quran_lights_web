@@ -19,7 +19,7 @@
     <style>
         .wrapper {
             display: grid;
-            grid-template-columns: repeat(11, 1fr);
+            grid-template-columns: repeat(12, 1fr);
             grid-column-gap: 10px;
             grid-row-gap: 1em;
             background: rgb(0, 0, 0);
@@ -44,50 +44,165 @@
             messagingSenderId: "35819574492"
         };
         var suras = {};
-        var SuraNames = [];
+        var SuraNamesAr = [];
+
         function sortNumber(a, b) {
             return a - b;
         }
 
         function readFileLines(fileName) {
-                var fs = require("fs");
-                var text = fs.readFileSync(fileName);
-                var textByLine = text.split("\n");
-                return textByLine;
-            }
+            var fs = require("fs");
+            var text = fs.readFile(fileName);
+            var textByLine = text.split("\n");
+            return textByLine;
+        }
+
+        var SuraNamesEn = ["Al-Fatiha",
+            "Al-Baqara",
+            "Al Imran",
+            "An-Nisa",
+            "Al-Ma'ida",
+            "Al-An'am",
+            "Al-A'raf",
+            "Al-Anfal",
+            "At-Tawba",
+            "Yunus",
+            "Hud",
+            "Yusuf",
+            "Ar-Ra'd",
+            "Ibrahim",
+            "Al-Hijr",
+            "An-Nahl",
+            "Al-Isra",
+            "Al-Kahf",
+            "Maryam",
+            "Ta-Ha",
+            "Al-Anbiya",
+            "Al-Hajj",
+            "Al-Mu'minoon",
+            "An-Nur",
+            "Al-Furqan",
+            "Ash-Shu'ara",
+            "An-Naml",
+            "Al-Qasas",
+            "Al-Ankabut",
+            "Ar-Rum",
+            "Luqman",
+            "As-Sajda",
+            "Al-Ahzab",
+            "Saba",
+            "Fatir",
+            "Ya Sin",
+            "As-Saaffat",
+            "Sad",
+            "Az-Zumar",
+            "Ghafir",
+            "Fussilat",
+            "Ash-Shura",
+            "Az-Zukhruf",
+            "Ad-Dukhan",
+            "Al-Jathiya",
+            "Al-Ahqaf",
+            "Muhammad",
+            "Al-Fath",
+            "Al-Hujurat",
+            "Qaf",
+            "Adh-Dhariyat",
+            "At-Tur",
+            "An-Najm",
+            "Al-Qamar",
+            "Ar-Rahman",
+            "Al-Waqi'a",
+            "Al-Hadid",
+            "Al-Mujadila",
+            "Al-Hashr",
+            "Al-Mumtahina",
+            "As-Saff",
+            "Al-Jumua",
+            "Al-Munafiqun",
+            "At-Taghabun",
+            "At-Talaq",
+            "At-Tahrim",
+            "Al-Mulk",
+            "Al-Qalam",
+            "Al-Haaqqa",
+            "Al-Maarij",
+            "Nuh",
+            "Al-Jinn",
+            "Al-Muzzammil",
+            "Al-Muddathir",
+            "Al-Qiyama",
+            "Al-Insan",
+            "Al-Mursalat",
+            "An-Naba",
+            "An-Naziat",
+            "Abasa",
+            "At-Takwir",
+            "Al-Infitar",
+            "Al-Mutaffifin",
+            "Al-Inshiqaq",
+            "Al-Burooj",
+            "At-Tariq",
+            "Al-Ala",
+            "Al-Ghashiya",
+            "Al-Fajr",
+            "Al-Balad",
+            "Ash-Shams",
+            "Al-Lail",
+            "Ad-Dhuha",
+            "Al-Inshirah",
+            "At-Tin",
+            "Al-Alaq",
+            "Al-Qadr",
+            "Al-Bayyina",
+            "Az-Zalzala",
+            "Al-Adiyat",
+            "Al-Qaria",
+            "At-Takathur",
+            "Al-Asr",
+            "Al-Humaza",
+            "Al-Fil",
+            "Quraysh",
+            "Al-Ma'un",
+            "Al-Kawthar",
+            "Al-Kafirun",
+            "An-Nasr",
+            "Al-Masadd",
+            "Al-Ikhlas",
+            "Al-Falaq",
+            "Al-Nas"];
+        //console.log(SuraNamesEn);
 
         function addSuraCells(data) {
             document.getElementById('reviews').childNodes = [];
             var currentTimeStamp = Math.floor(Date.now() / 1000);
             var refreshPeriod = 30 * 24 * 60 * 60;
 
-            for(i = 1;i <= 114; i++){
+            for (i = 1; i <= 114; i++) {
                 var element = document.createElement("div");
                 element.id = "sura-cell";
                 var timeStampsArray = data[i];
                 var maxStamp = timeStampsArray[timeStampsArray.length - 1];
-                var timeDifferenceRatio = 1 - (currentTimeStamp - maxStamp)* 1.0 / refreshPeriod;
-                console.log(timeDifferenceRatio);
+                var timeDifferenceRatio = 1 - (currentTimeStamp - maxStamp) * 1.0 / refreshPeriod;
                 element.style.backgroundColor = "rgb(0," + (255.0 * timeDifferenceRatio).toFixed(0) + ",0)";
-                var daysElapsed = ((currentTimeStamp - maxStamp) / (60*60*24.0)).toFixed(0);
+                var daysElapsed = ((currentTimeStamp - maxStamp) / (60 * 60 * 24.0)).toFixed(0);
                 if (daysElapsed >= 30) {
                     element.style.border = "thick solid rgb(255,0,0)";
                 }
 
-                var text = i + "[" + timeStampsArray.length + "] \n" + daysElapsed + "D";
+                var text = SuraNamesEn[i] + " [" + timeStampsArray.length + "] \n" + daysElapsed + "D";
                 if (timeDifferenceRatio > 0.3) {
                     element.style.color = "black";
                 } else {
 
                 }
-                
-
                 element.appendChild(document.createTextNode(text));
+
                 document.getElementById('reviews').appendChild(element);
             }
         }
 
-        
+
         firebase.initializeApp(config);
     </script>
 
@@ -209,8 +324,8 @@
             });
             // [END sendpasswordemail];
         }
-        
-        
+
+
         /**
          * initApp handles setting up UI event listeners and registering Firebase auth listeners:
          *  - firebase.auth().onAuthStateChanged: This listener is called when the user is signed in or
@@ -306,9 +421,6 @@
 
                 <!-- Container for the demo -->
                 <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
-                    <!-- <div class="mdl-card__title mdl-color--light-blue-600 mdl-color-text--white">
-                        <h2 class="mdl-card__title-text">Firebase Email &amp; Password Authentication</h2>
-                    </div> -->
                     <div class="mdl-card__supporting-text mdl-color-text--grey-600">
                         <input class="mdl-textfield__input" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email"
                         /> &nbsp;&nbsp;&nbsp;
@@ -323,13 +435,11 @@
                         <!-- Container where we'll display the user details -->
                         <div class="quickstart-user-details-container">
                             Firebase sign-in status: <span id="quickstart-sign-in-status">Unknown</span>
-                            <div>Firebase auth <code>currentUser</code> object value:</div>
-                            <pre><code id="quickstart-account-details">null</code></pre>
                         </div>
-                        
+
                         <div id="reviews" class="wrapper">
                             No Content.
-                            
+
 
                         </div>
                     </div>
