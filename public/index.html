@@ -39,6 +39,10 @@
             cursor: pointer;
         }
 
+        #sura_name_label {
+            font-weight: 700;
+        }
+
         #sura-cell:hover {
             background: rgb(0, 255, 0);
         }
@@ -191,8 +195,6 @@
             var newEntry = firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/Master/reviews/' + timeStamp);
             newEntry.set(suraIndex);
             firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/Master/update_stamp').set(timeStamp);
-
-            location.reload();
         }
 
         function addSuraCells(data) {
@@ -213,15 +215,31 @@
                     element.style.border = "thick solid rgb(255,0,0)";
                 }
 
-                var text = i + " " + SuraNamesEn[i - 1] + " [" + timeStampsArray.length + "] \n" + daysElapsed + "D";
+                var suraName = element.index + " " + SuraNamesEn[i - 1];
+                var daysElapsedText = (daysElapsed == 0 ? "" : (daysElapsed + " Days"));
                 if (timeDifferenceRatio >= 0.3) {
                     element.style.color = "black";
                 } else {
                     element.style.color = "white";
                 }
-                element.appendChild(document.createTextNode(text));
+                
+                var suraNameElement = document.createElement("p");
+                suraNameElement.id = "sura_name_label";
+                suraNameElement.textContent = suraName;
+                
+                element.appendChild(suraNameElement);
+                //element.appendChild(document.createElement("br"));
+                if (daysElapsed != 0) {
+                    var daysElapsedElement = document.createTextNode(daysElapsedText);
+                    daysElapsedElement.id = "days";
+                    element.appendChild(daysElapsedElement);
+                }
+                
+
                 element.onclick = function () {
                     refreshSura(this.index, currentTimeStamp);
+                    this.style.backgroundColor = "rgb(0,255,0)";
+                    this.removeChild(this.childNodes.item(1));
                 }
 
                 document.getElementById('reviews').appendChild(element);
@@ -365,6 +383,7 @@
                 // [END_EXCLUDE]
                 if (user) {
                     // User is signed in.
+                    document.getElementById("auth-div").style.display = "none";
                     var displayName = user.displayName;
                     var email = user.email;
                     var emailVerified = user.emailVerified;
@@ -402,7 +421,7 @@
                     });
 
                     // [START_EXCLUDE]
-                    document.getElementById('quickstart-sign-in-status').textContent = 'Signed in';
+                    document.getElementById('quickstart-sign-in-status').textContent = 'Signed in as ' + email;
                     document.getElementById('quickstart-sign-in').textContent = 'Sign out';
                     //document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
                     if (!emailVerified) {
@@ -414,6 +433,7 @@
                 } else {
                     // User is signed out.
                     // [START_EXCLUDE]
+                    document.getElementById("auth-div").style.display = "block";
                     document.getElementById('quickstart-sign-in-status').textContent = 'Signed out';
                     document.getElementById('quickstart-sign-in').textContent = 'Sign in';
                     //document.getElementById('quickstart-account-details').textContent = 'null';
@@ -447,24 +467,22 @@
                 <!-- Container for the demo -->
                 <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
                     <div class="mdl-card__supporting-text mdl-color-text--grey-600">
-                        <p>
-                            <a target="_blank" href="https://itunes.apple.com/us/app/quran-lights/id1218872513?mt=8"> Quran Lights on App Store </a> - 
-                            <a target="_blank" href="https://www.facebook.com/QuranicLights/"> Quran Lights on Facebook  </a>
-                        </p>
-                        
-                        <input class="mdl-textfield__input" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email"
-                        /> &nbsp;&nbsp;&nbsp;
-                        <input class="mdl-textfield__input" style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password"
-                        />
+                            <button disabled class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-in" name="signin">Sign In</button>                            &nbsp;&nbsp;&nbsp;
+                        <div id="auth-div">
+                                <a target="_blank" href="https://itunes.apple.com/us/app/quran-lights/id1218872513?mt=8"> Quran Lights on App Store </a>                                -
+                                <a target="_blank" href="https://www.facebook.com/QuranicLights/"> Quran Lights on Facebook  </a>
+                            <input class="mdl-textfield__input" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email"
+                            /> &nbsp;&nbsp;&nbsp;
+                            <input class="mdl-textfield__input" style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password"
+                            />
+                            <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-up" name="signup">Sign Up</button>                            &nbsp;&nbsp;&nbsp;
+                            <button class="mdl-button mdl-js-button mdl-button--raised" disabled id="quickstart-verify-email" name="verify-email">Send Email Verification</button>                            &nbsp;&nbsp;&nbsp;
+                            <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-password-reset" name="verify-email">Send Password Reset Email</button>
 
-                        <button disabled class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-in" name="signin">Sign In</button>                        &nbsp;&nbsp;&nbsp;
-                        <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-up" name="signup">Sign Up</button>                        &nbsp;&nbsp;&nbsp;
-                        <button class="mdl-button mdl-js-button mdl-button--raised" disabled id="quickstart-verify-email" name="verify-email">Send Email Verification</button>                        &nbsp;&nbsp;&nbsp;
-                        <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-password-reset" name="verify-email">Send Password Reset Email</button>
-
-                        <!-- Container where we'll display the user details -->
-                        <div class="quickstart-user-details-container">
-                            Firebase sign-in status: <span id="quickstart-sign-in-status">Unknown</span>
+                            <!-- Container where we'll display the user details -->
+                            <div class="quickstart-user-details-container">
+                                Firebase sign-in status: <span id="quickstart-sign-in-status">Unknown</span>
+                            </div>
                         </div>
 
                         <div id="reviews" class="wrapper">
