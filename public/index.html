@@ -222,11 +222,11 @@
                 } else {
                     element.style.color = "white";
                 }
-                
+
                 var suraNameElement = document.createElement("p");
                 suraNameElement.id = "sura_name_label";
                 suraNameElement.textContent = suraName;
-                
+
                 element.appendChild(suraNameElement);
                 //element.appendChild(document.createElement("br"));
                 if (daysElapsed != 0) {
@@ -234,7 +234,7 @@
                     daysElapsedElement.id = "days";
                     element.appendChild(daysElapsedElement);
                 }
-                
+
 
                 element.onclick = function () {
                     refreshSura(this.index, currentTimeStamp);
@@ -368,6 +368,58 @@
             // [END sendpasswordemail];
         }
 
+        function initCells() {
+            var user = firebase.auth().currentUser;
+            if (user) {
+                // User is signed in.
+                document.getElementById("auth-div").style.display = "none";
+                var displayName = user.displayName;
+                var email = user.email;
+                var emailVerified = user.emailVerified;
+                var photoURL = user.photoURL;
+                var isAnonymous = user.isAnonymous;
+                var uid = user.uid;
+                var providerData = user.providerData;
+                var myUserId = firebase.auth().currentUser.uid;
+
+                var database = firebase.database();
+                var reviewsRef = firebase.database().ref('users/' + myUserId + '/Master/reviews');
+                reviewsRef.once('value', function (snapshot) {
+                    suras = {};
+                    snapshot.forEach(function (childSnapshot) {
+                        var childKey = Number(childSnapshot.key);
+                        var childData = Number(childSnapshot.val());
+
+                        if (suras[childData] != null) {
+                            suras[childData].push(childKey);
+                        } else {
+                            suras[childData] = [childKey];
+                        }
+
+                    });
+
+
+                    //document.getElementById('reviews').textContent = suras.stringify;
+                    console.log(suras);
+                    for (var suraIndex in suras.keys) {
+                        suras[suraIndex].sort(sortNumber);
+                    }
+                    document.getElementById('reviews').textContent = '';
+                    addSuraCells(suras);
+                    // document.getElementById('reviews').textContent = JSON.stringify(suras);
+                });
+
+                // [START_EXCLUDE]
+                document.getElementById('quickstart-sign-in-status').textContent = 'Signed in as ' + email;
+                document.getElementById('quickstart-sign-in').textContent = 'Sign out';
+                //document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
+                if (!emailVerified) {
+                    document.getElementById('quickstart-verify-email').disabled = false;
+                }
+                // [END_EXCLUDE]
+                console.log("Cells refreshed");
+            }
+        }
 
         /**
          * initApp handles setting up UI event listeners and registering Firebase auth listeners:
@@ -381,56 +433,14 @@
                 // [START_EXCLUDE silent]
                 document.getElementById('quickstart-verify-email').disabled = true;
                 // [END_EXCLUDE]
+                var intervalId = 0;
                 if (user) {
-                    // User is signed in.
-                    document.getElementById("auth-div").style.display = "none";
-                    var displayName = user.displayName;
-                    var email = user.email;
-                    var emailVerified = user.emailVerified;
-                    var photoURL = user.photoURL;
-                    var isAnonymous = user.isAnonymous;
-                    var uid = user.uid;
-                    var providerData = user.providerData;
-                    var myUserId = firebase.auth().currentUser.uid;
-
-                    var database = firebase.database();
-                    var reviewsRef = firebase.database().ref('users/' + myUserId + '/Master/reviews');
-                    reviewsRef.once('value', function (snapshot) {
-                        suras = {};
-                        snapshot.forEach(function (childSnapshot) {
-                            var childKey = Number(childSnapshot.key);
-                            var childData = Number(childSnapshot.val());
-
-                            if (suras[childData] != null) {
-                                suras[childData].push(childKey);
-                            } else {
-                                suras[childData] = [childKey];
-                            }
-
-                        });
-
-
-                        //document.getElementById('reviews').textContent = suras.stringify;
-                        console.log(suras);
-                        for (var suraIndex in suras.keys) {
-                            suras[suraIndex].sort(sortNumber);
-                        }
-                        document.getElementById('reviews').textContent = '';
-                        addSuraCells(suras);
-                        // document.getElementById('reviews').textContent = JSON.stringify(suras);
-                    });
-
-                    // [START_EXCLUDE]
-                    document.getElementById('quickstart-sign-in-status').textContent = 'Signed in as ' + email;
-                    document.getElementById('quickstart-sign-in').textContent = 'Sign out';
-                    //document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
-                    if (!emailVerified) {
-                        document.getElementById('quickstart-verify-email').disabled = false;
-                    }
-                    // [END_EXCLUDE]
-
-
+                    initCells();
+                    intervalId = setInterval(initCells, 300000);
                 } else {
+                    if (intervalId != 0) {
+                        clearInterval(intervalId);
+                    }
                     // User is signed out.
                     // [START_EXCLUDE]
                     document.getElementById("auth-div").style.display = "block";
@@ -467,10 +477,10 @@
                 <!-- Container for the demo -->
                 <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
                     <div class="mdl-card__supporting-text mdl-color-text--grey-600">
-                            <button disabled class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-in" name="signin">Sign In</button>                            &nbsp;&nbsp;&nbsp;
+                        <button disabled class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-in" name="signin">Sign In</button>                        &nbsp;&nbsp;&nbsp;
                         <div id="auth-div">
-                                <a target="_blank" href="https://itunes.apple.com/us/app/quran-lights/id1218872513?mt=8"> Quran Lights on App Store </a>                                -
-                                <a target="_blank" href="https://www.facebook.com/QuranicLights/"> Quran Lights on Facebook  </a>
+                            <a target="_blank" href="https://itunes.apple.com/us/app/quran-lights/id1218872513?mt=8"> Quran Lights on App Store </a>                            -
+                            <a target="_blank" href="https://www.facebook.com/QuranicLights/"> Quran Lights on Facebook  </a>
                             <input class="mdl-textfield__input" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email"
                             /> &nbsp;&nbsp;&nbsp;
                             <input class="mdl-textfield__input" style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password"
