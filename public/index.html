@@ -16,43 +16,7 @@
 
 <head>
     <title>Quran Lights</title>
-    <style>
-        .wrapper {
-            display: grid;
-            grid-template-columns: repeat(11, 1fr);
-            grid-column-gap: 10px;
-            grid-row-gap: 1em;
-            background: rgb(0, 0, 0);
-            padding: 20px;
-            margin: auto;
-            border-radius: 15px;
-        }
-
-        .memorized {
-            color: black;
-            background-color: yellow;
-            border-radius: 20px;
-        }
-
-        .sura-cell {
-            border-radius: 15px;
-            background: #73AD21;
-            padding: 20px;
-            font-weight: 700;
-            -webkit-transition-duration: 0.4s;
-            /* Safari */
-            transition-duration: 0.4s;
-            cursor: pointer;
-        }
-
-        .sura_name_label {
-            font-weight: 800;
-        }
-
-        .sura-cell:hover {
-            background: rgb(0, 255, 0);
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
     <script>
