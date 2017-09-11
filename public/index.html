@@ -201,11 +201,11 @@
                 var suraNameElement = document.createElement("p");
                 suraNameElement.className = "sura_name_label";
 
-                switch(memo[i]){
-                    case 2: suraNameElement.className = "memorized sura_name_label"; 
-                    break;
+                switch (memo[i]) {
+                    case 2: suraNameElement.className = "memorized sura_name_label";
+                        break;
                     default:
-                    suraNameElement.className = "not_memorized sura_name_label"; 
+                        suraNameElement.className = "not_memorized sura_name_label";
                 }
 
                 suraNameElement.textContent = suraName;
@@ -373,38 +373,38 @@
                 var reviewsRef = firebase.database().ref('users/' + myUserId + '/Master/reviews');
                 var memRef = firebase.database().ref('users/' + myUserId + '/Master/memorization');
                 memRef.once('value', function (snapshot) {
-                        memorization = snapshot.val();
-                        console.log(memorization);
-                        for (i = 1; i <= 114; i++) {
-                            console.log(i + " ->>>> " + memorization[i]);
-                        }
-                        reviewsRef.once('value', function (snapshot) {
-                            suras = {};
-                            snapshot.forEach(function (childSnapshot) {
-                                var childKey = Number(childSnapshot.key);
-                                var childData = Number(childSnapshot.val());
+                    memorization = snapshot.val();
+                    console.log(memorization);
+                    for (i = 1; i <= 114; i++) {
+                        console.log(i + " ->>>> " + memorization[i]);
+                    }
+                    reviewsRef.once('value', function (snapshot) {
+                        suras = {};
+                        snapshot.forEach(function (childSnapshot) {
+                            var childKey = Number(childSnapshot.key);
+                            var childData = Number(childSnapshot.val());
 
-                                if (suras[childData] != null) {
-                                    suras[childData].push(childKey);
-                                } else {
-                                    suras[childData] = [childKey];
-                                }
-
-                            });
-
-
-                            //document.getElementById('reviews').textContent = suras.stringify;
-                            console.log(suras);
-                            for (var suraIndex in suras.keys) {
-                                suras[suraIndex].sort(sortNumber);
+                            if (suras[childData] != null) {
+                                suras[childData].push(childKey);
+                            } else {
+                                suras[childData] = [childKey];
                             }
-                            document.getElementById('reviews').textContent = '';
-                            addSuraCells(suras, memorization);
-                            // document.getElementById('reviews').textContent = JSON.stringify(suras);
+
                         });
+
+
+                        //document.getElementById('reviews').textContent = suras.stringify;
+                        console.log(suras);
+                        for (var suraIndex in suras.keys) {
+                            suras[suraIndex].sort(sortNumber);
+                        }
+                        document.getElementById('reviews').textContent = '';
+                        addSuraCells(suras, memorization);
+                        // document.getElementById('reviews').textContent = JSON.stringify(suras);
                     });
-                
-                
+                });
+
+
 
                 // [START_EXCLUDE]
                 document.getElementById('quickstart-sign-in-status').textContent = 'Signed in as ' + email;
@@ -432,12 +432,13 @@
                 // [END_EXCLUDE]
                 var intervalId = 0;
                 if (user) {
+                    document.getElementById("sort_div").style.display = "block";
                     var update_timestamp_ref = firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/Master/update_stamp');
                     update_timestamp_ref.on('value', function (snapshot) {
                         console.log("time stamp updated: " + snapshot.val());
                         initCells();
                     });
-                    
+
                     //intervalId = setInterval(initCells, 300000);
                 } else {
                     // if (intervalId != 0) {
@@ -445,6 +446,7 @@
                     // }
                     // User is signed out.
                     // [START_EXCLUDE]
+                    document.getElementById("sort_div").style.display = "none";
                     document.getElementById("auth-div").style.display = "block";
                     document.getElementById('quickstart-sign-in-status').textContent = 'Signed out';
                     document.getElementById('quickstart-sign-in').textContent = 'Sign in';
@@ -478,8 +480,17 @@
 
                 <!-- Container for the demo -->
                 <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
-                    <div style="margin: 10px;"><!--class="mdl-card__supporting-text mdl-color-text--grey-600"> -->
-                        <button disabled class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-in" name="signin">Sign In</button>                        &nbsp;&nbsp;&nbsp;
+                    <div style="margin: 10px;">
+                        <button disabled class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-in" name="signin">Sign In</button>
+                        <!--&nbsp;&nbsp;&nbsp;-->
+                        <span id="sort_div">
+                        <label><input type="radio" name="sort_type" onclick="sortNormal()">Normal Order </label>
+                        <label><input type="radio" name="sort_type" onclick="sortLight()">Light</label>
+                        <label><input type="radio" name="sort_type" onclick="sortChars()">Character Count</label>
+                        <label><input type="radio" name="sort_type" onclick="sortVerse()">Verse Count</label>
+                        <label><input type="radio" name="sort_type" onclick="sortReval()">Revalation Order</label>
+                        <label><input type="radio" name="sort_type" onclick="sortRefresh()">Refresh Count</label>
+                        </span>
                         <div id="auth-div">
                             <a target="_blank" href="https://itunes.apple.com/us/app/quran-lights/id1218872513?mt=8"> Quran Lights on App Store </a>                            -
                             <a target="_blank" href="https://www.facebook.com/QuranicLights/"> Quran Lights on Facebook  </a>
