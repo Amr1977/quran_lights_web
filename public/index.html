@@ -60,6 +60,7 @@
             messagingSenderId: "35819574492"
         };
         var suras = {};
+        var memorization = {};
         var SuraNamesAr = [];
         var update_stamp = 0;
 
@@ -198,13 +199,16 @@
             firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/Master/update_stamp').set(timeStamp);
         }
 
-        function addSuraCells(data) {
+        function addSuraCells(data, memo) {
             document.getElementById('reviews').childNodes = [];
             var currentTimeStamp = Math.floor(Date.now() / 1000);
             var refreshPeriod = 10 * 24 * 60 * 60;
 
             for (i = 1; i <= 114; i++) {
                 var element = document.createElement("button");
+                var memoDiv = document.createElement("div");
+                memoDiv.textContent = memo[i];
+
                 element.index = i;
                 element.id = "sura-cell";
                 var timeStampsArray = data[i] != null ? data[i] : [];
@@ -235,6 +239,7 @@
                     daysElapsedElement.id = "days";
                     element.appendChild(daysElapsedElement);
                 }
+                element.appendChild(memoDiv);
 
 
                 element.onclick = function () {
@@ -388,31 +393,40 @@
 
                 var database = firebase.database();
                 var reviewsRef = firebase.database().ref('users/' + myUserId + '/Master/reviews');
-                
-                reviewsRef.once('value', function (snapshot) {
-                    suras = {};
-                    snapshot.forEach(function (childSnapshot) {
-                        var childKey = Number(childSnapshot.key);
-                        var childData = Number(childSnapshot.val());
-
-                        if (suras[childData] != null) {
-                            suras[childData].push(childKey);
-                        } else {
-                            suras[childData] = [childKey];
+                var memRef = firebase.database().ref('users/' + myUserId + '/Master/memorization');
+                memRef.once('value', function (snapshot) {
+                        memorization = snapshot.val();
+                        console.log(memorization);
+                        for (i = 1; i <= 114; i++) {
+                            console.log(i + " ->>>> " + memorization[i]);
                         }
+                        reviewsRef.once('value', function (snapshot) {
+                            suras = {};
+                            snapshot.forEach(function (childSnapshot) {
+                                var childKey = Number(childSnapshot.key);
+                                var childData = Number(childSnapshot.val());
 
+                                if (suras[childData] != null) {
+                                    suras[childData].push(childKey);
+                                } else {
+                                    suras[childData] = [childKey];
+                                }
+
+                            });
+
+
+                            //document.getElementById('reviews').textContent = suras.stringify;
+                            console.log(suras);
+                            for (var suraIndex in suras.keys) {
+                                suras[suraIndex].sort(sortNumber);
+                            }
+                            document.getElementById('reviews').textContent = '';
+                            addSuraCells(suras, memorization);
+                            // document.getElementById('reviews').textContent = JSON.stringify(suras);
+                        });
                     });
-
-
-                    //document.getElementById('reviews').textContent = suras.stringify;
-                    console.log(suras);
-                    for (var suraIndex in suras.keys) {
-                        suras[suraIndex].sort(sortNumber);
-                    }
-                    document.getElementById('reviews').textContent = '';
-                    addSuraCells(suras);
-                    // document.getElementById('reviews').textContent = JSON.stringify(suras);
-                });
+                
+                
 
                 // [START_EXCLUDE]
                 document.getElementById('quickstart-sign-in-status').textContent = 'Signed in as ' + email;
