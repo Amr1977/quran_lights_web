@@ -28,7 +28,13 @@
             border-radius: 15px;
         }
 
-        #sura-cell {
+        .memorized {
+            color: black;
+            background-color: yellow;
+            border-radius: 20px;
+        }
+
+        .sura-cell {
             border-radius: 15px;
             background: #73AD21;
             padding: 20px;
@@ -39,11 +45,11 @@
             cursor: pointer;
         }
 
-        #sura_name_label {
-            font-weight: 700;
+        .sura_name_label {
+            font-weight: 800;
         }
 
-        #sura-cell:hover {
+        .sura-cell:hover {
             background: rgb(0, 255, 0);
         }
     </style>
@@ -206,11 +212,11 @@
 
             for (i = 1; i <= 114; i++) {
                 var element = document.createElement("button");
-                var memoDiv = document.createElement("div");
+                var memoDiv = document.createElement("span");
                 memoDiv.textContent = memo[i];
 
                 element.index = i;
-                element.id = "sura-cell";
+                element.className = "sura-cell";
                 var timeStampsArray = data[i] != null ? data[i] : [];
                 var maxStamp = timeStampsArray.length > 0 ? timeStampsArray[timeStampsArray.length - 1] : (currentTimeStamp - refreshPeriod);
                 var timeDifferenceRatio = 1 - (currentTimeStamp - maxStamp) * 1.0 / refreshPeriod;
@@ -229,7 +235,15 @@
                 }
 
                 var suraNameElement = document.createElement("p");
-                suraNameElement.id = "sura_name_label";
+                suraNameElement.className = "sura_name_label";
+
+                switch(memo[i]){
+                    case 2: suraNameElement.className = "memorized sura_name_label"; 
+                    break;
+                    default:
+                    suraNameElement.className = "not_memorized sura_name_label"; 
+                }
+
                 suraNameElement.textContent = suraName;
 
                 element.appendChild(suraNameElement);
@@ -239,7 +253,7 @@
                     daysElapsedElement.id = "days";
                     element.appendChild(daysElapsedElement);
                 }
-                element.appendChild(memoDiv);
+                //element.appendChild(memoDiv);
 
 
                 element.onclick = function () {
@@ -500,7 +514,7 @@
 
                 <!-- Container for the demo -->
                 <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
-                    <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                    <div style="margin: 10px;"><!--class="mdl-card__supporting-text mdl-color-text--grey-600"> -->
                         <button disabled class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-in" name="signin">Sign In</button>                        &nbsp;&nbsp;&nbsp;
                         <div id="auth-div">
                             <a target="_blank" href="https://itunes.apple.com/us/app/quran-lights/id1218872513?mt=8"> Quran Lights on App Store </a>                            -
