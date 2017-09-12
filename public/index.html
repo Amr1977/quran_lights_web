@@ -427,10 +427,18 @@
         function initApp() {
             // Listening for auth state changes.
             // [START authstatelistener]
+            document.getElementById("password")
+                        .addEventListener("keyup", function (event) {
+                            event.preventDefault();
+                            if (event.keyCode == 13) {
+                                document.getElementById("quickstart-sign-in").click();
+                            }
+                        });
             firebase.auth().onAuthStateChanged(function (user) {
                 // [START_EXCLUDE silent]
                 document.getElementById('quickstart-verify-email').disabled = true;
                 document.getElementById('quickstart-sign-in').disabled = false;
+                
                 // [END_EXCLUDE]
                 var intervalId = 0;
                 if (user) {
