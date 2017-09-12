@@ -438,7 +438,7 @@
                     document.getElementById("quickstart-verify-email").style.display = "none";
                     document.getElementById("quickstart-password-reset").style.display = "none";
 
-                    document.getElementById("sort_div").style.display = "block";
+                    //document.getElementById("sort_div").style.display = "block";
                     var update_timestamp_ref = firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/Master/update_stamp');
                     update_timestamp_ref.on('value', function (snapshot) {
                         console.log("time stamp updated: " + snapshot.val());
@@ -503,15 +503,14 @@
                         </span>
                         <a target="_blank" href="https://itunes.apple.com/us/app/quran-lights/id1218872513?mt=8"> Quran Lights on App Store </a>                            -
                         <a target="_blank" href="https://www.facebook.com/QuranicLights/"> Quran Lights on Facebook  </a>
-                        <!--&nbsp;&nbsp;&nbsp;-->
-                        <span id="sort_div" style="padding: 10px;">
+                        <!-- <span id="sort_div" style="padding: 10px;">
                         <label><input type="radio" name="sort_type" onclick="sortNormal()">Normal Order </label>
                         <label><input type="radio" name="sort_type" onclick="sortLight()">Light</label>
                         <label><input type="radio" name="sort_type" onclick="sortChars()">Character Count</label>
                         <label><input type="radio" name="sort_type" onclick="sortVerse()">Verse Count</label>
                         <label><input type="radio" name="sort_type" onclick="sortReval()">Revalation Order</label>
                         <label><input type="radio" name="sort_type" onclick="sortRefresh()">Refresh Count</label>
-                        </span>
+                        </span> -->
                         
                         <div id="reviews" class="wrapper" style="margin: 10px;">
                             Sign in to fetch your history.
