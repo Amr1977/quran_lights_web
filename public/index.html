@@ -359,7 +359,7 @@
             var user = firebase.auth().currentUser;
             if (user) {
                 // User is signed in.
-                document.getElementById("auth-div").style.display = "none";
+                // document.getElementById("auth-div").style.display = "none";
                 var displayName = user.displayName;
                 var email = user.email;
                 var emailVerified = user.emailVerified;
@@ -432,6 +432,12 @@
                 // [END_EXCLUDE]
                 var intervalId = 0;
                 if (user) {
+                    document.getElementById("email").style.display = "none";
+                    document.getElementById("password").style.display = "none";
+                    document.getElementById("quickstart-sign-up").style.display = "none";
+                    document.getElementById("quickstart-verify-email").style.display = "none";
+                    document.getElementById("quickstart-password-reset").style.display = "none";
+
                     document.getElementById("sort_div").style.display = "block";
                     var update_timestamp_ref = firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/Master/update_stamp');
                     update_timestamp_ref.on('value', function (snapshot) {
@@ -441,13 +447,16 @@
 
                     //intervalId = setInterval(initCells, 300000);
                 } else {
-                    // if (intervalId != 0) {
-                    //     clearInterval(intervalId);
-                    // }
+                    document.getElementById("email").style.display = "block";
+                    document.getElementById("password").style.display = "block";
+                    document.getElementById("quickstart-sign-up").style.display = "block";
+                    document.getElementById("quickstart-verify-email").style.display = "block";
+                    document.getElementById("quickstart-password-reset").style.display = "block";
+                    document.getElementById("reviews").innerHTML = "";
                     // User is signed out.
                     // [START_EXCLUDE]
                     document.getElementById("sort_div").style.display = "none";
-                    document.getElementById("auth-div").style.display = "block";
+                    // document.getElementById("auth-div").style.display = "block";
                     document.getElementById('quickstart-sign-in-status').textContent = 'Signed out';
                     document.getElementById('quickstart-sign-in').textContent = 'Sign in';
                     //document.getElementById('quickstart-account-details').textContent = 'null';
@@ -481,9 +490,21 @@
                 <!-- Container for the demo -->
                 <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
                     <div style="margin: 10px;">
-                        <button disabled class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-in" name="signin">Sign In</button>
+                        <input class="mdl-textfield__input" style="display:inline;width:auto; margin: 10px;" type="text" id="email" name="email" placeholder="Email"
+                        /> 
+                        <input class="mdl-textfield__input" style="display:inline;width:auto;margin: 10px;" type="password" id="password" name="password" placeholder="Password"
+                        />
+                        <button style="margin: 10px;" disabled class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-in" name="signin">Sign In</button>
+                        <button style="margin: 10px;" class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-up" name="signup">Sign Up</button>                            
+                        <button style="margin: 10px;" class="mdl-button mdl-js-button mdl-button--raised" disabled id="quickstart-verify-email" name="verify-email">Send Email Verification</button> 
+                        <button style="margin: 10px;" class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-password-reset" name="verify-email">Send Password Reset Email</button>
+                        <span style="margin: 10px;" class="quickstart-user-details-container">
+                                Firebase sign-in status: <span id="quickstart-sign-in-status"></span>
+                        </span>
+                        <a target="_blank" href="https://itunes.apple.com/us/app/quran-lights/id1218872513?mt=8"> Quran Lights on App Store </a>                            -
+                        <a target="_blank" href="https://www.facebook.com/QuranicLights/"> Quran Lights on Facebook  </a>
                         <!--&nbsp;&nbsp;&nbsp;-->
-                        <span id="sort_div">
+                        <span id="sort_div" style="padding: 10px;">
                         <label><input type="radio" name="sort_type" onclick="sortNormal()">Normal Order </label>
                         <label><input type="radio" name="sort_type" onclick="sortLight()">Light</label>
                         <label><input type="radio" name="sort_type" onclick="sortChars()">Character Count</label>
@@ -491,27 +512,9 @@
                         <label><input type="radio" name="sort_type" onclick="sortReval()">Revalation Order</label>
                         <label><input type="radio" name="sort_type" onclick="sortRefresh()">Refresh Count</label>
                         </span>
-                        <div id="auth-div">
-                            <a target="_blank" href="https://itunes.apple.com/us/app/quran-lights/id1218872513?mt=8"> Quran Lights on App Store </a>                            -
-                            <a target="_blank" href="https://www.facebook.com/QuranicLights/"> Quran Lights on Facebook  </a>
-                            <input class="mdl-textfield__input" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email"
-                            /> &nbsp;&nbsp;&nbsp;
-                            <input class="mdl-textfield__input" style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password"
-                            />
-                            <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-up" name="signup">Sign Up</button>                            &nbsp;&nbsp;&nbsp;
-                            <button class="mdl-button mdl-js-button mdl-button--raised" disabled id="quickstart-verify-email" name="verify-email">Send Email Verification</button>                            &nbsp;&nbsp;&nbsp;
-                            <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-password-reset" name="verify-email">Send Password Reset Email</button>
-
-                            <!-- Container where we'll display the user details -->
-                            <div class="quickstart-user-details-container">
-                                Firebase sign-in status: <span id="quickstart-sign-in-status">Unknown</span>
-                            </div>
-                        </div>
-
-                        <div id="reviews" class="wrapper">
-                            No Content.
-
-
+                        
+                        <div id="reviews" class="wrapper" style="margin: 10px;">
+                            Sign in to fetch your history.
                         </div>
                     </div>
                 </div>
