@@ -257,6 +257,7 @@
                 firebase.auth().signOut();
                 // [END signout]
             } else {
+                
                 var email = document.getElementById('email').value;
                 var password = document.getElementById('password').value;
                 if (email.length < 4) {
@@ -285,7 +286,7 @@
                 });
                 // [END authwithemail]
             }
-            document.getElementById('quickstart-sign-in').disabled = true;
+            document.getElementById('quickstart-sign-in').disabled = false;
         }
         /**
          * Handles the sign up button press.
@@ -429,6 +430,7 @@
             firebase.auth().onAuthStateChanged(function (user) {
                 // [START_EXCLUDE silent]
                 document.getElementById('quickstart-verify-email').disabled = true;
+                document.getElementById('quickstart-sign-in').disabled = false;
                 // [END_EXCLUDE]
                 var intervalId = 0;
                 if (user) {
@@ -437,6 +439,7 @@
                     document.getElementById("quickstart-sign-up").style.display = "none";
                     document.getElementById("quickstart-verify-email").style.display = "none";
                     document.getElementById("quickstart-password-reset").style.display = "none";
+                    
 
                     //document.getElementById("sort_div").style.display = "block";
                     var update_timestamp_ref = firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/Master/update_stamp');
@@ -452,7 +455,7 @@
                     document.getElementById("quickstart-sign-up").style.display = "block";
                     document.getElementById("quickstart-verify-email").style.display = "block";
                     document.getElementById("quickstart-password-reset").style.display = "block";
-                    document.getElementById("reviews").innerHTML = "";
+                    document.getElementById("reviews").innerHTML = "Sign in to fetch your history.";
                     // User is signed out.
                     // [START_EXCLUDE]
                     document.getElementById("sort_div").style.display = "none";
@@ -463,7 +466,7 @@
                     // [END_EXCLUDE]
                 }
                 // [START_EXCLUDE silent]
-                document.getElementById('quickstart-sign-in').disabled = false;
+                
                 // [END_EXCLUDE]
             });
             // [END authstatelistener]
