@@ -366,7 +366,7 @@ function initCells() {
                 }
                 document.getElementById('reviews').textContent = '';
                 addSuraCells(suras, memorization);
-                // document.getElementById('reviews').textContent = JSON.stringify(suras);
+                document.getElementById('score').textContent = getScore(suras);
             });
         });
 
@@ -376,6 +376,7 @@ function initCells() {
         document.getElementById('quickstart-sign-in').textContent = 'Sign out';
         //document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
         // [END_EXCLUDE]
+        
         console.log("Cells refreshed");
     }
 }
@@ -409,6 +410,7 @@ function initApp() {
             update_timestamp_ref.on('value', function (snapshot) {
                 console.log("time stamp updated: " + snapshot.val());
                 initCells();
+
             });
         } else {
             document.getElementById("email").style.display = "block";
@@ -434,3 +436,162 @@ function initApp() {
 window.onload = function () {
     initApp();
 };
+
+var suraCharCount = [
+    139,
+    25613,
+    14605,
+    15937,
+    11892,
+    12418,
+    14071,
+    5299,
+    10873,
+    7425,
+    7633,
+    7125,
+    3450,
+    3461,
+    2797,
+    7642,
+    6480,
+    6425,
+    3835,
+    5288,
+    4925,
+    5196,
+    4354,
+    5596,
+    3786,
+    5517,
+    4679,
+    5791,
+    4200,
+    3388,
+    2121,
+    1523,
+    5618,
+    3510,
+    3159,
+    2988,
+    3790,
+    2991,
+    4741,
+    4984,
+    3282,
+    3431,
+    3508,
+    1439,
+    2014,
+    2602,
+    2360,
+    2456,
+    1493,
+    1473,
+    1510,
+    1293,
+    1405,
+    1438,
+    1585,
+    1692,
+    2475,
+    1991,
+    1913,
+    1519,
+    936,
+    749,
+    780,
+    1066,
+    1170,
+    1067,
+    1316,
+    1258,
+    1107,
+    947,
+    947,
+    1089,
+    840,
+    1015,
+    664,
+    1065,
+    815,
+    766,
+    762,
+    538,
+    425,
+    326,
+    740,
+    436,
+    459,
+    249,
+    293,
+    378,
+    573,
+    335,
+    249,
+    312,
+    164,
+    102,
+    156,
+    281,
+    112,
+    394,
+    156,
+    164,
+    158,
+    122,
+    70,
+    133,
+    96,
+    73,
+    112,
+    42,
+    95,
+    79,
+    81,
+    47,
+    71,
+    80
+];
+
+function readableFormat(number){
+    if(number >= 1000000000){
+        return (number / 1000000000).toFixed(2) + "G"
+    } else if (number >= 1000000){
+        return (number / 1000000).toFixed(2) + "M"
+    } else if (number >= 1000){
+        return (number / 1000).toFixed(2) + "K"
+    } else {
+        return number;
+    }
+}
+
+function todayStartTimeStamp(){
+    var now = new Date();
+    var startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var timestamp = startOfDay / 1000;
+
+    return timestamp;
+}
+
+function getScore(data) {
+    var total = new Number(0);
+    var today = new Number(0);
+    var todayStart = todayStartTimeStamp();
+    for (i = 1; i <= 114; i++) {
+        var suraScore = suraCharCount[i - 1];
+        var history = data[i];
+        total = total + (Number(history.length) * Number(suraScore));
+        var lastEntryIndex = history.length - 1;
+        //timestamps are sorted so we will start from their top going backward until we exceed today's start
+        while(lastEntryIndex >= 0 && history[lastEntryIndex] >= todayStart) {
+            today += suraScore;
+            lastEntryIndex--;
+        }
+    }
+
+    return readableFormat(total) + (today > 0 ? "(+" + readableFormat(today) + " today)" : "");
+}
+
+
+
