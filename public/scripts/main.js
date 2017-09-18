@@ -7,10 +7,19 @@ var config = {
     storageBucket: "quran-lights.appspot.com",
     messagingSenderId: "35819574492"
 };
-var suras = {};
+var surasHistory = {};
 var memorization = {};
 var SuraNamesAr = [];
+var sortedTimestampSuraArray = [];
 var update_stamp = 0;
+
+/**
+ * Normal Quran Order: 0
+ * 
+ * Light Order: 1
+ * 
+ */
+var currentSortType = 0;
 
 function sortNumber(a, b) {
     return a - b;
@@ -141,23 +150,59 @@ var SuraNamesEn = [
 //console.log(SuraNamesEn);
 
 function refreshSura(suraIndex, timeStamp) {
-    console.log("refresh for sura index " + suraIndex + " at " + timeStamp);
     var newEntry = firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/Master/reviews/' + timeStamp);
     newEntry.set(suraIndex);
     firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/Master/update_stamp').set(timeStamp);
 }
 
-function addSuraCells(data, memo) {
-    document.getElementById('reviews').childNodes = [];
+function sortByKey(array, key) {
+    return array.sort(function(a, b) {
+        var x = a[key]; 
+        var y = b[key];
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    });
+}
+
+function sortedSuraIndexConverter(index) {
+    switch (currentSortType){
+        case 1: if (sortedTimestampSuraArray.length != 0) {
+            return sortedTimestampSuraArray[index - 1].suraID;
+        }
+        for (suraIndex = 1; suraIndex <= 114; suraIndex++) {
+            var timeStampsArray = surasHistory[suraIndex] != null ? surasHistory[suraIndex] : [];
+            var mostRecentTimestamp = timeStampsArray.length > 0 ? timeStampsArray[timeStampsArray.length - 1] : 0;
+            var suraWithLastTimeStampRecord = { suraID: suraIndex, timeStamp: mostRecentTimestamp };
+            sortedTimestampSuraArray.push(suraWithLastTimeStampRecord);
+        }
+    
+        sortedTimestampSuraArray = sortByKey(sortedTimestampSuraArray, "timeStamp");
+        return (sortedTimestampSuraArray[index - 1]).suraID;
+        break;
+
+        default: return index;
+    }
+    
+}
+
+function addSuraCells() {
+    //TODO reuse cells
+    
+    var reviewsNode = document.getElementById('reviews');
+    while (reviewsNode.firstChild) {
+        reviewsNode.removeChild(reviewsNode.firstChild);
+    }
+
     var currentTimeStamp = Math.floor(Date.now() / 1000);
     var refreshPeriod = 10 * 24 * 60 * 60;
 
-    for (i = 1; i <= 114; i++) {
+    for (cellIndex = 1; cellIndex <= 114; cellIndex++) {
+        var suraIndex = sortedSuraIndexConverter(cellIndex);
         var element = document.createElement("button");
 
-        element.index = i;
+        element.index = suraIndex;
         element.className = "sura-cell";
-        var timeStampsArray = data[i] != null ? data[i] : [];
+        var timeStampsArray = surasHistory[suraIndex] != null ? surasHistory[suraIndex] : [];
+        //TODO if not refreshed before make it zero instead of (currentTimeStamp - refreshPeriod) and condition timeDifferenceRatio value to be zero too
         var maxStamp = timeStampsArray.length > 0 ? timeStampsArray[timeStampsArray.length - 1] : (currentTimeStamp - refreshPeriod);
         var timeDifferenceRatio = 1 - (currentTimeStamp - maxStamp) * 1.0 / refreshPeriod;
         element.style.backgroundColor = "rgb(0," + (255.0 * timeDifferenceRatio).toFixed(0) + ",0)";
@@ -166,7 +211,7 @@ function addSuraCells(data, memo) {
             element.style.border = "thick solid rgb(255,0,0)";
         }
 
-        var suraName = element.index + " " + SuraNamesEn[i - 1];
+        var suraName = element.index + " " + SuraNamesEn[suraIndex - 1];
         var daysElapsedText = (daysElapsed == 0 ? "" : (daysElapsed + " Days"));
         if (timeDifferenceRatio >= 0.3) {
             element.style.color = "black";
@@ -177,7 +222,7 @@ function addSuraCells(data, memo) {
         var suraNameElement = document.createElement("p");
         suraNameElement.className = "sura_name_label";
 
-        switch (memo[i]) {
+        switch (memorization[suraIndex]) {
             case 2: suraNameElement.className = "memorized sura_name_label";
                 break;
             default:
@@ -340,44 +385,36 @@ function initCells() {
         var memRef = firebase.database().ref('users/' + myUserId + '/Master/memorization');
         memRef.once('value', function (snapshot) {
             memorization = snapshot.val();
-            console.log(memorization);
-            for (i = 1; i <= 114; i++) {
-                console.log(i + " ->>>> " + memorization[i]);
-            }
             reviewsRef.once('value', function (snapshot) {
-                suras = {};
+                surasHistory = {};
                 snapshot.forEach(function (childSnapshot) {
                     var childKey = Number(childSnapshot.key);
                     var childData = Number(childSnapshot.val());
 
-                    if (suras[childData] != null) {
-                        suras[childData].push(childKey);
+                    if (surasHistory[childData] != null) {
+                        surasHistory[childData].push(childKey);
                     } else {
-                        suras[childData] = [childKey];
+                        surasHistory[childData] = [childKey];
                     }
 
                 });
 
 
                 //document.getElementById('reviews').textContent = suras.stringify;
-                console.log(suras);
-                for (var suraIndex in suras.keys) {
-                    suras[suraIndex].sort(sortNumber);
+                for (var suraIndex in surasHistory.keys) {
+                    surasHistory[suraIndex].sort(sortNumber);
                 }
                 document.getElementById('reviews').textContent = '';
-                addSuraCells(suras, memorization);
-                document.getElementById('score').textContent = getScore(suras);
+                sortedTimestampSuraArray = [];
+                addSuraCells();
+                document.getElementById('score').textContent = getScore();
             });
         });
-
-
 
         // [START_EXCLUDE]
         document.getElementById('quickstart-sign-in').textContent = 'Sign out';
         //document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
         // [END_EXCLUDE]
-        
-        console.log("Cells refreshed");
     }
 }
 
@@ -410,7 +447,6 @@ function initApp() {
             update_timestamp_ref.on('value', function (snapshot) {
                 console.log("time stamp updated: " + snapshot.val());
                 initCells();
-
             });
         } else {
             document.getElementById("email").style.display = "block";
@@ -574,13 +610,13 @@ function todayStartTimeStamp(){
     return timestamp;
 }
 
-function getScore(data) {
+function getScore() {
     var total = new Number(0);
     var today = new Number(0);
     var todayStart = todayStartTimeStamp();
     for (i = 1; i <= 114; i++) {
         var suraScore = suraCharCount[i - 1];
-        var history = data[i];
+        var history = surasHistory[i];
         total = total + (Number(history.length) * Number(suraScore));
         var lastEntryIndex = history.length - 1;
         //timestamps are sorted so we will start from their top going backward until we exceed today's start
@@ -593,5 +629,12 @@ function getScore(data) {
     return readableFormat(total) + (today > 0 ? "(+" + readableFormat(today) + " today)" : "");
 }
 
+function sortLight(){
+    currentSortType = 1;
+    addSuraCells();
+}
 
-
+function sortNormal(){
+    currentSortType = 0;
+    addSuraCells();
+}
