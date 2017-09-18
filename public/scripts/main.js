@@ -156,37 +156,63 @@ function refreshSura(suraIndex, timeStamp) {
 }
 
 function sortByKey(array, key) {
-    return array.sort(function(a, b) {
-        var x = a[key]; 
+    return array.sort(function (a, b) {
+        var x = a[key];
         var y = b[key];
         return ((x < y) ? -1 : ((x > y) ? 1 : 0));
     });
 }
 
+var characterCountSortedSuraArray = [];
+
+function getCharCountSuraOrderArray() {
+    if (characterCountSortedSuraArray.length != 0) {
+        return;
+    }
+    for (suraIndex = 1; suraIndex <= 114; suraIndex++) {
+        var suraWithCharCountRecord = { suraID: suraIndex, charCount: suraCharCount[suraIndex - 1] };
+        characterCountSortedSuraArray.push(suraWithCharCountRecord);
+    }
+
+    characterCountSortedSuraArray = sortByKey(characterCountSortedSuraArray, "charCount");
+}
+
+
+function createSortedTimeStampSuraArray() {
+    for (suraIndex = 1; suraIndex <= 114; suraIndex++) {
+        var timeStampsArray = surasHistory[suraIndex] != null ? surasHistory[suraIndex] : [];
+        var mostRecentTimestamp = timeStampsArray.length > 0 ? timeStampsArray[timeStampsArray.length - 1] : 0;
+        var suraWithLastTimeStampRecord = { suraID: suraIndex, timeStamp: mostRecentTimestamp };
+        sortedTimestampSuraArray.push(suraWithLastTimeStampRecord);
+    }
+
+    sortedTimestampSuraArray = sortByKey(sortedTimestampSuraArray, "timeStamp");
+}
+
 function sortedSuraIndexConverter(index) {
-    switch (currentSortType){
+    switch (currentSortType) {
+        //light order
         case 1: if (sortedTimestampSuraArray.length != 0) {
             return sortedTimestampSuraArray[index - 1].suraID;
         }
-        for (suraIndex = 1; suraIndex <= 114; suraIndex++) {
-            var timeStampsArray = surasHistory[suraIndex] != null ? surasHistory[suraIndex] : [];
-            var mostRecentTimestamp = timeStampsArray.length > 0 ? timeStampsArray[timeStampsArray.length - 1] : 0;
-            var suraWithLastTimeStampRecord = { suraID: suraIndex, timeStamp: mostRecentTimestamp };
-            sortedTimestampSuraArray.push(suraWithLastTimeStampRecord);
-        }
-    
-        sortedTimestampSuraArray = sortByKey(sortedTimestampSuraArray, "timeStamp");
-        return (sortedTimestampSuraArray[index - 1]).suraID;
-        break;
+            createSortedTimeStampSuraArray();
+            return (sortedTimestampSuraArray[index - 1]).suraID;
 
+        //character count order
+        case 3:
+            getCharCountSuraOrderArray();
+            return characterCountSortedSuraArray[index - 1].suraID;
+
+        //normal order
+        case 0:
         default: return index;
     }
-    
+
 }
 
 function addSuraCells() {
     //TODO reuse cells
-    
+
     var reviewsNode = document.getElementById('reviews');
     while (reviewsNode.firstChild) {
         reviewsNode.removeChild(reviewsNode.firstChild);
@@ -590,19 +616,19 @@ var suraCharCount = [
     80
 ];
 
-function readableFormat(number){
-    if(number >= 1000000000){
+function readableFormat(number) {
+    if (number >= 1000000000) {
         return (number / 1000000000).toFixed(2) + "G"
-    } else if (number >= 1000000){
+    } else if (number >= 1000000) {
         return (number / 1000000).toFixed(2) + "M"
-    } else if (number >= 1000){
+    } else if (number >= 1000) {
         return (number / 1000).toFixed(2) + "K"
     } else {
         return number;
     }
 }
 
-function todayStartTimeStamp(){
+function todayStartTimeStamp() {
     var now = new Date();
     var startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     var timestamp = startOfDay / 1000;
@@ -620,7 +646,7 @@ function getScore() {
         total = total + (Number(history.length) * Number(suraScore));
         var lastEntryIndex = history.length - 1;
         //timestamps are sorted so we will start from their top going backward until we exceed today's start
-        while(lastEntryIndex >= 0 && history[lastEntryIndex] >= todayStart) {
+        while (lastEntryIndex >= 0 && history[lastEntryIndex] >= todayStart) {
             today += suraScore;
             lastEntryIndex--;
         }
@@ -629,12 +655,30 @@ function getScore() {
     return readableFormat(total) + (today > 0 ? "(+" + readableFormat(today) + " today)" : "");
 }
 
-function sortLight(){
+function sortLight() {
     currentSortType = 1;
     addSuraCells();
 }
 
-function sortNormal(){
+function sortNormal() {
     currentSortType = 0;
     addSuraCells();
 }
+
+function sortChars() {
+    currentSortType = 3;
+    addSuraCells();
+}
+
+function sortVerse() {
+    console.log("Soon isA :)");
+}
+
+function sortReval() {
+    console.log("Soon isA :)");
+}
+
+function sortRefresh() {
+    console.log("Soon isA :)");
+}
+
