@@ -130,6 +130,123 @@ var suraVerseCount = [
     6
 ];
 
+var suraRevalationOrder = [
+    5,
+    87,
+    89,
+    92,
+    112,
+    55,
+    39,
+    88,
+    113,
+    51,
+    52,
+    53,
+    96,
+    72,
+    54,
+    70,
+    50,
+    69,
+    44,
+    45,
+    73,
+    103,
+    74,
+    102,
+    42,
+    47,
+    48,
+    49,
+    85,
+    84,
+    57,
+    75,
+    90,
+    58,
+    43,
+    41,
+    56,
+    38,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    95,
+    111,
+    106,
+    34,
+    67,
+    76,
+    23,
+    37,
+    97,
+    46,
+    94,
+    105,
+    101,
+    91,
+    109,
+    110,
+    104,
+    108,
+    99,
+    107,
+    77,
+    2,
+    78,
+    79,
+    71,
+    40,
+    3,
+    4,
+    31,
+    98,
+    33,
+    80,
+    81,
+    24,
+    7,
+    82,
+    86,
+    83,
+    27,
+    36,
+    8,
+    68,
+    10,
+    35,
+    26,
+    9,
+    11,
+    12,
+    28,
+    1,
+    25,
+    100,
+    93,
+    14,
+    30,
+    16,
+    13,
+    32,
+    19,
+    29,
+    17,
+    15,
+    18,
+    114,
+    6,
+    22,
+    20,
+    21
+];
+
 /**
  * Normal Quran Order: 0
  * 
@@ -280,6 +397,22 @@ function sortByKey(array, key) {
     });
 }
 
+
+var revalationSortedSuraArray = [];
+
+function createRevalationSuraOrderArray() {
+    if (revalationSortedSuraArray.length != 0) {
+        return;
+    }
+    for (suraIndex = 1; suraIndex <= 114; suraIndex++) {
+        var suraWithCharCountRecord = { suraID: suraIndex, revalOrder: suraRevalationOrder[suraIndex - 1] };
+        revalationSortedSuraArray.push(suraWithCharCountRecord);
+    }
+
+    revalationSortedSuraArray = sortByKey(revalationSortedSuraArray, "revalOrder");
+}
+
+
 var verseCountSortedSuraArray = [];
 
 function createVerseCountSuraOrderArray() {
@@ -310,6 +443,7 @@ function createCharCountSuraOrderArray() {
 
 
 function createSortedTimeStampSuraArray() {
+
     for (suraIndex = 1; suraIndex <= 114; suraIndex++) {
         var timeStampsArray = surasHistory[suraIndex] != null ? surasHistory[suraIndex] : [];
         var mostRecentTimestamp = timeStampsArray.length > 0 ? timeStampsArray[timeStampsArray.length - 1] : 0;
@@ -319,6 +453,23 @@ function createSortedTimeStampSuraArray() {
 
     sortedTimestampSuraArray = sortByKey(sortedTimestampSuraArray, "timeStamp");
 }
+
+var refreshCountSortedSuraArray = [];
+
+function createSortedRefreshCountSuraArray() {
+    if (refreshCountSortedSuraArray.length != 0) {
+        return;
+    }
+    for (suraIndex = 1; suraIndex <= 114; suraIndex++) {
+        var timeStampsArray = surasHistory[suraIndex] != null ? surasHistory[suraIndex] : [];
+        var mostRecentTimestamp = timeStampsArray.length;
+        var suraWithRefreshCountRecord = { suraID: suraIndex, refreshCount: mostRecentTimestamp };
+        refreshCountSortedSuraArray.push(suraWithRefreshCountRecord);
+    }
+
+    refreshCountSortedSuraArray = sortByKey(refreshCountSortedSuraArray, "refreshCount");
+}
+
 
 function sortedSuraIndexConverter(index) {
     switch (currentSortType) {
@@ -345,14 +496,13 @@ function sortedSuraIndexConverter(index) {
 
         //revalation order
         case 4:
-
-            break;
+            createRevalationSuraOrderArray();
+            return revalationSortedSuraArray[index - 1].suraID;
 
         //refresh count
         case 5:
-
-            break;
-
+            createSortedRefreshCountSuraArray();
+            return refreshCountSortedSuraArray[index - 1].suraID;
 
         default: return index;
     }
@@ -579,6 +729,7 @@ function initCells() {
                 }
                 document.getElementById('reviews').textContent = '';
                 sortedTimestampSuraArray = [];
+                refreshCountSortedSuraArray = [];
                 addSuraCells();
                 document.getElementById('score').textContent = getScore();
             });
@@ -823,11 +974,11 @@ function sortVerse() {
 
 function sortReval() {
     currentSortType = 4;
-    console.log("Soon isA :)");
+    addSuraCells();
 }
 
 function sortRefresh() {
     currentSortType = 5;
-    console.log("Soon isA :)");
+    addSuraCells();
 }
 
