@@ -724,7 +724,9 @@ firebase.initializeApp(config);
                              * Handles the sign in button press.
                              */
 function toggleSignIn() {
+    
     if (firebase.auth().currentUser) {
+        showToast("Signing out...");
         // [START signout]
         firebase.auth().signOut();
         document.getElementById('quickstart-sign-in').textContent = 'Sign in';
@@ -738,10 +740,10 @@ function toggleSignIn() {
         }, this);
         document.getElementById('email').value='';
         document.getElementById('password').value='';
-        
+        hideToast();
         // [END signout]
     } else {
-
+        showToast("Signing in...");
         var email = document.getElementById('email').value;
         var password = document.getElementById('password').value;
         if (email.length < 4) {
@@ -769,6 +771,7 @@ function toggleSignIn() {
             document.getElementById('quickstart-sign-in').textContent = 'Sign in';
             // [END_EXCLUDE]
         });
+        hideToast();
         // [END authwithemail]
     }
     document.getElementById('quickstart-sign-in').disabled = false;
@@ -858,6 +861,7 @@ function initCells() {
         var database = firebase.database();
         var reviewsRef = firebase.database().ref('users/' + myUserId + '/Master/reviews');
         var memRef = firebase.database().ref('users/' + myUserId + '/Master/memorization');
+        showToast("Fetching user history...");
         memRef.once('value', function (snapshot) {
             memorization = snapshot.val();
             if (memorization == null) {
@@ -887,6 +891,7 @@ function initCells() {
                 //console.log("surasHistory:" + surasHistory);
                 addSuraCells();
                 document.getElementById("score").textContent = getScore();
+                hideToast();
             });
         });
 
@@ -1148,3 +1153,13 @@ function sortRefresh() {
     addSuraCells();
 }
 
+function showToast(message) {
+    var x = document.getElementById("snackbar")
+    x.textContent = message;
+    x.className = "show";
+}
+
+function hideToast(){
+    var x = document.getElementById("snackbar");
+    x.className = x.className.replace("show", "");
+}
