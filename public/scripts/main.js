@@ -686,7 +686,7 @@ function addSuraCells() {
         var suraNameElement = document.createElement("p");
         suraNameElement.className = "sura_name_label";
 
-        switch (memorization[suraIndex]) {
+        switch (memorization[suraIndex] != null ? memorization[suraIndex] : 0) {
             case 2: suraNameElement.className = "memorized sura_name_label";
                 break;
             default:
@@ -851,6 +851,10 @@ function initCells() {
         var memRef = firebase.database().ref('users/' + myUserId + '/Master/memorization');
         memRef.once('value', function (snapshot) {
             memorization = snapshot.val();
+            if (memorization == null) {
+                memorization = {};
+            }
+            console.log("memorization:" + memorization);
             reviewsRef.once('value', function (snapshot) {
                 surasHistory = {};
                 snapshot.forEach(function (childSnapshot) {
@@ -871,6 +875,7 @@ function initCells() {
                 document.getElementById('reviews').textContent = '';
                 sortedTimestampSuraArray = [];
                 refreshCountSortedSuraArray = [];
+                console.log("surasHistory:" + surasHistory);
                 addSuraCells();
                 document.getElementById('score').textContent = getScore();
             });
