@@ -247,6 +247,123 @@ var suraRevalationOrder = [
     21
 ];
 
+var suraWordCountOrder = [
+    29,
+    6144,
+    3503,
+    3712,
+    2837,
+    3055,
+    3344,
+    1243,
+    2506,
+    1841,
+    1947,
+    1795,
+    854,
+    831,
+    658,
+    1845,
+    1559,
+    1583,
+    972,
+    1354,
+    1174,
+    1279,
+    1051,
+    1317,
+    896,
+    1322,
+    1165,
+    1441,
+    982,
+    818,
+    550,
+    374,
+    1303,
+    884,
+    780,
+    733,
+    865,
+    735,
+    1177,
+    1228,
+    796,
+    860,
+    837,
+    346,
+    488,
+    646,
+    542,
+    560,
+    353,
+    373,
+    360,
+    312,
+    359,
+    342,
+    352,
+    379,
+    575,
+    475,
+    447,
+    352,
+    226,
+    177,
+    180,
+    242,
+    279,
+    254,
+    337,
+    301,
+    261,
+    217,
+    227,
+    286,
+    200,
+    256,
+    164,
+    243,
+    181,
+    174,
+    179,
+    133,
+    104,
+    81,
+    169,
+    108,
+    109,
+    61,
+    72,
+    92,
+    139,
+    82,
+    54,
+    71,
+    40,
+    27,
+    34,
+    72,
+    30,
+    94,
+    36,
+    40,
+    36,
+    28,
+    14,
+    33,
+    23,
+    17,
+    25,
+    10,
+    27,
+    19,
+    29,
+    15,
+    23,
+    20
+];
+
 /**
  * Normal Quran Order: 0
  * 
@@ -441,6 +558,22 @@ function createCharCountSuraOrderArray() {
     characterCountSortedSuraArray = sortByKey(characterCountSortedSuraArray, "charCount");
 }
 
+var wordCountSortedSuraArray = [];
+
+function createWordCountSuraOrderArray() {
+    if (wordCountSortedSuraArray.length != 0) {
+        return;
+    }
+    for (suraIndex = 1; suraIndex <= 114; suraIndex++) {
+        var suraWithWordCountRecord = { suraID: suraIndex, wordCount: suraCharCount[suraIndex - 1] };
+        wordCountSortedSuraArray.push(suraWithWordCountRecord);
+    }
+
+    wordCountSortedSuraArray = sortByKey(wordCountSortedSuraArray, "wordCount");
+}
+
+
+
 
 function createSortedTimeStampSuraArray() {
 
@@ -494,13 +627,19 @@ function sortedSuraIndexConverter(index) {
             createVerseCountSuraOrderArray();
             return verseCountSortedSuraArray[index - 1].suraID;
 
-        //revalation order
+        //word count sort
         case 4:
+        createWordCountSuraOrderArray();
+        return wordCountSortedSuraArray[index - 1].suraID;
+
+
+        //revalation order
+        case 5:
             createRevalationSuraOrderArray();
             return revalationSortedSuraArray[index - 1].suraID;
 
         //refresh count
-        case 5:
+        case 6:
             createSortedRefreshCountSuraArray();
             return refreshCountSortedSuraArray[index - 1].suraID;
 
@@ -972,13 +1111,18 @@ function sortVerse() {
     addSuraCells();
 }
 
-function sortReval() {
+function sortWord(){
     currentSortType = 4;
     addSuraCells();
 }
 
-function sortRefresh() {
+function sortReval() {
     currentSortType = 5;
+    addSuraCells();
+}
+
+function sortRefresh() {
+    currentSortType = 6;
     addSuraCells();
 }
 
