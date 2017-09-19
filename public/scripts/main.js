@@ -667,8 +667,8 @@ function addSuraCells() {
         element.className = "sura-cell";
         var timeStampsArray = surasHistory[suraIndex] != null ? surasHistory[suraIndex] : [];
         //TODO if not refreshed before make it zero instead of (currentTimeStamp - refreshPeriod) and condition timeDifferenceRatio value to be zero too
-        var maxStamp = timeStampsArray.length > 0 ? timeStampsArray[timeStampsArray.length - 1] : (currentTimeStamp - refreshPeriod);
-        var timeDifferenceRatio = 1 - (currentTimeStamp - maxStamp) * 1.0 / refreshPeriod;
+        var maxStamp = timeStampsArray.length > 0 ? timeStampsArray[timeStampsArray.length - 1] : 0;
+        var timeDifferenceRatio = 1 - (currentTimeStamp - (maxStamp == 0 ? (currentTimeStamp - refreshPeriod): maxStamp) ) * 1.0 / refreshPeriod;
         element.style.backgroundColor = "rgb(0," + (255.0 * timeDifferenceRatio).toFixed(0) + ",0)";
         var daysElapsed = ((currentTimeStamp - maxStamp) / (60 * 60 * 24.0)).toFixed(0);
         if (daysElapsed >= 30) {
@@ -676,7 +676,7 @@ function addSuraCells() {
         }
 
         var suraName = element.index + " " + SuraNamesEn[suraIndex - 1];
-        var daysElapsedText = (daysElapsed == 0 ? "" : (daysElapsed + " Days"));
+        var daysElapsedText = (daysElapsed == 0 || daysElapsed > 1000 ? "" : (daysElapsed + " Days"));
         if (timeDifferenceRatio >= 0.3) {
             element.style.color = "black";
         } else {
@@ -854,7 +854,7 @@ function initCells() {
             if (memorization == null) {
                 memorization = {};
             }
-            console.log("memorization:" + memorization);
+            //console.log("memorization:" + memorization);
             reviewsRef.once('value', function (snapshot) {
                 surasHistory = {};
                 snapshot.forEach(function (childSnapshot) {
@@ -875,7 +875,7 @@ function initCells() {
                 document.getElementById('reviews').textContent = '';
                 sortedTimestampSuraArray = [];
                 refreshCountSortedSuraArray = [];
-                console.log("surasHistory:" + surasHistory);
+                //console.log("surasHistory:" + surasHistory);
                 addSuraCells();
                 document.getElementById("score").textContent = getScore();
             });
