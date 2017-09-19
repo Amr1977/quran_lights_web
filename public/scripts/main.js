@@ -728,6 +728,8 @@ function toggleSignIn() {
         // [START signout]
         firebase.auth().signOut();
         document.getElementById('quickstart-sign-in').textContent = 'Sign in';
+        //empty score
+        document.getElementById('score').textContent = '--';
         // [END signout]
     } else {
 
@@ -918,6 +920,9 @@ function initApp() {
             // User is signed out.
             // [START_EXCLUDE]
             document.getElementById('quickstart-sign-in').textContent = 'Sign in';
+
+            //empty score
+            document.getElementById('score').textContent = '--';
             //document.getElementById('quickstart-account-details').textContent = 'null';
             // [END_EXCLUDE]
         }
