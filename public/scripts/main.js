@@ -730,6 +730,15 @@ function toggleSignIn() {
         document.getElementById('quickstart-sign-in').textContent = 'Sign in';
         //empty score
         document.getElementById('score').textContent = '--';
+        currentSortType = 0;
+        //"sort_type"
+        var allRadios = document.getElementsByName('sort_type');
+        allRadios.forEach(function(element) {
+            element.checked = false;
+        }, this);
+        document.getElementById('email').value='';
+        document.getElementById('password').value='';
+        
         // [END signout]
     } else {
 
