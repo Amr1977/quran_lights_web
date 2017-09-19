@@ -280,9 +280,23 @@ function sortByKey(array, key) {
     });
 }
 
+var verseCountSortedSuraArray = [];
+
+function createVerseCountSuraOrderArray() {
+    if (verseCountSortedSuraArray.length != 0) {
+        return;
+    }
+    for (suraIndex = 1; suraIndex <= 114; suraIndex++) {
+        var suraWithCharCountRecord = { suraID: suraIndex, verseCount: suraCharCount[suraIndex - 1] };
+        verseCountSortedSuraArray.push(suraWithCharCountRecord);
+    }
+
+    verseCountSortedSuraArray = sortByKey(verseCountSortedSuraArray, "verseCount");
+}
+
 var characterCountSortedSuraArray = [];
 
-function getCharCountSuraOrderArray() {
+function createCharCountSuraOrderArray() {
     if (characterCountSortedSuraArray.length != 0) {
         return;
     }
@@ -308,6 +322,10 @@ function createSortedTimeStampSuraArray() {
 
 function sortedSuraIndexConverter(index) {
     switch (currentSortType) {
+        //Normal sura order        
+        case 0:
+            return index;
+
         //light order
         case 1: if (sortedTimestampSuraArray.length != 0) {
             return sortedTimestampSuraArray[index - 1].suraID;
@@ -316,12 +334,26 @@ function sortedSuraIndexConverter(index) {
             return (sortedTimestampSuraArray[index - 1]).suraID;
 
         //character count order
-        case 3:
-            getCharCountSuraOrderArray();
+        case 2:
+            createCharCountSuraOrderArray();
             return characterCountSortedSuraArray[index - 1].suraID;
 
-        //normal order
-        case 0:
+        //verse count order
+        case 3:
+            createVerseCountSuraOrderArray();
+            return verseCountSortedSuraArray[index - 1].suraID;
+
+        //revalation order
+        case 4:
+
+            break;
+
+        //refresh count
+        case 5:
+
+            break;
+
+
         default: return index;
     }
 
@@ -542,8 +574,6 @@ function initCells() {
 
                 });
 
-
-                //document.getElementById('reviews').textContent = suras.stringify;
                 for (var suraIndex in surasHistory.keys) {
                     surasHistory[suraIndex].sort(sortNumber);
                 }
@@ -556,7 +586,6 @@ function initCells() {
 
         // [START_EXCLUDE]
         document.getElementById('quickstart-sign-in').textContent = 'Sign out';
-        //document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
         // [END_EXCLUDE]
     }
 }
@@ -783,19 +812,22 @@ function sortNormal() {
 }
 
 function sortChars() {
-    currentSortType = 3;
+    currentSortType = 2;
     addSuraCells();
 }
 
 function sortVerse() {
-    console.log("Soon isA :)");
+    currentSortType = 3;
+    addSuraCells();
 }
 
 function sortReval() {
+    currentSortType = 4;
     console.log("Soon isA :)");
 }
 
 function sortRefresh() {
+    currentSortType = 5;
     console.log("Soon isA :)");
 }
 
