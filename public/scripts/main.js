@@ -877,7 +877,7 @@ function initCells() {
                 refreshCountSortedSuraArray = [];
                 console.log("surasHistory:" + surasHistory);
                 addSuraCells();
-                document.getElementById('score').textContent = getScore();
+                document.getElementById("score").textContent = getScore();
             });
         });
 
@@ -927,7 +927,7 @@ function initApp() {
             document.getElementById('quickstart-sign-in').textContent = 'Sign in';
 
             //empty score
-            document.getElementById('score').textContent = '--';
+            document.getElementById("score").textContent = '--';
             //document.getElementById('quickstart-account-details').textContent = 'null';
             // [END_EXCLUDE]
         }
@@ -1089,6 +1089,9 @@ function getScore() {
     for (i = 1; i <= 114; i++) {
         var suraScore = suraCharCount[i - 1];
         var history = surasHistory[i];
+        if (history==null) {
+            history = [];
+        }
         total = total + (Number(history.length) * Number(suraScore));
         var lastEntryIndex = history.length - 1;
         //timestamps are sorted so we will start from their top going backward until we exceed today's start
