@@ -500,7 +500,20 @@ var SuraNamesEn = [
     "Al-Nas"];
 //console.log(SuraNamesEn);
 
+var ownTimeStamps = [];
+
 function refreshSura(suraIndex, timeStamp) {
+    //to avoid pulling history again
+    ownTimeStamps.push(timeStamp);
+
+    //TODO update model
+    //TODO check for empty history array
+    surasHistory[suraIndex].push(timeStamp);
+
+    //TODO update view
+    addSuraCells();
+
+    //update FDB
     var newEntry = firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/Master/reviews/' + timeStamp);
     newEntry.set(suraIndex);
     firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/Master/update_stamp').set(timeStamp);
@@ -665,7 +678,10 @@ function addSuraCells() {
 
         element.index = suraIndex;
         element.className = "sura-cell";
-        var timeStampsArray = surasHistory[suraIndex] != null ? surasHistory[suraIndex] : [];
+        if ( surasHistory[suraIndex] == null) {
+            surasHistory[suraIndex] = [];
+        }
+        var timeStampsArray = surasHistory[suraIndex];
         //TODO if not refreshed before make it zero instead of (currentTimeStamp - refreshPeriod) and condition timeDifferenceRatio value to be zero too
         var maxStamp = timeStampsArray.length > 0 ? timeStampsArray[timeStampsArray.length - 1] : 0;
         var timeDifferenceRatio = 1 - (currentTimeStamp - (maxStamp == 0 ? (currentTimeStamp - refreshPeriod): maxStamp) ) * 1.0 / refreshPeriod;
@@ -707,11 +723,6 @@ function addSuraCells() {
 
         element.onclick = function () {
             refreshSura(this.index, currentTimeStamp);
-            this.style.backgroundColor = "rgb(0,255,0)";
-            if (this.childNodes.item(1) != null) {
-                this.removeChild(this.childNodes.item(1));
-            }
-            this.childNodes.item(0).style.color = "rgb(0,0,0)";
         };
 
         document.getElementById('reviews').appendChild(element);
@@ -861,7 +872,7 @@ function initCells() {
         var database = firebase.database();
         var reviewsRef = firebase.database().ref('users/' + myUserId + '/Master/reviews');
         var memRef = firebase.database().ref('users/' + myUserId + '/Master/memorization');
-        showToast("Fetching user history...");
+        showToast("Fetching history...");
         memRef.once('value', function (snapshot) {
             memorization = snapshot.val();
             if (memorization == null) {
@@ -901,6 +912,15 @@ function initCells() {
     }
 }
 
+var timeStampTriggerTimerRef = null;
+
+function onTimeStampUpdated(){
+    timeStampTriggerTimerRef = null;
+    console.log("time stamp updated");
+    initCells();
+}
+
+
 /**
  * initApp handles setting up UI event listeners and registering Firebase auth listeners:
  *  - firebase.auth().onAuthStateChanged: This listener is called when the user is signed in or
@@ -928,8 +948,21 @@ function initApp() {
             //document.getElementById("sort_div").style.display = "block";
             var update_timestamp_ref = firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/Master/update_stamp');
             update_timestamp_ref.on('value', function (snapshot) {
-                console.log("time stamp updated: " + snapshot.val());
-                initCells();
+                var updatedValue = snapshot.val();
+                var indexOfTimeStamp = ownTimeStamps.indexOf(updatedValue);
+                if ( indexOfTimeStamp != -1) {
+                    //delete matching own timestamp
+                    ownTimeStamps.splice(indexOfTimeStamp,1);
+                    console.log("dropping own update.");
+                    return;
+                }
+
+                //stabilize successive triggers
+                if (timeStampTriggerTimerRef != null) {
+                    clearTimeout(timeStampTriggerTimerRef);
+                    console.log("Dropped repeated timestamp trigger :)");
+                }
+                timeStampTriggerTimerRef = setTimeout(onTimeStampUpdated, 3000);
             });
         } else {
             document.getElementById("email").style.display = "block";
