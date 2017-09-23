@@ -913,6 +913,7 @@ function initCells() {
 }
 
 var timeStampTriggerTimerRef = null;
+var isFirstLoad = 1;
 
 function onTimeStampUpdated(){
     timeStampTriggerTimerRef = null;
@@ -963,7 +964,8 @@ function initApp() {
                     clearTimeout(timeStampTriggerTimerRef);
                     console.log("Dropped repeated timestamp trigger :)");
                 }
-                timeStampTriggerTimerRef = setTimeout(onTimeStampUpdated, 3000);
+                timeStampTriggerTimerRef = setTimeout(onTimeStampUpdated, isFirstLoad == 1 ? 0 : 5000);
+                isFirstLoad = 0;
             });
         } else {
             document.getElementById("email").style.display = "block";
