@@ -948,6 +948,7 @@ function initApp() {
             //document.getElementById("sort_div").style.display = "block";
             var update_timestamp_ref = firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/Master/update_stamp');
             update_timestamp_ref.on('value', function (snapshot) {
+                console.log("timestamp trigger");
                 var updatedValue = snapshot.val();
                 var indexOfTimeStamp = ownTimeStamps.indexOf(updatedValue);
                 if ( indexOfTimeStamp != -1) {
