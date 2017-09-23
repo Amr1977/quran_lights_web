@@ -722,7 +722,8 @@ function addSuraCells() {
 
 
         element.onclick = function () {
-            refreshSura(this.index, currentTimeStamp);
+            var timeStamp = Math.floor(Date.now() / 1000);
+            refreshSura(this.index, timeStamp);
         };
 
         document.getElementById('reviews').appendChild(element);
@@ -917,7 +918,7 @@ var isFirstLoad = 1;
 
 function onTimeStampUpdated(){
     timeStampTriggerTimerRef = null;
-    console.log("time stamp updated");
+    console.log("Fetching history...");
     initCells();
 }
 
@@ -949,7 +950,7 @@ function initApp() {
             //document.getElementById("sort_div").style.display = "block";
             var update_timestamp_ref = firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/Master/update_stamp');
             update_timestamp_ref.on('value', function (snapshot) {
-                console.log("timestamp trigger");
+                //console.log("timestamp trigger");
                 var updatedValue = snapshot.val();
                 var indexOfTimeStamp = ownTimeStamps.indexOf(updatedValue);
                 if ( indexOfTimeStamp != -1) {
