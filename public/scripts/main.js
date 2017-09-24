@@ -508,7 +508,12 @@ function refreshSura(suraIndex, timeStamp) {
 
     //TODO update model
     //TODO check for empty history array
+    //console.log("history before refresh: ", surasHistory[suraIndex]);
     surasHistory[suraIndex].push(timeStamp);
+    //console.log("Refreshing sura: [", suraIndex, "] with time stamp: ", timeStamp);
+    //console.log("history after refresh: ", surasHistory[suraIndex]);
+    sortedTimestampSuraArray = [];
+    refreshCountSortedSuraArray = [];
 
     //TODO update view
     addSuraCells();
@@ -589,6 +594,9 @@ function createWordCountSuraOrderArray() {
 
 
 function createSortedTimeStampSuraArray() {
+    if (sortedTimestampSuraArray.length != 0) {
+        return;
+    }
 
     for (suraIndex = 1; suraIndex <= 114; suraIndex++) {
         var timeStampsArray = surasHistory[suraIndex] != null ? surasHistory[suraIndex] : [];
@@ -624,9 +632,7 @@ function sortedSuraIndexConverter(index) {
             return index;
 
         //light order
-        case 1: if (sortedTimestampSuraArray.length != 0) {
-            return sortedTimestampSuraArray[index - 1].suraID;
-        }
+        case 1: 
             createSortedTimeStampSuraArray();
             return (sortedTimestampSuraArray[index - 1]).suraID;
 
@@ -728,6 +734,8 @@ function addSuraCells() {
 
         document.getElementById('reviews').appendChild(element);
     }
+
+    document.getElementById("score").textContent = getScore();
 }
 
 firebase.initializeApp(config);
@@ -902,7 +910,7 @@ function initCells() {
                 refreshCountSortedSuraArray = [];
                 //console.log("surasHistory:" + surasHistory);
                 addSuraCells();
-                document.getElementById("score").textContent = getScore();
+                
                 hideToast();
             });
         });
