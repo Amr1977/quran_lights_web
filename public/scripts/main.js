@@ -12,6 +12,10 @@ var memorization = {};
 var SuraNamesAr = [];
 var sortedTimestampSuraArray = [];
 var update_stamp = 0;
+/**
+ * Used to record the most recent transaction timestamp so in the next fetch we get more recent transactions only.
+ */
+var lastTransactionTimeStamp = "0";
 
 var suraVerseCount = [
     7,
@@ -374,13 +378,6 @@ var currentSortType = 0;
 
 function sortNumber(a, b) {
     return a - b;
-}
-
-function readFileLines(fileName) {
-    var fs = require("fs");
-    var text = fs.readFile(fileName);
-    var textByLine = text.split("\n");
-    return textByLine;
 }
 
 var SuraNamesEn = [
@@ -879,40 +876,48 @@ function initCells() {
         var myUserId = firebase.auth().currentUser.uid;
 
         var database = firebase.database();
+        //TODO add query to fetch new records only
         var reviewsRef = firebase.database().ref('users/' + myUserId + '/Master/reviews');
-        var memRef = firebase.database().ref('users/' + myUserId + '/Master/memorization');
+        //var memRef = firebase.database().ref('users/' + myUserId + '/Master/memorization');
         showToast("Fetching history...");
+        reviewsRef.once('value', function (snapshot) {
+            surasHistory = {};
+            memorization = {};
+            snapshot.forEach(function (childSnapshot) {
+                var transactionTimeStamp = Number(childSnapshot.key);
+                var transactionRecord = childSnapshot.val(); 
+
+                var childKey = Number(childSnapshot.key);
+                var childData = Number(childSnapshot.val());
+
+                if (surasHistory[childData] != null) {
+                    surasHistory[childData].push(childKey);
+                } else {
+                    surasHistory[childData] = [childKey];
+                }
+
+            });
+
+            for (var suraIndex in surasHistory.keys) {
+                surasHistory[suraIndex].sort(sortNumber);
+            }
+            document.getElementById('reviews').textContent = '';
+            sortedTimestampSuraArray = [];
+            refreshCountSortedSuraArray = [];
+            //console.log("surasHistory:" + surasHistory);
+            addSuraCells();
+            
+            hideToast();
+        });
+
+
         memRef.once('value', function (snapshot) {
             memorization = snapshot.val();
             if (memorization == null) {
                 memorization = {};
             }
             //console.log("memorization:" + memorization);
-            reviewsRef.once('value', function (snapshot) {
-                surasHistory = {};
-                snapshot.forEach(function (childSnapshot) {
-                    var childKey = Number(childSnapshot.key);
-                    var childData = Number(childSnapshot.val());
-
-                    if (surasHistory[childData] != null) {
-                        surasHistory[childData].push(childKey);
-                    } else {
-                        surasHistory[childData] = [childKey];
-                    }
-
-                });
-
-                for (var suraIndex in surasHistory.keys) {
-                    surasHistory[suraIndex].sort(sortNumber);
-                }
-                document.getElementById('reviews').textContent = '';
-                sortedTimestampSuraArray = [];
-                refreshCountSortedSuraArray = [];
-                //console.log("surasHistory:" + surasHistory);
-                addSuraCells();
-                
-                hideToast();
-            });
+            
         });
 
         // [START_EXCLUDE]
