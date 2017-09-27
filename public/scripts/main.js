@@ -764,6 +764,7 @@ function toggleSignIn() {
         }, this);
         document.getElementById('email').value='';
         document.getElementById('password').value='';
+        surasHistory = {};
         hideToast();
         // [END signout]
     } else {
@@ -888,7 +889,7 @@ function initCells() {
         //var memRef = firebase.database().ref('users/' + myUserId + '/Master/memorization');
         showToast("Fetching history...");
         reviewsRef.once('value', function (snapshot) {
-            surasHistory = {};
+            //surasHistory = {};
             if (snapshot != null) {
                 snapshot.forEach(function (childSnapshot) {
                     var transactionTimeStamp = childSnapshot.key;
