@@ -8,7 +8,6 @@ var config = {
     messagingSenderId: "35819574492"
 };
 var surasHistory = {};
-var memorization = {};
 var SuraNamesAr = [];
 var sortedTimestampSuraArray = [];
 var update_stamp = 0;
@@ -17,7 +16,124 @@ var update_stamp = 0;
  */
 var lastTransactionTimeStamp = "0";
 
-var suraVerseCount = [
+var SuraNamesEn = [
+    "Al-Fatiha",
+    "Al-Baqara",
+    "Al Imran",
+    "An-Nisa",
+    "Al-Ma'ida",
+    "Al-An'am",
+    "Al-A'raf",
+    "Al-Anfal",
+    "At-Tawba",
+    "Yunus",
+    "Hud",
+    "Yusuf",
+    "Ar-Ra'd",
+    "Ibrahim",
+    "Al-Hijr",
+    "An-Nahl",
+    "Al-Isra",
+    "Al-Kahf",
+    "Maryam",
+    "Ta-Ha",
+    "Al-Anbiya",
+    "Al-Hajj",
+    "Al-Mu'minoon",
+    "An-Nur",
+    "Al-Furqan",
+    "Ash-Shu'ara",
+    "An-Naml",
+    "Al-Qasas",
+    "Al-Ankabut",
+    "Ar-Rum",
+    "Luqman",
+    "As-Sajda",
+    "Al-Ahzab",
+    "Saba",
+    "Fatir",
+    "Ya Sin",
+    "As-Saaffat",
+    "Sad",
+    "Az-Zumar",
+    "Ghafir",
+    "Fussilat",
+    "Ash-Shura",
+    "Az-Zukhruf",
+    "Ad-Dukhan",
+    "Al-Jathiya",
+    "Al-Ahqaf",
+    "Muhammad",
+    "Al-Fath",
+    "Al-Hujurat",
+    "Qaf",
+    "Adh-Dhariyat",
+    "At-Tur",
+    "An-Najm",
+    "Al-Qamar",
+    "Ar-Rahman",
+    "Al-Waqi'a",
+    "Al-Hadid",
+    "Al-Mujadila",
+    "Al-Hashr",
+    "Al-Mumtahina",
+    "As-Saff",
+    "Al-Jumua",
+    "Al-Munafiqun",
+    "At-Taghabun",
+    "At-Talaq",
+    "At-Tahrim",
+    "Al-Mulk",
+    "Al-Qalam",
+    "Al-Haaqqa",
+    "Al-Maarij",
+    "Nuh",
+    "Al-Jinn",
+    "Al-Muzzammil",
+    "Al-Muddathir",
+    "Al-Qiyama",
+    "Al-Insan",
+    "Al-Mursalat",
+    "An-Naba",
+    "An-Naziat",
+    "Abasa",
+    "At-Takwir",
+    "Al-Infitar",
+    "Al-Mutaffifin",
+    "Al-Inshiqaq",
+    "Al-Burooj",
+    "At-Tariq",
+    "Al-Ala",
+    "Al-Ghashiya",
+    "Al-Fajr",
+    "Al-Balad",
+    "Ash-Shams",
+    "Al-Lail",
+    "Ad-Dhuha",
+    "Al-Inshirah",
+    "At-Tin",
+    "Al-Alaq",
+    "Al-Qadr",
+    "Al-Bayyina",
+    "Az-Zalzala",
+    "Al-Adiyat",
+    "Al-Qaria",
+    "At-Takathur",
+    "Al-Asr",
+    "Al-Humaza",
+    "Al-Fil",
+    "Quraysh",
+    "Al-Ma'un",
+    "Al-Kawthar",
+    "Al-Kafirun",
+    "An-Nasr",
+    "Al-Masadd",
+    "Al-Ikhlas",
+    "Al-Falaq",
+    "Al-Nas"];
+
+
+    var suraVerseCount = [
     7,
     286,
     200,
@@ -370,143 +486,30 @@ var suraWordCountOrder = [
 
 /**
  * Normal Quran Order: 0
- * 
  * Light Order: 1
- * 
+ * Char count 2
+ * verse count 3
+ * word count 4
+ * revalation order 5
+ * refresh count 6
  */
 var currentSortType = 0;
+
+/**
+ * Used to avoid reacting to update_stamp triggers caused by self
+ */
+var ownTimeStamps = [];
 
 function sortNumber(a, b) {
     return a - b;
 }
 
-var SuraNamesEn = [
-    "Al-Fatiha",
-    "Al-Baqara",
-    "Al Imran",
-    "An-Nisa",
-    "Al-Ma'ida",
-    "Al-An'am",
-    "Al-A'raf",
-    "Al-Anfal",
-    "At-Tawba",
-    "Yunus",
-    "Hud",
-    "Yusuf",
-    "Ar-Ra'd",
-    "Ibrahim",
-    "Al-Hijr",
-    "An-Nahl",
-    "Al-Isra",
-    "Al-Kahf",
-    "Maryam",
-    "Ta-Ha",
-    "Al-Anbiya",
-    "Al-Hajj",
-    "Al-Mu'minoon",
-    "An-Nur",
-    "Al-Furqan",
-    "Ash-Shu'ara",
-    "An-Naml",
-    "Al-Qasas",
-    "Al-Ankabut",
-    "Ar-Rum",
-    "Luqman",
-    "As-Sajda",
-    "Al-Ahzab",
-    "Saba",
-    "Fatir",
-    "Ya Sin",
-    "As-Saaffat",
-    "Sad",
-    "Az-Zumar",
-    "Ghafir",
-    "Fussilat",
-    "Ash-Shura",
-    "Az-Zukhruf",
-    "Ad-Dukhan",
-    "Al-Jathiya",
-    "Al-Ahqaf",
-    "Muhammad",
-    "Al-Fath",
-    "Al-Hujurat",
-    "Qaf",
-    "Adh-Dhariyat",
-    "At-Tur",
-    "An-Najm",
-    "Al-Qamar",
-    "Ar-Rahman",
-    "Al-Waqi'a",
-    "Al-Hadid",
-    "Al-Mujadila",
-    "Al-Hashr",
-    "Al-Mumtahina",
-    "As-Saff",
-    "Al-Jumua",
-    "Al-Munafiqun",
-    "At-Taghabun",
-    "At-Talaq",
-    "At-Tahrim",
-    "Al-Mulk",
-    "Al-Qalam",
-    "Al-Haaqqa",
-    "Al-Maarij",
-    "Nuh",
-    "Al-Jinn",
-    "Al-Muzzammil",
-    "Al-Muddathir",
-    "Al-Qiyama",
-    "Al-Insan",
-    "Al-Mursalat",
-    "An-Naba",
-    "An-Naziat",
-    "Abasa",
-    "At-Takwir",
-    "Al-Infitar",
-    "Al-Mutaffifin",
-    "Al-Inshiqaq",
-    "Al-Burooj",
-    "At-Tariq",
-    "Al-Ala",
-    "Al-Ghashiya",
-    "Al-Fajr",
-    "Al-Balad",
-    "Ash-Shams",
-    "Al-Lail",
-    "Ad-Dhuha",
-    "Al-Inshirah",
-    "At-Tin",
-    "Al-Alaq",
-    "Al-Qadr",
-    "Al-Bayyina",
-    "Az-Zalzala",
-    "Al-Adiyat",
-    "Al-Qaria",
-    "At-Takathur",
-    "Al-Asr",
-    "Al-Humaza",
-    "Al-Fil",
-    "Quraysh",
-    "Al-Ma'un",
-    "Al-Kawthar",
-    "Al-Kafirun",
-    "An-Nasr",
-    "Al-Masadd",
-    "Al-Ikhlas",
-    "Al-Falaq",
-    "Al-Nas"];
-//console.log(SuraNamesEn);
-
-var ownTimeStamps = [];
-
-function refreshSura(suraIndex, timeStamp) {
-    //to avoid pulling history again
-    ownTimeStamps.push(timeStamp);
-
+//TODO fix for new FDB structure
+function refreshSura(suraIndex, refreshTimeStamp) {
     //TODO update model
     //TODO check for empty history array
     //console.log("history before refresh: ", surasHistory[suraIndex]);
-    surasHistory[suraIndex].push(timeStamp);
+    surasHistory[suraIndex].history.push(refreshTimeStamp);
     //console.log("Refreshing sura: [", suraIndex, "] with time stamp: ", timeStamp);
     //console.log("history after refresh: ", surasHistory[suraIndex]);
     sortedTimestampSuraArray = [];
@@ -516,9 +519,14 @@ function refreshSura(suraIndex, timeStamp) {
     addSuraCells();
 
     //update FDB
-    var newEntry = firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/Master/reviews/' + timeStamp);
-    newEntry.set(suraIndex);
-    firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/Master/update_stamp').set(timeStamp);
+    var refreshRecord = {op: "refresh", sura: suraIndex, time: refreshTimeStamp};
+    var transactionTimeStamp = Math.floor(Date.now() * 1000);
+    var newEntry = firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/Master/reviews/' + transactionTimeStamp);
+    newEntry.set(refreshRecord);
+    //to avoid pulling history again
+    ownTimeStamps.push(transactionTimeStamp);
+    console.log("added transactionTimeStamp: ", transactionTimeStamp, " record: ", refreshRecord);
+    firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/Master/update_stamp').set(transactionTimeStamp);
 }
 
 function sortByKey(array, key) {
@@ -587,16 +595,13 @@ function createWordCountSuraOrderArray() {
     wordCountSortedSuraArray = sortByKey(wordCountSortedSuraArray, "wordCount");
 }
 
-
-
-
 function createSortedTimeStampSuraArray() {
     if (sortedTimestampSuraArray.length != 0) {
         return;
     }
 
     for (suraIndex = 1; suraIndex <= 114; suraIndex++) {
-        var timeStampsArray = surasHistory[suraIndex] != null ? surasHistory[suraIndex] : [];
+        var timeStampsArray = surasHistory[suraIndex].history != null ? surasHistory[suraIndex].history : [];
         var mostRecentTimestamp = timeStampsArray.length > 0 ? timeStampsArray[timeStampsArray.length - 1] : 0;
         var suraWithLastTimeStampRecord = { suraID: suraIndex, timeStamp: mostRecentTimestamp };
         sortedTimestampSuraArray.push(suraWithLastTimeStampRecord);
@@ -612,7 +617,7 @@ function createSortedRefreshCountSuraArray() {
         return;
     }
     for (suraIndex = 1; suraIndex <= 114; suraIndex++) {
-        var timeStampsArray = surasHistory[suraIndex] != null ? surasHistory[suraIndex] : [];
+        var timeStampsArray = surasHistory[suraIndex].history != null ? surasHistory[suraIndex].history : [];
         var mostRecentTimestamp = timeStampsArray.length;
         var suraWithRefreshCountRecord = { suraID: suraIndex, refreshCount: mostRecentTimestamp };
         refreshCountSortedSuraArray.push(suraWithRefreshCountRecord);
@@ -620,7 +625,6 @@ function createSortedRefreshCountSuraArray() {
 
     refreshCountSortedSuraArray = sortByKey(refreshCountSortedSuraArray, "refreshCount");
 }
-
 
 function sortedSuraIndexConverter(index) {
     switch (currentSortType) {
@@ -682,9 +686,12 @@ function addSuraCells() {
         element.index = suraIndex;
         element.className = "sura-cell";
         if ( surasHistory[suraIndex] == null) {
-            surasHistory[suraIndex] = [];
+            surasHistory[suraIndex] = {};
+            surasHistory[suraIndex].history = [];
+            surasHistory[suraIndex].suraIndex = suraIndex;
+            surasHistory[suraIndex].memorization = 0;
         }
-        var timeStampsArray = surasHistory[suraIndex];
+        var timeStampsArray = surasHistory[suraIndex].history;
         //TODO if not refreshed before make it zero instead of (currentTimeStamp - refreshPeriod) and condition timeDifferenceRatio value to be zero too
         var maxStamp = timeStampsArray.length > 0 ? timeStampsArray[timeStampsArray.length - 1] : 0;
         var timeDifferenceRatio = 1 - (currentTimeStamp - (maxStamp == 0 ? (currentTimeStamp - refreshPeriod): maxStamp) ) * 1.0 / refreshPeriod;
@@ -705,8 +712,8 @@ function addSuraCells() {
         var suraNameElement = document.createElement("p");
         suraNameElement.className = "sura_name_label";
 
-        switch (memorization[suraIndex] != null ? memorization[suraIndex] : 0) {
-            case 2: suraNameElement.className = "memorized sura_name_label";
+        switch (surasHistory[suraIndex].memorization) {
+            case "2": suraNameElement.className = "memorized sura_name_label";
                 break;
             default:
                 suraNameElement.className = "not_memorized sura_name_label";
@@ -877,29 +884,47 @@ function initCells() {
 
         var database = firebase.database();
         //TODO add query to fetch new records only
-        var reviewsRef = firebase.database().ref('users/' + myUserId + '/Master/reviews');
+        var reviewsRef = firebase.database().ref('users/' + myUserId + '/Master/reviews').orderByKey().startAt(lastTransactionTimeStamp);
         //var memRef = firebase.database().ref('users/' + myUserId + '/Master/memorization');
         showToast("Fetching history...");
         reviewsRef.once('value', function (snapshot) {
             surasHistory = {};
-            memorization = {};
-            snapshot.forEach(function (childSnapshot) {
-                var transactionTimeStamp = Number(childSnapshot.key);
-                var transactionRecord = childSnapshot.val(); 
+            if (snapshot != null) {
+                snapshot.forEach(function (childSnapshot) {
+                    var transactionTimeStamp = childSnapshot.key;
+                    if (transactionTimeStamp > lastTransactionTimeStamp) {
+                        lastTransactionTimeStamp = transactionTimeStamp;
+                    }
+                    var transactionRecord = childSnapshot.val(); 
 
-                var childKey = Number(childSnapshot.key);
-                var childData = Number(childSnapshot.val());
+                    var suraIndex = transactionRecord.sura;
 
-                if (surasHistory[childData] != null) {
-                    surasHistory[childData].push(childKey);
-                } else {
-                    surasHistory[childData] = [childKey];
+                    if(suraIndex == null){
+                        //old FDB structure, convert it to new one
+                        suraIndex = childSnapshot.val();
+                        var refreshTS = childSnapshot.key + "000000";
+                        childSnapshot = {op: "refresh", time: refreshTS, sura: suraIndex};
+                    }
+
+                    if(surasHistory[suraIndex] == null) {
+                        surasHistory[suraIndex] = {};
+                        surasHistory[suraIndex].suraIndex = suraIndex;
+                        surasHistory[suraIndex].history = [];
+                    }
+
+                    switch (transactionRecord.op) {
+                        case "memorize":
+                        surasHistory[suraIndex].memorization = transactionRecord.state;
+                        break;
+    
+                        case "refresh":
+                        surasHistory[suraIndex].history.push(transactionRecord.time);
+                    }
+                });
+    
+                for (var suraIndex in surasHistory.keys) {
+                    surasHistory[suraIndex].history.sort(sortNumber);
                 }
-
-            });
-
-            for (var suraIndex in surasHistory.keys) {
-                surasHistory[suraIndex].sort(sortNumber);
             }
             document.getElementById('reviews').textContent = '';
             sortedTimestampSuraArray = [];
@@ -908,16 +933,6 @@ function initCells() {
             addSuraCells();
             
             hideToast();
-        });
-
-
-        memRef.once('value', function (snapshot) {
-            memorization = snapshot.val();
-            if (memorization == null) {
-                memorization = {};
-            }
-            //console.log("memorization:" + memorization);
-            
         });
 
         // [START_EXCLUDE]
@@ -1152,7 +1167,7 @@ function getScore() {
     var todayStart = todayStartTimeStamp();
     for (i = 1; i <= 114; i++) {
         var suraScore = suraCharCount[i - 1];
-        var history = surasHistory[i];
+        var history = surasHistory[i].history;
         if (history==null) {
             history = [];
         }
