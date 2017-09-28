@@ -11,6 +11,8 @@ var surasHistory = {};
 var SuraNamesAr = [];
 var sortedTimestampSuraArray = [];
 var update_stamp = 0;
+var serverOffset = 0;
+
 /**
  * Used to record the most recent transaction timestamp so in the next fetch we get more recent transactions only.
  */
@@ -520,7 +522,7 @@ function refreshSura(suraIndex, refreshTimeStamp) {
 
     //update FDB
     var refreshRecord = {op: "refresh", sura: suraIndex, time: refreshTimeStamp};
-    var transactionTimeStamp = Math.floor(Date.now() * 1000);
+    var transactionTimeStamp = (Date.now() + serverOffset)* 1000;
     var newEntry = firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/Master/reviews/' + transactionTimeStamp);
     newEntry.set(refreshRecord);
     //to avoid pulling history again
@@ -873,7 +875,6 @@ function initCells() {
     var user = firebase.auth().currentUser;
     if (user) {
         // User is signed in.
-        // document.getElementById("auth-div").style.display = "none";
         var displayName = user.displayName;
         var email = user.email;
         var emailVerified = user.emailVerified;
@@ -885,27 +886,26 @@ function initCells() {
 
         var database = firebase.database();
         //TODO add query to fetch new records only
+        console.log("grapping transactions after ", lastTransactionTimeStamp);
         var reviewsRef = firebase.database().ref('users/' + myUserId + '/Master/reviews').orderByKey().startAt(lastTransactionTimeStamp);
-        //var memRef = firebase.database().ref('users/' + myUserId + '/Master/memorization');
+        
         showToast("Fetching history...");
         reviewsRef.once('value', function (snapshot) {
             //surasHistory = {};
             if (snapshot != null) {
                 snapshot.forEach(function (childSnapshot) {
                     var transactionTimeStamp = childSnapshot.key;
-                    if (transactionTimeStamp > lastTransactionTimeStamp) {
+                    if (lastTransactionTimeStamp == transactionTimeStamp) {
+                        return;
+                    }
+
+                    console.log("transactionTimeStamp ", transactionTimeStamp);
+                    if (Number(transactionTimeStamp) > Number(lastTransactionTimeStamp)) {
                         lastTransactionTimeStamp = transactionTimeStamp;
                     }
                     var transactionRecord = childSnapshot.val(); 
 
                     var suraIndex = transactionRecord.sura;
-
-                    if(suraIndex == null){
-                        //old FDB structure, convert it to new one
-                        suraIndex = childSnapshot.val();
-                        var refreshTS = childSnapshot.key + "000000";
-                        childSnapshot = {op: "refresh", time: refreshTS, sura: suraIndex};
-                    }
 
                     if(surasHistory[suraIndex] == null) {
                         surasHistory[suraIndex] = {};
@@ -926,6 +926,8 @@ function initCells() {
                 for (var suraIndex in surasHistory.keys) {
                     surasHistory[suraIndex].history.sort(sortNumber);
                 }
+
+                console.log("last transactions timestamp: ", lastTransactionTimeStamp);
             }
             document.getElementById('reviews').textContent = '';
             sortedTimestampSuraArray = [];
@@ -951,6 +953,13 @@ function onTimeStampUpdated(){
     initCells();
 }
 
+function skew() {
+    var offsetRef = firebase.database().ref(".info/serverTimeOffset");
+    offsetRef.on("value", function(snap) {
+      serverOffset = snap.val();
+      console.log("server offset: ", serverOffset);
+    });
+}
 
 /**
  * initApp handles setting up UI event listeners and registering Firebase auth listeners:
@@ -973,6 +982,7 @@ function initApp() {
 
         // [END_EXCLUDE]
         if (user) {
+            skew();
             document.getElementById("email").style.display = "none";
             document.getElementById("password").style.display = "none";
             document.getElementById("quickstart-sign-up").style.display = "none";
