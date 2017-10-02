@@ -1288,6 +1288,9 @@ function dailyScoreData() {
             console.log("continue date ", date);
             console.log("dayScore: ",dayScore);
         }
+        if(index == (sortedEntries.length - 1)) {
+            dailyScoreArray.push([ sortedEntries[index][0] , dayScore ]);
+        }
         prevDate = currentDate;
         prevMonth = currentMonth;
     }
