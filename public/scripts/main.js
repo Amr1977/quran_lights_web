@@ -1253,7 +1253,7 @@ function hideToast(){
 
 function dailyScoreData() {
     var allEntries = [];
-    var index = 0;
+
     for (cellIndex = 1; cellIndex <= 114; cellIndex++) {
         var history = surasHistory[cellIndex].history;
         for (entry = 0; entry < history.length; entry++) {
@@ -1263,13 +1263,40 @@ function dailyScoreData() {
 
     console.log("All entries: ", allEntries);
 
-    allEntries = sortByX(allEntries);
+    var sortedEntries = sortByX(allEntries);
+
+    var dailyScoreArray = [];
+    var dayScore = 0;
+    var dayIndex = 0;
+    var prevDate = (new Date(sortedEntries[0][0])).getDate();
+    var prevMonth= (new Date(sortedEntries[0][0])).getMonth();
+
+    for(index = 0; index < sortedEntries.length; index++){
+        var date = new Date(sortedEntries[index][0]);
+        var currentDate = date.getDate();
+        var currentMonth = date.getMonth();
+
+        if(Number(prevDate) != Number(currentDate) || Number(prevMonth) != Number(currentMonth)){
+            dailyScoreArray.push([ sortedEntries[index - 1][0] , dayScore ]);
+            console.log("score: ", sortedEntries[index][1]);
+            dayScore = sortedEntries[index][1];
+            console.log("dayScore: ",dayScore);
+            console.log("new date ", date, "current date/month", currentDate,"-", currentMonth, "prev date-month", prevDate, "-", prevMonth);
+        } else {
+            console.log("score: ", sortedEntries[index][1]);
+            dayScore += sortedEntries[index][1];
+            console.log("continue date ", date);
+            console.log("dayScore: ",dayScore);
+        }
+        prevDate = currentDate;
+        prevMonth = currentMonth;
+    }
+
+    console.log("dailyScoreArray: ", dailyScoreArray);
 
 
 
-
-
-    return allEntries;
+    return dailyScoreArray;
 
 }
 
@@ -1287,7 +1314,7 @@ function drawChart(data){
             zoomType: 'x'
         },
         title: {
-            text: 'Daily Score Over time'
+            text: 'Daily Score Chart'
         },
         subtitle: {
             text: document.ontouchstart === undefined ?
