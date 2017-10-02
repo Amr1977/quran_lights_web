@@ -511,24 +511,33 @@ function refreshSura(suraIndex, refreshTimeStamp) {
     //TODO update model
     //TODO check for empty history array
     //console.log("history before refresh: ", surasHistory[suraIndex]);
-    surasHistory[suraIndex].history.push(refreshTimeStamp);
-    //console.log("Refreshing sura: [", suraIndex, "] with time stamp: ", timeStamp);
-    //console.log("history after refresh: ", surasHistory[suraIndex]);
-    sortedTimestampSuraArray = [];
-    refreshCountSortedSuraArray = [];
-
-    //TODO update view
-    addSuraCells();
+    
 
     //update FDB
     var refreshRecord = {op: "refresh", sura: suraIndex, time: refreshTimeStamp};
     var transactionTimeStamp = (Date.now() + serverOffset)* 1000;
     var newEntry = firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/Master/reviews/' + transactionTimeStamp);
-    newEntry.set(refreshRecord);
-    //to avoid pulling history again
-    ownTimeStamps.push(transactionTimeStamp);
-    console.log("added transactionTimeStamp: ", transactionTimeStamp, " record: ", refreshRecord);
-    firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/Master/update_stamp').set(transactionTimeStamp);
+    newEntry.set(refreshRecord, function(error) {
+        if (error) {
+         alert("Data could not be saved, check your connection. " + error);
+        } else {
+          console.log("Data saved successfully. @", transactionTimeStamp, refreshRecord);
+          lastTransactionTimeStamp = transactionTimeStamp.toString();
+          surasHistory[suraIndex].history.push(refreshTimeStamp);
+          //console.log("Refreshing sura: [", suraIndex, "] with time stamp: ", timeStamp);
+          //console.log("history after refresh: ", surasHistory[suraIndex]);
+          sortedTimestampSuraArray = [];
+          refreshCountSortedSuraArray = [];
+          
+          addSuraCells();
+
+          //to avoid pulling history again
+          ownTimeStamps.push(transactionTimeStamp);
+          console.log("added transactionTimeStamp: ", transactionTimeStamp, " record: ", refreshRecord);
+          //trigger update on other devices
+          firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/Master/update_stamp').set(transactionTimeStamp);
+        }
+      });
 }
 
 function sortByKey(array, key) {
@@ -887,7 +896,7 @@ function initCells() {
         var database = firebase.database();
         //TODO add query to fetch new records only
         console.log("grapping transactions after ", lastTransactionTimeStamp);
-        var reviewsRef = firebase.database().ref('users/' + myUserId + '/Master/reviews').orderByKey().startAt(lastTransactionTimeStamp);
+        var reviewsRef = firebase.database().ref('users/' + myUserId + '/Master/reviews').orderByKey().startAt(lastTransactionTimeStamp.toString());
         
         showToast("Fetching history...");
         reviewsRef.once('value', function (snapshot) {
@@ -1154,11 +1163,11 @@ var suraCharCount = [
 
 function readableFormat(number) {
     if (number >= 1000000000) {
-        return (number / 1000000000).toFixed(2) + "G";
+        return (number / 1000000000).toFixed(3) + "G";
     } else if (number >= 1000000) {
-        return (number / 1000000).toFixed(2) + "M";
+        return (number / 1000000).toFixed(3) + "M";
     } else if (number >= 1000) {
-        return (number / 1000).toFixed(2) + "K";
+        return (number / 1000).toFixed(3) + "K";
     } else {
         return number;
     }
@@ -1187,6 +1196,7 @@ function getScore() {
         //timestamps are sorted so we will start from their top going backward until we exceed today's start
         while (lastEntryIndex >= 0 && history[lastEntryIndex] >= todayStart) {
             today += suraScore;
+            console.log("Today added sura: ", SuraNamesEn[i - 1])
             lastEntryIndex--;
         }
     }
