@@ -908,7 +908,7 @@ function initCells() {
                         return;
                     }
 
-                    console.log("transactionTimeStamp ", transactionTimeStamp);
+                    //console.log("transactionTimeStamp ", transactionTimeStamp);
                     if (Number(transactionTimeStamp) > Number(lastTransactionTimeStamp)) {
                         lastTransactionTimeStamp = transactionTimeStamp;
                     }
@@ -944,6 +944,7 @@ function initCells() {
             //console.log("surasHistory:" + surasHistory);
             addSuraCells();
             
+            drawChart(dailyScoreData());
             hideToast();
         });
 
@@ -1248,4 +1249,92 @@ function showToast(message) {
 function hideToast(){
     var x = document.getElementById("snackbar");
     x.className = x.className.replace("show", "");
+}
+
+function dailyScoreData() {
+    var allEntries = [];
+    var index = 0;
+    for (cellIndex = 1; cellIndex <= 114; cellIndex++) {
+        var history = surasHistory[cellIndex].history;
+        for (entry = 0; entry < history.length; entry++) {
+            allEntries.push([ history[entry] * 1000, suraCharCount[cellIndex - 1] ]);
+        }
+    }
+
+    console.log("All entries: ", allEntries);
+
+    allEntries = sortByX(allEntries);
+
+
+
+
+
+    return allEntries;
+
+}
+
+function sortByX(array){
+    return array.sort(function (a, b) {
+        var x = a[0];
+        var y = b[0];
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    });
+}
+
+function drawChart(data){
+    Highcharts.chart('container', {
+        chart: {
+            zoomType: 'x'
+        },
+        title: {
+            text: 'Daily Score Over time'
+        },
+        subtitle: {
+            text: document.ontouchstart === undefined ?
+                    'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+        },
+        xAxis: {
+            type: 'datetime'
+        },
+        yAxis: {
+            title: {
+                text: 'Daily Score'
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            area: {
+                fillColor: {
+                    linearGradient: {
+                        x1: 0,
+                        y1: 0,
+                        x2: 0,
+                        y2: 1
+                    },
+                    stops: [
+                        [0, Highcharts.getOptions().colors[0]],
+                        [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                    ]
+                },
+                marker: {
+                    radius: 2
+                },
+                lineWidth: 1,
+                states: {
+                    hover: {
+                        lineWidth: 1
+                    }
+                },
+                threshold: null
+            }
+        },
+
+        series: [{
+            type: 'area',
+            name: 'Date score',
+            data: data
+        }]
+    });
 }
