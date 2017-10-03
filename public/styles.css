@@ -1,3 +1,6 @@
+h1 {
+    font-family: 'Oleo Script', cursive;
+}
 .wrapper {
     display: grid;
     grid-template-columns: repeat(11, 1fr);

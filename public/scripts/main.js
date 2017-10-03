@@ -533,7 +533,7 @@ function refreshSura(suraIndex, refreshTimeStamp) {
 
           //to avoid pulling history again
           ownTimeStamps.push(transactionTimeStamp);
-          console.log("added transactionTimeStamp: ", transactionTimeStamp, " record: ", refreshRecord);
+          //console.log("added transactionTimeStamp: ", transactionTimeStamp, " record: ", refreshRecord);
           //trigger update on other devices
           firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/Master/update_stamp').set(transactionTimeStamp);
         }
@@ -896,7 +896,7 @@ function initCells() {
 
         var database = firebase.database();
         //TODO add query to fetch new records only
-        console.log("grapping transactions after ", lastTransactionTimeStamp);
+        //console.log("grapping transactions after ", lastTransactionTimeStamp);
         var reviewsRef = firebase.database().ref('users/' + myUserId + '/Master/reviews').orderByKey().startAt(lastTransactionTimeStamp.toString());
         
         showToast("Fetching history...");
@@ -937,7 +937,7 @@ function initCells() {
                     surasHistory[suraIndex].history.sort(sortNumber);
                 }
 
-                console.log("last transactions timestamp: ", lastTransactionTimeStamp);
+                //console.log("last transactions timestamp: ", lastTransactionTimeStamp);
             }
             document.getElementById('reviews').textContent = '';
             sortedTimestampSuraArray = [];
@@ -968,7 +968,7 @@ function skew() {
     var offsetRef = firebase.database().ref(".info/serverTimeOffset");
     offsetRef.on("value", function(snap) {
       serverOffset = snap.val();
-      console.log("server offset: ", serverOffset);
+      //console.log("server offset: ", serverOffset);
     });
 }
 
@@ -1013,7 +1013,7 @@ function initApp() {
                 //stabilize successive triggers
                 if (timeStampTriggerTimerRef != null) {
                     clearTimeout(timeStampTriggerTimerRef);
-                    console.log("Dropped repeated timestamp trigger :)");
+                    console.log("Dropped repeated timestamp trigger.. ");
                 }
                 timeStampTriggerTimerRef = setTimeout(onTimeStampUpdated, isFirstLoad == 1 ? 0 : 5000);
                 isFirstLoad = 0;
@@ -1263,7 +1263,7 @@ function dailyScoreData() {
         }
     }
 
-    console.log("All entries: ", allEntries);
+   // console.log("All entries: ", allEntries);
 
     var sortedEntries = sortByX(allEntries);
 
@@ -1280,15 +1280,15 @@ function dailyScoreData() {
 
         if(Number(prevDate) != Number(currentDate) || Number(prevMonth) != Number(currentMonth)){
             dailyScoreArray.push([ sortedEntries[index - 1][0] , dayScore ]);
-            console.log("score: ", sortedEntries[index][1]);
+            //console.log("score: ", sortedEntries[index][1]);
             dayScore = sortedEntries[index][1];
-            console.log("dayScore: ",dayScore);
-            console.log("new date ", date, "current date/month", currentDate,"-", currentMonth, "prev date-month", prevDate, "-", prevMonth);
+            //console.log("dayScore: ",dayScore);
+            //console.log("new date ", date, "current date/month", currentDate,"-", currentMonth, "prev date-month", prevDate, "-", prevMonth);
         } else {
-            console.log("score: ", sortedEntries[index][1]);
+            //console.log("score: ", sortedEntries[index][1]);
             dayScore += sortedEntries[index][1];
-            console.log("continue date ", date);
-            console.log("dayScore: ",dayScore);
+            //console.log("continue date ", date);
+            //console.log("dayScore: ",dayScore);
         }
         if(index == (sortedEntries.length - 1)) {
             dailyScoreArray.push([ sortedEntries[index][0] , dayScore ]);
@@ -1297,9 +1297,7 @@ function dailyScoreData() {
         prevMonth = currentMonth;
     }
 
-    console.log("dailyScoreArray: ", dailyScoreArray);
-
-
+    //console.log("dailyScoreArray: ", dailyScoreArray);
 
     return dailyScoreArray;
 
