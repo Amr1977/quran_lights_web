@@ -1,6 +1,7 @@
 h1 {
-    font-family: 'Oleo Script', cursive;
+    color: rgba(0,255,0,1);
 }
+
 .wrapper {
     display: grid;
     grid-template-columns: repeat(11, 1fr);
