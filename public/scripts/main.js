@@ -751,6 +751,7 @@ function addSuraCells() {
     }
 
     document.getElementById("score").textContent = getScore();
+    drawChart(dailyScoreData());
 }
 
 firebase.initializeApp(config);
@@ -944,7 +945,7 @@ function initCells() {
             //console.log("surasHistory:" + surasHistory);
             addSuraCells();
             
-            drawChart(dailyScoreData());
+            
             hideToast();
         });
 
@@ -1252,6 +1253,7 @@ function hideToast(){
 }
 
 function dailyScoreData() {
+    //TODO add zeros for missing days
     var allEntries = [];
 
     for (cellIndex = 1; cellIndex <= 114; cellIndex++) {
