@@ -751,7 +751,8 @@ function addSuraCells() {
     }
 
     document.getElementById("score").textContent = getScore();
-    drawChart(dailyScoreData());
+    drawTimeSeriesChart("daily-score-chart", 0);
+    drawTimeSeriesChart("monthly-score-chart", 1);
 }
 
 firebase.initializeApp(config);
@@ -1252,7 +1253,11 @@ function hideToast(){
     x.className = x.className.replace("show", "");
 }
 
-function dailyScoreData() {
+/**
+ * 
+ * @param {*} mode 0 daily, 1 monthly
+ */
+function scoreData(mode) {
     //TODO add zeros for missing days
     var allEntries = [];
 
@@ -1267,8 +1272,8 @@ function dailyScoreData() {
 
     var sortedEntries = sortByX(allEntries);
 
-    var dailyScoreArray = [];
-    var dayScore = 0;
+    var scoreArray = [];
+    var periodScore = 0;
     var dayIndex = 0;
     var prevDate = (new Date(sortedEntries[0][0])).getDate();
     var prevMonth= (new Date(sortedEntries[0][0])).getMonth();
@@ -1278,20 +1283,20 @@ function dailyScoreData() {
         var currentDate = date.getDate();
         var currentMonth = date.getMonth();
 
-        if(Number(prevDate) != Number(currentDate) || Number(prevMonth) != Number(currentMonth)){
-            dailyScoreArray.push([ sortedEntries[index - 1][0] , dayScore ]);
+        if((mode == 0 && Number(prevDate) != Number(currentDate)) || Number(prevMonth) != Number(currentMonth)){
+            scoreArray.push([ sortedEntries[index - 1][0] , periodScore ]);
             //console.log("score: ", sortedEntries[index][1]);
-            dayScore = sortedEntries[index][1];
+            periodScore = sortedEntries[index][1];
             //console.log("dayScore: ",dayScore);
             //console.log("new date ", date, "current date/month", currentDate,"-", currentMonth, "prev date-month", prevDate, "-", prevMonth);
         } else {
             //console.log("score: ", sortedEntries[index][1]);
-            dayScore += sortedEntries[index][1];
+            periodScore += sortedEntries[index][1];
             //console.log("continue date ", date);
             //console.log("dayScore: ",dayScore);
         }
         if(index == (sortedEntries.length - 1)) {
-            dailyScoreArray.push([ sortedEntries[index][0] , dayScore ]);
+            scoreArray.push([ sortedEntries[index][0] , periodScore ]);
         }
         prevDate = currentDate;
         prevMonth = currentMonth;
@@ -1299,7 +1304,7 @@ function dailyScoreData() {
 
     //console.log("dailyScoreArray: ", dailyScoreArray);
 
-    return dailyScoreArray;
+    return scoreArray;
 
 }
 
@@ -1311,13 +1316,14 @@ function sortByX(array){
     });
 }
 
-function drawChart(data){
-    Highcharts.chart('container', {
+function drawTimeSeriesChart(divID, mode){
+    var data = scoreData(mode);
+    Highcharts.chart(divID, {
         chart: {
             zoomType: 'x'
         },
         title: {
-            text: 'Daily Score Chart'
+            text: mode == 0 ? 'Daily Score Chart' : 'Monthly Score Chart'
         },
         subtitle: {
             text: document.ontouchstart === undefined ?
@@ -1328,7 +1334,7 @@ function drawChart(data){
         },
         yAxis: {
             title: {
-                text: 'Daily Score'
+                text: mode == 0 ? 'Daily Score' : "Monthly Score"
             }
         },
         legend: {
