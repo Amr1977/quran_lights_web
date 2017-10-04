@@ -3,9 +3,22 @@
 <html>
 
 <head>
-        <link rel="stylesheet" type="text/css" href="font-awesome.css" />
+    <!-- Global Site Tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107477273-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
 
-        <title>Quran Lights</title>
+        function gtag() {
+            dataLayer.push(arguments)
+        };
+        gtag('js', new Date());
+
+        gtag('config', 'UA-107477273-1');
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="font-awesome.css" />
+
+    <title>Quran Lights</title>
     <link rel="stylesheet" href="styles.css">
 
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
@@ -36,7 +49,7 @@
         </h3>
         <div align="center">
             <div align="center" style="background-color: rgba(255,255,255,0.4); width: 280px">
-                
+
                 <a style="margin: 10px;" target="_blank" href="https://github.com/Amr1977/quran_lights_web">
                     <svg aria-hidden="true" class="octicon octicon-mark-github" height="32" version="1.1" viewBox="0 0 16 16" width="32">
                         <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
@@ -47,10 +60,13 @@
             </div>
         </div>
         <h4 align="center">How it works: After you read any chapter of Quran remember to click its cell here, the cell will take its maximum
-            light, you have 10 days before light of this cell is gone unless you refresh it again, day after day you will have a heat-map where old refreshed chapters are getting darker with time, this enables you to maintain Quran chapters and keep them fresh in your memory, also you have a daily score and total score, score of any chapter equals number of characters in this chapter.</h4>
+            light, you have 10 days before light of this cell is gone unless you refresh it again, day after day you will
+            have a heat-map where old refreshed chapters are getting darker with time, this enables you to maintain Quran
+            chapters and keep them fresh in your memory, also you have a daily score and total score, score of any chapter
+            equals number of characters in this chapter.</h4>
     </div>
     <main>
-        
+
         <!--class="mdl-layout__content mdl-color--grey-100"-->
         <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-grid">
 
@@ -84,14 +100,14 @@
                         <label style="padding: 20px;font-weight: 800;font-size: 14;"><input type="radio" name="sort_type" onclick="sortRefresh()">Refresh Count</label>
                     </div>
 
-                        <div id="daily-score-container" style="margin: 10px; font-weight: 800; color: green;" align="right">
-                            <span>
+                    <div id="daily-score-container" style="margin: 10px; font-weight: 800; color: green;" align="right">
+                        <span>
                                 Score: 
                             </span>
-                            <span id="score">
+                        <span id="score">
                              --
                             </span>
-                        </div>
+                    </div>
                     <div id="reviews" class="wrapper" style="margin: 10px;">
                         Sign in to fetch your history.
                     </div>
@@ -103,7 +119,7 @@
     </div>
     <div id="container" style="min-width: 310px; height: 400px; margin: 20px"></div>
     <div id="snackbar"></div>
-    
+
 </body>
 
 </html>
