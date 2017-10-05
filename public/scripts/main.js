@@ -753,6 +753,7 @@ function addSuraCells() {
     document.getElementById("score").textContent = getScore();
     drawTimeSeriesChart("daily-score-chart", 0);
     drawTimeSeriesChart("monthly-score-chart", 1);
+    drawKhatmaPieChart();
 }
 
 firebase.initializeApp(config);
@@ -1373,4 +1374,109 @@ function drawTimeSeriesChart(divID, mode){
             data: data
         }]
     });
+}
+
+function drawKhatmaPieChart(){
+
+    var data = getKhatmaProgressData();
+    Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function (color) {
+        return {
+            radialGradient: {
+                cx: 0.5,
+                cy: 0.3,
+                r: 0.7
+            },
+            stops: [
+                [0, color],
+                [1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
+            ]
+        };
+    });
+    
+    // Build the chart
+    Highcharts.chart('khatma-progress-chart', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Khatma Progress'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'green'
+                    },
+                    connectorColor: 'silver'
+                }
+            }
+        },
+        series: [{
+            name: 'Khatma Progress',
+            data: data
+            // [
+            //     { name: 'Microsoft Internet Explorer', y: 56.33 },
+            //     {
+            //         name: 'Chrome',
+            //         y: 24.03,
+            //         sliced: true,
+            //         selected: true
+            //     },
+            //     { name: 'Firefox', y: 10.38 },
+            //     { name: 'Safari', y: 4.77 }, { name: 'Opera', y: 0.91 },
+            //     { name: 'Proprietary or Undetectable', y: 0.2 }
+            // ]
+        }]
+    });
+}
+
+/**
+ * The minimum history length is current khatma number - 1, suras with that mimimum history length are in the completed set, other suras are not completed yet.
+ */
+function getKhatmaProgressData(){
+    var indexesOfSurasWithMinimumHistoryLength = [];
+    
+    //current minimum history length reached
+    var minimumHistoryLength = surasHistory[1].history.length;
+
+    //comulated char count of minimum history length suras
+    var comulatedScoreOfCurrentMinimumHistoryLengthSuras = 0;
+
+    //total score of all suras
+    var totalAmount = 322604;
+
+    for(suraIndex = 1; suraIndex <= 114; suraIndex++){
+        //check if current sura history length is less than current reached minimum
+        if (surasHistory[suraIndex].history.length < minimumHistoryLength) {
+            //reset mimimum
+            console.log("reseting minimum");
+            minimumHistoryLength = surasHistory[suraIndex].history.length; 
+            indexesOfSurasWithMinimumHistoryLength = [ suraIndex ];
+            comulatedScoreOfCurrentMinimumHistoryLengthSuras = suraCharCount[suraIndex - 1];
+            console.log("indexesOfSurasWithMinimumHistoryLength: ", indexesOfSurasWithMinimumHistoryLength, "comulatedScoreOfCurrentMinimumHistoryLengthSuras", comulatedScoreOfCurrentMinimumHistoryLengthSuras);
+        } 
+        //check if current sura history equals current reached mimimum
+        else if (surasHistory[suraIndex].history.length == minimumHistoryLength) {
+            indexesOfSurasWithMinimumHistoryLength.push(suraIndex);
+            comulatedScoreOfCurrentMinimumHistoryLengthSuras += suraCharCount[suraIndex - 1];
+            console.log("indexesOfSurasWithMinimumHistoryLength: ", indexesOfSurasWithMinimumHistoryLength, "comulatedScoreOfCurrentMinimumHistoryLengthSuras", comulatedScoreOfCurrentMinimumHistoryLengthSuras);
+        } else {
+            console.log("sura[",suraIndex, "] with history length [",surasHistory[suraIndex].history.length, "] not belonging to mimimums, current history minimum: ", minimumHistoryLength, " indexesOfSurasWithMinimumHistoryLength: ", indexesOfSurasWithMinimumHistoryLength);
+        }
+
+    }
+
+    console.log("completed: ", indexesOfSurasWithMinimumHistoryLength, comulatedScoreOfCurrentMinimumHistoryLengthSuras);
+
+    return [ {name: "Remaining", y: comulatedScoreOfCurrentMinimumHistoryLengthSuras} , {name: "Completed", y: (totalAmount - comulatedScoreOfCurrentMinimumHistoryLengthSuras)}];
 }
