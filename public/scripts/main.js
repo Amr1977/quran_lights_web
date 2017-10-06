@@ -523,14 +523,14 @@ function refreshSura(suraIndex, refreshTimeStamp) {
         } else {
           console.log("Data saved successfully. @", transactionTimeStamp, refreshRecord);
           lastTransactionTimeStamp = transactionTimeStamp.toString();
+          console.log("surasHistory[suraIndex].history before refresh: ", surasHistory[suraIndex].history);
           surasHistory[suraIndex].history.push(refreshTimeStamp);
+          console.log("surasHistory[suraIndex].history after refresh: ", surasHistory[suraIndex].history);
           //console.log("Refreshing sura: [", suraIndex, "] with time stamp: ", timeStamp);
           //console.log("history after refresh: ", surasHistory[suraIndex]);
           sortedTimestampSuraArray = [];
           refreshCountSortedSuraArray = [];
-          
           addSuraCells();
-
           //to avoid pulling history again
           ownTimeStamps.push(transactionTimeStamp);
           //console.log("added transactionTimeStamp: ", transactionTimeStamp, " record: ", refreshRecord);
@@ -538,6 +538,7 @@ function refreshSura(suraIndex, refreshTimeStamp) {
           firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/Master/update_stamp').set(transactionTimeStamp);
         }
       });
+      
 }
 
 function sortByKey(array, key) {
@@ -1319,6 +1320,7 @@ function sortByX(array){
 
 function drawTimeSeriesChart(divID, mode){
     var data = scoreData(mode);
+    console.log("drawTimeSeriesChart", divID, mode, data);
     Highcharts.chart(divID, {
         chart: {
             zoomType: 'x'
@@ -1381,19 +1383,6 @@ function drawKhatmaPieChart(){
     var data = khatmaProgress.data;
 
     console.log("khatmaProgress", khatmaProgress);
-    Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function (color) {
-        return {
-            radialGradient: {
-                cx: 0.5,
-                cy: 0.3,
-                r: 0.7
-            },
-            stops: [
-                [0, color],
-                [1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
-            ]
-        };
-    });
     
     // Build the chart
     Highcharts.chart('khatma-progress-chart', {
