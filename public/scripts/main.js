@@ -779,6 +779,9 @@ function toggleSignIn() {
         }, this);
         document.getElementById('email').value='';
         document.getElementById('password').value='';
+        document.getElementById('daily-score-chart').innerHTML='';
+        document.getElementById('monthly-score-chart').innerHTML='';
+        document.getElementById('password').innerHTML='';
         surasHistory = {};
         hideToast();
         // [END signout]
@@ -887,6 +890,7 @@ function sendPasswordReset() {
 function initCells() {
     var user = firebase.auth().currentUser;
     if (user) {
+        document.getElementById('quickstart-sign-in').textContent = 'Sign out';
         // User is signed in.
         var displayName = user.displayName;
         var email = user.email;
@@ -904,6 +908,7 @@ function initCells() {
         
         showToast("Fetching history...");
         reviewsRef.once('value', function (snapshot) {
+            hideToast();
             //surasHistory = {};
             if (snapshot != null) {
                 snapshot.forEach(function (childSnapshot) {
@@ -949,11 +954,11 @@ function initCells() {
             addSuraCells();
             
             
-            hideToast();
+            
         });
 
         // [START_EXCLUDE]
-        document.getElementById('quickstart-sign-in').textContent = 'Sign out';
+        
         // [END_EXCLUDE]
     }
 }
