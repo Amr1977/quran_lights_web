@@ -781,7 +781,7 @@ function toggleSignIn() {
         document.getElementById('password').value='';
         document.getElementById('daily-score-chart').innerHTML='';
         document.getElementById('monthly-score-chart').innerHTML='';
-        document.getElementById('password').innerHTML='';
+        document.getElementById('khatma-progress-chart').innerHTML='';
         surasHistory = {};
         hideToast();
         // [END signout]
