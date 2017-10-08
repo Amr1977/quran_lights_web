@@ -937,7 +937,12 @@ function initCells() {
                         break;
     
                         case "refresh":
-                        surasHistory[suraIndex].history.push(transactionRecord.time);
+                        if(surasHistory[suraIndex].history.indexOf(transactionRecord.time) == -1){
+                            surasHistory[suraIndex].history.push(transactionRecord.time);
+                        } else {
+                            console.log("duplicate refresh eliminated ", transactionRecord);
+                        }
+                        
                     }
                 });
     
