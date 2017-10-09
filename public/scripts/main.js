@@ -1403,7 +1403,7 @@ function drawKhatmaPieChart(){
             type: 'pie'
         },
         title: {
-            text: 'Khatma Progress'
+            text: "Khatma #" + khatmaProgress.currentKhatma + ' Progress'
         },
         tooltip: {
             pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -1423,7 +1423,7 @@ function drawKhatmaPieChart(){
             }
         },
         series: [{
-            name: 'Khatma Progress',
+            name: "Khatma Progress",
             data: data
         }],
 
