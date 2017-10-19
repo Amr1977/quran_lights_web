@@ -689,7 +689,7 @@ function addSuraCells() {
     }
 
     var currentTimeStamp = Math.floor(Date.now() / 1000);
-    var refreshPeriod = 10 * 24 * 60 * 60;
+    var refreshPeriod = 7 * 24 * 60 * 60;
 
     for (cellIndex = 1; cellIndex <= 114; cellIndex++) {
         var suraIndex = sortedSuraIndexConverter(cellIndex);
@@ -1192,7 +1192,7 @@ function todayStartTimeStamp() {
     var now = new Date();
     var startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     var timestamp = startOfDay / 1000;
-
+    console.log("todayStartTimeStamp", timestamp);
     return timestamp;
 }
 
@@ -1211,7 +1211,7 @@ function getScore() {
         //timestamps are sorted so we will start from their top going backward until we exceed today's start
         while (lastEntryIndex >= 0 && history[lastEntryIndex] >= todayStart) {
             today += suraScore;
-            console.log("Today added sura: ", SuraNamesEn[i - 1])
+            console.log("Today added sura: ", SuraNamesEn[i - 1], history[lastEntryIndex]);
             lastEntryIndex--;
         }
     }
@@ -1290,7 +1290,7 @@ function scoreData(mode) {
     var prevDate = (new Date(sortedEntries[0][0])).getDate();
     var prevMonth= (new Date(sortedEntries[0][0])).getMonth();
 
-    for(index = 0; index < sortedEntries.length; index++){
+    for(var index = 0; index < sortedEntries.length; index++){
         var date = new Date(sortedEntries[index][0]);
         var currentDate = date.getDate();
         var currentMonth = date.getMonth();
@@ -1451,7 +1451,7 @@ function getKhatmaProgressData(){
 
     var khatmaProgress = {};
 
-    for(suraIndex = 1; suraIndex <= 114; suraIndex++){
+    for(var suraIndex = 1; suraIndex <= 114; suraIndex++){
         //check if current sura history length is less than current reached minimum
         if (surasHistory[suraIndex].history.length < minimumHistoryLength) {
             //reset mimimum
@@ -1484,7 +1484,7 @@ function getKhatmaProgressData(){
 
     var remainingDrillDownArray = [];
     var completedDrilldownArray = [];
-    for(index = 1; index <= 114; index++){
+    for(var index = 1; index <= 114; index++){
         var entry = [SuraNamesEn[index - 1], suraCharCount[index - 1]];
         if (indexesOfSurasWithMinimumHistoryLength.indexOf(index) != -1) {
             remainingDrillDownArray.push(entry);
@@ -1513,4 +1513,4 @@ function getKhatmaProgressData(){
     ];
     
     return khatmaProgress;
-}
+} 
