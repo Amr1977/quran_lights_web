@@ -1,3 +1,6 @@
+//total score of all suras
+var fullKhatmaCharCount = 322604;
+
 // Initialize Firebase
 var config = {
     apiKey: "AIzaSyAn1GqNGEI3cB8pa5jBgaKxVdnf7xckw2c",
@@ -12,6 +15,12 @@ var SuraNamesAr = [];
 var sortedTimestampSuraArray = [];
 var update_stamp = 0;
 var serverOffset = 0;
+var lightRatio = 0;
+
+var colorHash = {};
+
+//Settings
+var refreshPeriodDays = 7;
 
 /**
  * Used to record the most recent transaction timestamp so in the next fetch we get more recent transactions only.
@@ -689,9 +698,9 @@ function addSuraCells() {
     }
 
     var currentTimeStamp = Math.floor(Date.now() / 1000);
-    var refreshPeriod = 7 * 24 * 60 * 60;
-
-    for (cellIndex = 1; cellIndex <= 114; cellIndex++) {
+    var refreshPeriod = refreshPeriodDays * 24 * 60 * 60;
+    lightRatio = 0;
+    for (var cellIndex = 1; cellIndex <= 114; cellIndex++) {
         var suraIndex = sortedSuraIndexConverter(cellIndex);
         var element = document.createElement("button");
 
@@ -707,7 +716,11 @@ function addSuraCells() {
         //TODO if not refreshed before make it zero instead of (currentTimeStamp - refreshPeriod) and condition timeDifferenceRatio value to be zero too
         var maxStamp = timeStampsArray.length > 0 ? timeStampsArray[timeStampsArray.length - 1] : 0;
         var timeDifferenceRatio = 1 - (currentTimeStamp - (maxStamp == 0 ? (currentTimeStamp - refreshPeriod): maxStamp) ) * 1.0 / refreshPeriod;
-        element.style.backgroundColor = "rgb(0," + (255.0 * timeDifferenceRatio).toFixed(0) + ",0)";
+        timeDifferenceRatio = timeDifferenceRatio < 0 ? 0 : timeDifferenceRatio;
+        lightRatio += (((timeDifferenceRatio * suraCharCount[suraIndex - 1])/fullKhatmaCharCount) * 100.0);
+        var greenComponent = (255.0 * timeDifferenceRatio).toFixed(0);
+        element.style.backgroundColor = "rgb(0," + greenComponent + ",0)";
+        colorHash[cellIndex] = rgbToHex(0, greenComponent, 0);
         var daysElapsed = ((currentTimeStamp - maxStamp) / (60 * 60 * 24.0)).toFixed(0);
         if (daysElapsed >= 30) {
             element.style.border = "thick solid rgb(255,0,0)";
@@ -751,7 +764,8 @@ function addSuraCells() {
         document.getElementById('reviews').appendChild(element);
     }
 
-    document.getElementById("score").textContent = getScore();
+    updateLightRatioChart();
+    document.getElementById("score").textContent = getScore() + " Light Ratio: " + lightRatio.toFixed(2);
     drawTimeSeriesChart("daily-score-chart", 0);
     drawTimeSeriesChart("monthly-score-chart", 1);
     drawKhatmaPieChart();
@@ -782,6 +796,8 @@ function toggleSignIn() {
         document.getElementById('daily-score-chart').innerHTML='';
         document.getElementById('monthly-score-chart').innerHTML='';
         document.getElementById('khatma-progress-chart').innerHTML='';
+        document.getElementById('guages').innerHTML='';
+        document.getElementById('sort_div').innerHTML='';
         surasHistory = {};
         hideToast();
         // [END signout]
@@ -1446,9 +1462,6 @@ function getKhatmaProgressData(){
     //comulated char count of minimum history length suras
     var comulatedScoreOfCurrentMinimumHistoryLengthSuras = 0;
 
-    //total score of all suras
-    var totalAmount = 322604;
-
     var khatmaProgress = {};
 
     for(var suraIndex = 1; suraIndex <= 114; suraIndex++){
@@ -1476,7 +1489,7 @@ function getKhatmaProgressData(){
 
     khatmaProgress.data = [ 
         {name: "Remaining", y: comulatedScoreOfCurrentMinimumHistoryLengthSuras, sliced: true, selected: true, drilldown: "Remaining"} , 
-        {name: "Completed", y: (totalAmount - comulatedScoreOfCurrentMinimumHistoryLengthSuras), drilldown: "Completed" }
+        {name: "Completed", y: (fullKhatmaCharCount - comulatedScoreOfCurrentMinimumHistoryLengthSuras), drilldown: "Completed" }
     ];
 
     //extract current khatma number
@@ -1485,7 +1498,11 @@ function getKhatmaProgressData(){
     var remainingDrillDownArray = [];
     var completedDrilldownArray = [];
     for(var index = 1; index <= 114; index++){
-        var entry = [SuraNamesEn[index - 1], suraCharCount[index - 1]];
+        var entry = {
+            name: SuraNamesEn[index - 1], 
+            y: suraCharCount[index - 1]//,
+            //color: colorHash[index]
+        };
         if (indexesOfSurasWithMinimumHistoryLength.indexOf(index) != -1) {
             remainingDrillDownArray.push(entry);
         } else {
@@ -1493,8 +1510,8 @@ function getKhatmaProgressData(){
         }
     }
 
-    remainingDrillDownArray = sortByKey(remainingDrillDownArray, "1");
-    completedDrilldownArray = sortByKey(completedDrilldownArray, "1");
+    remainingDrillDownArray = sortByKey(remainingDrillDownArray, "y");
+    completedDrilldownArray = sortByKey(completedDrilldownArray, "y");
 
 
     console.log("remainingDrillDownArray",remainingDrillDownArray);
@@ -1514,3 +1531,102 @@ function getKhatmaProgressData(){
     
     return khatmaProgress;
 } 
+
+function componentToHex(c) {
+    var hex = parseInt(c).toString(16);
+    var hexStr = hex.length == 1 ? "0" + hex : hex;
+
+    return hexStr;
+}
+
+function rgbToHex(r, g, b) {
+    return "#" + "00" + componentToHex(g) + "00";
+}
+
+var gaugeOptions = {
+    
+        chart: {
+            type: 'solidgauge'
+        },
+    
+        title: null,
+    
+        pane: {
+            center: ['50%', '85%'],
+            size: '140%',
+            startAngle: -90,
+            endAngle: 90,
+            background: {
+                backgroundColor: '#EEE',
+                innerRadius: '60%',
+                outerRadius: '100%',
+                shape: 'arc'
+            }
+        },
+    
+        tooltip: {
+            enabled: false
+        },
+    
+        // the value axis
+        yAxis: {
+            stops: [
+                [0.1, '#55BF3B'], // green
+                [0.5, '#DDDF0D'], // yellow
+                [0.9, '#DF5353'] // red
+            ],
+            lineWidth: 0,
+            minorTickInterval: null,
+            tickAmount: 2,
+            title: {
+                y: -70
+            },
+            labels: {
+                y: 16
+            }
+        },
+    
+        plotOptions: {
+            solidgauge: {
+                dataLabels: {
+                    y: 5,
+                    borderWidth: 0,
+                    useHTML: true
+                }
+            }
+        }
+    };
+
+    // The Light Ratio gauge
+var chartLightRatio;
+
+function updateLightRatioChart(){
+    chartLightRatio = null;
+    chartLightRatio = new Highcharts.chart('light-ratio-chart-container', Highcharts.merge(gaugeOptions, {
+        yAxis: {
+            min: 0,
+            max: 100,
+            title: {
+                text: 'Light Ratio'
+            }
+        },
+    
+        credits: {
+            enabled: false
+        },
+    
+        series: [{
+            name: 'Light Ratio',
+            data: [(lightRatio)],
+            dataLabels: {
+                format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+                    ( 'black') + '">{y:.2f}</span><br/>' +
+                       '<span style="font-size:12px;color:silver">percent</span></div>'
+            },
+            tooltip: {
+                valueSuffix: ' percent'
+            }
+        }]
+    
+    }));
+}
