@@ -1571,9 +1571,9 @@ var gaugeOptions = {
         // the value axis
         yAxis: {
             stops: [
-                [0.1, '#55BF3B'], // green
+                [0.1, '#DF5353'], // red
                 [0.5, '#DDDF0D'], // yellow
-                [0.9, '#DF5353'] // red
+                [0.9, '#55BF3B'] // green
             ],
             lineWidth: 0,
             minorTickInterval: null,
