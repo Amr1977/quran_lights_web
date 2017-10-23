@@ -808,7 +808,7 @@ function toggleSignIn() {
         document.getElementById('daily-score-chart').innerHTML='';
         document.getElementById('monthly-score-chart').innerHTML='';
         document.getElementById('khatma-progress-chart').innerHTML='';
-        //document.getElementById('guages').innerHTML='';
+        document.getElementById('light-ratio-chart-container').innerHTML='';
         document.getElementById('sort_div').innerHTML='';
         surasHistory = {};
         hideToast();
