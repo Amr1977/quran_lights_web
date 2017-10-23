@@ -747,12 +747,24 @@ function addSuraCells() {
         suraNameElement.textContent = suraName;
 
         element.appendChild(suraNameElement);
-        //element.appendChild(document.createElement("br"));
+        
+        var charCountText = readableFormat(suraCharCount[suraIndex - 1]);
+
+        //Char count
+        var charCountElement = document.createElement("span");
+        charCountElement.id = "char-count";
+        charCountElement.style.float = "left";
+        charCountElement.textContent = charCountText;
+        element.appendChild(charCountElement);
+
+        //Days elapsed
         if (daysElapsed != 0) {
-            var daysElapsedElement = document.createTextNode(daysElapsedText);
+            var daysElapsedElement = document.createElement("span");//document.createTextNode(daysElapsedText);
+            daysElapsedElement.style.float = "right";
+            daysElapsedElement.textContent = daysElapsedText;
             daysElapsedElement.id = "days";
             element.appendChild(daysElapsedElement);
-        }
+        }        
         //element.appendChild(memoDiv);
 
 
@@ -1194,11 +1206,11 @@ var suraCharCount = [
 
 function readableFormat(number) {
     if (number >= 1000000000) {
-        return (number / 1000000000).toFixed(3) + "G";
+        return (number / 1000000000).toFixed(2) + "G";
     } else if (number >= 1000000) {
-        return (number / 1000000).toFixed(3) + "M";
+        return (number / 1000000).toFixed(2) + "M";
     } else if (number >= 1000) {
-        return (number / 1000).toFixed(3) + "K";
+        return (number / 1000).toFixed(2) + "K";
     } else {
         return number;
     }
