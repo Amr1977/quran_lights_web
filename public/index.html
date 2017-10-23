@@ -16,7 +16,7 @@
         gtag('config', 'UA-107477273-1');
     </script>
 
-    <link rel="stylesheet" type="text/css" href="font-awesome.css" />
+<link rel="stylesheet" type="text/css" href="font-awesome.css" />
 
     <title>Quran Lights</title>
     <link rel="stylesheet" href="styles.css">
@@ -94,6 +94,10 @@
                     </span>
                     <!--button style="margin: 10px;" class="mdl-button mdl-js-button mdl-button--raised" disabled id="quickstart-verify-email" name="verify-email">Send Email Verification</button-->
                     <!--button style="margin: 10px;" class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-password-reset" name="verify-email">Send Password Reset Email</button-->
+                    <div id = "guages" style="width: 100%; height: 100%; margin: 0 auto">
+                        <div id="light-ratio-chart-container" style="width: 100%; height: 100%; float: center"></div>
+                        <!-- <div id="container-rpm" style="width: 300px; height: 200px; float: left"></div> -->
+                    </div>
                     <div id="sort_div" style="padding: 10px;" align="center">
                         <label style="padding: 20px;font-weight: 800;font-size: 14;"><input type="radio" name="sort_type" onclick="sortNormal()">Normal Order </label>
                         <label style="padding: 20px;font-weight: 800;font-size: 14;"><input type="radio" name="sort_type" onclick="sortLight()">Light</label>
@@ -102,10 +106,6 @@
                         <label style="padding: 20px;font-weight: 800;font-size: 14;"><input type="radio" name="sort_type" onclick="sortWord()">Word Count</label>
                         <label style="padding: 20px;font-weight: 800;font-size: 14;"><input type="radio" name="sort_type" onclick="sortReval()">Revelation Order</label>
                         <label style="padding: 20px;font-weight: 800;font-size: 14;"><input type="radio" name="sort_type" onclick="sortRefresh()">Refresh Count</label>
-                    </div>
-                    <div id = "guages" style="width: 100%; height: 100%; margin: 0 auto">
-                        <div id="light-ratio-chart-container" style="width: 100%; height: 100%; float: center"></div>
-                        <!-- <div id="container-rpm" style="width: 300px; height: 200px; float: left"></div> -->
                     </div>
                     <div id="daily-score-container" style="margin: 10px; font-weight: 800; color: green;" align="right">
                         <span>
@@ -128,7 +128,6 @@
     <div id="monthly-score-chart" style="min-width: 310px; height: 400px; margin: 20px"></div>
     <div id="khatma-progress-chart" style="min-width: 310px; height: 600px; margin: 20px"></div>
     <div id="snackbar"></div>
-
 </body>
 
 </html>
