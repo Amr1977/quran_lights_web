@@ -689,9 +689,14 @@ function sortedSuraIndexConverter(index) {
 
 }
 
+var buildingSurasFlag = false;
+
 function addSuraCells() {
     //TODO reuse cells
-
+if (buildingSurasFlag) {
+    return;
+}
+buildingSurasFlag = true;
     var reviewsNode = document.getElementById('reviews');
     while (reviewsNode.firstChild) {
         reviewsNode.removeChild(reviewsNode.firstChild);
@@ -785,6 +790,7 @@ function addSuraCells() {
     drawTimeSeriesChart("monthly-score-chart", 1);
     drawKhatmaPieChart();
     $("#reviews").addClass("animated bounce");
+    buildingSurasFlag = false;
 }
 
 firebase.initializeApp(config);
@@ -1001,6 +1007,7 @@ function initCells() {
 }
 
 var timeStampTriggerTimerRef = null;
+var periodicRefreshTimerRef = null;
 var isFirstLoad = 1;
 
 function onTimeStampUpdated(){
@@ -1063,7 +1070,11 @@ function initApp() {
                 timeStampTriggerTimerRef = setTimeout(onTimeStampUpdated, isFirstLoad == 1 ? 0 : 5000);
                 isFirstLoad = 0;
             });
+
+            periodicRefreshTimerRef = setInterval(addSuraCells, 10 * 10000);
+
         } else {
+            clearInterval(periodicRefreshTimerRef);
             document.getElementById("email").style.display = "block";
             document.getElementById("password").style.display = "block";
             document.getElementById("quickstart-sign-up").style.display = "block";
