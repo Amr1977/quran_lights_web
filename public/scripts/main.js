@@ -1323,6 +1323,9 @@ function scoreData(mode) {
         }
     }
 
+    if (allEntries.length == 0) {
+        return [];
+    }
    // console.log("All entries: ", allEntries);
 
     var sortedEntries = sortByX(allEntries);
