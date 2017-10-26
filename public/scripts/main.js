@@ -705,7 +705,7 @@ function addSuraCells() {
         var element = document.createElement("button");
 
         element.index = suraIndex;
-        element.className = "sura-cell";
+        element.className = "sura-cell" + " sura-"+suraIndex;
         if ( surasHistory[suraIndex] == null) {
             surasHistory[suraIndex] = {};
             surasHistory[suraIndex].history = [];
@@ -770,8 +770,10 @@ function addSuraCells() {
 
         element.onclick = function () {
             var timeStamp = Math.floor(Date.now() / 1000);
-            $(this).addClass("animated bounceIn");
-            refreshSura(this.index, timeStamp);
+            var index = this.index;
+            $(".sura-"+index).addClass("animated bounceIn");
+            refreshSura(index, timeStamp);
+            
         };
 
         document.getElementById('reviews').appendChild(element);

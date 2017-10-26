@@ -45,6 +45,15 @@
 </head>
 
 <body background="images/background.jpg">
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=978253842313944';
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
     <div style="padding: 20px; color: white;background-color: rgba(0,0,0,.4);">
         <h1 align="center">Quran Lights</h1>
         <h3 align="center">
@@ -129,6 +138,7 @@
     <div id="daily-score-chart" style="min-width: 310px; height: 400px; margin: 20px"></div>
     <div id="monthly-score-chart" style="min-width: 310px; height: 400px; margin: 20px"></div>
     <div id="snackbar"></div>
+    <div class="fb-comments" data-href="https://quran-lights.firebaseapp.com" data-width="100%" data-numposts="7"></div>
     <script type="text/javascript" async="async" defer="defer" data-cfasync="false" src="https://mylivechat.com/chatinline.aspx?hccid=80151098"></script>
 </body>
 
