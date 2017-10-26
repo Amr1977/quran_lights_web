@@ -770,6 +770,7 @@ function addSuraCells() {
 
         element.onclick = function () {
             var timeStamp = Math.floor(Date.now() / 1000);
+            $(this).addClass("animated bounceIn");
             refreshSura(this.index, timeStamp);
         };
 
@@ -781,6 +782,7 @@ function addSuraCells() {
     drawTimeSeriesChart("daily-score-chart", 0);
     drawTimeSeriesChart("monthly-score-chart", 1);
     drawKhatmaPieChart();
+    $("#reviews").addClass("animated bounce");
 }
 
 firebase.initializeApp(config);
