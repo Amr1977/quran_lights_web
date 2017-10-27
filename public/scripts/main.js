@@ -16,6 +16,7 @@ var sortedTimestampSuraArray = [];
 var update_stamp = 0;
 var serverOffset = 0;
 var lightRatio = 0;
+var cellRefreshInterval = 10 * 60 * 1000;
 
 var colorHash = {};
 
@@ -791,6 +792,12 @@ buildingSurasFlag = true;
     drawKhatmaPieChart();
     $("#reviews").addClass("animated bounce");
     buildingSurasFlag = false;
+    //periodically refresh
+    if (periodicRefreshTimerRef != null) {
+        clearInterval(periodicRefreshTimerRef);
+    }
+    
+    periodicRefreshTimerRef = setInterval(addSuraCells, cellRefreshInterval);
 }
 
 firebase.initializeApp(config);
@@ -1070,9 +1077,6 @@ function initApp() {
                 timeStampTriggerTimerRef = setTimeout(onTimeStampUpdated, isFirstLoad == 1 ? 0 : 5000);
                 isFirstLoad = 0;
             });
-
-            periodicRefreshTimerRef = setInterval(addSuraCells, 10 * 10000);
-
         } else {
             clearInterval(periodicRefreshTimerRef);
             document.getElementById("email").style.display = "block";
