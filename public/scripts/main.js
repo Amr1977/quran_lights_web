@@ -16,12 +16,12 @@ var sortedTimestampSuraArray = [];
 var update_stamp = 0;
 var serverOffset = 0;
 var lightRatio = 0;
-var cellRefreshInterval = 10 * 60 * 1000;
+var autoRefreshPeriod = 10 * 60 * 1000;
 
 var colorHash = {};
 
 //Settings
-var refreshPeriodDays = 7;
+var refreshPeriodDays = 30;
 
 /**
  * Used to record the most recent transaction timestamp so in the next fetch we get more recent transactions only.
@@ -797,7 +797,7 @@ buildingSurasFlag = true;
         clearInterval(periodicRefreshTimerRef);
     }
     
-    periodicRefreshTimerRef = setInterval(addSuraCells, cellRefreshInterval);
+    periodicRefreshTimerRef = setInterval(addSuraCells, autoRefreshPeriod);
 }
 
 firebase.initializeApp(config);
