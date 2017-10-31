@@ -22,7 +22,7 @@ h1 {
 
 .sura-cell {
     border-radius: 15px;
-    background: url("images/desert.jpg");  
+    /* background: url("images/desert.jpg");   */
     padding: 20px;
     font-weight: 700;
     -webkit-transition-duration: 0.4s;

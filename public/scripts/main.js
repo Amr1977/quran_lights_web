@@ -727,6 +727,8 @@ buildingSurasFlag = true;
         var greenComponent = (255.0 * timeDifferenceRatio).toFixed(0);
         if (timeStampsArray.length > 0) {
             element.style.backgroundColor = "rgb(0," + greenComponent + ",0)";
+        } else {
+            element.style.backgroundImage = "url('images/desert.jpg')";
         }
         
         colorHash[cellIndex] = rgbToHex(0, greenComponent, 0);
