@@ -725,10 +725,14 @@ buildingSurasFlag = true;
         timeDifferenceRatio = timeDifferenceRatio < 0 ? 0 : timeDifferenceRatio;
         lightRatio += (((timeDifferenceRatio * suraCharCount[suraIndex - 1])/fullKhatmaCharCount) * 100.0);
         var greenComponent = (255.0 * timeDifferenceRatio).toFixed(0);
-        element.style.backgroundColor = "rgb(0," + greenComponent + ",0)";
+        if (timeStampsArray.length > 0) {
+            element.style.backgroundColor = "rgb(0," + greenComponent + ",0)";
+        }
+        
         colorHash[cellIndex] = rgbToHex(0, greenComponent, 0);
         var daysElapsed = ((currentTimeStamp - maxStamp) / (60 * 60 * 24.0)).toFixed(0);
-        if (daysElapsed >= 30) {
+
+        if (daysElapsed >= 30 && timeStampsArray.length > 0) {
             element.style.border = "thick solid rgb(255,0,0)";
         }
 
