@@ -802,6 +802,10 @@ buildingSurasFlag = true;
 
 firebase.initializeApp(config);
 
+function bounce(suraIndex){
+    $(".sura-"+suraIndex).addClass("animated bounceIn");
+}
+
 /**
                              * Handles the sign in button press.
                              */
@@ -955,7 +959,9 @@ function initCells() {
         reviewsRef.once('value', function (snapshot) {
             hideToast();
             //surasHistory = {};
+            var bounceList = [];
             if (snapshot != null) {
+                
                 snapshot.forEach(function (childSnapshot) {
                     var transactionTimeStamp = childSnapshot.key;
                     if (lastTransactionTimeStamp == transactionTimeStamp) {
@@ -969,6 +975,7 @@ function initCells() {
                     var transactionRecord = childSnapshot.val(); 
 
                     var suraIndex = transactionRecord.sura;
+                    bounceList.push(suraIndex);
 
                     if(surasHistory[suraIndex] == null) {
                         surasHistory[suraIndex] = {};
@@ -1002,9 +1009,9 @@ function initCells() {
             refreshCountSortedSuraArray = [];
             //console.log("surasHistory:" + surasHistory);
             addSuraCells();
-            
-            
-            
+            bounceList.forEach(function(suraIndex){
+                bounce(suraIndex);
+            });
         });
 
         // [START_EXCLUDE]
