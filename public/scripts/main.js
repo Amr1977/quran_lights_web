@@ -21,7 +21,7 @@ var autoRefreshPeriod = 10 * 60 * 1000;
 var colorHash = {};
 
 //Settings
-var refreshPeriodDays = 30;
+var refreshPeriodDays = 10;
 
 /**
  * Used to record the most recent transaction timestamp so in the next fetch we get more recent transactions only.
