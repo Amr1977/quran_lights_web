@@ -766,6 +766,7 @@ buildingSurasFlag = true;
         var charCountElement = document.createElement("span");
         charCountElement.id = "char-count";
         charCountElement.style.float = "left";
+        charCountElement.style.fontSize = ".7vw";
         charCountElement.textContent = charCountText;
         element.appendChild(charCountElement);
 
@@ -773,6 +774,7 @@ buildingSurasFlag = true;
         if (daysElapsed != 0) {
             var daysElapsedElement = document.createElement("span");//document.createTextNode(daysElapsedText);
             daysElapsedElement.style.float = "right";
+            daysElapsedElement.style.fontSize = ".7vw";
             daysElapsedElement.textContent = daysElapsedText;
             daysElapsedElement.id = "days";
             element.appendChild(daysElapsedElement);
@@ -1116,7 +1118,11 @@ function initApp() {
     document.getElementById('quickstart-sign-up').addEventListener('click', handleSignUp, false);
 }
 window.onload = function () {
-    initApp();
+    Raven.config('https://55c264ec9a484103890f2ca7ad8a4543@sentry.io/238887').install();
+
+    Raven.context(function () {
+        initApp();
+    });
 };
 
 var suraCharCount = [
