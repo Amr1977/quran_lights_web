@@ -20,10 +20,16 @@ h1 {
     border-radius: 20px;
 }
 
+.old-memorized {
+    color: white;
+    background-color: red;
+    border-radius: 20px;
+}
+
 .sura-cell {
     border-radius: 15px;
     /* background: url("images/desert.jpg");   */
-    padding: 20px;
+    padding: 10px;
     font-weight: 700;
     -webkit-transition-duration: 0.4s;
     /* Safari */

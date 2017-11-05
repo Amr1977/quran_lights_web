@@ -750,7 +750,13 @@ buildingSurasFlag = true;
         suraNameElement.className = "sura_name_label";
 
         switch (surasHistory[suraIndex].memorization) {
-            case "2": suraNameElement.className = "memorized sura_name_label";
+            case "2": 
+            if (daysElapsed >= 10) {
+                suraNameElement.className = "old-memorized sura_name_label";
+            } else {
+                suraNameElement.className = "memorized sura_name_label";
+            }
+            
                 break;
             default:
                 suraNameElement.className = "not_memorized sura_name_label";
@@ -766,7 +772,7 @@ buildingSurasFlag = true;
         var charCountElement = document.createElement("span");
         charCountElement.id = "char-count";
         charCountElement.style.float = "left";
-        charCountElement.style.fontSize = ".7vw";
+        charCountElement.style.fontSize = ".6vw";
         charCountElement.textContent = charCountText;
         element.appendChild(charCountElement);
 
@@ -774,7 +780,7 @@ buildingSurasFlag = true;
         if (daysElapsed != 0) {
             var daysElapsedElement = document.createElement("span");//document.createTextNode(daysElapsedText);
             daysElapsedElement.style.float = "right";
-            daysElapsedElement.style.fontSize = ".7vw";
+            daysElapsedElement.style.fontSize = ".6vw";
             daysElapsedElement.textContent = daysElapsedText;
             daysElapsedElement.id = "days";
             element.appendChild(daysElapsedElement);
