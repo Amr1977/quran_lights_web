@@ -21,7 +21,7 @@ var autoRefreshPeriod = 10 * 60 * 1000;
 var colorHash = {};
 
 //Settings
-var refreshPeriodDays = 10;
+var refreshPeriodDays = 7;
 
 /**
  * Used to record the most recent transaction timestamp so in the next fetch we get more recent transactions only.
@@ -639,7 +639,7 @@ function createSortedRefreshCountSuraArray() {
         return;
     }
     for (suraIndex = 1; suraIndex <= 114; suraIndex++) {
-        var timeStampsArray = surasHistory[suraIndex].history != null ? surasHistory[suraIndex].history : [];
+        var timeStampsArray = (surasHistory[suraIndex] != null && surasHistory[suraIndex].history != null) ? surasHistory[suraIndex].history : [];
         var mostRecentTimestamp = timeStampsArray.length;
         var suraWithRefreshCountRecord = { suraID: suraIndex, refreshCount: mostRecentTimestamp };
         refreshCountSortedSuraArray.push(suraWithRefreshCountRecord);
@@ -1077,7 +1077,7 @@ function initApp() {
             document.getElementById("email").style.display = "none";
             document.getElementById("password").style.display = "none";
             document.getElementById("quickstart-sign-up").style.display = "none";
-            //document.getElementById("sort_div").style.display = "block";
+            document.getElementById("sort_div").style.display = "block";
             var update_timestamp_ref = firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/Master/update_stamp');
             update_timestamp_ref.on('value', function (snapshot) {
                 //console.log("timestamp trigger");
@@ -1100,6 +1100,7 @@ function initApp() {
             });
         } else {
             clearInterval(periodicRefreshTimerRef);
+            document.getElementById("sort_div").style.display = "none";
             document.getElementById("email").style.display = "block";
             document.getElementById("password").style.display = "block";
             document.getElementById("quickstart-sign-up").style.display = "block";
