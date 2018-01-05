@@ -11,7 +11,6 @@ var config = {
     messagingSenderId: "35819574492"
 };
 var surasHistory = {};
-var SuraNamesAr = [];
 var sortedTimestampSuraArray = [];
 var update_stamp = 0;
 var serverOffset = 0;
@@ -28,7 +27,7 @@ var refreshPeriodDays = 7;
  */
 var lastTransactionTimeStamp = "0";
 
-var SuraNamesEn = [
+var SuraNamesAr = [
     "الفاتحة",
     "البقرة",
     "آل عمران",
@@ -863,7 +862,14 @@ buildingSurasFlag = true;
         }
 
         var suraNameElement = document.createElement("p");
+        var suraNameElementAr = document.createElement("span");
+
+        suraNameElement.textContent = SuraNamesEn[suraIndex - 1];
         suraNameElement.className = "sura_name_label";
+
+        suraNameElementAr.textContent = SuraNamesAr[suraIndex - 1];
+        suraNameElementAr.className = "sura_name_label";
+
 
         switch (surasHistory[suraIndex].memorization) {
             case "2": 
@@ -880,6 +886,7 @@ buildingSurasFlag = true;
 
         suraNameElement.textContent = suraName;
 
+        element.appendChild(suraNameElementAr);
         element.appendChild(suraNameElement);
         
         var charCountText = readableFormat(suraCharCount[suraIndex - 1]);
