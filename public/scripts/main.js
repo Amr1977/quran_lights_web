@@ -926,7 +926,7 @@ buildingSurasFlag = true;
     }
 
     updateGuageChart('light-ratio-chart-container', "Light Ratio", lightRatio);
-    updateGuageChart('conquer-ratio-chart-container', "Conquer Ratio", conquerRatio);
+    updateGuageChart('conquer-ratio-chart-container', "Domination Ratio", conquerRatio);
 
     document.getElementById("score").textContent = getScore() + " Light Ratio: " + lightRatio.toFixed(2) + "% Conquered Area: " + conquerRatio.toFixed(2) + "%";
     drawTimeSeriesChart("daily-score-chart", 0);
