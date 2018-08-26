@@ -925,7 +925,8 @@ buildingSurasFlag = true;
         document.getElementById('reviews').appendChild(element);
     }
 
-    updateLightRatioChart();
+    updateGuageChart('light-ratio-chart-container', "Light Ratio", lightRatio);
+
     document.getElementById("score").textContent = getScore() + " Light Ratio: " + lightRatio.toFixed(2) + "% Conquered Area: " + conquerRatio.toFixed(2) + "%";
     drawTimeSeriesChart("daily-score-chart", 0);
     drawTimeSeriesChart("monthly-score-chart", 1);
@@ -1783,17 +1784,14 @@ var gaugeOptions = {
         }
     };
 
-    // The Light Ratio gauge
-var chartLightRatio;
-
-function updateLightRatioChart(){
-    chartLightRatio = null;
-    chartLightRatio = new Highcharts.chart('light-ratio-chart-container', Highcharts.merge(gaugeOptions, {
+function updateGuageChart(chartID, title, ratio){
+    chartRatio = null;
+    chartRatio = new Highcharts.chart(chartID, Highcharts.merge(gaugeOptions, {
         yAxis: {
             min: 0,
             max: 100,
             title: {
-                text: 'Light Ratio'
+                text: title
             }
         },
     
@@ -1802,8 +1800,8 @@ function updateLightRatioChart(){
         },
     
         series: [{
-            name: 'Light Ratio',
-            data: [(lightRatio)],
+            name: title,
+            data: [(ratio)],
             dataLabels: {
                 format: '<div style="text-align:center"><span style="font-size:25px;color:' +
                     ( 'black') + '">{y:.2f}</span><br/>' +
@@ -1815,4 +1813,6 @@ function updateLightRatioChart(){
         }]
     
     }));
+
+    return chartRatio;
 }
