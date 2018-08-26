@@ -15,6 +15,7 @@ var sortedTimestampSuraArray = [];
 var update_stamp = 0;
 var serverOffset = 0;
 var lightRatio = 0;
+var conquerRatio = 0;
 var autoRefreshPeriod = 10 * 60 * 1000;
 
 var colorHash = {};
@@ -821,6 +822,7 @@ buildingSurasFlag = true;
     var currentTimeStamp = Math.floor(Date.now() / 1000);
     var refreshPeriod = refreshPeriodDays * 24 * 60 * 60;
     lightRatio = 0;
+    conquerRatio = 0;
     for (var cellIndex = 1; cellIndex <= 114; cellIndex++) {
         var suraIndex = sortedSuraIndexConverter(cellIndex);
         var element = document.createElement("button");
@@ -839,6 +841,7 @@ buildingSurasFlag = true;
         var timeDifferenceRatio = 1 - (currentTimeStamp - (maxStamp == 0 ? (currentTimeStamp - refreshPeriod): maxStamp) ) * 1.0 / refreshPeriod;
         timeDifferenceRatio = timeDifferenceRatio < 0 ? 0 : timeDifferenceRatio;
         lightRatio += (((timeDifferenceRatio * suraCharCount[suraIndex - 1])/fullKhatmaCharCount) * 100.0);
+        conquerRatio += (((currentTimeStamp - maxStamp) < refreshPeriod) ? ((suraCharCount[suraIndex - 1])/fullKhatmaCharCount) * 100.0 : 0);
         var greenComponent = (255.0 * timeDifferenceRatio).toFixed(0);
         if (timeStampsArray.length > 0) {
             element.style.backgroundColor = "rgb(0," + greenComponent + ",0)";
@@ -923,7 +926,7 @@ buildingSurasFlag = true;
     }
 
     updateLightRatioChart();
-    document.getElementById("score").textContent = getScore() + " Light Ratio: " + lightRatio.toFixed(2);
+    document.getElementById("score").textContent = getScore() + " Light Ratio: " + lightRatio.toFixed(2) + "% Conquered Area: " + conquerRatio.toFixed(2) + "%";
     drawTimeSeriesChart("daily-score-chart", 0);
     drawTimeSeriesChart("monthly-score-chart", 1);
     drawKhatmaPieChart();
