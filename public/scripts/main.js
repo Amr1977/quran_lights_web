@@ -914,7 +914,7 @@ buildingSurasFlag = true;
         //element.appendChild(memoDiv);
 
 
-        element.onclick = function () {
+        element.ondblclick = function () {
             var timeStamp = Math.floor(Date.now() / 1000);
             var index = this.index;
             $(".sura-"+index).addClass("animated bounceIn");
