@@ -958,6 +958,7 @@ function toggleSignIn() {
         // [START signout]
         firebase.auth().signOut();
         document.getElementById('quickstart-sign-in').textContent = 'Sign in';
+        document.getElementById('sign-in-with-google').textContent = 'Sign In with Google';
         //empty score
         document.getElementById('score').textContent = '--';
         currentSortType = 0;
@@ -971,6 +972,7 @@ function toggleSignIn() {
         document.getElementById('daily-score-chart').innerHTML='';
         document.getElementById('monthly-score-chart').innerHTML='';
         document.getElementById('khatma-progress-chart').innerHTML='';
+        document.getElementById('conquer-ratio-chart-container').innerHTML='';
         document.getElementById('light-ratio-chart-container').innerHTML='';
         document.getElementById('sort_div').innerHTML='';
         surasHistory = {};
@@ -1009,6 +1011,27 @@ function toggleSignIn() {
         // [END authwithemail]
     }
     document.getElementById('quickstart-sign-in').disabled = false;
+}
+
+function signInWithGoogle() {
+    console.log("sign in with google");
+    var provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider).then(function(result) {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        var token = result.credential.accessToken;
+        // The signed-in user info.
+        var user = result.user;
+        // ...
+      }).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // The email of the user's account used.
+        var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+        // ...
+      });
 }
 /**
  * Handles the sign up button press.
@@ -1205,6 +1228,7 @@ function initApp() {
             document.getElementById("email").style.display = "none";
             document.getElementById("password").style.display = "none";
             document.getElementById("quickstart-sign-up").style.display = "none";
+            document.getElementById("sign-in-with-google").style.display = "none";
             document.getElementById("sort_div").style.display = "block";
             var update_timestamp_ref = firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/Master/update_stamp');
             update_timestamp_ref.on('value', function (snapshot) {
@@ -1232,6 +1256,7 @@ function initApp() {
             document.getElementById("email").style.display = "block";
             document.getElementById("password").style.display = "block";
             document.getElementById("quickstart-sign-up").style.display = "block";
+            document.getElementById("sign-in-with-google").style.display = "block";
             document.getElementById("reviews").innerHTML = "Sign in to fetch your history.";
             // User is signed out.
             // [START_EXCLUDE]
@@ -1251,6 +1276,7 @@ function initApp() {
 
     document.getElementById('quickstart-sign-in').addEventListener('click', toggleSignIn, false);
     document.getElementById('quickstart-sign-up').addEventListener('click', handleSignUp, false);
+    document.getElementById('sign-in-with-google').addEventListener('click', signInWithGoogle, false);
 }
 window.onload = function () {
     Raven.config('https://55c264ec9a484103890f2ca7ad8a4543@sentry.io/238887').install();
