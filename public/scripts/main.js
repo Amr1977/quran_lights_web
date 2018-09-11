@@ -662,13 +662,13 @@ function refreshSura(suraIndex, refreshTimeStamp) {
           //console.log("added transactionTimeStamp: ", transactionTimeStamp, " record: ", refreshRecord);
           //trigger update on other devices
           firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/Master/update_stamp').set(transactionTimeStamp);
-          playVictorySound();
+          playSuraRefreshSound();
         }
       });
       
 }
 
-function playVictorySound(){
+function playSuraRefreshSound(){
     var audio = new Audio('001002.mp3');
 audio.play();
 }
@@ -1229,6 +1229,7 @@ function onTimeStampUpdated(){
     timeStampTriggerTimerRef = null;
     console.log("Fetching history...");
     initCells();
+    playSuraRefreshSound();
 }
 
 function skew() {
