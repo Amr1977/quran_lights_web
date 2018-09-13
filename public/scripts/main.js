@@ -965,8 +965,8 @@ function toggleSignIn() {
         firebase.auth().signOut();
         document.getElementById('quickstart-sign-in').textContent = 'Sign in';
         document.getElementById('sign-in-with-google').textContent = 'Sign In with Google';
-        document.getElementById('sign-in-with-facebook').textContent = 'Sign In with Facebook';
-        document.getElementById('sign-in-with-twitter').textContent = 'Sign In with Twitter';
+        //document.getElementById('sign-in-with-facebook').textContent = 'Sign In with Facebook';
+        //document.getElementById('sign-in-with-twitter').textContent = 'Sign In with Twitter';
         //empty score
         document.getElementById('score').textContent = '--';
         currentSortType = 0;
@@ -1266,8 +1266,8 @@ function initApp() {
             document.getElementById("password").style.display = "none";
             document.getElementById("quickstart-sign-up").style.display = "none";
             document.getElementById("sign-in-with-google").style.display = "none";
-            document.getElementById("sign-in-with-facebook").style.display = "none";
-            document.getElementById("sign-in-with-twitter").style.display = "none";
+            //document.getElementById("sign-in-with-facebook").style.display = "none";
+            //document.getElementById("sign-in-with-twitter").style.display = "none";
             document.getElementById("sort_div").style.display = "block";
             var update_timestamp_ref = firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/Master/update_stamp');
             update_timestamp_ref.on('value', function (snapshot) {
@@ -1296,8 +1296,8 @@ function initApp() {
             document.getElementById("password").style.display = "block";
             document.getElementById("quickstart-sign-up").style.display = "block";
             document.getElementById("sign-in-with-google").style.display = "block";
-            document.getElementById("sign-in-with-facebook").style.display = "block";
-            document.getElementById("sign-in-with-twitter").style.display = "block";
+            //document.getElementById("sign-in-with-facebook").style.display = "block";
+            //document.getElementById("sign-in-with-twitter").style.display = "block";
             document.getElementById("reviews").innerHTML = "Sign in to fetch your history.";
             // User is signed out.
             // [START_EXCLUDE]
@@ -1318,8 +1318,8 @@ function initApp() {
     document.getElementById('quickstart-sign-in').addEventListener('click', toggleSignIn, false);
     document.getElementById('quickstart-sign-up').addEventListener('click', handleSignUp, false);
     document.getElementById('sign-in-with-google').addEventListener('click', signInWithGoogle, false);
-    document.getElementById('sign-in-with-facebook').addEventListener('click', signInWithFacebook, false);
-    document.getElementById('sign-in-with-twitter').addEventListener('click', signInWithTwitter, false);
+    //document.getElementById('sign-in-with-facebook').addEventListener('click', signInWithFacebook, false);
+    //document.getElementById('sign-in-with-twitter').addEventListener('click', signInWithTwitter, false);
 }
 window.onload = function () {
     Raven.config('https://55c264ec9a484103890f2ca7ad8a4543@sentry.io/238887').install();
@@ -1885,4 +1885,58 @@ function updateGuageChart(chartID, title, ratio){
     }));
 
     return chartRatio;
+}
+
+function componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
+}
+
+function rgbToHex(r, g, b) {
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+
+function drawTreeMapChart(DevId){
+    Highcharts.chart(DevId, {
+        colorAxis: {
+            minColor: '#000',
+            maxColor: rgbToHex(0,255,0)
+        },
+        series: [{
+            type: 'treemap',
+            layoutAlgorithm: 'squarified',
+            data: [{
+                name: 'A',
+                value: 6,
+                colorValue: 1
+            }, {
+                name: 'B',
+                value: 6,
+                colorValue: 2
+            }, {
+                name: 'C',
+                value: 4,
+                colorValue: 3
+            }, {
+                name: 'D',
+                value: 3,
+                colorValue: 4
+            }, {
+                name: 'E',
+                value: 2,
+                colorValue: 5
+            }, {
+                name: 'F',
+                value: 2,
+                colorValue: 6
+            }, {
+                name: 'G',
+                value: 1,
+                colorValue: 7
+            }]
+        }],
+        title: {
+            text: 'Suras Size/ Treemap'
+        }
+    });
 }
