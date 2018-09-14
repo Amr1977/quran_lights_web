@@ -1625,7 +1625,7 @@ function drawTimeSeriesChart(divID, mode){
         },
         yAxis: {
             title: {
-                text: mode == 0 ? 'Daily Score' : "Monthly Score"
+                text: mode == 0 ? 'Daily Light Score' : "Monthly Light Score"
             }
         },
         legend: {
@@ -1913,7 +1913,7 @@ function drawTreeMapChart(DevId){
             data: getTreeMapData()
         }],
         title: {
-            text: 'Suras Size/ Treemap'
+            text: 'Lights TreeMap'
         }
     });
 }
