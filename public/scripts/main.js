@@ -814,6 +814,8 @@ function sortedSuraIndexConverter(index) {
 
 var buildingSurasFlag = false;
 
+var surasColorTable = [];
+
 function addSuraCells() {
     //TODO reuse cells
 if (buildingSurasFlag) {
@@ -851,8 +853,10 @@ buildingSurasFlag = true;
         var greenComponent = (255.0 * timeDifferenceRatio).toFixed(0);
         if (timeStampsArray.length > 0) {
             element.style.backgroundColor = "rgb(0," + greenComponent + ",0)";
+            surasColorTable.push((greenComponent/255)*114);
         } else {
             element.style.backgroundImage = "url('images/desert.jpg')";
+            surasColorTable.push(0);
         }
         
         colorHash[cellIndex] = rgbToHex(0, greenComponent, 0);
@@ -938,6 +942,7 @@ buildingSurasFlag = true;
     drawTimeSeriesChart("daily-score-chart", 0);
     drawTimeSeriesChart("monthly-score-chart", 1);
     drawKhatmaPieChart();
+    drawTreeMapChart("treemap-chart");
     $("#reviews").addClass("animated bounce");
     buildingSurasFlag = false;
     //periodically refresh
@@ -1900,43 +1905,29 @@ function drawTreeMapChart(DevId){
     Highcharts.chart(DevId, {
         colorAxis: {
             minColor: '#000',
-            maxColor: rgbToHex(0,255,0)
+            maxColor: '#00FF00'
         },
         series: [{
             type: 'treemap',
             layoutAlgorithm: 'squarified',
-            data: [{
-                name: 'A',
-                value: 6,
-                colorValue: 1
-            }, {
-                name: 'B',
-                value: 6,
-                colorValue: 2
-            }, {
-                name: 'C',
-                value: 4,
-                colorValue: 3
-            }, {
-                name: 'D',
-                value: 3,
-                colorValue: 4
-            }, {
-                name: 'E',
-                value: 2,
-                colorValue: 5
-            }, {
-                name: 'F',
-                value: 2,
-                colorValue: 6
-            }, {
-                name: 'G',
-                value: 1,
-                colorValue: 7
-            }]
+            data: getTreeMapData()
         }],
         title: {
             text: 'Suras Size/ Treemap'
         }
     });
+}
+
+function getTreeMapData(){
+    var data = [];
+    for(var suraIndex = 0; suraIndex < 114; suraIndex++){
+        var suraTile = {};
+        suraTile.name = SuraNamesEn[suraIndex];
+        suraTile.value = suraCharCount[suraIndex];
+        suraTile.colorValue = surasColorTable[suraIndex];
+        data.push(suraTile);
+    }
+    console.log("colorTable", surasColorTable);
+
+    return data;
 }
