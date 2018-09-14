@@ -821,6 +821,7 @@ function addSuraCells() {
 if (buildingSurasFlag) {
     return;
 }
+surasColorTable = [];
 buildingSurasFlag = true;
     var reviewsNode = document.getElementById('reviews');
     while (reviewsNode.firstChild) {
@@ -853,10 +854,10 @@ buildingSurasFlag = true;
         var greenComponent = (255.0 * timeDifferenceRatio).toFixed(0);
         if (timeStampsArray.length > 0) {
             element.style.backgroundColor = "rgb(0," + greenComponent + ",0)";
-            surasColorTable.push((greenComponent/255)*114);
+            surasColorTable[suraIndex - 1] = ((greenComponent/255)*114);
         } else {
             element.style.backgroundImage = "url('images/desert.jpg')";
-            surasColorTable.push(0);
+            surasColorTable[suraIndex - 1] = 0;
         }
         
         colorHash[cellIndex] = rgbToHex(0, greenComponent, 0);
