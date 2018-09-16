@@ -943,6 +943,7 @@ buildingSurasFlag = true;
     drawTimeSeriesChart("daily-score-chart", 0);
     drawTimeSeriesChart("monthly-score-chart", 1);
     drawKhatmaPieChart();
+    drawMemorizationPieChart();
     drawTreeMapChart("treemap-chart");
     $("#reviews").addClass("animated bounce");
     buildingSurasFlag = false;
@@ -986,6 +987,7 @@ function toggleSignIn() {
         document.getElementById('daily-score-chart').innerHTML='';
         document.getElementById('monthly-score-chart').innerHTML='';
         document.getElementById('khatma-progress-chart').innerHTML='';
+        document.getElementById('memorization-chart').innerHTML='';
         document.getElementById('conquer-ratio-chart-container').innerHTML='';
         document.getElementById('light-ratio-chart-container').innerHTML='';
         document.getElementById('sort_div').innerHTML='';
@@ -1709,9 +1711,9 @@ function drawKhatmaPieChart(){
         drilldown: {
             series: khatmaProgress.drilldown
         }
-
     });
 }
+
 
 /**
  * The minimum history length is current khatma number - 1, suras with that mimimum history length are in the completed set, other suras are not completed yet.
@@ -1928,7 +1930,153 @@ function getTreeMapData(){
         suraTile.colorValue = surasColorTable[suraIndex];
         data.push(suraTile);
     }
-    console.log("colorTable", surasColorTable);
 
     return data;
+}
+
+function getMemorizationData(){
+
+    var memorizationData = {};
+    var memorizedPercentage = 0;
+    var wasMemorizedPercentage = 0;
+    var beingMemorizedPercentage = 0;
+    var notMemorizedPercentage = 0;
+
+    var memorizedDrillDownArray = [];
+    var wasMmorizedDrillDownArray = [];
+    var beingMemorizedDrillDownArray = [];
+    var notMemorizedDrillDownArray = [];
+
+    for (var suraIndex = 0; suraIndex < 114; suraIndex++) {
+        var entry = {
+            name: SuraNamesEn[suraIndex], 
+            y: suraCharCount[suraIndex]
+        };
+        var suraScore = suraCharCount[suraIndex];
+        console.log("surasHistory[suraIndex].memorization", surasHistory[suraIndex + 1].memorization, " sura index: ", suraIndex);
+        switch (surasHistory[suraIndex + 1].memorization) {
+            case "1":
+                entry.drilldown = "WasMemorized";
+                wasMmorizedDrillDownArray.push(entry);
+                wasMemorizedPercentage += suraScore;
+                break;
+
+            case "2":
+                entry.drilldown = "Memorized";
+                memorizedDrillDownArray.push(entry);
+                memorizedPercentage += suraScore;
+                break;
+
+            case "3":
+                entry.drilldown = "BeingMemorized";
+                beingMemorizedDrillDownArray.push(entry);
+                beingMemorizedPercentage += suraScore;
+                break;
+
+            default:
+            entry.drilldown = "NotMemorized";
+                notMemorizedDrillDownArray.push(entry);
+                notMemorizedPercentage += suraScore;
+        }
+    }
+
+    beingMemorizedPercentage = beingMemorizedPercentage/fullKhatmaCharCount * 100;
+    memorizedPercentage = memorizedPercentage/fullKhatmaCharCount * 100;
+    wasMemorizedPercentage = wasMemorizedPercentage/fullKhatmaCharCount * 100;
+    notMemorizedPercentage = notMemorizedPercentage/fullKhatmaCharCount * 100;
+
+    console.log("beingMemorizedPercentage", beingMemorizedPercentage);
+    console.log("memorizedPercentage", memorizedPercentage);
+    console.log("wasMemorizedPercentage", wasMemorizedPercentage);
+    console.log("notMemorizedPercentage", notMemorizedPercentage);
+
+    memorizationData.data = [ 
+        {name: "Memorized",      y: memorizedPercentage,      drilldown: "Memorized", selected: true, sliced: true} , 
+        {name: "Being Memorized", y: beingMemorizedPercentage, drilldown: "BeingMemorized"},
+        {name: "Was Memorized",   y: wasMemorizedPercentage,   drilldown: "WasMemorized"} , 
+        {name: "Not Memorized",   y: notMemorizedPercentage,   drilldown: "NotMemorized"}
+    ];
+
+    // memorizedDrillDownArray = sortByKey(memorizedDrillDownArray, "y");
+    // wasMmorizedDrillDownArray = sortByKey(wasMmorizedDrillDownArray, "y");
+    // beingMemorizedDrillDownArray = sortByKey(beingMemorizedDrillDownArray, "y");
+    // notMemorizedDrillDownArray = sortByKey(notMemorizedDrillDownArray, "y");
+
+
+    console.log("memorizedDrillDownArray",memorizedDrillDownArray);
+    console.log("beingMemorizedDrillDownArray",beingMemorizedDrillDownArray);
+    console.log("wasMmorizedDrillDownArray",wasMmorizedDrillDownArray);
+    console.log("notMemorizedDrillDownArray",notMemorizedDrillDownArray);
+
+    memorizationData.drilldown = [{
+            name: "Memorized",
+            id: "Memorized",
+            data: memorizedDrillDownArray
+        },
+        {
+            name: "BeingMemorized",
+            id: "BeingMemorized",
+            data: beingMemorizedDrillDownArray
+        },
+        {
+            name: "WasMemorized",
+            id: "WasMemorized",
+            data: wasMmorizedDrillDownArray
+        },
+        {
+            name: "NotMemorized",
+            id: "NotMemorized",
+            data: notMemorizedDrillDownArray
+        }
+
+    ];
+    
+    return memorizationData;
+} 
+
+function drawMemorizationPieChart(){
+
+    // Build the chart
+
+    var memorizationOptions = getMemorizationData();
+    var data = memorizationOptions.data;
+
+    console.log("memorizationOptions", memorizationOptions);
+
+    Highcharts.chart('memorization-chart', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: "Memorization Progress" 
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'green'
+                    },
+                    connectorColor: 'silver'
+                }
+            }
+        },
+        series: [{
+            name: "Memorization Progress",
+            data: data
+        }],
+
+        drilldown: {
+            series: memorizationOptions.drilldown
+        }
+    });
 }
