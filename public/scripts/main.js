@@ -1953,7 +1953,6 @@ function getMemorizationData(){
             y: suraCharCount[suraIndex]
         };
         var suraScore = suraCharCount[suraIndex];
-        console.log("surasHistory[suraIndex].memorization", surasHistory[suraIndex + 1].memorization, " sura index: ", suraIndex);
         switch (surasHistory[suraIndex + 1].memorization) {
             case "1":
                 entry.drilldown = "WasMemorized";
@@ -1974,7 +1973,7 @@ function getMemorizationData(){
                 break;
 
             default:
-            entry.drilldown = "NotMemorized";
+                entry.drilldown = "NotMemorized";
                 notMemorizedDrillDownArray.push(entry);
                 notMemorizedPercentage += suraScore;
         }
@@ -1985,28 +1984,12 @@ function getMemorizationData(){
     wasMemorizedPercentage = wasMemorizedPercentage/fullKhatmaCharCount * 100;
     notMemorizedPercentage = notMemorizedPercentage/fullKhatmaCharCount * 100;
 
-    console.log("beingMemorizedPercentage", beingMemorizedPercentage);
-    console.log("memorizedPercentage", memorizedPercentage);
-    console.log("wasMemorizedPercentage", wasMemorizedPercentage);
-    console.log("notMemorizedPercentage", notMemorizedPercentage);
-
     memorizationData.data = [ 
-        {name: "Memorized",      y: memorizedPercentage,      drilldown: "Memorized", selected: true, sliced: true} , 
+        {name: "Memorized",      y: memorizedPercentage,       drilldown: "Memorized", sliced: true}, 
         {name: "Being Memorized", y: beingMemorizedPercentage, drilldown: "BeingMemorized"},
         {name: "Was Memorized",   y: wasMemorizedPercentage,   drilldown: "WasMemorized"} , 
         {name: "Not Memorized",   y: notMemorizedPercentage,   drilldown: "NotMemorized"}
     ];
-
-    // memorizedDrillDownArray = sortByKey(memorizedDrillDownArray, "y");
-    // wasMmorizedDrillDownArray = sortByKey(wasMmorizedDrillDownArray, "y");
-    // beingMemorizedDrillDownArray = sortByKey(beingMemorizedDrillDownArray, "y");
-    // notMemorizedDrillDownArray = sortByKey(notMemorizedDrillDownArray, "y");
-
-
-    console.log("memorizedDrillDownArray",memorizedDrillDownArray);
-    console.log("beingMemorizedDrillDownArray",beingMemorizedDrillDownArray);
-    console.log("wasMmorizedDrillDownArray",wasMmorizedDrillDownArray);
-    console.log("notMemorizedDrillDownArray",notMemorizedDrillDownArray);
 
     memorizationData.drilldown = [{
             name: "Memorized",
