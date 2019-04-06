@@ -1,5 +1,9 @@
 //total score of all suras
 var fullKhatmaCharCount = 322604;
+const MEMORIZATION_STATE_NOT_MEMORIZED = "0";
+const MEMORIZATION_STATE_WAS_MEMORIZED = "1";
+const MEMORIZATION_STATE_MEMORIZED = "2";
+const MEMORIZATION_STATE_BEING_MEMORIZED = "3";
 
 // Initialize Firebase
 var config = {
@@ -632,6 +636,33 @@ function sortNumber(a, b) {
     return a - b;
 }
 
+//TODO set memorization state
+function markMemorized(suraIndex) {
+    //TODO use constants instead of magic numbers
+    var memorizationRecord = {op: "memorize", sura: suraIndex, state: MEMORIZATION_STATE_MEMORIZED}
+    var transactionTimeStamp = (Date.now() + serverOffset)* 1000;
+    var newEntry = firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/Master/reviews/' + transactionTimeStamp);
+    //TODO complete this
+    newEntry.set(memorizationRecord, function(error) {
+        if (error) {
+         alert("Data could not be saved, check your connection. " + error);
+        } else {
+          lastTransactionTimeStamp = transactionTimeStamp.toString();
+          //update memorization 
+          surasHistory[suraIndex]//.history.push(refreshTimeStamp);
+          sortedTimestampSuraArray = [];
+          refreshCountSortedSuraArray = [];
+          addSuraCells();
+          //to avoid pulling history again
+          ownTimeStamps.push(transactionTimeStamp);
+          //trigger update on other devices
+          firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/Master/update_stamp').set(transactionTimeStamp);
+          playSuraRefreshSound();
+        }
+      });
+
+}
+
 //TODO fix for new FDB structure
 function refreshSura(suraIndex, refreshTimeStamp) {
     //TODO update model
@@ -649,11 +680,7 @@ function refreshSura(suraIndex, refreshTimeStamp) {
         } else {
           console.log("Data saved successfully. @", transactionTimeStamp, refreshRecord);
           lastTransactionTimeStamp = transactionTimeStamp.toString();
-          console.log("surasHistory[suraIndex].history before refresh: ", surasHistory[suraIndex].history);
           surasHistory[suraIndex].history.push(refreshTimeStamp);
-          console.log("surasHistory[suraIndex].history after refresh: ", surasHistory[suraIndex].history);
-          //console.log("Refreshing sura: [", suraIndex, "] with time stamp: ", timeStamp);
-          //console.log("history after refresh: ", surasHistory[suraIndex]);
           sortedTimestampSuraArray = [];
           refreshCountSortedSuraArray = [];
           addSuraCells();
@@ -901,7 +928,7 @@ buildingSurasFlag = true;
             surasHistory[suraIndex] = {};
             surasHistory[suraIndex].history = [];
             surasHistory[suraIndex].suraIndex = suraIndex;
-            surasHistory[suraIndex].memorization = 0;
+            surasHistory[suraIndex].memorization = MEMORIZATION_STATE_NOT_MEMORIZED;
         }
         var timeStampsArray = surasHistory[suraIndex].history;
         //TODO if not refreshed before make it zero instead of (currentTimeStamp - refreshPeriod) and condition timeDifferenceRatio value to be zero too
@@ -945,7 +972,7 @@ buildingSurasFlag = true;
 
 
         switch (surasHistory[suraIndex].memorization) {
-            case "2": 
+            case MEMORIZATION_STATE_MEMORIZED: 
             if (daysElapsed >= 10) {
                 suraNameElement.className = "old-memorized sura_name_label";
             } else {
