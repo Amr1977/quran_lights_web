@@ -754,9 +754,11 @@ function exportToCsv() {
     }
 }
 
+var audio = new Audio('001002.mp3');
 function playSuraRefreshSound(){
-    var audio = new Audio('001002.mp3');
-audio.play();
+    if (audio.paused) {
+        audio.play();
+    }
 }
 
 function sortByKey(array, key) {
