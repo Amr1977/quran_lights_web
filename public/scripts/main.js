@@ -1126,6 +1126,7 @@ function addSuraCells() {
     "%";
   drawTimeSeriesChart("daily-score-chart", 0);
   drawTimeSeriesChart("monthly-score-chart", 1);
+  drawTimeSeriesChart("yearly-score-chart", 2);
   drawKhatmaPieChart();
   drawMemorizationPieChart();
   drawTreeMapChart("treemap-chart");
@@ -1170,6 +1171,7 @@ function toggleSignIn() {
     document.getElementById("password").value = "";
     document.getElementById("daily-score-chart").innerHTML = "";
     document.getElementById("monthly-score-chart").innerHTML = "";
+    document.getElementById("yearly-score-chart").innerHTML = "";
     document.getElementById("khatma-progress-chart").innerHTML = "";
     document.getElementById("memorization-chart").innerHTML = "";
     document.getElementById("conquer-ratio-chart-container").innerHTML = "";
@@ -1774,7 +1776,7 @@ function hideToast() {
 
 /**
  *
- * @param {*} mode 0 daily, 1 monthly
+ * @param {*} mode 0 daily, 1 monthly, 2 yearly
  */
 function scoreData(mode) {
   //TODO add zeros for missing days
@@ -1796,35 +1798,44 @@ function scoreData(mode) {
 
   var scoreArray = [];
   var periodScore = 0;
-  var dayIndex = 0;
   var prevDate = new Date(sortedEntries[0][0]).getDate();
-  var prevMonth = new Date(sortedEntries[0][0]).getMonth();
+  var prevMonth = new Date(sortedEntries[0][0]).getMonth() - 1;
+  var prevYear = new Date(sortedEntries[0][0]).getFullYear();
+
 
   for (var index = 0; index < sortedEntries.length; index++) {
     var date = new Date(sortedEntries[index][0]);
     var currentDate = date.getDate();
     var currentMonth = date.getMonth();
-
+    var currentYear = date.getFullYear() - 1;
+    var initialTimeStamp = date;
+    //ّFIXME first time item not correct
     if (
       (mode == 0 && Number(prevDate) != Number(currentDate)) ||
-      Number(prevMonth) != Number(currentMonth)
+      ( mode == 1 && Number(prevMonth) != Number(currentMonth)) ||
+      ( mode == 2 && Number(prevYear) != Number(currentYear))
     ) {
-      scoreArray.push([sortedEntries[index - 1][0], periodScore]);
+      //accumulate a full scoring period
+      var prevPeriodTimestamp = sortedEntries[index - 1][0];
+      scoreArray.push([prevPeriodTimestamp, periodScore]);
       //console.log("score: ", sortedEntries[index][1]);
       periodScore = sortedEntries[index][1];
       //console.log("dayScore: ",dayScore);
-      //console.log("new date ", date, "current date/month", currentDate,"-", currentMonth, "prev date-month", prevDate, "-", prevMonth);
+      console.log("new date ", date, "current date/month/year", currentDate,"-", currentMonth, "-", currentYear, "prev date-month-year", prevDate, "-", prevMonth, "-", prevYear);
     } else {
+
       //console.log("score: ", sortedEntries[index][1]);
       periodScore += sortedEntries[index][1];
       //console.log("continue date ", date);
       //console.log("dayScore: ",dayScore);
+      if (index == sortedEntries.length - 1) {
+        scoreArray.push([sortedEntries[index][0], periodScore]);
+      }
     }
-    if (index == sortedEntries.length - 1) {
-      scoreArray.push([sortedEntries[index][0], periodScore]);
-    }
+    
     prevDate = currentDate;
     prevMonth = currentMonth;
+    prevYear = currentYear;
   }
 
   //console.log("dailyScoreArray: ", dailyScoreArray);
@@ -1839,16 +1850,35 @@ function sortByX(array) {
     return x < y ? -1 : x > y ? 1 : 0;
   });
 }
+/**
+ * 
+ * @param {*} divID 
+ * @param {*} mode 0 dor days, 1 for months, 2 for years
+ */
 
 function drawTimeSeriesChart(divID, mode) {
   var data = scoreData(mode);
   console.log("drawTimeSeriesChart", divID, mode, data);
+  var chartTitle;
+  switch(mode) {
+      case 0://daily chart
+      chartTitle = "Daily Score";
+        break;
+
+      case 1://monthly chart 
+      chartTitle = "Monthly Score";
+        break;
+
+      case 2://yearly chart
+      chartTitle = "Yearly Score";
+        break;
+    }
   Highcharts.chart(divID, {
     chart: {
       zoomType: "x"
     },
     title: {
-      text: mode == 0 ? "Daily Score Chart" : "Monthly Score Chart"
+      text: chartTitle
     },
     subtitle: {
       text:
@@ -1861,7 +1891,7 @@ function drawTimeSeriesChart(divID, mode) {
     },
     yAxis: {
       title: {
-        text: mode == 0 ? "Daily Light Score" : "Monthly Light Score"
+        text: chartTitle
       }
     },
     legend: {
@@ -1902,7 +1932,7 @@ function drawTimeSeriesChart(divID, mode) {
     series: [
       {
         type: "area",
-        name: "Date score",
+        name: "score",
         data: data
       }
     ]
