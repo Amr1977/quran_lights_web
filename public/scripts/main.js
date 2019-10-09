@@ -1799,16 +1799,17 @@ function scoreData(mode) {
   var scoreArray = [];
   var periodScore = 0;
   var prevDate = new Date(sortedEntries[0][0]).getDate();
-  var prevMonth = new Date(sortedEntries[0][0]).getMonth() - 1;
+  var prevMonth = new Date(sortedEntries[0][0]).getMonth();
   var prevYear = new Date(sortedEntries[0][0]).getFullYear();
 
 
+  var periodStartTimestamp = sortedEntries[0][0];
+  var periodEndTimestamp = sortedEntries[0][0];
   for (var index = 0; index < sortedEntries.length; index++) {
     var date = new Date(sortedEntries[index][0]);
     var currentDate = date.getDate();
     var currentMonth = date.getMonth();
-    var currentYear = date.getFullYear() - 1;
-    var initialTimeStamp = date;
+    var currentYear = date.getFullYear();
     //ّFIXME first time item not correct
     if (
       (mode == 0 && Number(prevDate) != Number(currentDate)) ||
@@ -1816,8 +1817,12 @@ function scoreData(mode) {
       ( mode == 2 && Number(prevYear) != Number(currentYear))
     ) {
       //accumulate a full scoring period
-      var prevPeriodTimestamp = sortedEntries[index - 1][0];
-      scoreArray.push([prevPeriodTimestamp, periodScore]);
+      periodEndTimestamp = sortedEntries[index - 1][0];
+      var periodTimestamp = (periodEndTimestamp - periodStartTimestamp) / 2 + periodStartTimestamp;
+      periodStartTimestamp = sortedEntries[index][0];
+
+      scoreArray.push([periodTimestamp, periodScore]);
+
       //console.log("score: ", sortedEntries[index][1]);
       periodScore = sortedEntries[index][1];
       //console.log("dayScore: ",dayScore);
