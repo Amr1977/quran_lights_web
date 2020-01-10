@@ -644,6 +644,14 @@ function sortNumber(a, b) {
   return a - b;
 }
 
+//Do Refresh at midnight
+var now = new Date();
+var eta = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 0) - now;
+setTimeout(function(){
+  console.log("It's ", now);
+   addSuraCells();
+}, eta);
+
 //TODO set memorization state
 function set_memorization(suraIndex, state) {
   //TODO use constants instead of magic numbers
