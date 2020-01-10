@@ -627,6 +627,14 @@ var suraWordCountOrder = [
  */
 var currentSortType = 0;
 
+//to detect if control modifier key is pressed
+var altPressed = false;
+function cacheIt(event) {
+  altPressed = event.altKey;
+}
+document.onkeydown = cacheIt;
+document.onkeyup = cacheIt;
+
 /**
  * Used to avoid reacting to update_stamp triggers caused by self
  */
@@ -637,12 +645,12 @@ function sortNumber(a, b) {
 }
 
 //TODO set memorization state
-function markMemorized(suraIndex) {
+function set_memorization(suraIndex, state) {
   //TODO use constants instead of magic numbers
   var memorizationRecord = {
     op: "memorize",
     sura: suraIndex,
-    state: MEMORIZATION_STATE_MEMORIZED
+    state: state
   };
   var transactionTimeStamp = (Date.now() + serverOffset) * 1000;
   var newEntry = firebase
@@ -661,6 +669,7 @@ function markMemorized(suraIndex) {
       lastTransactionTimeStamp = transactionTimeStamp.toString();
       //update memorization
       surasHistory[suraIndex]; //.history.push(refreshTimeStamp);
+      surasHistory[suraIndex].memorization = state;
       sortedTimestampSuraArray = [];
       refreshCountSortedSuraArray = [];
       addSuraCells();
@@ -673,9 +682,19 @@ function markMemorized(suraIndex) {
           "users/" + firebase.auth().currentUser.uid + "/Master/update_stamp"
         )
         .set(transactionTimeStamp);
-      playSuraRefreshSound();
+        if (state == MEMORIZATION_STATE_MEMORIZED) {
+          playSuraRefreshSound();
+        }
     }
   });
+}
+
+function toggle_memorization(suraIndex) {
+  if (surasHistory[suraIndex].memorization == MEMORIZATION_STATE_MEMORIZED) {
+    set_memorization(suraIndex, MEMORIZATION_STATE_NOT_MEMORIZED);
+  } else {
+    set_memorization(suraIndex, MEMORIZATION_STATE_MEMORIZED);
+  }
 }
 
 //TODO fix for new FDB structure
@@ -1106,6 +1125,14 @@ function addSuraCells() {
       $(".sura-" + index).addClass("animated bounceIn");
       refreshSura(index, timeStamp);
     };
+
+    element.onclick = function() {
+      if (altPressed) {
+        var index = this.index;
+        $(".sura-" + index).addClass("animated bounceIn");
+        toggle_memorization(index);
+      }
+    }
 
     document.getElementById("reviews").appendChild(element);
   }
