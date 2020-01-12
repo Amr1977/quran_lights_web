@@ -628,9 +628,11 @@ var suraWordCountOrder = [
 var currentSortType = 0;
 
 //to detect if control modifier key is pressed
-var altPressed = false;
+var alt_pressed = false;
+var shift_pressed = false;
 function cacheIt(event) {
-  altPressed = event.altKey;
+  alt_pressed = event.altKey;
+  shift_pressed = event.shiftKey;
 }
 document.onkeydown = cacheIt;
 document.onkeyup = cacheIt;
@@ -1135,7 +1137,7 @@ function addSuraCells() {
     };
 
     element.onclick = function() {
-      if (altPressed) {
+      if (alt_pressed) {
         var index = this.index;
         $(".sura-" + index).addClass("animated bounceIn");
         toggle_memorization(index);
@@ -1211,7 +1213,7 @@ function toggleSignIn() {
     document.getElementById("memorization-chart").innerHTML = "";
     document.getElementById("conquer-ratio-chart-container").innerHTML = "";
     document.getElementById("light-ratio-chart-container").innerHTML = "";
-    document.getElementById("sort_div").innerHTML = "";
+    document.getElementById("sort_order").innerHTML = "";
     surasHistory = {};
     hideToast();
     // [END signout]
@@ -1520,7 +1522,7 @@ function initApp() {
       document.getElementById("sign-in-with-google").style.display = "none";
       //document.getElementById("sign-in-with-facebook").style.display = "none";
       //document.getElementById("sign-in-with-twitter").style.display = "none";
-      document.getElementById("sort_div").style.display = "block";
+      document.getElementById("sort_order").style.display = "block";
       var update_timestamp_ref = firebase
         .database()
         .ref(
@@ -1550,7 +1552,7 @@ function initApp() {
       });
     } else {
       clearInterval(periodicRefreshTimerRef);
-      document.getElementById("sort_div").style.display = "none";
+      document.getElementById("sort_order").style.display = "none";
       document.getElementById("email").style.display = "block";
       document.getElementById("password").style.display = "block";
       document.getElementById("quickstart-sign-up").style.display = "block";
@@ -2435,4 +2437,43 @@ function drawMemorizationPieChart() {
       series: memorizationOptions.drilldown
     }
   });
+}
+
+function set_sort_order() {
+  var sort_order = document.getElementById("sort_order").value;
+
+  switch (sort_order) {
+    case "normal":
+      sortNormal();
+      break;
+
+    case "revelation_order":
+      ortReval();
+      break;
+
+    case "light":
+      sortLight();
+      break;
+
+    case "chars_count":
+      sortChars();
+      break;
+
+    case "verse_coun":
+      sortVerse();
+      break;
+
+    case "word_coun":
+      sortWord();
+      break;
+
+    case "refresh_count":
+      sortRefresh();
+      break;
+
+      default:
+          sortNormal();
+  }
+
+
 }
