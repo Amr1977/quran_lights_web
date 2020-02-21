@@ -1003,6 +1003,7 @@ function sortedSuraIndexConverter(index) {
 var buildingSurasFlag = false;
 
 var surasColorTable = [];
+var selected_suras = [];
 
 function addSuraCells() {
   //TODO reuse cells
@@ -1068,7 +1069,9 @@ function addSuraCells() {
       (60 * 60 * 24.0)
     ).toFixed(0);
 
-    if (daysElapsed >= 30 && timeStampsArray.length > 0) {
+    if (selected_suras.indexOf(suraIndex) !== -1) {
+      element.style.border = "thick solid rgb(0,0,255)";
+    } else if (daysElapsed >= 30 && timeStampsArray.length > 0) {
       element.style.border = "thick solid rgb(255,0,0)";
     }
 
@@ -1137,10 +1140,12 @@ function addSuraCells() {
     };
 
     element.onclick = function() {
+      var index = this.index;
       if (alt_pressed) {
-        var index = this.index;
         $(".sura-" + index).addClass("animated bounceIn");
         toggle_memorization(index);
+      } else if (shift_pressed) {
+        toggle_select(index);
       }
     }
 
@@ -1178,6 +1183,28 @@ function addSuraCells() {
 }
 
 firebase.initializeApp(config);
+
+function toggle_select(suraIndex) {
+  console.log("toggle_select suraIndex:" + suraIndex);
+  var index = selected_suras.indexOf(suraIndex);
+  if (index !== -1) {
+    selected_suras.splice(index, 1);
+  } else {
+    selected_suras.push(Number(suraIndex));
+  }
+  //update selected_total element with total selected suras score
+
+  var selected_total = 0;
+
+  for (var i = 0; i < selected_suras.length;  i++) {
+    selected_total += suraCharCount[selected_suras[i] - 1];
+  }
+
+  console.log("selected_total:" + selected_total);
+  console.log("selected_suras:" + selected_suras);
+  document.getElementById("selected_total").textContent = " Selection score sum: [" + readableFormat(selected_total) + "]";
+  addSuraCells();
+}
 
 function bounce(suraIndex) {
   $(".sura-" + suraIndex).addClass("animated bounceIn");
