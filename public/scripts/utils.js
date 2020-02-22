@@ -1,0 +1,59 @@
+function sortNumber(a, b) {
+    return a - b;
+}
+
+function sortByX(array) {
+    return array.sort(function(a, b) {
+      var x = a[0];
+      var y = b[0];
+      return x < y ? -1 : x > y ? 1 : 0;
+    });
+  }
+
+  function showToast(message) {
+    var x = document.getElementById("snackbar");
+    x.textContent = message;
+    x.className = "show";
+  }
+  
+  function hideToast() {
+    var x = document.getElementById("snackbar");
+    x.className = x.className.replace("show", "");
+  }
+
+  function readableFormat(number) {
+    if (number >= 1000000000) {
+      return (number / 1000000000).toFixed(2) + "G";
+    } else if (number >= 1000000) {
+      return (number / 1000000).toFixed(2) + "M";
+    } else if (number >= 1000) {
+      return (number / 1000).toFixed(2) + "K";
+    } else {
+      return number;
+    }
+  }
+
+  function todayStartTimeStamp() {
+    var now = new Date();
+    var startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var timestamp = startOfDay / 1000;
+    console.log("todayStartTimeStamp", timestamp);
+    return timestamp;
+  }
+
+  function componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
+  }
+  
+  function rgbToHex(r, g, b) {
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+  }
+
+  function sortByKey(array, key) {
+    return array.sort(function(a, b) {
+      var x = a[key];
+      var y = b[key];
+      return x < y ? -1 : x > y ? 1 : 0;
+    });
+  }

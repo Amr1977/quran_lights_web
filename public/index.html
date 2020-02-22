@@ -23,6 +23,29 @@
 
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
     <script src="scripts/main.js"></script>
+    <script src="scripts/init_app.js"></script>
+    <script src="scripts/init_cells.js"></script>
+    <script src="scripts/constants.js"></script>
+    <script src="scripts/state.js"></script>
+    <script src="scripts/keyboard.js"></script>
+    <script src="scripts/utils.js"></script>
+    <script src="scripts/memorization.js"></script>
+    <script src="scripts/dark_days_chart.js"></script>
+    <script src="scripts/sort.js"></script>
+    <script src="scripts/treemap.js"></script>
+    <script src="scripts/guage.js"></script>
+    <script src="scripts/khatma.js"></script>
+    <script src="scripts/time_series.js"></script>
+    <script src="scripts/sync.js"></script>
+    <script src="scripts/export.js"></script>
+    <script src="scripts/audio.js"></script>
+    <script src="scripts/account.js"></script>
+    <script src="scripts/selection.js"></script>
+    <script src="scripts/score.js"></script>
+    <script src="scripts/cells.js"></script>
+    <script src="scripts/signin.js"></script>
+    <script src="scripts/charts.js"></script>
+
     <meta property="og:image" content="https://quran-lights.firebaseapp.com/images/appicon.png" />
     <!-- <meta property="og:image" content="http://localhost:5000/images/appicon.png" /> -->
     <meta charset=utf-8 />
@@ -81,7 +104,7 @@
         </div>
         <h4 class="fulljustify">How it works: After you read any chapter of Quran remember to <strong>double click</strong> its cell here, the cell will take its maximum
             light, cell light will decay with time until you refresh it again, your history is cloud-stored and charts are updated accordingly, 
-            your history is accessible either from this web app or from <a href="https://itunes.apple.com/us/app/quran-lights/id1218872513?mt=8">Quran Lights iOS App </a>, also you have a daily score and total score, score of any chapter
+            your history is accessible either from this web app or from <a href="https://itunes.apple.com/us/app/quran-lights/id1218872513?mt=8">Quran Lights iOS App</a>, also you have a daily score and total score, score of any chapter
             equals number of characters in this chapter, this should motivate you to maintain Quran
             chapters and keep them fresh in your memory by preventing darkness from invading your green shiny cells :)
             <br>
@@ -89,7 +112,7 @@
             Actions on cells: <br>
             Alt + Click: Toggle Sura Memorization mark ON/OFF<br>
             Double Click: Refresh Sura (indicating that you have reviewed Sura if it was previously memorized or read Sura if it is not memorized yet)<br>
-            Shift + click: Toggle Sura Selection (Sura Score Calculator)<br>
+            Shift + Click: Toggle Sura Selection (Sura Score Calculator)<br>
         </h4>
     </div>
     <main>
@@ -180,6 +203,7 @@
     </div>
     <div id="daily-score-chart" style="min-width: 310px; height: 400px; margin: 20px"></div>
     <div id="monthly-score-chart" style="min-width: 310px; height: 400px; margin: 20px"></div>
+    <div id="dark_days_chart" style="min-width: 310px; height: 400px; margin: 20px"></div>
     <div id="yearly-score-chart" style="min-width: 310px; height: 400px; margin: 20px"></div>
     <div id="treemap-chart" style="min-width: 310px; height: 1000px; margin: 20px"></div>
     <div id="snackbar"></div>
