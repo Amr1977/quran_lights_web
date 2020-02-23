@@ -7,16 +7,17 @@ function toggle_select(suraIndex) {
       selected_suras.push(Number(suraIndex));
     }
     setLocalStorageObject("selected_suras", selected_suras);
-    //update selected_total element with total selected suras score
-  
+    
+    addSuraCells();
+  }
+
+  //update selected_total element with total selected suras score
+  function update_selection_score() {
     var selected_total = 0;
   
     for (var i = 0; i < selected_suras.length;  i++) {
       selected_total += suraCharCount[selected_suras[i] - 1];
     }
   
-    console.log("selected_total:" + selected_total);
-    console.log("selected_suras:" + selected_suras);
     document.getElementById("selected_total").textContent = " Selection score sum: [" + readableFormat(selected_total) + "]";
-    addSuraCells();
   }
