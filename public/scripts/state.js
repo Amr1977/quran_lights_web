@@ -1,4 +1,3 @@
-//Settings
 var refreshPeriodDays = 10;
 
 /**
@@ -12,9 +11,11 @@ var lightRatio = 0;
 var conquerRatio = 0;
 var autoRefreshPeriod = 6 * 60 * 60 * 1000;
 
-var dark_days_map = new Map();//{year_month_key: set_of_light_days_value}
-
 var surasColorTable = [];
 var selected_suras = [];
 
-var sort_order = localStorage.sort_order ? localStorage.sort_order : SORT_ORDER_NORMAL;
+var sort_order;
+
+var state = {};
+var myUserId;
+var user;

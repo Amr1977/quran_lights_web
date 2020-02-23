@@ -57,3 +57,19 @@ function sortByX(array) {
       return x < y ? -1 : x > y ? 1 : 0;
     });
   }
+
+  function getLocalStorageObject(key) {
+    var object = localStorage.getItem(myUserId + "_" + key);
+    if (object) {
+      return JSON.parse(object);
+    } 
+    
+    return null;
+  }
+
+  function setLocalStorageObject(key, value) {
+    var saved = JSON.stringify(value);
+    localStorage.setItem(myUserId + "_" + key, saved);
+
+    return saved;
+  }

@@ -1,7 +1,7 @@
 function initCells() {
-  var user = firebase.auth().currentUser;
+  user = firebase.auth().currentUser;
   if (user) {
-    document.getElementById("quickstart-sign-in").textContent = "Sign out";
+    document.getElementById("quickstart-sign-in").textContent = "Sign out " + user.email;
     // User is signed in.
     var displayName = user.displayName;
     var email = user.email;
@@ -10,15 +10,31 @@ function initCells() {
     var isAnonymous = user.isAnonymous;
     var uid = user.uid;
     var providerData = user.providerData;
-    var myUserId = firebase.auth().currentUser.uid;
+    myUserId = firebase.auth().currentUser.uid;
     var database = firebase.database();
-    //TODO add query to fetch new records only
-    //console.log("grapping transactions after ", lastTransactionTimeStamp);
-    lastTransactionTimeStamp = Number(localStorage.lastTransactionTimeStamp);
-    surasHistory = localStorage.surasHistory;
+    console.log("grapping transactions after ", lastTransactionTimeStamp);
 
-    if (surasHistory == null || lastTransactionTimeStamp == null) {
-      lastTransactionTimeStamp = 0;
+    var history = getLocalStorageObject("surasHistory");
+    if (history) {
+      surasHistory = history;
+    }
+
+    var lastTimeStamp = getLocalStorageObject("lastTransactionTimeStamp");
+
+    if (lastTimeStamp) {
+      lastTransactionTimeStamp = lastTimeStamp;
+    }
+
+    sort_order = getLocalStorageObject("sort_order");
+    if (sort_order) {
+      set_sort_order_with_value(sort_order);
+    } else {
+      sort_order = SORT_ORDER_NORMAL;
+    }
+
+    selected_suras = getLocalStorageObject("selected_suras")
+    if (!selected_suras) { 
+      selected_suras = []; 
     }
 
     var reviewsRef = firebase
@@ -26,6 +42,7 @@ function initCells() {
       .ref("users/" + myUserId + "/Master/reviews")
       .orderByKey()
       .startAt(lastTransactionTimeStamp.toString());
+      
     showToast("Fetching history...");
     reviewsRef.once("value", function (snapshot) {
       hideToast();
@@ -40,7 +57,7 @@ function initCells() {
           //console.log("transactionTimeStamp ", transactionTimeStamp);
           if (Number(transactionTimeStamp) > Number(lastTransactionTimeStamp)) {
             lastTransactionTimeStamp = transactionTimeStamp;
-            localStorage.lastTransactionTimeStamp = lastTransactionTimeStamp;
+            setLocalStorageObject("lastTransactionTimeStamp", lastTransactionTimeStamp);
           }
           var transactionRecord = childSnapshot.val();
           var suraIndex = transactionRecord.sura;
@@ -66,9 +83,10 @@ function initCells() {
         for (var suraIndex in surasHistory.keys) {
           surasHistory[suraIndex].history.sort(sortNumber);
         }
-        //console.log("last transactions timestamp: ", lastTransactionTimeStamp);
+        setLocalStorageObject("surasHistory", surasHistory);
+        setLocalStorageObject("lastTransactionTimeStamp", lastTransactionTimeStamp);
       }
-      localStorage.surasHistory = surasHistory;
+
       document.getElementById("reviews").textContent = "";
       sortedTimestampSuraArray = [];
       refreshCountSortedSuraArray = [];

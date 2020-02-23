@@ -1,80 +1,82 @@
-const SORT_ORDER_NORMAL = "normal";
-const SORT_ORDER_REVELATION = "revelation_order";
-const SORT_ORDER_LIGHT = "light";
-const SORT_ORDER_CHAR_COUNT = "chars_count";
-const SORT_ORDER_VERSE_COUNT = "verse_coun";
-const SORT_ORDER_WORD_COUNT = "word_coun";
-const SORT_ORDER_REFRESH_COUNT = "refresh_count";
-
 function set_sort_order() {
-    sort_order = document.getElementById("sort_order").value;
-    localStorage.sort_order = sort_order;
-  
-    apply_sort(sort_order);
+  set_sort_order_with_value(document.getElementById("sort_order").value);
+}
+
+function  set_sort_order_with_value(value)  {
+  console.log("set_sort_order_with_value: ", value);
+  if (!value) { 
+    value = "normal";
   }
 
-  function apply_sort(sort_type) {
-    switch (sort_type) {
-      case "normal":
-        sortNormal();
-        break;
-  
-      case "revelation_order":
-        ortReval();
-        break;
-  
-      case "light":
-        sortLight();
-        break;
-  
-      case "chars_count":
-        sortChars();
-        break;
-  
-      case "verse_coun":
-        sortVerse();
-        break;
-  
-      case "word_coun":
-        sortWord();
-        break;
-  
-      case "refresh_count":
-        sortRefresh();
-        break;
-  
-        default:
-            sortNormal();
-    }
-  }
+  sort_order = value;
+  setLocalStorageObject("sort_order", sort_order);
+  document.getElementById("sort_order").value = value;
 
-  function sortLight() {
-    addSuraCells();
+  apply_sort(sort_order);
+}
+
+function apply_sort(sort_type) {
+  switch (sort_type) {
+    case "normal":
+      sortNormal();
+      break;
+
+    case "revelation_order":
+      ortReval();
+      break;
+
+    case "light":
+      sortLight();
+      break;
+
+    case "chars_count":
+      sortChars();
+      break;
+
+    case "verse_coun":
+      sortVerse();
+      break;
+
+    case "word_coun":
+      sortWord();
+      break;
+
+    case "refresh_count":
+      sortRefresh();
+      break;
+
+    default:
+      sortNormal();
   }
-  
-  function sortNormal() {
-    addSuraCells();
-  }
-  
-  function sortChars() {
-    addSuraCells();
-  }
-  
-  function sortVerse() {
-    addSuraCells();
-  }
-  
-  function sortWord() {
-    addSuraCells();
-  }
-  
-  function sortReval() {
-    addSuraCells();
-  }
-  
-  function sortRefresh() {
-    addSuraCells();
-  }
+}
+
+function sortLight() {
+  addSuraCells();
+}
+
+function sortNormal() {
+  addSuraCells();
+}
+
+function sortChars() {
+  addSuraCells();
+}
+
+function sortVerse() {
+  addSuraCells();
+}
+
+function sortWord() {
+  addSuraCells();
+}
+
+function sortReval() {
+  addSuraCells();
+}
+
+function sortRefresh() {
+  addSuraCells();
+}
 
 
 var revalationSortedSuraArray = [];

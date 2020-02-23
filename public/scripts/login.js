@@ -13,11 +13,6 @@ function toggleSignIn() {
     //document.getElementById('sign-in-with-twitter').textContent = 'Sign In with Twitter';
     //empty score
     document.getElementById("score").textContent = "--";
-    //"sort_type"
-    var allRadios = document.getElementsByName("sort_type");
-    allRadios.forEach(function (element) {
-      element.checked = false;
-    }, this);
     document.getElementById("email").value = "";
     document.getElementById("password").value = "";
     document.getElementById("daily-score-chart").innerHTML = "";
@@ -25,11 +20,12 @@ function toggleSignIn() {
     document.getElementById("dark_days_chart").innerHTML = "";
     document.getElementById("yearly-score-chart").innerHTML = "";
     document.getElementById("khatma-progress-chart").innerHTML = "";
-    document.getElementById("reemap-chart").innerHTML = "";
+    document.getElementById("treemap-chart").innerHTML = "";
     document.getElementById("memorization-chart").innerHTML = "";
     document.getElementById("conquer-ratio-chart-container").innerHTML = "";
     document.getElementById("light-ratio-chart-container").innerHTML = "";
-    document.getElementById("sort_order").innerHTML = "";
+    document.getElementById("sort_order").style.display = "none";
+    
     surasHistory = {};
     hideToast();
     // [END signout]

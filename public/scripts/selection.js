@@ -6,6 +6,7 @@ function toggle_select(suraIndex) {
     } else {
       selected_suras.push(Number(suraIndex));
     }
+    setLocalStorageObject("selected_suras", selected_suras);
     //update selected_total element with total selected suras score
   
     var selected_total = 0;
