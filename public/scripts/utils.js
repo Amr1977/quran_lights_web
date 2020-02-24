@@ -37,7 +37,6 @@ function sortByX(array) {
     var now = new Date();
     var startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     var timestamp = startOfDay / 1000;
-    console.log("todayStartTimeStamp", timestamp);
     return timestamp;
   }
 

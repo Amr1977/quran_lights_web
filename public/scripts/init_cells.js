@@ -54,7 +54,6 @@ function initCells() {
           if (lastTransactionTimeStamp == transactionTimeStamp) {
             return;
           }
-          //console.log("transactionTimeStamp ", transactionTimeStamp);
           if (Number(transactionTimeStamp) > Number(lastTransactionTimeStamp)) {
             lastTransactionTimeStamp = transactionTimeStamp;
             setLocalStorageObject("lastTransactionTimeStamp", lastTransactionTimeStamp);
@@ -90,7 +89,6 @@ function initCells() {
       document.getElementById("reviews").textContent = "";
       sortedTimestampSuraArray = [];
       refreshCountSortedSuraArray = [];
-      //console.log("surasHistory:" + surasHistory);
       addSuraCells();
       bounceList.forEach(function (suraIndex) {
         bounce(suraIndex);

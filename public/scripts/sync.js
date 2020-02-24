@@ -14,7 +14,6 @@ function skew() {
     var offsetRef = firebase.database().ref(".info/serverTimeOffset");
     offsetRef.on("value", function(snap) {
       serverOffset = snap.val();
-      //console.log("server offset: ", serverOffset);
     });
   }
 

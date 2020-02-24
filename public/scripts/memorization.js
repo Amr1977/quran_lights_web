@@ -158,8 +158,6 @@ function getMemorizationData() {
     var memorizationOptions = getMemorizationData();
     var data = memorizationOptions.data;
   
-    console.log("memorizationOptions", memorizationOptions);
-  
     Highcharts.chart("memorization-chart", {
       chart: {
         plotBackgroundColor: null,

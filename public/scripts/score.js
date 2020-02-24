@@ -19,20 +19,17 @@ function getScore() {
       while (lastEntryIndex >= 0 && history[lastEntryIndex] >= todayStart) {
         if (surasHistory[i].memorization == MEMORIZATION_STATE_MEMORIZED) {
           if (!reviewed_today.has(i)) {
-            console.log("Reviewed Sura: ", SuraNamesEn[i - 1]);
             reviewed_today.add(i);
             review_score += suraScore;
           }
         }
         else {
           if (!read_today.has(i)) {
-            console.log("Read Sura: ", SuraNamesEn[i - 1]);
             read_today.add(i);
             read_score += suraScore;
           }
         }
         today += suraScore;
-        console.log("Today added sura: ", SuraNamesEn[i - 1], history[lastEntryIndex]);
         lastEntryIndex--;
       }
     }

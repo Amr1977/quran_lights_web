@@ -3,7 +3,6 @@ function set_sort_order() {
 }
 
 function  set_sort_order_with_value(value)  {
-  console.log("set_sort_order_with_value: ", value);
   if (!value) { 
     value = "normal";
   }

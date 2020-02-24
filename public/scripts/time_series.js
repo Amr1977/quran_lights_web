@@ -41,7 +41,6 @@ function drawTimeSeriesChart(divID, mode) {
   }
 
 
-  console.log("drawTimeSeriesChart ", divID, mode, data);
   var chartTitle;
   switch (mode) {
     case DAILY_SCORE_MODE://daily chart

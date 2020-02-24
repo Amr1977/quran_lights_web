@@ -17,7 +17,6 @@ var colorHash = {};
 var now = new Date();
 var eta = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 0) - now;
 setTimeout(function(){
-  console.log("It's ", now);
    addSuraCells();
 }, eta);
 
@@ -45,11 +44,6 @@ function refreshSura(suraIndex, refreshTimeStamp) {
     if (error) {
       alert("Data could not be saved, check your connection. " + error);
     } else {
-      console.log(
-        "Data saved successfully. @",
-        transactionTimeStamp,
-        refreshRecord
-      );
       lastTransactionTimeStamp = transactionTimeStamp.toString();
       surasHistory[suraIndex].history.push(refreshTimeStamp);
       sortedTimestampSuraArray = [];
@@ -57,7 +51,6 @@ function refreshSura(suraIndex, refreshTimeStamp) {
       addSuraCells();
       //to avoid pulling history again
       ownTimeStamps.push(transactionTimeStamp);
-      //console.log("added transactionTimeStamp: ", transactionTimeStamp, " record: ", refreshRecord);
       //trigger update on other devices
       firebase
         .database()

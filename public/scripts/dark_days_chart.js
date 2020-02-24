@@ -71,15 +71,10 @@ function dark_days_data() {
     }
   }
 
-  console.log("##############final dark_days_map:\n" + JSON.stringify(dark_days_map));
-  console.log("dark_days_map.keys", Object.keys(dark_days_map));
   for (var key in dark_days_map) {
-    console.log("Key", key);
     dark_days_map[key] = dark_days_map[key].length;
     result.push([new Date(key + "-" + "15").getTime(), dark_days_map[key]]);
   }
-
-  console.log("##############final dark days result array:\n" + JSON.stringify(result));
 
   return result;
 }
@@ -115,15 +110,10 @@ function light_days_data() {
     }
   }
 
-  console.log("##############final light_days_map:\n" + JSON.stringify(light_days_map));
-  console.log("light_days_map.keys", Object.keys(light_days_map));
   for (var key in light_days_map) {
-    console.log("Key", key);
     light_days_map[key] = light_days_map[key].length;
     result.push([new Date(key + "-" + "15").getTime(), light_days_map[key]]);
   }
-
-  console.log("##############final dark days result array:\n" + JSON.stringify(result));
 
   return result;
 }

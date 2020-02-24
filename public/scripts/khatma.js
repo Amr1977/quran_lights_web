@@ -16,29 +16,19 @@ function getKhatmaProgressData() {
       //check if current sura history length is less than current reached minimum
       if (surasHistory[suraIndex].history.length < minimumHistoryLength) {
         //reset mimimum
-        //console.log("reseting minimum");
         minimumHistoryLength = surasHistory[suraIndex].history.length;
         indexesOfSurasWithMinimumHistoryLength = [suraIndex];
         comulatedScoreOfCurrentMinimumHistoryLengthSuras =
           suraCharCount[suraIndex - 1];
-        //console.log("indexesOfSurasWithMinimumHistoryLength: ", indexesOfSurasWithMinimumHistoryLength, "comulatedScoreOfCurrentMinimumHistoryLengthSuras", comulatedScoreOfCurrentMinimumHistoryLengthSuras);
       }
       //check if current sura history equals current reached mimimum
       else if (surasHistory[suraIndex].history.length == minimumHistoryLength) {
         indexesOfSurasWithMinimumHistoryLength.push(suraIndex);
         comulatedScoreOfCurrentMinimumHistoryLengthSuras +=
           suraCharCount[suraIndex - 1];
-        //console.log("indexesOfSurasWithMinimumHistoryLength: ", indexesOfSurasWithMinimumHistoryLength, "comulatedScoreOfCurrentMinimumHistoryLengthSuras", comulatedScoreOfCurrentMinimumHistoryLengthSuras);
       } else {
-        //console.log("sura[",suraIndex, "] with history length [",surasHistory[suraIndex].history.length, "] not belonging to mimimums, current history minimum: ", minimumHistoryLength, " indexesOfSurasWithMinimumHistoryLength: ", indexesOfSurasWithMinimumHistoryLength);
       }
     }
-  
-    console.log(
-      "completed: ",
-      indexesOfSurasWithMinimumHistoryLength,
-      comulatedScoreOfCurrentMinimumHistoryLengthSuras
-    );
   
     khatmaProgress.data = [
       {
@@ -76,9 +66,6 @@ function getKhatmaProgressData() {
     remainingDrillDownArray = sortByKey(remainingDrillDownArray, "y");
     completedDrilldownArray = sortByKey(completedDrilldownArray, "y");
   
-    console.log("remainingDrillDownArray", remainingDrillDownArray);
-    console.log("completedDrilldownArray", completedDrilldownArray);
-  
     khatmaProgress.drilldown = [
       {
         name: "Remaining",
@@ -98,8 +85,6 @@ function getKhatmaProgressData() {
   function drawKhatmaPieChart() {
     var khatmaProgress = getKhatmaProgressData();
     var data = khatmaProgress.data;
-  
-    console.log("khatmaProgress", khatmaProgress);
   
     // Build the chart
     Highcharts.chart("khatma-progress-chart", {
