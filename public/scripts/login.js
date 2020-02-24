@@ -18,6 +18,7 @@ function toggleSignIn() {
     document.getElementById("daily-score-chart").innerHTML = "";
     document.getElementById("monthly-score-chart").innerHTML = "";
     document.getElementById("dark_days_chart").innerHTML = "";
+    document.getElementById("light_days_chart").innerHTML = "";
     document.getElementById("yearly-score-chart").innerHTML = "";
     document.getElementById("khatma-progress-chart").innerHTML = "";
     document.getElementById("treemap-chart").innerHTML = "";
@@ -25,6 +26,7 @@ function toggleSignIn() {
     document.getElementById("conquer-ratio-chart-container").innerHTML = "";
     document.getElementById("light-ratio-chart-container").innerHTML = "";
     document.getElementById("sort_order").style.display = "none";
+    document.getElementById("selected_total").style.display = "none";
     
     surasHistory = {};
     hideToast();

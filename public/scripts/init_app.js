@@ -15,9 +15,7 @@ function initApp() {
       }
     });
   firebase.auth().onAuthStateChanged(function (user) {
-    // [START_EXCLUDE silent]
     document.getElementById("quickstart-sign-in").disabled = false;
-    // [END_EXCLUDE]
     if (user) {
       skew();
       document.getElementById("email").style.display = "none";
@@ -27,6 +25,7 @@ function initApp() {
       //document.getElementById("sign-in-with-facebook").style.display = "none";
       //document.getElementById("sign-in-with-twitter").style.display = "none";
       document.getElementById("sort_order").style.display = "block";
+      document.getElementById("selected_total").style.display = "block";
       var update_timestamp_ref = firebase
         .database()
         .ref("users/" + firebase.auth().currentUser.uid + "/Master/update_stamp");
@@ -61,15 +60,11 @@ function initApp() {
       document.getElementById("reviews").innerHTML =
         "Sign in to fetch your history.";
       // User is signed out.
-      // [START_EXCLUDE]
       document.getElementById("quickstart-sign-in").textContent = "Sign in";
       //empty score
       document.getElementById("score").textContent = "--";
       //document.getElementById('quickstart-account-details').textContent = 'null';
-      // [END_EXCLUDE]
     }
-    // [START_EXCLUDE silent]
-    // [END_EXCLUDE]
   });
   // [END authstatelistener]
   document

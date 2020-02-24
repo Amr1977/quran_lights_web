@@ -83,3 +83,47 @@ function dark_days_data() {
 
   return result;
 }
+
+function light_days_data() {
+
+  var result = [];
+
+  var sortedEntries = get_flat_timestamp_score_array();
+  if (!sortedEntries || sortedEntries.length == 0) {
+    return [];
+  }
+  var light_days_map = {};
+
+  var prevMonth = new Date(sortedEntries[0][0]).getMonth() + 1;
+  var prevYear = new Date(sortedEntries[0][0]).getFullYear();
+  var year_month_key = prevYear + "-" + prevMonth;
+
+
+  for (var index = 0; index < sortedEntries.length; index++) {
+    var date = new Date(sortedEntries[index][0]);
+    var currentDate = date.getDate();
+    var currentMonth = date.getMonth() + 1;
+    var currentYear = date.getFullYear();
+
+    var year_month_key = currentYear + "-" + currentMonth;
+    if (!light_days_map[year_month_key]) {
+      light_days_map[year_month_key] = [];
+    }
+    var element_to_be_deleted_index = light_days_map[year_month_key].indexOf(currentDate);
+    if (element_to_be_deleted_index == -1) {
+      light_days_map[year_month_key].push(currentDate);
+    }
+  }
+
+  console.log("##############final light_days_map:\n" + JSON.stringify(light_days_map));
+  console.log("light_days_map.keys", Object.keys(light_days_map));
+  for (var key in light_days_map) {
+    console.log("Key", key);
+    light_days_map[key] = light_days_map[key].length;
+    result.push([new Date(key + "-" + "15").getTime(), light_days_map[key]]);
+  }
+
+  console.log("##############final dark days result array:\n" + JSON.stringify(result));
+
+  return result;
+}

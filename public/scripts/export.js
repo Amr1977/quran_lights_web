@@ -1,6 +1,6 @@
 
   
-  function exportToCsv() {    
+  function exportJSON() {    
     var filename = "quran_lights_history.json";
 
     var blob = new Blob([export_history_to_json()], { type: "text/csv;charset=utf-8;" });
@@ -27,3 +27,5 @@
   function export_history_to_json() {
     return JSON.stringify(surasHistory);
   }
+
+  //TODO implement import from json
