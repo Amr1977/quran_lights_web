@@ -42,10 +42,5 @@ function getScore() {
 
   function update_score () {
     document.getElementById("score").textContent =
-    getScore() +
-    " Light Ratio: " +
-    lightRatio.toFixed(2) +
-    "% Conquered: " +
-    conquerRatio.toFixed(2) +
-    "%";
+    getScore();
   }
