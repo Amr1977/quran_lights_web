@@ -12,7 +12,6 @@ function initCells() {
     var providerData = user.providerData;
     myUserId = firebase.auth().currentUser.uid;
     var database = firebase.database();
-    console.log("grapping transactions after ", lastTransactionTimeStamp);
 
     var history = getLocalStorageObject("surasHistory");
     if (history) {
@@ -24,6 +23,7 @@ function initCells() {
     if (lastTimeStamp) {
       lastTransactionTimeStamp = lastTimeStamp;
     }
+    console.log("grapping transactions after ", lastTransactionTimeStamp);
 
     sort_order = getLocalStorageObject("sort_order");
     if (sort_order) {
