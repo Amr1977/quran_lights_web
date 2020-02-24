@@ -19,3 +19,9 @@ var sort_order;
 var state = {};
 var myUserId;
 var user;
+
+var surasHistory = {};//TODO replace {} with new Map()
+var sortedTimestampSuraArray = [];
+
+var colorHash = {};
+var elapsed_days = [];

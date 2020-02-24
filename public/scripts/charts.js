@@ -9,4 +9,5 @@ function update_charts() {
     drawKhatmaPieChart();
     drawMemorizationPieChart();
     drawTreeMapChart("treemap-chart");
+    drawRadarChart("radar-chart");
 }

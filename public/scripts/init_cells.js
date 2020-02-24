@@ -1,3 +1,10 @@
+//Do Refresh at midnight
+var now = new Date();
+var eta = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 0) - now;
+setTimeout(function(){
+   addSuraCells();
+}, eta);
+
 function initCells() {
   user = firebase.auth().currentUser;
   if (user) {
@@ -94,7 +101,5 @@ function initCells() {
         bounce(suraIndex);
       });
     });
-    // [START_EXCLUDE]
-    // [END_EXCLUDE]
   }
 }

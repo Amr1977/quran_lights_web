@@ -1,4 +1,5 @@
 function addSuraCells() {
+  console.log("addSuraCells invoked.");
   //TODO reuse cells
   if (buildingSurasFlag) {
     return;
@@ -55,6 +56,7 @@ function addSuraCells() {
     colorHash[cellIndex] = rgbToHex(0, greenComponent, 0);
     var daysElapsed = ((currentTimeStamp - maxStamp) /
       (60 * 60 * 24.0)).toFixed(0);
+      elapsed_days[suraIndex - 1] = Number(daysElapsed);
     if (selected_suras.indexOf(suraIndex) !== -1) {
       element.style.border = "thick solid rgb(0,0,255)";
     }

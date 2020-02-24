@@ -23,6 +23,7 @@
 
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
     <script src="scripts/constants.js"></script>
+    <script src="scripts/suras_data.js"></script>
     <script src="scripts/state.js"></script>
     <script src="scripts/main.js"></script>
     <script src="scripts/init_app.js"></script>
@@ -30,21 +31,22 @@
     <script src="scripts/keyboard.js"></script>
     <script src="scripts/utils.js"></script>
     <script src="scripts/memorization.js"></script>
-    <script src="scripts/dark_days_chart.js"></script>
+    <script src="scripts/bright_days_dark_days_chart.js"></script>
     <script src="scripts/sort.js"></script>
     <script src="scripts/treemap.js"></script>
     <script src="scripts/guage.js"></script>
     <script src="scripts/khatma.js"></script>
     <script src="scripts/time_series.js"></script>
     <script src="scripts/sync.js"></script>
-    <script src="scripts/export.js"></script>
+    <script src="scripts/import_and_export.js"></script>
     <script src="scripts/audio.js"></script>
     <script src="scripts/account.js"></script>
     <script src="scripts/selection.js"></script>
     <script src="scripts/score.js"></script>
-    <script src="scripts/cells.js"></script>
+    <script src="scripts//cells.js"></script>
     <script src="scripts/login.js"></script>
     <script src="scripts/charts.js"></script>
+    <script src="scripts/radar.js"></script>
 
     <meta property="og:image" content="https://quran-lights.firebaseapp.com/images/appicon.png" />
     <!-- <meta property="og:image" content="http://localhost:5000/images/appicon.png" /> -->
@@ -71,6 +73,9 @@
     <script src="https://code.highcharts.com/modules/heatmap.js"></script>
     <script src="https://code.highcharts.com/modules/treemap.js"></script>
     <script src="https://cdn.ravenjs.com/3.19.1/raven.min.js" crossorigin="anonymous"></script>
+
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
 </head>
 
@@ -206,7 +211,7 @@
                         </span>
                         <div>
                             <button id="import" onclick="importJSON();">Import Refresh History</button>
-                            <input type="file" id="selectFiles" value="Import"/>
+                            <input type="file" id="selectFiles" value="Import" />
                         </div>
                         <div id="download">
                             <button onclick='exportJSON();'>Export Refresh History</button>
@@ -220,6 +225,7 @@
         </div>
     </main>
     </div>
+    <div id="radar-chart" style="min-width: 310px; height: 800px; margin: 20px"></div>
     <div id="daily-score-chart" style="min-width: 310px; height: 400px; margin: 20px"></div>
     <div id="monthly-score-chart" style="min-width: 310px; height: 400px; margin: 20px"></div>
     <div id="light_days_chart" style="min-width: 310px; height: 400px; margin: 20px"></div>
@@ -314,8 +320,8 @@
             data-size="small" data-show-faces="true" data-share="false" style="margin: 20px;"></div>
     </div>
     <!--div class="fb-comments" data-href="https://quran-lights.firebaseapp.com" data-width="100%" data-numposts="7"></div-->
-    <script type="text/javascript" async="async" defer="defer" data-cfasync="false"
-        src="https://mylivechat.com/chatinline.aspx?hccid=80151098"></script>
+    <!--script type="text/javascript" async="async" defer="defer" data-cfasync="false"
+        src="https://mylivechat.com/chatinline.aspx?hccid=80151098"></script-->
 </body>
 
 </html>

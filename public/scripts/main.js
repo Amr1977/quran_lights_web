@@ -1,4 +1,3 @@
-
 // Initialize Firebase
 var config = {
   apiKey: "AIzaSyAn1GqNGEI3cB8pa5jBgaKxVdnf7xckw2c",
@@ -8,17 +7,6 @@ var config = {
   storageBucket: "quran-lights.appspot.com",
   messagingSenderId: "35819574492"
 };
-var surasHistory = {};//TODO replace {} with new Map()
-var sortedTimestampSuraArray = [];
-
-var colorHash = {};
-
-//Do Refresh at midnight
-var now = new Date();
-var eta = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 0) - now;
-setTimeout(function(){
-   addSuraCells();
-}, eta);
 
 //TODO fix for new FDB structure
 function refreshSura(suraIndex, refreshTimeStamp) {

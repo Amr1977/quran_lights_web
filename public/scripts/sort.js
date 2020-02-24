@@ -11,72 +11,8 @@ function  set_sort_order_with_value(value)  {
   setLocalStorageObject("sort_order", sort_order);
   document.getElementById("sort_order").value = value;
 
-  apply_sort(sort_order);
-}
-
-function apply_sort(sort_type) {
-  switch (sort_type) {
-    case "normal":
-      sortNormal();
-      break;
-
-    case "revelation_order":
-      ortReval();
-      break;
-
-    case "light":
-      sortLight();
-      break;
-
-    case "chars_count":
-      sortChars();
-      break;
-
-    case "verse_coun":
-      sortVerse();
-      break;
-
-    case "word_coun":
-      sortWord();
-      break;
-
-    case "refresh_count":
-      sortRefresh();
-      break;
-
-    default:
-      sortNormal();
-  }
-}
-
-function sortLight() {
   addSuraCells();
 }
-
-function sortNormal() {
-  addSuraCells();
-}
-
-function sortChars() {
-  addSuraCells();
-}
-
-function sortVerse() {
-  addSuraCells();
-}
-
-function sortWord() {
-  addSuraCells();
-}
-
-function sortReval() {
-  addSuraCells();
-}
-
-function sortRefresh() {
-  addSuraCells();
-}
-
 
 var revalationSortedSuraArray = [];
 
