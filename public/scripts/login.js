@@ -16,6 +16,7 @@ function toggleSignIn() {
     document.getElementById("email").value = "";
     document.getElementById("password").value = "";
     document.getElementById("daily-score-chart").innerHTML = "";
+    document.getElementById("radar-chart").innerHTML = "";
     document.getElementById("monthly-score-chart").innerHTML = "";
     document.getElementById("dark_days_chart").innerHTML = "";
     document.getElementById("light_days_chart").innerHTML = "";
