@@ -11,8 +11,7 @@ function drawRadarChart(divID) {
         },
 
         title: {
-            text: 'Elapsed Days Spider Web',
-            x: -80
+            text: 'Elapsed Days Radar',
         },
 
         pane: {
