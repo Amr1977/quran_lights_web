@@ -72,3 +72,18 @@ function sortByX(array) {
 
     return saved;
   }
+
+  /**
+   * 
+   * @param {*} json_string string to be checked and parsed
+   * @returns [success_boolean, result_object]
+   */
+  function is_json_string(json_string) {
+    var result;
+    try {
+        JSON.parse(json_string, null, 2);
+    } catch (e) {
+        return [false, {}];
+    }
+    return [true, result];
+}

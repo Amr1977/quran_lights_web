@@ -36,17 +36,23 @@ function importJSON() {
   }
 
   var file_reader = new FileReader();
-
   file_reader.onload = function (e) {
-    var history = JSON.parse(e.target.result);
-    
+    var result = is_json_string(e.target.result);
+    if (result[0]) {
+      var history = result[1];
+      merge_imported_history(history);
+      addSuraCells();
+    } else {
+      console.log("invalid json dropped");
+    }
   }
 
   file_reader.readAsText(files.item(0));
 }
 
-function filter_imported_history(history){
+function merge_imported_history(history){
   for (var suraIndex in history) {
+    // Merge/update local refresh histories
     if (
       surasHistory[suraIndex] && 
       surasHistory[suraIndex].history && 
@@ -69,11 +75,7 @@ function filter_imported_history(history){
     } else {
       history[suraIndex].memorization = null;
     }
-
-    //TODO: do it!
   }
-
-  
 
   //filtered history, removed already existing entries
   return history;
