@@ -38,6 +38,7 @@ function importJSON() {
   var file_reader = new FileReader();
   file_reader.onload = function (e) {
     var result = is_json_string(e.target.result);
+    console.log("imported & parser result: \n", result);
     if (result[0]) {
       var history = result[1];
       merge_imported_history(history);
@@ -51,6 +52,7 @@ function importJSON() {
 }
 
 function merge_imported_history(history){
+  console.log(history);
   for (var suraIndex in history) {
     // Merge/update local refresh histories
     if (
@@ -61,16 +63,19 @@ function merge_imported_history(history){
       history[suraIndex].history.length > 0
       ) {
       //merge both histories
+      console.log("Merge imported history for ", suraIndex);
       var new_records = history[suraIndex].history.filter( x => !surasHistory[suraIndex].history.includes(x));
       history[suraIndex].history = new_records;
       surasHistory[suraIndex].history = surasHistory[suraIndex].history.concat(new_records);
     } else {
       if (!surasHistory[suraIndex] || !surasHistory[suraIndex].history || surasHistory[suraIndex].history.length == 0) {
+        console.log("Replace with imported history for ", suraIndex);
         surasHistory[suraIndex] = history[suraIndex];
       }
     }
 
     if (surasHistory[suraIndex] && !surasHistory[suraIndex].memorization && history[suraIndex].memorization) {
+      console.log("MSet memorization for ", suraIndex);
       surasHistory[suraIndex].memorization = history[suraIndex].memorization;
     } else {
       history[suraIndex].memorization = null;

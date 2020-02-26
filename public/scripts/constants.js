@@ -20,4 +20,14 @@ const SORT_ORDER_CHAR_COUNT = "chars_count";
 const SORT_ORDER_VERSE_COUNT = "verse_coun";
 const SORT_ORDER_WORD_COUNT = "word_coun";
 const SORT_ORDER_REFRESH_COUNT = "refresh_count";
+
+// Initialize Firebase
+const config = {
+    apiKey: "AIzaSyAn1GqNGEI3cB8pa5jBgaKxVdnf7xckw2c",
+    authDomain: "quran-lights.firebaseapp.com",
+    databaseURL: "https://quran-lights.firebaseio.com",
+    projectId: "quran-lights",
+    storageBucket: "quran-lights.appspot.com",
+    messagingSenderId: "35819574492"
+  };
   

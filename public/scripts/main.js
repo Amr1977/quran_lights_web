@@ -1,13 +1,3 @@
-// Initialize Firebase
-var config = {
-  apiKey: "AIzaSyAn1GqNGEI3cB8pa5jBgaKxVdnf7xckw2c",
-  authDomain: "quran-lights.firebaseapp.com",
-  databaseURL: "https://quran-lights.firebaseio.com",
-  projectId: "quran-lights",
-  storageBucket: "quran-lights.appspot.com",
-  messagingSenderId: "35819574492"
-};
-
 //TODO fix for new FDB structure
 function refreshSura(suraIndex, refreshTimeStamp) {
   //TODO update model

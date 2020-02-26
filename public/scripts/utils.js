@@ -81,7 +81,7 @@ function sortByX(array) {
   function is_json_string(json_string) {
     var result;
     try {
-        JSON.parse(json_string, null, 2);
+        result = JSON.parse(json_string, null, 2);
     } catch (e) {
         return [false, {}];
     }
