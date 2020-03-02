@@ -1,4 +1,4 @@
-//TODO set memorization state
+//TODO move to sync.js file
 function set_memorization(suraIndex, state) {
     //TODO use constants instead of magic numbers
     var memorizationRecord = {

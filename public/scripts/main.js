@@ -41,6 +41,10 @@ function refreshSura(suraIndex, refreshTimeStamp) {
   });
 }
 
+function refreshByName(suraName){
+  refreshSura(SuraNamesEn.indexOf(suraName) + 1, Math.floor(Date.now() / 1000))
+}
+
 var buildingSurasFlag = false;
 
 firebase.initializeApp(config);

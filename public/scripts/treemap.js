@@ -10,12 +10,11 @@ function drawTreeMapChart(DevId) {
         layoutAlgorithm: "squarified",
         data: getTreeMapData(),
         events: {
-          //TODO support refresh actions on treemap cells 
           click: function (event) {
             if (event.point.node.childrenTotal == 0) {//since last node will have zero childrens
               //Perform Task on leaf or last node
-              console.log(event);
-              console.log(event.point.node);
+              console.log(event.point.name);
+              refreshByName(event.point.name);
 
             }
           }

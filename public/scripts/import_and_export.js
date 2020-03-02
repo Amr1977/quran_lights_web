@@ -87,5 +87,25 @@ function merge_imported_history(history){
 }
 
 function update_firebase_database(history) {
+
+  var flat_history = {};
+  for (var suraIndex in history) {
+    var memorizationRecord = {
+      op: "memorize",
+      sura: suraIndex,
+      state: history[suraIndex].memorization
+    };
+
+    flat_history[getTimeStamp()] = memorizationRecord;
+    for (var refreshTimeStamp in history[suraIndex].history) {
+      var refreshRecord = {
+        op: "refresh",
+        sura: suraIndex,
+        time: refreshTimeStamp
+      };
+
+      flat_history[getTimeStamp()] = refreshRecord;
+    }
+  }
 //TODO do it!
 }

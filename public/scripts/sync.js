@@ -20,3 +20,7 @@ function skew() {
   function bounce(suraIndex) {
     $(".sura-" + suraIndex).addClass("animated bounceIn");
   }
+
+  function getTimeStamp() {
+    return (Date.now() + serverOffset) * 1000;
+  }
