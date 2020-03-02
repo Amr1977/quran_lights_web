@@ -125,6 +125,7 @@ function addSuraCells() {
       else if (shift_pressed) {
         toggle_select(index);
       }
+      //TODO add setting memorization to WAS_MEMORIZED, BEING_MEMORIZED
     };
     document.getElementById("reviews").appendChild(element);
   }
