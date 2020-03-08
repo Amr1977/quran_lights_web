@@ -1,3 +1,11 @@
+function updateDeselectButton(){
+  if (selected_suras.length > 0) {
+    document.getElementById("deselect_button").style.display = "block";
+  } else {
+    document.getElementById("deselect_button").style.display = "none";
+  }
+}
+
 function toggle_select(suraIndex) {
     var index = selected_suras.indexOf(suraIndex);
     if (index !== -1) {
@@ -6,7 +14,6 @@ function toggle_select(suraIndex) {
       selected_suras.push(Number(suraIndex));
     }
     setLocalStorageObject("selected_suras", selected_suras);
-    
     addSuraCells();
   }
 
@@ -19,4 +26,11 @@ function toggle_select(suraIndex) {
     }
   
     document.getElementById("selected_total").textContent = " Selection score sum: [" + readableFormat(selected_total) + "]";
+  }
+
+  function deselectAll() {
+    selected_suras = [];
+    setLocalStorageObject("selected_suras", selected_suras);
+    document.getElementById("deselect_button").style.display = "none";
+    addSuraCells();
   }

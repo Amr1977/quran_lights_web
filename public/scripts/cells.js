@@ -131,6 +131,7 @@ function addSuraCells() {
   }
   buildingSurasFlag = false;
   $("#reviews").addClass("animated bounce");
+  updateDeselectButton();
   update_score();
   update_selection_score();
   update_charts();

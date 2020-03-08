@@ -208,18 +208,25 @@
                         </span>
                         <span id="selected_total">
                         </span>
-                        <div>
-                            <button id="import" onclick="importJSON();">Import Refresh History</button>
+                        <div style="margin: 10px;">
+                            <button id="import" class="mdl-button mdl-js-button mdl-button--raised" onclick="importJSON();">Import Refresh History</button>
                             <input type="file" id="selectFiles" value="Import" />
                         </div>
-                        <div id="download">
-                            <button onclick='exportJSON();'>Export Refresh History</button>
+                        <div id="download" style="margin: 10px;">
+                            <button class="mdl-button mdl-js-button mdl-button--raised" onclick='exportJSON();'>Export Refresh History</button>
                         </div>
                     </div>
+                    <button 
+                    id="deselect_button" 
+                    onclick="deselectAll();" 
+                    style="margin: 10px" 
+                    float="right" 
+                    class="mdl-button mdl-js-button mdl-button--raised">Deselect All
+                    </button>
                     <div id="reviews" class="wrapper" style="margin: 10px;">
                         Sign in to fetch your history.
                     </div>
-                </div>
+                </div> 
             </div>
         </div>
     </main>
