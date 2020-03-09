@@ -82,3 +82,27 @@ function setup_light_days_options() {
 
   light_days_selection_element.value = get_refresh_period_days();
 }
+
+function show_sign_in_only_elements() {
+  for (var i = 0; i < SIGN_IN_ONLY_ELEMENTS.length; i++) {
+    var element = document.getElementById(SIGN_IN_ONLY_ELEMENTS[i]);
+    if(element) element.style.display = "block";
+  }
+
+  for (var i = 0; i < SIGN_OUT_ONLY_ELEMENTS.length; i++) {
+    var element = document.getElementById(SIGN_OUT_ONLY_ELEMENTS[i]);
+    if(element) element.style.display = "none";
+  }
+}
+
+function hide_sign_in_only_elements(){
+  for (var i = 0; i < SIGN_IN_ONLY_ELEMENTS.length; i++) {
+    var element = document.getElementById(SIGN_IN_ONLY_ELEMENTS[i]);
+    if(element) element.style.display = "none";
+  }
+
+  for (var i = 0; i < SIGN_OUT_ONLY_ELEMENTS.length; i++) {
+    var element = document.getElementById(SIGN_OUT_ONLY_ELEMENTS[i]);
+    if(element) element.style.display = "block";
+  }
+}

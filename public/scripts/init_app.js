@@ -18,14 +18,9 @@ function initApp() {
     document.getElementById("quickstart-sign-in").disabled = false;
     if (user) {
       skew();
-      document.getElementById("email").style.display = "none";
-      document.getElementById("password").style.display = "none";
-      document.getElementById("quickstart-sign-up").style.display = "none";
-      document.getElementById("sign-in-with-google").style.display = "none";
+      show_sign_in_only_elements();
       //document.getElementById("sign-in-with-facebook").style.display = "none";
       //document.getElementById("sign-in-with-twitter").style.display = "none";
-      document.getElementById("sort_order").style.display = "block";
-      document.getElementById("selected_total").style.display = "block";
       var update_timestamp_ref = firebase
         .database()
         .ref("users/" + firebase.auth().currentUser.uid + "/Master/update_stamp");
@@ -49,11 +44,7 @@ function initApp() {
     }
     else {
       clearInterval(periodicRefreshTimerRef);
-      document.getElementById("sort_order").style.display = "none";
-      document.getElementById("email").style.display = "block";
-      document.getElementById("password").style.display = "block";
-      document.getElementById("quickstart-sign-up").style.display = "block";
-      document.getElementById("sign-in-with-google").style.display = "block";
+      hide_sign_in_only_elements();
       //document.getElementById("sign-in-with-facebook").style.display = "block";
       //document.getElementById("sign-in-with-twitter").style.display = "block";
       document.getElementById("reviews").innerHTML =

@@ -30,4 +30,35 @@ const config = {
     storageBucket: "quran-lights.appspot.com",
     messagingSenderId: "35819574492"
   };
+
+  const SIGN_IN_ONLY_ELEMENTS = [
+    "sort_order",
+    "selected_total",
+    "score",
+    "light_days",
+    "light-ratio-chart-container",
+    "onquer-ratio-chart-container",
+    "daily-score-chart",
+    "monthly-score-chart",
+    "yearly-score-chart",
+    "dark_days_chart",
+    "light_days_chart",
+    "treemap-chart",
+    "radar-chart",
+    "khatma-progress-chart",
+    "memorization-chart",
+    "download",
+    "import",
+    "sort_order_container",
+    "light_days_container",
+    "daily-score-container"
+  ];
+
+  const SIGN_OUT_ONLY_ELEMENTS = [
+    "email",
+    "password",
+    "quickstart-sign-up",
+    "sign-in-with-google"
+  ];
+
   
