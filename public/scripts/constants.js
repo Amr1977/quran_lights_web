@@ -51,7 +51,11 @@ const config = {
     "import",
     "sort_order_container",
     "light_days_container",
-    "daily-score-container"
+    "daily-score-container",
+    "today_score",
+    "today_review_score",
+    "today_read_score"
+
   ];
 
   const SIGN_OUT_ONLY_ELEMENTS = [

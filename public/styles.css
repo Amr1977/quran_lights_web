@@ -3,12 +3,8 @@ h1 {
 }
 
 .wrapper {
-    @supports (display: grid) {
-        .sponsors {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-          }
-        }
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     /* grid-auto-columns: 100px; */
     grid-column-gap: 5px;
     grid-row-gap: 5px;

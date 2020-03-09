@@ -33,11 +33,15 @@ function getScore() {
         lastEntryIndex--;
       }
     }
-    return (readableFormat(total) +
-      (today > 0 ? "(+" + readableFormat(today) + " today, (Review: " + readableFormat(review_score) + ", Read: " + readableFormat(read_score) + "))" : ""));
+
+    return [total, today, review_score, read_score];
   }
 
   function update_score () {
-    document.getElementById("score").textContent =
-    getScore();
+    var score_array = getScore();
+    console.log(score_array);
+    document.getElementById("score").textContent = "Total Score: " + readableFormat(score_array[0]);
+    document.getElementById("today_score").textContent = "Today Score: " + readableFormat(score_array[1]);
+    document.getElementById("today_review_score").textContent = "Today Review Score: " + readableFormat(score_array[2]);
+    document.getElementById("today_read_score").textContent = "Today Read Score: " + readableFormat(score_array[3]);
   }

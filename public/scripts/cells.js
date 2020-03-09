@@ -123,6 +123,8 @@ function addSuraCells() {
         toggle_memorization(index);
       }
       else if (shift_pressed) {
+        
+      } else {
         toggle_select(index);
       }
       //TODO add setting memorization to WAS_MEMORIZED, BEING_MEMORIZED
