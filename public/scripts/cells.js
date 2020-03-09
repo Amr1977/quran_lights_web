@@ -131,6 +131,7 @@ function addSuraCells() {
   }
   buildingSurasFlag = false;
   $("#reviews").addClass("animated bounce");
+  setup_light_days_options();
   updateDeselectButton();
   update_score();
   update_selection_score();

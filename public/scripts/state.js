@@ -1,4 +1,18 @@
-var refreshPeriodDays = 10;
+/*
+* Author: Amr Lotfy 2020
+*/
+
+var refreshPeriodDays = getLocalStorageObject("refreshPeriodDays") ? Number(getLocalStorageObject("refreshPeriodDays")) : 10;
+
+function get_refresh_period_days() {
+    return getLocalStorageObject("refreshPeriodDays") ? Number(getLocalStorageObject("refreshPeriodDays")) : 10;
+};
+
+function set_refresh_period_days(value) {
+    if (!value) return;
+    refreshPeriodDays = value;
+    setLocalStorageObject("refreshPeriodDays", refreshPeriodDays);
+}
 
 /**
  * Used to record the most recent transaction timestamp so in the next fetch we get more recent transactions only.
