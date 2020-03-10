@@ -11,12 +11,13 @@ function drawTreeMapChart(DevId) {
         data: getTreeMapData(),
         events: {
           click: function (event) {
-            if (event.point.node.childrenTotal == 0) {//since last node will have zero childrens
-              //Perform Task on leaf or last node
-              console.log(event.point.name);
-              refreshByName(event.point.name);
+            // if (event.point.node.childrenTotal == 0) {//since last node will have zero childrens
+            //   //Perform Task on leaf or last node
+            //   console.log(event.point.name);
+            //   refreshByName(event.point.name);
 
-            }
+            // }
+            console.log("clicked cell: ", vent.point.name);
           }
         }
       }
