@@ -2,7 +2,7 @@ function updateDeselectButton(){
   if (selected_suras.length > 0) {
     document.getElementById("deselect_button").style.display = "block";
   } else {
-    document.getElementById("deselect_button").style.display = "none";
+    //document.getElementById("deselect_button").style.display = "none";
   }
 }
 
@@ -31,6 +31,6 @@ function toggle_select(suraIndex) {
   function deselectAll() {
     selected_suras = [];
     setLocalStorageObject("selected_suras", selected_suras);
-    document.getElementById("deselect_button").style.display = "none";
+    //document.getElementById("deselect_button").style.display = "none";
     addSuraCells();
   }
