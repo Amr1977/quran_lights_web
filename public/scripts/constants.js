@@ -65,4 +65,4 @@ const config = {
     "sign-in-with-google"
   ];
 
-  
+  SINGLE_CLICK_EVENT_DAMPING_DELAY = 300;  

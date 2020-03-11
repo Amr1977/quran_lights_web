@@ -1,3 +1,4 @@
+var click_event_queue = [];
 function addSuraCells() {
   console.log("addSuraCells invoked.");
   //TODO reuse cells
@@ -111,23 +112,25 @@ function addSuraCells() {
     }
     //element.appendChild(memoDiv);
     element.ondblclick = function () {
-      var timeStamp = Math.floor(Date.now() / 1000);
       var index = this.index;
+      while(click_event_queue.length > 0 && click_event_queue[0].index == index) {
+        click_event_queue.shift()
+      }
+      console.log("double click detected.");
+      var timeStamp = Math.floor(Date.now() / 1000);
       $(".sura-" + index).addClass("animated bounceIn");
       refreshSura(index, timeStamp);
     };
     element.onclick = function () {
-      var index = this.index;
-      if (alt_pressed) {
-        $(".sura-" + index).addClass("animated bounceIn");
-        toggle_memorization(index);
-      }
-      else if (shift_pressed) {
-        
-      } else {
-        toggle_select(index);
-      }
-      //TODO add setting memorization to WAS_MEMORIZED, BEING_MEMORIZED
+      var click_event = {};
+      click_event.index = this.index;
+      click_event.alt_pressed = alt_pressed;
+      click_event.shift_pressed = shift_pressed;
+      click_event.ctrl_pressed = ctrl_pressed;
+      click_event.cmd_pressed = cmd_pressed;
+
+      click_event_queue.unshift(click_event);
+      setTimeout(do_click, SINGLE_CLICK_EVENT_DAMPING_DELAY);
     };
     document.getElementById("reviews").appendChild(element);
   }
@@ -143,4 +146,23 @@ function addSuraCells() {
     clearInterval(periodicRefreshTimerRef);
   }
   periodicRefreshTimerRef = setInterval(addSuraCells, autoRefreshPeriod);
+}
+
+function do_click() {
+  if (click_event_queue.length == 0) return;
+
+  var event = click_event_queue.shift();
+  if (!event) {
+    console.log("Empty click event queue.");
+    return;
+  }
+
+  var index = event.index;
+    console.log("Delayed click event on cell: ", event.index);
+    if (event.alt_pressed) {
+      $(".sura-" + event.index).addClass("animated bounceIn");
+      toggle_memorization(event.index);
+    } else {
+      toggle_select(event.index);
+    }
 }
