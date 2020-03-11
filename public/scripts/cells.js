@@ -97,14 +97,14 @@ function addSuraCells() {
     var charCountElement = document.createElement("span");
     charCountElement.id = "char-count";
     charCountElement.style.float = "left";
-    charCountElement.style.fontSize = ".6vw";
+    charCountElement.style.fontSize = "12px";
     charCountElement.textContent = charCountText;
     element.appendChild(charCountElement);
     //Days elapsed
     if (daysElapsed != 0) {
       var daysElapsedElement = document.createElement("span"); //document.createTextNode(daysElapsedText);
       daysElapsedElement.style.float = "right";
-      daysElapsedElement.style.fontSize = ".6vw";
+      daysElapsedElement.style.fontSize = "12px";
       daysElapsedElement.textContent = daysElapsedText;
       daysElapsedElement.id = "days";
       element.appendChild(daysElapsedElement);
