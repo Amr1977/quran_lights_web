@@ -114,6 +114,7 @@ function addSuraCells() {
     element.ondblclick = function () {
       var index = this.index;
       while(click_event_queue.length > 0 && click_event_queue[0].index == index) {
+        console.log("dropped click entry for ", index);
         click_event_queue.shift()
       }
       console.log("double click detected.");
@@ -157,12 +158,11 @@ function do_click() {
     return;
   }
 
-  var index = event.index;
-    console.log("Delayed click event on cell: ", event.index);
-    if (event.alt_pressed) {
-      $(".sura-" + event.index).addClass("animated bounceIn");
-      toggle_memorization(event.index);
-    } else {
-      toggle_select(event.index);
-    }
+  console.log("Delayed click event on cell: ", event.index);
+  if (event.alt_pressed) {
+    $(".sura-" + event.index).addClass("animated bounceIn");
+    toggle_memorization(event.index);
+  } else {
+    toggle_select(event.index);
+  }
 }

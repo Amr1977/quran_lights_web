@@ -20,23 +20,31 @@ function initCells() {
     myUserId = firebase.auth().currentUser.uid;
     var database = firebase.database();
 
-    var history = getLocalStorageObject("surasHistory");
-    if (history) {
-      surasHistory = history;
-    }
-
     var lastTimeStamp = getLocalStorageObject("lastTransactionTimeStamp");
 
     if (lastTimeStamp) {
       lastTransactionTimeStamp = lastTimeStamp;
+    } else {
+      lastTransactionTimeStamp = 0;
+      setLocalStorageObject("lastTransactionTimeStamp", 0);
     }
+    var history = getLocalStorageObject("surasHistory");
+    if (history) {
+      surasHistory = history;
+      console.log("LOcalStorage SurasHistory: \n", surasHistory);
+    } else {
+      lastTransactionTimeStamp = 0;
+      setLocalStorageObject("lastTransactionTimeStamp", 0);
+      console.log("LocalStorage has no/invalid SurasHistory information: \n", surasHistory);
+    }
+
     console.log("grapping transactions after ", lastTransactionTimeStamp);
 
     sort_order = getLocalStorageObject("sort_order");
     if (sort_order) {
       set_sort_order_with_value(sort_order);
     } else {
-      sort_order = SORT_ORDER_NORMAL;
+      set_sort_order_with_value(SORT_ORDER_NORMAL);
     }
 
     selected_suras = getLocalStorageObject("selected_suras")

@@ -181,8 +181,13 @@
                         <button  style="margin: 10px; display: none;" class="mdl-button mdl-js-button mdl-button--raised" id="sign-in-with-twitter" name="signintwitter">Sign In with Twitter</button>
                     </span-->
                     <!--button style="margin: 10px;" class="mdl-button mdl-js-button mdl-button--raised" disabled id="quickstart-verify-email" name="verify-email">Send Email Verification</button-->
-                    <!--button style="margin: 10px;" class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-password-reset" name="verify-email">Send Password Reset Email</button-->
-                    
+                    <button 
+                    id="quickstart-password-reset" 
+                    style="margin: 10px;" 
+                    class="mdl-button mdl-js-button mdl-button--raised" 
+                    name="verify-email"
+                    onclick="sendPasswordReset"
+                    >Send Password Reset Email</button>
 
                     <div id="sort_order_container" style="margin: 10px;">
                         <div style="float: left">Order Chapters by: </div>

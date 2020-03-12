@@ -62,7 +62,8 @@ const config = {
     "email",
     "password",
     "quickstart-sign-up",
-    "sign-in-with-google"
+    "sign-in-with-google",
+    "quickstart-password-reset" 
   ];
 
   SINGLE_CLICK_EVENT_DAMPING_DELAY = 300;  
