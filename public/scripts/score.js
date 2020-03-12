@@ -39,9 +39,10 @@ function getScore() {
 
   function update_score () {
     var score_array = getScore();
+    review_today = score_array[2];
     console.log(score_array);
     document.getElementById("score").textContent = "Total Score: " + readableFormat(score_array[0]);
     document.getElementById("today_score").textContent = "Today Score: " + readableFormat(score_array[1]);
-    document.getElementById("today_review_score").textContent = "Today Review Score: " + readableFormat(score_array[2]);
+    document.getElementById("today_review_score").textContent = "Today Review Score: " + readableFormat(review_today);
     document.getElementById("today_read_score").textContent = "Today Read Score: " + readableFormat(score_array[3]);
   }

@@ -54,8 +54,8 @@ const config = {
     "daily-score-container",
     "today_score",
     "today_review_score",
-    "today_read_score"
-
+    "today_read_score",
+    "review_score_guage"
   ];
 
   const SIGN_OUT_ONLY_ELEMENTS = [
@@ -68,3 +68,4 @@ const config = {
 
   SINGLE_CLICK_EVENT_DAMPING_DELAY = 300; 
   MAX_ELAPSED_DAYS_FOR_MEMORIZED_SURAS=  10; 
+  DAILY_REVIEW_SCORE_THRESHOLD = fullKhatmaCharCount / 3;

@@ -39,3 +39,5 @@ var sortedTimestampSuraArray = [];
 
 var colorHash = {};
 var elapsed_days = [];
+
+var review_today = 0;

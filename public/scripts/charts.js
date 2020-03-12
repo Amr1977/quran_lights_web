@@ -1,4 +1,5 @@
 function update_charts() {
+    updateGuageChart("review_score_guage", "Daily Review Score", 100 * review_today / DAILY_REVIEW_SCORE_THRESHOLD);
     updateGuageChart("light-ratio-chart-container", "Light Ratio", lightRatio);
     updateGuageChart("conquer-ratio-chart-container", "Conquer Ratio", conquerRatio);
     drawTimeSeriesChart("daily-score-chart", DAILY_SCORE_MODE);
