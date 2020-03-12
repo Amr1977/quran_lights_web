@@ -83,6 +83,7 @@ function sortByX(array) {
     try {
         result = JSON.parse(json_string, null, 2);
     } catch (e) {
+        console.log(e);
         return [false, {}];
     }
     return [true, result];
