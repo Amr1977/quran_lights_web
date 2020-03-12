@@ -113,28 +113,23 @@ function addSuraCells() {
       element.appendChild(daysElapsedElement);
     }
     //element.appendChild(memoDiv);
-    element.ondblclick = function () {
-      var index = this.index;
-      while(click_event_queue.length > 0 && click_event_queue[0].index == index) {
-        console.log("dropped click entry for ", index);
-        click_event_queue.shift()
-      }
-      console.log("double click detected.");
-      var timeStamp = Math.floor(Date.now() / 1000);
-      $(".sura-" + index).addClass("animated bounceIn");
-      refreshSura(index, timeStamp);
-    };
     element.onclick = function () {
-      var click_event = {};
-      click_event.index = this.index;
-      click_event.alt_pressed = alt_pressed;
-      click_event.shift_pressed = shift_pressed;
-      click_event.ctrl_pressed = ctrl_pressed;
-      click_event.cmd_pressed = cmd_pressed;
-
-      click_event_queue.unshift(click_event);
-      setTimeout(do_click, SINGLE_CLICK_EVENT_DAMPING_DELAY);
+      if (click_event_queue.length > 0 && click_event_queue[0].index == this.index) {
+        console.log("double click detected.");
+        do_double_click(this.index);
+      } else {
+        var click_event = {};
+        click_event.index = this.index;
+        click_event.alt_pressed = alt_pressed;
+        click_event.shift_pressed = shift_pressed;
+        click_event.ctrl_pressed = ctrl_pressed;
+        click_event.cmd_pressed = cmd_pressed;
+  
+        click_event_queue.unshift(click_event);
+        setTimeout(do_click, SINGLE_CLICK_EVENT_DAMPING_DELAY);
+      }
     };
+
     document.getElementById("reviews").appendChild(element);
   }
   buildingSurasFlag = false;
@@ -149,6 +144,17 @@ function addSuraCells() {
     clearInterval(periodicRefreshTimerRef);
   }
   periodicRefreshTimerRef = setInterval(addSuraCells, autoRefreshPeriod);
+}
+
+function do_double_click(index){
+  while(click_event_queue.length > 0 && click_event_queue[0].index == index) {
+    console.log("dropped click entry for ", index);
+    click_event_queue.shift()
+  }
+  
+  var timeStamp = Math.floor(Date.now() / 1000);
+  $(".sura-" + index).addClass("animated bounceIn");
+  refreshSura(index, timeStamp);
 }
 
 function do_click() {
