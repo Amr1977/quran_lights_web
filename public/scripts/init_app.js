@@ -47,8 +47,6 @@ function initApp() {
       hide_sign_in_only_elements();
       //document.getElementById("sign-in-with-facebook").style.display = "block";
       //document.getElementById("sign-in-with-twitter").style.display = "block";
-      document.getElementById("reviews").innerHTML =
-        "Sign in to fetch your history.";
       // User is signed out.
       document.getElementById("quickstart-sign-in").textContent = "Sign in";
       //empty score
