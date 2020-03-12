@@ -58,9 +58,9 @@ function sortByX(array) {
   }
 
   function getLocalStorageObject(key) {
-    var object = localStorage.getItem(myUserId + "_" + key);
-    if (object) {
-      return JSON.parse(object);
+    var object = is_json_string(localStorage.getItem(myUserId + "_" + key));
+    if (object[0]) {
+      return object[1];
     } 
     
     return null;
