@@ -23,11 +23,11 @@ function sortByX(array) {
 
   function readableFormat(number) {
     if (number >= 1000000000) {
-      return (number / 1000000000).toFixed(2) + "G";
+      return (number / 1000000000).toFixed(NUMBER_OF_DECIMAL_DIGITS) + "G";
     } else if (number >= 1000000) {
-      return (number / 1000000).toFixed(2) + "M";
+      return (number / 1000000).toFixed(NUMBER_OF_DECIMAL_DIGITS) + "M";
     } else if (number >= 1000) {
-      return (number / 1000).toFixed(2) + "K";
+      return (number / 1000).toFixed(NUMBER_OF_DECIMAL_DIGITS) + "K";
     } else {
       return number;
     }
