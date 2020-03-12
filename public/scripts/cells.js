@@ -66,12 +66,7 @@ function addSuraCells() {
     }
     var suraName = element.index + " " + SuraNamesEn[suraIndex - 1];
     var daysElapsedText = daysElapsed == 0 || daysElapsed > 1000 ? "" : daysElapsed + " Days";
-    if (timeDifferenceRatio >= 0.3) {
-      element.style.color = "black";
-    }
-    else {
-      element.style.color = "white";
-    }
+    
     var suraNameElement = document.createElement("p");
     var suraNameElementAr = document.createElement("span");
     suraNameElement.textContent = SuraNamesEn[suraIndex - 1];
@@ -90,6 +85,12 @@ function addSuraCells() {
         break;
       default:
         suraNameElement.className = "not_memorized sura_name_label";
+    }
+    if (timeDifferenceRatio >= 0.5) {
+      element.style.color = "black";
+    }
+    else {
+      element.style.color = "white";
     }
     suraNameElement.textContent = suraName;
     element.appendChild(suraNameElementAr);
