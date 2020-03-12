@@ -80,11 +80,12 @@ function addSuraCells() {
     suraNameElementAr.className = "sura_name_label";
     switch (surasHistory[suraIndex].memorization) {
       case MEMORIZATION_STATE_MEMORIZED:
-        if (daysElapsed >= 10) {
+        if (daysElapsed >= MAX_ELAPSED_DAYS_FOR_MEMORIZED_SURAS) {
           suraNameElement.className = "old-memorized sura_name_label";
         }
         else {
           suraNameElement.className = "memorized sura_name_label";
+          suraNameElement.style.backgroundColor = "rgba(255, 255, 0," + (MAX_ELAPSED_DAYS_FOR_MEMORIZED_SURAS - daysElapsed) / MAX_ELAPSED_DAYS_FOR_MEMORIZED_SURAS + ")";
         }
         break;
       default:

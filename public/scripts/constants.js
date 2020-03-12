@@ -66,4 +66,5 @@ const config = {
     "quickstart-password-reset" 
   ];
 
-  SINGLE_CLICK_EVENT_DAMPING_DELAY = 300;  
+  SINGLE_CLICK_EVENT_DAMPING_DELAY = 300; 
+  MAX_ELAPSED_DAYS_FOR_MEMORIZED_SURAS=  10; 
