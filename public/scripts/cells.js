@@ -160,7 +160,7 @@ function do_double_click(index){
 function do_click() {
   if (click_event_queue.length == 0) return;
 
-  var event = click_event_queue.shift();
+  var event = click_event_queue.pop();
   if (!event) {
     console.log("Empty click event queue.");
     return;
