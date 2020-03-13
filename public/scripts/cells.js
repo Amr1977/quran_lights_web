@@ -170,9 +170,9 @@ function do_click() {
   if (event.alt_pressed) {
     $(".sura-" + event.index).addClass("animated bounceIn");
     toggle_memorization(event.index);
-  } else if(event.cmd_pressed) {
+  } else if(event.shift_pressed) {
     window.open("http://quran.ksu.edu.sa/index.php?l=en#aya=" + event.index + "_1&m=hafs&qaree=tunaiji&trans=en_sh");
-  }else {
+  } else {
     toggle_select(event.index);
   }
 }
