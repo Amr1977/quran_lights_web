@@ -65,8 +65,10 @@ function merge_imported_history(history){
       //merge both histories
       console.log("Merge imported history for ", suraIndex);
       var new_records = history[suraIndex].history.filter( x => !surasHistory[suraIndex].history.includes(x));
+      new_records.sort(sortNumber);
       history[suraIndex].history = new_records;
       surasHistory[suraIndex].history = surasHistory[suraIndex].history.concat(new_records);
+      surasHistory[suraIndex].history.sort(sortNumber);
     } else {
       if (!surasHistory[suraIndex] || !surasHistory[suraIndex].history || surasHistory[suraIndex].history.length == 0) {
         console.log("Replace with imported history for ", suraIndex);
