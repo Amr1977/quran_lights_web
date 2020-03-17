@@ -41,10 +41,6 @@ h1 {
     cursor: pointer;    
 }
 
-.sura-cell:hover{ 
-    border: thick solid yellow !important;
-}
-
 .sura_name_label {
     font-weight: 800;
     font-size: 14px;
@@ -54,14 +50,22 @@ h1 {
     border: thick solid rgb(0,0,255);
 }
 
-.sura-cell:hover {
-    background: rgb(0, 255, 0);
-}
-
 .sort_label {
     padding: 20px;
     font-weight: 800;
     font-size: 14;
+}
+
+@keyframes beat{
+	to { transform: scale(1.1); }
+}
+
+.sura-cell:hover {
+	/* font-size: 150px; */
+    /* color: #e00; */
+    border: thick solid yellow !important;
+	animation: beat .25s infinite alternate;
+	transform-origin: center;
 }
 
 #snackbar {
