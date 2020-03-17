@@ -42,7 +42,7 @@ h1 {
 }
 
 .sura-cell:hover{ 
-    border: thick solid rgb(0,0,255) !important;
+    border: thick solid yellow !important;
 }
 
 .sura_name_label {
