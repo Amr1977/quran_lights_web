@@ -64,7 +64,7 @@ h1 {
 	/* font-size: 150px; */
     /* color: #e00; */
     border: thick solid yellow !important;
-	animation: beat .25s infinite alternate;
+	animation: beat .5s infinite alternate;
 	transform-origin: center;
 }
 
