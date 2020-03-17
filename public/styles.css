@@ -41,12 +41,18 @@ h1 {
     cursor: pointer;    
 }
 
+.sura-cell:hover{ 
+    border: thick solid rgb(0,0,255) !important;
+}
+
 .sura_name_label {
     font-weight: 800;
     font-size: 14px;
 }
 
-
+.selected {
+    border: thick solid rgb(0,0,255);
+}
 
 .sura-cell:hover {
     background: rgb(0, 255, 0);
@@ -107,3 +113,5 @@ h1 {
     box-shadow: 0;
     display: inline;
     }
+
+    
