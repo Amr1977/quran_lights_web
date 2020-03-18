@@ -64,7 +64,7 @@ h1 {
 	/* font-size: 150px; */
     /* color: #e00; */
     border: thick solid yellow !important;
-	animation: beat .5s infinite alternate;
+	animation: beat .4s infinite alternate;
 	transform-origin: center;
 }
 
@@ -88,6 +88,21 @@ h1 {
     visibility: visible;
     -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
     animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+.char-count
+{
+    /* position:fixed; */
+    float: left;
+    font-size: 12px;
+    /* bottom:5;
+    left:5; */
+    /* margin-bottom: 5px;
+    margin-left : 5px; */
+    /* width: 200px;
+    height: 200px; */
+    /* background-color: red;
+    color: green; */
 }
 
 @-webkit-keyframes fadein {

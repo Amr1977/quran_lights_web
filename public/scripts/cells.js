@@ -98,9 +98,7 @@ function addSuraCells() {
     var charCountText = readableFormat(suraCharCount[suraIndex - 1]);
     //Char count
     var charCountElement = document.createElement("span");
-    charCountElement.id = "char-count";
-    charCountElement.style.float = "left";
-    charCountElement.style.fontSize = "12px";
+    charCountElement.className = "char-count";
     charCountElement.textContent = charCountText;
     element.appendChild(charCountElement);
     //Days elapsed
