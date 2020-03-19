@@ -44,6 +44,7 @@ h1 {
 .sura_name_label {
     font-weight: 800;
     font-size: 14px;
+    margin: 10px;
 }
 
 .selected {
@@ -66,6 +67,11 @@ h1 {
     border: thick solid yellow !important;
 	animation: beat .4s infinite alternate;
 	transform-origin: center;
+}
+
+.sura_verse_count {
+    font-size: 12px;
+    margin: 5px;
 }
 
 #snackbar {
@@ -92,17 +98,8 @@ h1 {
 
 .char-count
 {
-    /* position:fixed; */
     float: left;
     font-size: 12px;
-    /* bottom:5;
-    left:5; */
-    /* margin-bottom: 5px;
-    margin-left : 5px; */
-    /* width: 200px;
-    height: 200px; */
-    /* background-color: red;
-    color: green; */
 }
 
 @-webkit-keyframes fadein {

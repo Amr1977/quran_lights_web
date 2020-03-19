@@ -59,16 +59,17 @@ function addSuraCells() {
       (60 * 60 * 24.0)).toFixed(0);
       elapsed_days[suraIndex - 1] = Number(daysElapsed);
     if (selected_suras.indexOf(suraIndex) !== -1) {
-      element.style.border = "thick solid rgb(0,0,255)";
+      element.classList.add("selected");
     }
     else if (daysElapsed >= 30 && timeStampsArray.length > 0) {
       element.style.border = "thick solid rgb(255,0,0)";
     }
+
     var suraName = element.index + " " + SuraNamesEn[suraIndex - 1];
     var daysElapsedText = daysElapsed == 0 || daysElapsed > 1000 ? "" : daysElapsed + " Days";
-    
+
     var suraNameElement = document.createElement("p");
-    var suraNameElementAr = document.createElement("span");
+    var suraNameElementAr = document.createElement("div");
     suraNameElement.textContent = SuraNamesEn[suraIndex - 1];
     suraNameElement.className = "sura_name_label";
     suraNameElementAr.textContent = SuraNamesAr[suraIndex - 1];
@@ -95,6 +96,14 @@ function addSuraCells() {
     suraNameElement.textContent = suraName;
     element.appendChild(suraNameElementAr);
     element.appendChild(suraNameElement);
+    
+    var verseCount = suraVerseCount[suraIndex - 1];
+    var suraVerseCountElement = document.createElement("div");
+    suraVerseCountElement.textContent = verseCount + " Verses";
+    
+    element.appendChild(suraVerseCountElement);
+    suraVerseCountElement.className = "sura_verse_count";
+
     var charCountText = readableFormat(suraCharCount[suraIndex - 1]);
     //Char count
     var charCountElement = document.createElement("span");

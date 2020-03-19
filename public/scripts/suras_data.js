@@ -230,6 +230,7 @@ const SuraNamesEn = [
   "Al-Falaq",
   "Al-Nas"
 ];
+//TODO change to SuraVerseCount in all js files
 const suraVerseCount = [
   7,
   286,

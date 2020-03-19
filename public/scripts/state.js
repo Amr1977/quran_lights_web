@@ -41,3 +41,24 @@ var colorHash = {};
 var elapsed_days = [];
 
 var review_today = 0;
+var read_daily_target = 100_000;
+var review_daily_target = 100_000; 
+
+var upload_queue = [];
+
+//TODO move to sync.js
+function get_upload_queue() {
+   var queue = getLocalStorageObject("upload_queue");
+   if (queue) {
+       upload_queue = queue;
+   }
+   return upload_queue;
+}
+
+function pop_from_upload_queue() {
+   //TODO do it!
+}
+
+function push_in_upload_queue() {
+    //TODO do it!
+}
