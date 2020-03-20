@@ -7,7 +7,6 @@ function onTimeStampUpdated() {
     timeStampTriggerTimerRef = null;
     console.log("Fetching history...");
     initCells();
-    playSuraRefreshSound();
 }
   
 function skew() {
