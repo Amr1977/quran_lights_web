@@ -41,8 +41,8 @@ function getScore() {
     var score_array = getScore();
     review_today = score_array[2];
     console.log(score_array);
-    document.getElementById("score").textContent = "Total Score: " + readableFormat(score_array[0]);
-    document.getElementById("today_score").textContent = "Today Score: " + readableFormat(score_array[1]);
-    document.getElementById("today_review_score").textContent = "Today Review Score: " + readableFormat(review_today);
-    document.getElementById("today_read_score").textContent = "Today Read Score: " + readableFormat(score_array[3]);
+    document.getElementById("score").textContent = "Total Balance: " + SCORE_CURRENCY + readableFormat(score_array[0]);
+    document.getElementById("today_score").textContent = "Today Amount: " + SCORE_CURRENCY + readableFormat(score_array[1]);
+    document.getElementById("today_review_score").textContent = "Today Review Amount: " + SCORE_CURRENCY + readableFormat(review_today);
+    document.getElementById("today_read_score").textContent = "Today Read Amount: " + SCORE_CURRENCY + readableFormat(score_array[3]);
   }

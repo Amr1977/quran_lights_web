@@ -104,7 +104,7 @@ function addSuraCells() {
     element.appendChild(suraVerseCountElement);
     suraVerseCountElement.className = "sura_verse_count";
 
-    var charCountText = readableFormat(suraCharCount[suraIndex - 1]);
+    var charCountText = SCORE_CURRENCY + readableFormat(suraCharCount[suraIndex - 1]);
     //Char count
     var charCountElement = document.createElement("span");
     charCountElement.className = "char-count";

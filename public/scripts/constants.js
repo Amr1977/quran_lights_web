@@ -20,6 +20,7 @@ const SORT_ORDER_CHAR_COUNT = "chars_count";
 const SORT_ORDER_VERSE_COUNT = "verse_count";
 const SORT_ORDER_WORD_COUNT = "word_count";
 const SORT_ORDER_REFRESH_COUNT = "refresh_count";
+const SCORE_CURRENCY = "$";
 
 // Initialize Firebase
 const config = {
