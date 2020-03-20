@@ -37,8 +37,13 @@ function refreshSura(suraIndex, refreshTimeStamp) {
         )
         .set(transactionTimeStamp);
       playSuraRefreshSound();
+      animate_score_elements();
     }
   });
+}
+
+function animate_score_elements(){
+  $(".score").addClass("animated bounceIn");
 }
 
 function refreshByName(suraName) {
