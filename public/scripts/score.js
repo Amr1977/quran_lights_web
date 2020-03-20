@@ -45,4 +45,9 @@ function getScore() {
     document.getElementById("today_score").textContent = "Today Amount: " + SCORE_CURRENCY + readableFormat(score_array[1]);
     document.getElementById("today_review_score").textContent = "Today Review Amount: " + SCORE_CURRENCY + readableFormat(review_today);
     document.getElementById("today_read_score").textContent = "Today Read Amount: " + SCORE_CURRENCY + readableFormat(score_array[3]);
+    animate_score();
+  }
+
+  function animate_score() {
+    //TODO
   }

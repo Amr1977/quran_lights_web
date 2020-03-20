@@ -57,6 +57,12 @@ h1 {
     font-size: 14;
 }
 
+#today_score {
+    text-align: right;
+    font-size: 32px;
+    margin: 15px;
+}
+
 @keyframes beat{
 	to { transform: scale(1.1); }
 }
