@@ -25,7 +25,7 @@ function toggle_select(suraIndex) {
       selected_total += suraCharCount[selected_suras[i] - 1];
     }
   
-    document.getElementById("selected_total").textContent = " Selection score sum: [" + SCORE_CURRENCY + readableFormat(selected_total) + "]";
+    document.getElementById("selected_total").textContent = " Selected Amount: [" + SCORE_CURRENCY + readableFormat(selected_total) + "]";
   }
 
   function deselectAll() {
