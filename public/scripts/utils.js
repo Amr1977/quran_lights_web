@@ -22,10 +22,11 @@ function sortByX(array) {
   }
 
   function readableFormat(number) {
-    if (number >= 1000000000) {
-      return (number / 1000000000).toFixed(NUMBER_OF_DECIMAL_DIGITS) + "G";
-    } else if (number >= 1000000) {
-      return (number / 1000000).toFixed(NUMBER_OF_DECIMAL_DIGITS) + "M";
+    number = Number(number);
+    if (number >= 1000_000_000) {
+      return (number / 1000_000_000).toFixed(NUMBER_OF_DECIMAL_DIGITS) + "B";
+    } else if (number >= 1000_000) {
+      return (number / 1000_000).toFixed(NUMBER_OF_DECIMAL_DIGITS) + "M";
     } else if (number >= 1000) {
       return (number / 1000).toFixed(NUMBER_OF_DECIMAL_DIGITS) + "K";
     } else {
