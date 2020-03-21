@@ -102,3 +102,17 @@ function get_humanized_period(days_count) {
     return days_count + "D";
   }
 }
+
+/**
+ * This function attepts to retrieve a local storage value, 
+ * if not found it creates it with the provided initial value.
+ */
+function get_initial_local_object(object_name, initial_value){
+  var stored_value = getLocalStorageObject(object_name);
+  if (stored_value) {
+    return stored_value;
+  }
+
+  setLocalStorageObject(object_name, initial_value);
+  return initial_value;
+}

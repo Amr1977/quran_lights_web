@@ -31,7 +31,7 @@ function addSuraCells() {
     //TODO use minimum timestamp in all suras otherwise save current time as that minimum for later calculations
     var maxStamp = timeStampsArray.length > 0
       ? timeStampsArray[timeStampsArray.length - 1]
-      : 0;
+      : get_initial_local_object("min_timestamp", currentTimeStamp);
     var timeDifferenceRatio = 1 -
       ((currentTimeStamp -
         (maxStamp == 0 ? currentTimeStamp - refreshPeriod : maxStamp)) *
