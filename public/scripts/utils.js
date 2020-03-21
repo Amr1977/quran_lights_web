@@ -89,3 +89,16 @@ function sortByX(array) {
     }
     return [true, result];
 }
+
+function get_humanized_period(days_count) {
+  days_count = Number(days_count);
+  if (days_count >= 365) {
+    return (days_count / 365).toFixed(NUMBER_OF_DECIMAL_DIGITS) + "Y";
+  } else if (days_count >= 30) {
+    return (days_count / 30).toFixed(NUMBER_OF_DECIMAL_DIGITS) + "M";
+  } else if (days_count >= 14) {
+    return (days_count / 7).toFixed(NUMBER_OF_DECIMAL_DIGITS) + "W";
+  } else {
+    return days_count + "D";
+  }
+}

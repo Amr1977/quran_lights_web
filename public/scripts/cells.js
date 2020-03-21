@@ -65,12 +65,27 @@ function addSuraCells() {
       element.style.border = "thick solid rgb(255,0,0)";
     }
 
-    var suraName = element.index + " " + SuraNamesEn[suraIndex - 1];
-    var daysElapsedText = daysElapsed == 0 || daysElapsed > 1000 ? "" : daysElapsed + " Days";
+    var header = document.createElement("div");
+    header.className = "cell_header";
 
-    var suraNameElement = document.createElement("p");
+    var verseCount = suraVerseCount[suraIndex - 1];
+    var sura_verse_count_element = document.createElement("div");
+    sura_verse_count_element.className = "sura_verse_count";
+    sura_verse_count_element.textContent = verseCount + "V";
+    header.appendChild(sura_verse_count_element);
+
+    var sura_index_element = document.createElement("div");
+    sura_index_element.className = "sura_index";
+    sura_index_element.textContent = "#" + suraIndex;
+    header.appendChild(sura_index_element);
+
+    element.appendChild(header);
+
+    var suraName = SuraNamesEn[suraIndex - 1];
+    var daysElapsedText = daysElapsed == 0 ? "" : get_humanized_period(daysElapsed);
+
+    var suraNameElement = document.createElement("div");
     var suraNameElementAr = document.createElement("div");
-    suraNameElement.textContent = SuraNamesEn[suraIndex - 1];
     suraNameElement.className = "sura_name_label";
     suraNameElementAr.textContent = SuraNamesAr[suraIndex - 1];
     suraNameElementAr.className = "sura_name_label";
@@ -96,13 +111,6 @@ function addSuraCells() {
     suraNameElement.textContent = suraName;
     element.appendChild(suraNameElementAr);
     element.appendChild(suraNameElement);
-    
-    var verseCount = suraVerseCount[suraIndex - 1];
-    var suraVerseCountElement = document.createElement("div");
-    suraVerseCountElement.textContent = verseCount + " Verses";
-    
-    element.appendChild(suraVerseCountElement);
-    suraVerseCountElement.className = "sura_verse_count";
 
     var charCountText = SCORE_CURRENCY + readableFormat(suraCharCount[suraIndex - 1]);
     //Char count
@@ -113,10 +121,9 @@ function addSuraCells() {
     //Days elapsed
     if (daysElapsed != 0) {
       var daysElapsedElement = document.createElement("span"); //document.createTextNode(daysElapsedText);
-      daysElapsedElement.style.float = "right";
-      daysElapsedElement.style.fontSize = "12px";
+      daysElapsedElement.className = "elapsed_days";
       daysElapsedElement.textContent = daysElapsedText;
-      daysElapsedElement.id = "days";
+      // daysElapsedElement.id = "days";
       element.appendChild(daysElapsedElement);
     }
     //element.appendChild(memoDiv);
