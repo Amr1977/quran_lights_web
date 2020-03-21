@@ -21,20 +21,20 @@ h1 {
 .memorized {
     /*color: black;*/
     background-color: yellow;
-    border-radius: 20px;
+    border-radius: 10px;
 }
 
 .old-memorized {
     color: white;
     background-color: red;
-    border-radius: 20px;
+    border-radius: 10px;
 }
 
 .sura-cell {
     border-radius: 15px;
     /* background: url("images/desert.jpg");   */
     /* padding: 10px; */
-    font-weight: 700;
+    font-weight: 450;
     -webkit-transition-duration: 0.4s;
     /* Safari */
     transition-duration: 0.4s;
@@ -42,7 +42,6 @@ h1 {
 }
 
 .sura_name_label {
-    font-weight: 800;
     font-size: 14px;
     margin: 5px;
     width: 100%;
@@ -57,18 +56,18 @@ h1 {
 }
 
 .sura_index {
-    text-align: left;
+    text-align: right;
     float: right;
-    font-weight: 800;
     font-size: 14px;
+    width: 50%;
     /* background-color: red; */
 }
 
 .sura_verse_count {
     text-align: left;
     float: left;
-    font-weight: 800;
     font-size: 14px;
+    width: 50%;
     /* background-color: red; */
 }
 
@@ -76,16 +75,16 @@ h1 {
 {
     float: left;
     text-align: left;
-    font-weight: 800;
     font-size: 14px;
+    width: 50%;
     /* background-color: red; */
 }
 
 .elapsed_days {
     text-align: right;
     float: right;
-    font-weight: 800;
     font-size: 14px;
+    width: 50%;
     /* background-color: red; */
 }
 
