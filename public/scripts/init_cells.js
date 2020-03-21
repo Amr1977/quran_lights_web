@@ -108,6 +108,9 @@ function initCells() {
       bounceList.forEach(function (suraIndex) {
         bounce(suraIndex);
       });
+      if(bounceList.length) {
+        playSuraRefreshSound();
+      }
     });
   }
 }
