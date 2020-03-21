@@ -28,6 +28,7 @@ function addSuraCells() {
     }
     var timeStampsArray = surasHistory[suraIndex].history;
     //TODO if not refreshed before make it zero instead of (currentTimeStamp - refreshPeriod) and condition timeDifferenceRatio value to be zero too
+    //TODO use minimum timestamp in all suras otherwise save current time as that minimum for later calculations
     var maxStamp = timeStampsArray.length > 0
       ? timeStampsArray[timeStampsArray.length - 1]
       : 0;
