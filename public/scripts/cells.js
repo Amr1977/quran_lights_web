@@ -127,7 +127,7 @@ function addSuraCells() {
       // daysElapsedElement.id = "days";
       element.appendChild(daysElapsedElement);
     }
-    //element.appendChild(memoDiv);
+  
     element.onclick = function () {
       if (click_event_queue.length > 0 && click_event_queue[0].index == this.index) {
         console.log("double click detected.");

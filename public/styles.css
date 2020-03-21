@@ -33,7 +33,7 @@ h1 {
 .sura-cell {
     border-radius: 15px;
     /* background: url("images/desert.jpg");   */
-    padding: 10px;
+    /* padding: 10px; */
     font-weight: 700;
     -webkit-transition-duration: 0.4s;
     /* Safari */
@@ -45,12 +45,15 @@ h1 {
     font-weight: 800;
     font-size: 14px;
     margin: 5px;
+    width: 100%;
     text-align: center;
+    /* background-color: purple; */
 }
 
 .cell_header {
     background-color: yellow !important;
     font-size: 14px;
+    /* background-color: cyan; */
 }
 
 .sura_index {
@@ -62,7 +65,7 @@ h1 {
 }
 
 .sura_verse_count {
-    text-align: right;
+    text-align: left;
     float: left;
     font-weight: 800;
     font-size: 14px;

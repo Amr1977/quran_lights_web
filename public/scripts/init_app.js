@@ -18,6 +18,7 @@ function initApp() {
     document.getElementById("quickstart-sign-in").disabled = false;
     if (user) {
       skew();
+      document.title = "Quran Lights [" + user.email + "]";
       show_sign_in_only_elements();
       //document.getElementById("sign-in-with-facebook").style.display = "none";
       //document.getElementById("sign-in-with-twitter").style.display = "none";
