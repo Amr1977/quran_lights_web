@@ -49,5 +49,6 @@ function getScore() {
   }
 
   function animate_score() {
-    //TODO
+    document.getElementById("today_score").className = "score";
+    document.getElementById("today_score").className = "score animated bounce";
   }
