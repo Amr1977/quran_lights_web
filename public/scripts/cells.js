@@ -62,7 +62,7 @@ function addSuraCells() {
     if (selected_suras.indexOf(suraIndex) !== -1) {
       element.classList.add("selected");
     }
-    else if (daysElapsed >= 30) {
+    else if (daysElapsed >= refreshPeriodDays) {
       element.classList.add("old-refresh");
     }
 
