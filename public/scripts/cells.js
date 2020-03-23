@@ -62,8 +62,8 @@ function addSuraCells() {
     if (selected_suras.indexOf(suraIndex) !== -1) {
       element.classList.add("selected");
     }
-    else if (daysElapsed >= 30 && timeStampsArray.length > 0) {
-      element.style.border = "thick solid rgb(255,0,0)";
+    else if (daysElapsed >= 30) {
+      element.classList.add("old-refresh");
     }
 
     var header = document.createElement("div");

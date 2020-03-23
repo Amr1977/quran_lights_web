@@ -30,6 +30,10 @@ h1 {
     border-radius: 10px;
 }
 
+.old-refresh {
+    border: thick solid rgb(255,0,0);
+}
+
 .sura-cell {
     border-radius: 15px;
     /* background: url("images/desert.jpg");   */
@@ -88,7 +92,7 @@ h1 {
 }
 
 .selected {
-    border: thick solid rgb(0,0,255);
+    border: thick solid rgb(0,0,255) !important;
 }
 
 .sort_label {

@@ -10,11 +10,17 @@ function toggle_select(suraIndex) {
     var index = selected_suras.indexOf(suraIndex);
     if (index !== -1) {
       selected_suras.splice(index, 1);
+      $(".sura-" + suraIndex).removeClass("selected");
+      if (is_old_refresh(suraIndex)) {
+          $(".sura-" + suraIndex).addClass("old-refresh");
+      }
     } else {
       selected_suras.push(Number(suraIndex));
+      $(".sura-" + suraIndex).removeClass("old-refresh");
+      $(".sura-" + suraIndex).addClass("selected");
     }
     setLocalStorageObject("selected_suras", selected_suras);
-    addSuraCells();
+    update_selection_score();
   }
 
   //update selected_total element with total selected suras score
@@ -29,8 +35,29 @@ function toggle_select(suraIndex) {
   }
 
   function deselectAll() {
+    if (selected_suras.length == 0) return;
+    for (var index = 0; index < selected_suras.length; index++) {
+      $(".sura-" + selected_suras[index]).removeClass("selected");
+      if (is_old_refresh(selected_suras[index])) {
+          $(".sura-" + selected_suras[index]).addClass("old-refresh");
+      }
+    }
+
     selected_suras = [];
     setLocalStorageObject("selected_suras", selected_suras);
-    //document.getElementById("deselect_button").style.display = "none";
-    addSuraCells();
+    update_selection_score();
+  }
+
+  function is_old_refresh(sura_index) {
+    var timeStampsArray = surasHistory[sura_index].history;
+    var currentTimeStamp = Math.floor(Date.now() / 1000);
+
+    var maxStamp = timeStampsArray.length > 0
+      ? timeStampsArray[timeStampsArray.length - 1]
+      : get_initial_local_object("min_timestamp", currentTimeStamp);
+
+    var daysElapsed = ((currentTimeStamp - maxStamp) /
+      (60 * 60 * 24.0)).toFixed(0);
+    console.log("(daysElapsed >= refreshPeriodDays): " + (daysElapsed >= refreshPeriodDays));
+    return  (daysElapsed >= refreshPeriodDays);
   }
