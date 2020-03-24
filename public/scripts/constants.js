@@ -56,7 +56,8 @@ const config = {
     "today_score",
     "today_review_score",
     "today_read_score",
-    "review_score_guage"
+    "review_score_guage",
+    "display_name"
   ];
 
   const SIGN_OUT_ONLY_ELEMENTS = [
