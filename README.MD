@@ -4,6 +4,6 @@ This is the web interface of iOS App [Quran Lights](https://itunes.apple.com/us/
 
 This web app is [hosted on firebase](https://quran-lights.firebaseapp.com/)
 
-Contributers are welcom
+Contributers are welcom, kindly contact me to invite you to trello board.
 
 License: GPL.
