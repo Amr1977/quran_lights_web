@@ -17,7 +17,7 @@ function drawTreeMapChart(DevId) {
             //   refreshByName(event.point.name);
 
             // }
-            console.log("clicked cell: ", vent.point.name);
+            console.log("clicked cell: ", event.point.name);
           }
         }
       }
