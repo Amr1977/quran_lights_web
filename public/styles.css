@@ -119,6 +119,10 @@ h1 {
 	transform-origin: center;
 }
 
+button:focus {
+    outline: 0;
+}
+
 #snackbar {
     visibility: hidden;
     min-width: 250px;
