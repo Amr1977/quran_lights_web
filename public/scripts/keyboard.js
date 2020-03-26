@@ -37,6 +37,10 @@ function cacheIt(event) {
     set_sort_order_with_value("revelation_order");
   }
 
+  if (event.key == "d" && event.type == "keyup" && event.ctrlKey) {
+    deselectAll();
+  }
+
 }
 document.onkeydown = cacheIt;
 document.onkeyup = cacheIt;
