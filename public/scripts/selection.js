@@ -58,6 +58,6 @@ function toggle_select(suraIndex) {
 
     var daysElapsed = ((currentTimeStamp - maxStamp) /
       (60 * 60 * 24.0)).toFixed(0);
-    console.log("(daysElapsed >= refreshPeriodDays): " + (daysElapsed >= refreshPeriodDays));
-    return  (daysElapsed >= refreshPeriodDays);
+    console.log("(daysElapsed >= refreshPeriodDays): " + (daysElapsed >= get_refresh_period_days()));
+    return  (daysElapsed >= get_refresh_period_days());
   }

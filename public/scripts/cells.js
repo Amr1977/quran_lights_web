@@ -12,7 +12,7 @@ function addSuraCells() {
     reviewsNode.removeChild(reviewsNode.firstChild);
   }
   var currentTimeStamp = Math.floor(Date.now() / 1000);
-  var refreshPeriod = refreshPeriodDays * 24 * 60 * 60;
+  var refreshPeriod = get_refresh_period_days() * 24 * 60 * 60;
   lightRatio = 0;
   conquerRatio = 0;
   for (var cellIndex = 1; cellIndex <= 114; cellIndex++) {
@@ -62,7 +62,7 @@ function addSuraCells() {
     if (selected_suras.indexOf(suraIndex) !== -1) {
       element.classList.add("selected");
     }
-    else if (daysElapsed >= refreshPeriodDays) {
+    else if (daysElapsed >= get_refresh_period_days()) {
       element.classList.add("old-refresh");
     }
 
@@ -92,7 +92,7 @@ function addSuraCells() {
     suraNameElementAr.className = "sura_name_label";
     switch (surasHistory[suraIndex].memorization) {
       case MEMORIZATION_STATE_MEMORIZED:
-        if (daysElapsed >= MAX_ELAPSED_DAYS_FOR_MEMORIZED_SURAS || daysElapsed >= refreshPeriodDays) {
+        if (daysElapsed >= MAX_ELAPSED_DAYS_FOR_MEMORIZED_SURAS || daysElapsed >= get_refresh_period_days()) {
           suraNameElement.className = "old-memorized sura_name_label";
         }
         else {

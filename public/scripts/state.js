@@ -2,16 +2,16 @@
 * Author: Amr Lotfy 2020
 */
 
-var refreshPeriodDays = getLocalStorageObject("refreshPeriodDays") ? Number(getLocalStorageObject("refreshPeriodDays")) : 10;
+//var refreshPeriodDays = get_initial_local_object("refreshPeriodDays", MAX_ELAPSED_DAYS_FOR_MEMORIZED_SURAS);
 
 function get_refresh_period_days() {
-    return getLocalStorageObject("refreshPeriodDays") ? Number(getLocalStorageObject("refreshPeriodDays")) : 10;
+    return get_initial_local_object("refreshPeriodDays", MAX_ELAPSED_DAYS_FOR_MEMORIZED_SURAS);
 };
 
 function set_refresh_period_days(value) {
     if (!value) return;
-    refreshPeriodDays = value;
-    setLocalStorageObject("refreshPeriodDays", refreshPeriodDays);
+    //refreshPeriodDays = value;
+    setLocalStorageObject("refreshPeriodDays", value);
 }
 
 /**
