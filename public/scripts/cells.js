@@ -128,21 +128,8 @@ function addSuraCells() {
       element.appendChild(daysElapsedElement);
     }
   
-    element.onclick = function () {
-      if (click_event_queue.length > 0 && click_event_queue[0].index == this.index) {
-        console.log("double click detected.");
-        do_double_click(this.index);
-      } else {
-        var click_event = {};
-        click_event.index = this.index;
-        click_event.alt_pressed = alt_pressed;
-        click_event.shift_pressed = shift_pressed;
-        click_event.ctrl_pressed = ctrl_pressed;
-        click_event.cmd_pressed = cmd_pressed;
-  
-        click_event_queue.unshift(click_event);
-        setTimeout(do_click, SINGLE_CLICK_EVENT_DAMPING_DELAY);
-      }
+    element.onclick = function() {
+      click_handler(this.index);
     };
 
     document.getElementById("reviews").appendChild(element);
@@ -191,3 +178,21 @@ function do_click() {
     toggle_select(event.index);
   }
 }
+
+//TODO fix this: this.index how to pass parameter
+var click_handler = function (index) {
+  if (click_event_queue.length > 0 && click_event_queue[0].index == index) {
+    console.log("double click detected.");
+    do_double_click(index);
+  } else {
+    var click_event = {};
+    click_event.index = index;
+    click_event.alt_pressed = alt_pressed;
+    click_event.shift_pressed = shift_pressed;
+    click_event.ctrl_pressed = ctrl_pressed;
+    click_event.cmd_pressed = cmd_pressed;
+
+    click_event_queue.unshift(click_event);
+    setTimeout(do_click, SINGLE_CLICK_EVENT_DAMPING_DELAY);
+  }
+};
