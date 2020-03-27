@@ -92,7 +92,7 @@ function addSuraCells() {
     suraNameElementAr.className = "sura_name_label";
     switch (surasHistory[suraIndex].memorization) {
       case MEMORIZATION_STATE_MEMORIZED:
-        if (daysElapsed >= MAX_ELAPSED_DAYS_FOR_MEMORIZED_SURAS) {
+        if (daysElapsed >= MAX_ELAPSED_DAYS_FOR_MEMORIZED_SURAS || daysElapsed >= refreshPeriodDays) {
           suraNameElement.className = "old-memorized sura_name_label";
         }
         else {
