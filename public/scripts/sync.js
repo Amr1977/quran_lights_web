@@ -20,10 +20,6 @@ function skew() {
     $(".sura-" + suraIndex).addClass("animated bounceIn");
   }
 
-  function getTimeStamp() {
-    return (Date.now() + serverOffset) * 1000;
-  }
-
 /**
  * upload queue, gets filled on refreshes and cell memorization state updates, then a dispatcher should process it async.
  * TODO read on user login
@@ -58,8 +54,7 @@ function dispatch_uploads() {
   //TODO start handling upload transactions records here
   var updates = {};
   get_upload_queue().forEach( (transacton_record) => {
-    var millis = window.performance.timing.navigationStart + window.performance.now();
-    var transactionTimeStamp = (millis + serverOffset) * 1000;
+    var transactionTimeStamp = get_time_stamp();
      firebase.database().ref(`users/${firebase.auth().currentUser.uid}/Master/reviews/` + transactionTimeStamp).set({});
     updates[`users/${firebase.auth().currentUser.uid}/Master/reviews/` + transactionTimeStamp] = transacton_record;
     lastTransactionTimeStamp = transactionTimeStamp;
@@ -108,6 +103,6 @@ function remove_from_queue(transactions_records_to_be_removed) {
       return upload_queue_entry.uuid !== transactions_records_to_be_removed[key].uuid;
     });
   }
-  
+
   set_upload_queue(upload_queue);
 }

@@ -92,7 +92,11 @@ h1 {
 }
 
 .selected {
-    border: thick solid rgb(0,0,255) !important;
+    border: thick solid rgb(0,0,255);
+}
+
+.selected:hover {
+    border: thick solid rgb(2, 245, 225) !important;
 }
 
 .sort_label {
@@ -114,7 +118,7 @@ h1 {
 .sura-cell:hover {
 	/* font-size: 150px; */
     /* color: #e00; */
-    border: thick solid yellow !important;
+    border: thick solid yellow;
 	animation: beat .4s infinite alternate;
 	transform-origin: center;
 }

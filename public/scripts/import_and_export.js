@@ -98,7 +98,7 @@ function update_firebase_database(history) {
       state: history[suraIndex].memorization
     };
 
-    flat_history[getTimeStamp()] = memorizationRecord;
+    flat_history[get_time_stamp()] = memorizationRecord;
     for (var refreshTimeStamp in history[suraIndex].history) {
       var refreshRecord = {
         op: "refresh",
@@ -106,7 +106,7 @@ function update_firebase_database(history) {
         time: refreshTimeStamp
       };
 
-      flat_history[getTimeStamp()] = refreshRecord;
+      flat_history[get_time_stamp()] = refreshRecord;
     }
   }
 //TODO do it!
