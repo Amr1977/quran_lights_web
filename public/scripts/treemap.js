@@ -1,4 +1,4 @@
-function drawTreeMapChart(DevId) {
+async function drawTreeMapChart(DevId) {
   Highcharts.chart(DevId, {
     colorAxis: {
       minColor: "#000",

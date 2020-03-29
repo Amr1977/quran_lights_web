@@ -116,3 +116,10 @@ function get_initial_local_object(object_name, initial_value){
   setLocalStorageObject(object_name, initial_value);
   return initial_value;
 }
+
+//https://stackoverflow.com/a/2117523/1356559
+function generate_uuid() {
+  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+  );
+}

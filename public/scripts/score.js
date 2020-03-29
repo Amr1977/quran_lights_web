@@ -37,7 +37,7 @@ function getScore() {
     return [total, today, review_score, read_score];
   }
 
-  function update_score () {
+  async function update_score () {
     var score_array = getScore();
     review_today = score_array[2];
     console.log(score_array);
@@ -48,7 +48,9 @@ function getScore() {
     animate_score();
   }
 
-  function animate_score() {
+  async function animate_score() {
     document.getElementById("today_score").className = "score";
-    document.getElementById("today_score").className = "score animated bounce";
+    //TODO test it!
+    //document.getElementById("today_score").className = "score animated bounceIn";
+    $("#today_score").addClass("animated bounceIn");
   }

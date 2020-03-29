@@ -25,32 +25,89 @@ function skew() {
   }
 
 /**
- * upload queue, gets filled on refreshes and cell memorization state updates, then a dispatcher should process it async
+ * upload queue, gets filled on refreshes and cell memorization state updates, then a dispatcher should process it async.
+ * TODO read on user login
  */
-var upload_queue = [];
+function get_upload_queue() {
+   return get_initial_local_object("upload_queue", []);
+}
+
+function set_upload_queue(queue) {
+  setLocalStorageObject("upload_queue", queue);
+}
+
 var reference_to_scheduled_upload_function;
 
-function get_upload_queue() {
-   var queue = getLocalStorageObject("upload_queue");
-   if (queue) {
-       upload_queue = queue;
-   }
-
-   return upload_queue;
-}
-
-function pop_from_upload_queue() {
-   //TODO do it!
-}
 // Start uploading after 10 seconds of last enqueue
 const UPLOAD_DISPATCH_DAMPING_DELAY = 10_000;
 function enqueue_for_upload(transaction_record) {
-    //TODO do it!
-    get_upload_queue().unshift(transaction_record);
+    var queue = get_upload_queue();
+    queue.unshift(transaction_record);
+    set_upload_queue(queue);
     clearTimeout(reference_to_scheduled_upload_function);
     reference_to_scheduled_upload_function = setTimeout(dispatch_uploads, UPLOAD_DISPATCH_DAMPING_DELAY);
 }
 
 function dispatch_uploads() {
   //upload all enqueued transactions
+  console.log("Upload Queue: ", get_upload_queue());
+  if (get_upload_queue().length == 0) {
+    return;
+  }
+
+  //TODO start handling upload transactions records here
+  var updates = {};
+  get_upload_queue().forEach( (transacton_record) => {
+    var millis = window.performance.timing.navigationStart + window.performance.now();
+    var transactionTimeStamp = (millis + serverOffset) * 1000;
+     firebase.database().ref(`users/${firebase.auth().currentUser.uid}/Master/reviews/` + transactionTimeStamp).set({});
+    updates[`users/${firebase.auth().currentUser.uid}/Master/reviews/` + transactionTimeStamp] = transacton_record;
+    lastTransactionTimeStamp = transactionTimeStamp;
+    ownTimeStamps.push(lastTransactionTimeStamp);
+  });
+
+  firebase.database().ref().update(updates, function(error){
+    if (error) {
+      alert("Data could not be saved, check your connection. " + error);
+      console.log("upload ERROR: " + updates);
+      //TODDO reschedule upload attempt!!
+      clearTimeout(reference_to_scheduled_upload_function);
+      reference_to_scheduled_upload_function = setTimeout(dispatch_uploads, UPLOAD_DISPATCH_DAMPING_DELAY * 3);
+    } else {
+      console.log("upload success: " + updates);
+      //trigger update on other devices
+      firebase
+        .database()
+        .ref(
+          "users/" + firebase.auth().currentUser.uid + "/Master/update_stamp"
+        )
+        .set(lastTransactionTimeStamp);
+        remove_from_queue(updates);
+    }
+  });
+
+}
+
+function get_firebase_reviews_node() {
+  return firebase.database().ref(`users/${firebase.auth().currentUser.uid}/Master/reviews`);
+}
+
+function get_firebase_update_stamp_node() {
+  return firebase.database().ref("users/" + firebase.auth().currentUser.uid + "/Master/update_stamp");
+}
+
+function get_firebase_settings_node(){
+  return firebase.database().ref("users/" + firebase.auth().currentUser.uid + "/Master/settings");
+}
+
+function remove_from_queue(transactions_records_to_be_removed) {
+  var upload_queue = get_upload_queue();
+
+  for (var key in transactions_records_to_be_removed) {
+    upload_queue = upload_queue.filter(function (upload_queue_entry) {
+      return upload_queue_entry.uuid !== transactions_records_to_be_removed[key].uuid;
+    });
+  }
+  
+  set_upload_queue(upload_queue);
 }

@@ -24,7 +24,7 @@ function get_flat_timestamp_score_array() {
  * @param {*} mode 0 dor days, 1 for months, 2 for years
  */
 
-function drawTimeSeriesChart(divID, mode) {
+async function drawTimeSeriesChart(divID, mode) {
   var data = {};
 
   switch (mode) {

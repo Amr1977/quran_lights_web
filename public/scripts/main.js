@@ -1,47 +1,27 @@
 //TODO fix for new FDB structure
+//TODO put in upload queue and schedule a dispatcher function
 function refreshSura(suraIndex, refreshTimeStamp) {
   //TODO update model
   //TODO check for empty history array
 
   //update FDB
-  var refreshRecord = {
+  var transaction_record = {
     op: "refresh",
     sura: suraIndex,
-    time: refreshTimeStamp
+    time: refreshTimeStamp,
+    uuid: generate_uuid()
   };
-  var transactionTimeStamp = (Date.now() + serverOffset) * 1000;
-  var newEntry = firebase
-    .database()
-    .ref(
-      "users/" +
-      firebase.auth().currentUser.uid +
-      "/Master/reviews/" +
-      transactionTimeStamp
-    );
-  newEntry.set(refreshRecord, function (error) {
-    if (error) {
-      alert("Data could not be saved, check your connection. " + error);
-    } else {
-      lastTransactionTimeStamp = transactionTimeStamp.toString();
-      surasHistory[suraIndex].history.push(refreshTimeStamp);
-      sortedTimestampSuraArray = [];
-      refreshCountSortedSuraArray = [];
-      addSuraCells();
-      //to avoid pulling history again
-      ownTimeStamps.push(transactionTimeStamp);
-      //trigger update on other devices
-      firebase
-        .database()
-        .ref(
-          "users/" + firebase.auth().currentUser.uid + "/Master/update_stamp"
-        )
-        .set(transactionTimeStamp);
-      playSuraRefreshSound();
-      animate_score_elements();
-    }
-  });
+
+  enqueue_for_upload(transaction_record);
+  surasHistory[suraIndex].history.push(transaction_record.time);
+  sortedTimestampSuraArray = [];
+  refreshCountSortedSuraArray = [];
+  playSuraRefreshSound();
+  addSuraCells();
+  animate_score_elements();
 }
 
+//TODO animate ony after score change
 function animate_score_elements(){
   $(".score").addClass("animated bounceIn");
 }

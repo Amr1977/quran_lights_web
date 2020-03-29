@@ -1,5 +1,5 @@
 var click_event_queue = [];
-function addSuraCells() {
+async function addSuraCells() {
   console.log("addSuraCells invoked.");
   //TODO reuse cells
   if (buildingSurasFlag) {
@@ -19,7 +19,7 @@ function addSuraCells() {
     var suraIndex = sortedSuraIndexConverter(cellIndex);
     var element = document.createElement("button");
     element.index = suraIndex;
-    element.className = "sura-cell" + " sura-" + suraIndex;
+    element.className = "sura-cell" + " sura-" + suraIndex + " animated bounceIn";
     if (surasHistory[suraIndex] == null) {
       surasHistory[suraIndex] = {};
       surasHistory[suraIndex].history = [];

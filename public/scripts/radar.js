@@ -1,4 +1,4 @@
-function drawRadarChart(divID) {
+async function drawRadarChart(divID) {
     Highcharts.chart(divID, {
 
         chart: {
