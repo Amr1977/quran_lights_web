@@ -135,8 +135,8 @@ function get_time_stamp() {
 
 function sort_transactions_by_timestamp(array) {
   return array.sort(function (a, b) {
-    var x = a.time;
-    var y = b.time;
+    var x = (Number)(a.time);
+    var y = (Number)(b.time);
     return x < y ? -1 : x > y ? 1 : 0;
   });
 }

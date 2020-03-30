@@ -15,13 +15,13 @@ function refreshSura(suraIndex, refreshTimeStamp) {
   var transactions_records = [];
   transactions_records.push(transaction_record);
   add_to_transactions_history(transactions_records);
-  
+
   enqueue_for_upload(transaction_record);
   surasHistory[suraIndex].history.push(transaction_record.time);
   sortedTimestampSuraArray = [];
   refreshCountSortedSuraArray = [];
   playSuraRefreshSound();
-  addSuraCells();
+  add_sura_cells();
   animate_score_elements();
 }
 
@@ -56,7 +56,7 @@ function set_light_days() {
   var light_days_selection_element = document.getElementById("light_days");
   var light_days_count = Number(light_days_selection_element.value);
   set_refresh_period_days(light_days_count);
-  addSuraCells();
+  add_sura_cells();
 }
 
 function setup_light_days_options() {

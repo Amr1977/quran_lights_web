@@ -45,6 +45,14 @@ function enqueue_for_upload(transaction_record) {
   reference_to_scheduled_upload_function = setTimeout(dispatch_uploads, UPLOAD_DISPATCH_DAMPING_DELAY);
 }
 
+function enqueue_batch_for_upload(records) {
+  console.log("enqueue_for_upload: \n" + records);
+  var queue = get_upload_queue();
+  queue = records.concat(queue);
+  set_upload_queue(queue);
+  dispatch_uploads();
+}
+
 function dispatch_uploads() {
   //upload all enqueued transactions
   console.log("Upload Queue: ", get_upload_queue());
@@ -124,18 +132,23 @@ function add_to_transactions_history(transactions_records) {
     }
     return true;
   });
-  
+
   var merged_history = transactions_history.concat(transactions_records);
-  merged_history.sort(sort_transactions_by_timestamp);
+  //merged_history.sort(sort_transactions_by_timestamp);
   set_local_storage_object(TRANSACTIONS_HISTORY_KEY, merged_history);
 }
 
-async function fetch_full_history_once() {
+function fetch_full_history_once() {
   var already_fetched_history = get_initial_local_object("already_fetched_history", false);
   if (already_fetched_history) {
     return;
   }
-  get_firebase_reviews_node().orderByKey().once("value", function (snapshot) {
+
+  myUserId = firebase.auth().currentUser.uid;
+  firebase
+      .database()
+      .ref("users/" + myUserId + "/Master/reviews")
+      .once("value", function (snapshot) {
     if (snapshot != null) {
       var transactions_records = [];
       snapshot.forEach(function (childSnapshot) {

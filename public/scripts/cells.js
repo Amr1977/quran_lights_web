@@ -1,6 +1,6 @@
 var click_event_queue = [];
-async function addSuraCells() {
-  console.log("addSuraCells invoked.");
+async function add_sura_cells() {
+  console.log("add_sura_cells invoked.");
   //TODO reuse cells
   if (buildingSurasFlag) {
     return;
@@ -145,7 +145,7 @@ async function addSuraCells() {
   if (periodicRefreshTimerRef != null) {
     clearInterval(periodicRefreshTimerRef);
   }
-  periodicRefreshTimerRef = setInterval(addSuraCells, AUTO_REFRESH_PERIOD);
+  periodicRefreshTimerRef = setInterval(add_sura_cells, AUTO_REFRESH_PERIOD);
 }
 
 function do_double_click(index){

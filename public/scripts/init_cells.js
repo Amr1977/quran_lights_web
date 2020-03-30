@@ -2,13 +2,12 @@
 var now = new Date();
 var eta = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 0) - now;
 setTimeout(function(){
-   addSuraCells();
+  add_sura_cells();
 }, eta);
 
 function initCells() {
   user = firebase.auth().currentUser;
   if (user) {
-    fetch_full_history_once();
     document.getElementById("quickstart-sign-in").textContent = "Sign out " + user.email;
     // User is signed in.
     var displayName = user.displayName;
@@ -105,7 +104,7 @@ function initCells() {
       document.getElementById("reviews").textContent = "";
       sortedTimestampSuraArray = [];
       refreshCountSortedSuraArray = [];
-      addSuraCells();
+      add_sura_cells();
       bounceList.forEach(function (suraIndex) {
         bounce(suraIndex);
       });

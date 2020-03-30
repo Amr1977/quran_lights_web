@@ -12,7 +12,7 @@ function set_memorization(suraIndex, state) {
   var transactions_records = [];
   transactions_records.push(transaction_record);
   add_to_transactions_history(transactions_records);
-  
+
   enqueue_for_upload(transaction_record);
   // memorization should be array?
   surasHistory[suraIndex].memorization = state;
@@ -23,7 +23,7 @@ function set_memorization(suraIndex, state) {
     animate_sura_cell(suraIndex);
   }
   
-  addSuraCells();
+  add_sura_cells();
 }
 
 function animate_sura_cell(index) {

@@ -25,7 +25,7 @@ function exportJSON() {
 
 //TODO export and import using json format
 function export_history_to_json() {
-  return JSON.stringify(get_transactions_history(), null, 2);
+  return JSON.stringify(surasHistory, null, 2);
 }
 
 //TODO implement import from json
@@ -40,9 +40,9 @@ function importJSON() {
     var result = is_json_string(e.target.result);
     console.log("imported & parser result: \n", result);
     if (result[0]) {
-      var transactions = result[1];
-      merge_imported_transactions_in_suras_history(transactions);
-      addSuraCells();
+      var history = result[1];
+      merge_imported_history(history);
+      add_sura_cells();
       alert("IMPORT SUCCESS!");
     } else {
       console.log("INVALID JSON!!");
@@ -53,17 +53,21 @@ function importJSON() {
   file_reader.readAsText(files.item(0));
 }
 
-function merge_imported_transactions_in_suras_history(transactions) {
-  console.log(transactions);
+
+//TODO fix this!!
+function merge_imported_history(history) {
+
+  console.log(history);
   var duplicate_transactions_uuids = [];
-  for (var transaction in transactions) {
+  for (var key in transactions) {
+    var transaction = transactions[key];
     if (!transaction.uuid) {
       transaction.uuid = generate_uuid();
     }
 
     var suraIndex = transaction.sura;
 
-    if (!surasHistory[suraIndex]) {
+    if (surasHistory[suraIndex] == null) {
       surasHistory[suraIndex] = {};
       surasHistory[suraIndex].suraIndex = suraIndex;
       surasHistory[suraIndex].history = [];
@@ -88,7 +92,7 @@ function merge_imported_transactions_in_suras_history(transactions) {
   for (var suraIndex in surasHistory.keys) {
     surasHistory[suraIndex].history.sort(sortNumber);
   }
-  addSuraCells();
+  add_sura_cells();
   set_local_storage_object("surasHistory", surasHistory);
 
   if (duplicate_transactions_uuids.length) {
@@ -97,9 +101,5 @@ function merge_imported_transactions_in_suras_history(transactions) {
     });
   }
 
-  transactions.forEach((transaction) => { 
-    enqueue_for_upload(transaction);
-  });
-
-  add_to_transactions_history(transactions);
+  enqueue_batch_for_upload(transactions);
 }
