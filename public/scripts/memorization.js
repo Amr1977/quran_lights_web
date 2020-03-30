@@ -1,13 +1,10 @@
 //TODO move to sync.js file
 function set_memorization(suraIndex, state) {
-  var transactionTimeStamp = (Date.now() + serverOffset) * 1000;
-
   var transaction_record = {
     op: "memorize",
     sura: suraIndex,
     state: state,
-    time: transactionTimeStamp,
-    uuid: generate_uuid()
+    time: get_time_stamp()
   };
   var transactions_records = [];
   transactions_records.push(transaction_record);

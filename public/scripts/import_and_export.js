@@ -30,8 +30,11 @@ function export_history_to_json() {
 
 //TODO implement import from json
 function importJSON() {
+  showToast("Import Started...");
   var files = document.getElementById('selectFiles').files;
   if (files.length <= 0) {
+    hideToast();
+    alert("Choose Quran Lights history file to import!");
     return false;
   }
 
@@ -41,10 +44,12 @@ function importJSON() {
     console.log("imported & parser result: \n", result);
     if (result[0]) {
       var history = result[1];
-      merge_imported_history(history);
+      merge_imported_suras_history(history);
       add_sura_cells();
+      hideToast();
       alert("IMPORT SUCCESS!");
     } else {
+      hideToast();
       console.log("INVALID JSON!!");
       alert("INVALID JSON!!")
     }
@@ -53,53 +58,79 @@ function importJSON() {
   file_reader.readAsText(files.item(0));
 }
 
+function create_refresh_transaction_record(sura_index, timestamp){
+  var transaction_record = {
+    op: "refresh",
+    sura: sura_index,
+    time: timestamp
+  };
 
-//TODO fix this!!
-function merge_imported_history(history) {
+ return transaction_record;
+}
 
-  console.log(history);
-  var duplicate_transactions_uuids = [];
-  for (var key in transactions) {
-    var transaction = transactions[key];
-    if (!transaction.uuid) {
-      transaction.uuid = generate_uuid();
+function create_memorization_transaction_record(sura_index, timestamp, memorization_state){
+  var transaction_record = {
+    op: "memorize",
+    sura: sura_index,
+    state: memorization_state,
+    time: timestamp
+  };
+
+ return transaction_record;
+}
+
+function create_refresh_transaction_batch(sura_index, timestamps) {
+  var transactions = [];
+  for(var key in timestamps.keys) {
+    var timestamp = timestamps[key];
+    transactions.push(create_refresh_transaction_record(sura_index, timestamp));
+  }
+
+  return transactions;
+}
+
+function merge_imported_suras_history(history){
+  var new_transactions = [];
+  for (var suraIndex in history) {
+    // Merge/update local refresh histories
+    if (
+      surasHistory[suraIndex] && 
+      surasHistory[suraIndex].history && 
+      surasHistory[suraIndex].history.length > 0 && 
+      history[suraIndex].history &&
+      history[suraIndex].history.length > 0
+      ) {
+      //merge both histories
+      console.log("Merge imported history for ", suraIndex);
+      var new_records = history[suraIndex].history.filter( x => !surasHistory[suraIndex].history.includes(x));
+      new_records.sort(sortNumber);
+      new_transactions = new_transactions.concat(create_refresh_transaction_batch(suraIndex, new_records));
+      history[suraIndex].history = new_records;
+      surasHistory[suraIndex].history = surasHistory[suraIndex].history.concat(new_records);
+      surasHistory[suraIndex].history.sort(sortNumber);
+    } else {
+      if (!surasHistory[suraIndex] || !surasHistory[suraIndex].history || surasHistory[suraIndex].history.length == 0) {
+        console.log("Replace with imported history for ", suraIndex);
+        surasHistory[suraIndex] = history[suraIndex];
+        if (history[suraIndex] && history[suraIndex].length) {
+          new_transactions = new_transactions.concat(create_refresh_transaction_batch(suraIndex, history[suraIndex].history));
+        }
+      }
     }
 
-    var suraIndex = transaction.sura;
-
-    if (surasHistory[suraIndex] == null) {
-      surasHistory[suraIndex] = {};
-      surasHistory[suraIndex].suraIndex = suraIndex;
-      surasHistory[suraIndex].history = [];
-      surasHistory[suraIndex].memorization = MEMORIZATION_STATE_NOT_MEMORIZED;
-    }
-
-    switch (transaction.op) {
-      case "memorize":
-        surasHistory[suraIndex].memorization = transaction.state;
-        break;
-      case "refresh":
-        if (surasHistory[suraIndex].history.indexOf(transaction.time) == -1) {
-          surasHistory[suraIndex].history.push(transaction.time);
-        }
-        else {
-          console.log("duplicate refresh eliminated ", transaction);
-          duplicate_transactions_uuids.push(transaction.uuid);
-        }
+    if (surasHistory[suraIndex] && !surasHistory[suraIndex].memorization && history[suraIndex].memorization) {
+      surasHistory[suraIndex].memorization = history[suraIndex].memorization;
+      //TODO fix this tragendy: no memorization data in surasHistory
+      new_transactions.push(create_memorization_transaction_record(suraIndex, get_time_stamp(), history[suraIndex].memorization));
+    } else {
+      history[suraIndex].memorization = null;
     }
   }
 
   for (var suraIndex in surasHistory.keys) {
     surasHistory[suraIndex].history.sort(sortNumber);
   }
-  add_sura_cells();
+
   set_local_storage_object("surasHistory", surasHistory);
-
-  if (duplicate_transactions_uuids.length) {
-    transactions = transactions.filter(function (transaction) {
-      return duplicate_transactions_uuids.indexOf(transaction.uuid) == -1;
-    });
-  }
-
-  enqueue_batch_for_upload(transactions);
+  enqueue_batch_for_upload(new_transactions);
 }
