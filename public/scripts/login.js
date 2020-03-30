@@ -2,6 +2,7 @@
  * Handles the sign in button press.
  */
 function toggleSignIn() {
+  clrear_reviews();
   if (firebase.auth().currentUser) {
     showToast("Signing out...");
     // [START signout]

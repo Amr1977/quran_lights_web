@@ -81,7 +81,7 @@ function create_memorization_transaction_record(sura_index, timestamp, memorizat
 
 function create_refresh_transaction_batch(sura_index, timestamps) {
   var transactions = [];
-  for(var key in timestamps.keys) {
+  for(var key in timestamps) {
     var timestamp = timestamps[key];
     transactions.push(create_refresh_transaction_record(sura_index, timestamp));
   }
@@ -94,6 +94,7 @@ function merge_imported_suras_history(history){
   for (var suraIndex in history) {
     // Merge/update local refresh histories
     if (
+      //both local and imported histories got entries
       surasHistory[suraIndex] && 
       surasHistory[suraIndex].history && 
       surasHistory[suraIndex].history.length > 0 && 
@@ -112,18 +113,19 @@ function merge_imported_suras_history(history){
       if (!surasHistory[suraIndex] || !surasHistory[suraIndex].history || surasHistory[suraIndex].history.length == 0) {
         console.log("Replace with imported history for ", suraIndex);
         surasHistory[suraIndex] = history[suraIndex];
-        if (history[suraIndex] && history[suraIndex].length) {
+        if (history[suraIndex] && history[suraIndex].history &&  history[suraIndex].history.length) {
           new_transactions = new_transactions.concat(create_refresh_transaction_batch(suraIndex, history[suraIndex].history));
         }
       }
     }
 
-    if (surasHistory[suraIndex] && !surasHistory[suraIndex].memorization && history[suraIndex].memorization) {
+    if (history[suraIndex] !== null && history[suraIndex].memorization !== null) {
+      if (!surasHistory[suraIndex]) {
+        surasHistory[suraIndex] = {};
+      }
       surasHistory[suraIndex].memorization = history[suraIndex].memorization;
       //TODO fix this tragendy: no memorization data in surasHistory
       new_transactions.push(create_memorization_transaction_record(suraIndex, get_time_stamp(), history[suraIndex].memorization));
-    } else {
-      history[suraIndex].memorization = null;
     }
   }
 

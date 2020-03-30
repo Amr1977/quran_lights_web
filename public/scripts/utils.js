@@ -140,3 +140,10 @@ function sort_transactions_by_timestamp(array) {
     return x < y ? -1 : x > y ? 1 : 0;
   });
 }
+
+function clrear_reviews() {
+  var reviewsNode = document.getElementById("reviews");
+  while (reviewsNode.firstChild) {
+    reviewsNode.removeChild(reviewsNode.firstChild);
+  }
+}
