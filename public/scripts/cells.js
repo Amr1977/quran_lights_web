@@ -145,7 +145,7 @@ async function addSuraCells() {
   if (periodicRefreshTimerRef != null) {
     clearInterval(periodicRefreshTimerRef);
   }
-  periodicRefreshTimerRef = setInterval(addSuraCells, autoRefreshPeriod);
+  periodicRefreshTimerRef = setInterval(addSuraCells, AUTO_REFRESH_PERIOD);
 }
 
 function do_double_click(index){

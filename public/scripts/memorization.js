@@ -9,7 +9,10 @@ function set_memorization(suraIndex, state) {
     time: transactionTimeStamp,
     uuid: generate_uuid()
   };
-
+  var transactions_records = [];
+  transactions_records.push(transaction_record);
+  add_to_transactions_history(transactions_records);
+  
   enqueue_for_upload(transaction_record);
   // memorization should be array?
   surasHistory[suraIndex].memorization = state;

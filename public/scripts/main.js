@@ -12,6 +12,10 @@ function refreshSura(suraIndex, refreshTimeStamp) {
     uuid: generate_uuid()
   };
 
+  var transactions_records = [];
+  transactions_records.push(transaction_record);
+  add_to_transactions_history(transactions_records);
+  
   enqueue_for_upload(transaction_record);
   surasHistory[suraIndex].history.push(transaction_record.time);
   sortedTimestampSuraArray = [];

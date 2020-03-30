@@ -4,32 +4,32 @@
 var ownTimeStamps = [];
 
 function onTimeStampUpdated() {
-    timeStampTriggerTimerRef = null;
-    console.log("Fetching history...");
-    initCells();
+  timeStampTriggerTimerRef = null;
+  console.log("Fetching history...");
+  initCells();
 }
-  
-function skew() {
-    var offsetRef = firebase.database().ref(".info/serverTimeOffset");
-    offsetRef.on("value", function(snap) {
-      serverOffset = snap.val();
-    });
-  }
 
-  function bounce(suraIndex) {
-    $(".sura-" + suraIndex).addClass("animated bounceIn");
-  }
+function skew() {
+  var offsetRef = firebase.database().ref(".info/serverTimeOffset");
+  offsetRef.on("value", function (snap) {
+    serverOffset = snap.val();
+  });
+}
+
+function bounce(suraIndex) {
+  $(".sura-" + suraIndex).addClass("animated bounceIn");
+}
 
 /**
  * upload queue, gets filled on refreshes and cell memorization state updates, then a dispatcher should process it async.
  * TODO read on user login
  */
 function get_upload_queue() {
-   return get_initial_local_object("upload_queue", []);
+  return get_initial_local_object("upload_queue", []);
 }
 
 function set_upload_queue(queue) {
-  setLocalStorageObject("upload_queue", queue);
+  set_local_storage_object("upload_queue", queue);
 }
 
 var reference_to_scheduled_upload_function;
@@ -37,11 +37,12 @@ var reference_to_scheduled_upload_function;
 // Start uploading after 10 seconds of last enqueue
 const UPLOAD_DISPATCH_DAMPING_DELAY = 10_000;
 function enqueue_for_upload(transaction_record) {
-    var queue = get_upload_queue();
-    queue.unshift(transaction_record);
-    set_upload_queue(queue);
-    clearTimeout(reference_to_scheduled_upload_function);
-    reference_to_scheduled_upload_function = setTimeout(dispatch_uploads, UPLOAD_DISPATCH_DAMPING_DELAY);
+  console.log("enqueue_for_upload: \n" + transaction_record);
+  var queue = get_upload_queue();
+  queue.unshift(transaction_record);
+  set_upload_queue(queue);
+  clearTimeout(reference_to_scheduled_upload_function);
+  reference_to_scheduled_upload_function = setTimeout(dispatch_uploads, UPLOAD_DISPATCH_DAMPING_DELAY);
 }
 
 function dispatch_uploads() {
@@ -53,15 +54,15 @@ function dispatch_uploads() {
 
   //TODO start handling upload transactions records here
   var updates = {};
-  get_upload_queue().forEach( (transacton_record) => {
+  get_upload_queue().forEach((transacton_record) => {
     var transactionTimeStamp = get_time_stamp();
-     firebase.database().ref(`users/${firebase.auth().currentUser.uid}/Master/reviews/` + transactionTimeStamp).set({});
+    firebase.database().ref(`users/${firebase.auth().currentUser.uid}/Master/reviews/` + transactionTimeStamp).set({});
     updates[`users/${firebase.auth().currentUser.uid}/Master/reviews/` + transactionTimeStamp] = transacton_record;
     lastTransactionTimeStamp = transactionTimeStamp;
     ownTimeStamps.push(lastTransactionTimeStamp);
   });
 
-  firebase.database().ref().update(updates, function(error){
+  firebase.database().ref().update(updates, function (error) {
     if (error) {
       alert("Data could not be saved, check your connection. " + error);
       console.log("upload ERROR: " + updates);
@@ -77,7 +78,7 @@ function dispatch_uploads() {
           "users/" + firebase.auth().currentUser.uid + "/Master/update_stamp"
         )
         .set(lastTransactionTimeStamp);
-        remove_from_queue(updates);
+      remove_from_queue(updates);
     }
   });
 
@@ -91,7 +92,7 @@ function get_firebase_update_stamp_node() {
   return firebase.database().ref("users/" + firebase.auth().currentUser.uid + "/Master/update_stamp");
 }
 
-function get_firebase_settings_node(){
+function get_firebase_settings_node() {
   return firebase.database().ref("users/" + firebase.auth().currentUser.uid + "/Master/settings");
 }
 
@@ -105,4 +106,46 @@ function remove_from_queue(transactions_records_to_be_removed) {
   }
 
   set_upload_queue(upload_queue);
+}
+
+const TRANSACTIONS_HISTORY_KEY = "transactions_history";
+function get_transactions_history() {
+  return get_initial_local_object(TRANSACTIONS_HISTORY_KEY, []);
+}
+
+function add_to_transactions_history(transactions_records) {
+  var transactions_history = get_transactions_history();
+
+  transactions_records = transactions_records.filter(function(transaction) {
+    for(var old_transaction in transactions_history) {
+      if (old_transaction.uuid == transaction.uuid) {
+        return false;
+      }
+    }
+    return true;
+  });
+  
+  var merged_history = transactions_history.concat(transactions_records);
+  merged_history.sort(sort_transactions_by_timestamp);
+  set_local_storage_object(TRANSACTIONS_HISTORY_KEY, merged_history);
+}
+
+async function fetch_full_history_once() {
+  var already_fetched_history = get_initial_local_object("already_fetched_history", false);
+  if (already_fetched_history) {
+    return;
+  }
+  get_firebase_reviews_node().orderByKey().once("value", function (snapshot) {
+    if (snapshot != null) {
+      var transactions_records = [];
+      snapshot.forEach(function (childSnapshot) {
+        var transaction_record = childSnapshot.val();
+        transactions_records.push(transaction_record);
+
+      });
+      add_to_transactions_history(transactions_records);
+      set_local_storage_object("already_fetched_history", true);
+      console.log("fetch_full_history: " + transactions_records);
+    }
+  });
 }

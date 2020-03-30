@@ -111,6 +111,12 @@ h1 {
     margin: 15px;
 }
 
+.text {
+    padding: 20px; 
+    color: white;
+    background-color: rgba(0,0,0,.4);
+}
+
 @keyframes beat{
 	to { transform: scale(1.1); }
 }

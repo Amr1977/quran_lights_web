@@ -8,7 +8,7 @@ function  set_sort_order_with_value(value)  {
   }
 
   sort_order = value;
-  setLocalStorageObject("sort_order", sort_order);
+  set_local_storage_object("sort_order", sort_order);
   document.getElementById("sort_order").value = value;
 
   addSuraCells();

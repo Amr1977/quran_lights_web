@@ -11,7 +11,7 @@ async function drawRadarChart(divID) {
         },
 
         title: {
-            text: 'Quran Radar: Elapsed Days since last refresh',
+            text: 'Quran Radar',
         },
 
         pane: {

@@ -58,7 +58,7 @@ function sortByKey(array, key) {
   });
 }
 
-function getLocalStorageObject(key) {
+function get_local_storage_object(key) {
   var object = is_json_string(localStorage.getItem(myUserId + "_" + key));
   if (object[0]) {
     return object[1];
@@ -67,7 +67,7 @@ function getLocalStorageObject(key) {
   return null;
 }
 
-function setLocalStorageObject(key, value) {
+function set_local_storage_object(key, value) {
   var saved = JSON.stringify(value);
   localStorage.setItem(myUserId + "_" + key, saved);
 
@@ -108,12 +108,12 @@ function get_humanized_period(days_count) {
  * if not found it creates it with the provided initial value.
  */
 function get_initial_local_object(object_name, initial_value) {
-  var stored_value = getLocalStorageObject(object_name);
+  var stored_value = get_local_storage_object(object_name);
   if (stored_value) {
     return stored_value;
   }
 
-  setLocalStorageObject(object_name, initial_value);
+  set_local_storage_object(object_name, initial_value);
   return initial_value;
 }
 
@@ -131,4 +131,12 @@ function get_time_stamp() {
   var millis = window.performance.timing.navigationStart + window.performance.now();
   var transactionTimeStamp = (millis + serverOffset) * 1000;
   return transactionTimeStamp;
+}
+
+function sort_transactions_by_timestamp(array) {
+  return array.sort(function (a, b) {
+    var x = a.time;
+    var y = b.time;
+    return x < y ? -1 : x > y ? 1 : 0;
+  });
 }

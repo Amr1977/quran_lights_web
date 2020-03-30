@@ -19,34 +19,34 @@
     <link rel="stylesheet" type="text/css" href="font-awesome.css"/>
 
     <title>Quran Lights</title>
-    <link rel="stylesheet" href="styles.css?v=2020.03.29.20.56">
+    <link rel="stylesheet" href="styles.css?v=2020.03.30.02.40">
 
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
-    <script src="scripts/suras_data.js?2020.03.29.20.56"></script>
-    <script src="scripts/constants.js?2020.03.29.20.56"></script>
-    <script src="scripts/utils.js?2020.03.29.20.56"></script>
-    <script src="scripts/state.js?2020.03.29.20.56"></script>
-    <script src="scripts/sync.js?2020.03.29.20.56"></script>
-    <script src="scripts/main.js?2020.03.29.20.56"></script>
-    <script src="scripts/init_app.js?2020.03.29.20.56"></script>
-    <script src="scripts/init_cells.js?2020.03.29.20.56"></script>
-    <script src="scripts/keyboard.js?2020.03.29.20.56"></script>
-    <script src="scripts/memorization.js?2020.03.29.20.56"></script>
-    <script src="scripts/bright_days_dark_days_chart.js?2020.03.29.20.56"></script>
-    <script src="scripts/sort.js?2020.03.29.20.56"></script>
-    <script src="scripts/treemap.js?2020.03.29.20.56"></script>
-    <script src="scripts/guage.js?2020.03.29.20.56"></script>
-    <script src="scripts/khatma.js?2020.03.29.20.56"></script>
-    <script src="scripts/time_series.js?2020.03.29.20.56"></script>
-    <script src="scripts/import_and_export.js?2020.03.29.20.56"></script>
-    <script src="scripts/audio.js?2020.03.29.20.56"></script>
-    <script src="scripts/account.js?2020.03.29.20.56"></script>
-    <script src="scripts/selection.js?2020.03.29.20.56"></script>
-    <script src="scripts/score.js?2020.03.29.20.56"></script>
-    <script src="scripts/cells.js?2020.03.29.20.56"></script>
-    <script src="scripts/login.js?2020.03.29.20.56"></script>
-    <script src="scripts/charts.js?2020.03.29.20.56"></script>
-    <script src="scripts/radar.js?2020.03.29.20.56"></script>
+    <script src="scripts/suras_data.js?2020.03.30.02.40"></script>
+    <script src="scripts/constants.js?2020.03.30.02.40"></script>
+    <script src="scripts/utils.js?2020.03.30.02.40"></script>
+    <script src="scripts/state.js?2020.03.30.02.40"></script>
+    <script src="scripts/sync.js?2020.03.30.02.40"></script>
+    <script src="scripts/main.js?2020.03.30.02.40"></script>
+    <script src="scripts/init_app.js?2020.03.30.02.40"></script>
+    <script src="scripts/init_cells.js?2020.03.30.02.40"></script>
+    <script src="scripts/keyboard.js?2020.03.30.02.40"></script>
+    <script src="scripts/memorization.js?2020.03.30.02.40"></script>
+    <script src="scripts/bright_days_dark_days_chart.js?2020.03.30.02.40"></script>
+    <script src="scripts/sort.js?2020.03.30.02.40"></script>
+    <script src="scripts/treemap.js?2020.03.30.02.40"></script>
+    <script src="scripts/guage.js?2020.03.30.02.40"></script>
+    <script src="scripts/khatma.js?2020.03.30.02.40"></script>
+    <script src="scripts/time_series.js?2020.03.30.02.40"></script>
+    <script src="scripts/import_and_export.js?2020.03.30.02.40"></script>
+    <script src="scripts/audio.js?2020.03.30.02.40"></script>
+    <script src="scripts/account.js?2020.03.30.02.40"></script>
+    <script src="scripts/selection.js?2020.03.30.02.40"></script>
+    <script src="scripts/score.js?2020.03.30.02.40"></script>
+    <script src="scripts/cells.js?2020.03.30.02.40"></script>
+    <script src="scripts/login.js?2020.03.30.02.40"></script>
+    <script src="scripts/charts.js?2020.03.30.02.40"></script>
+    <script src="scripts/radar.js?2020.03.30.02.40"></script>
 
     <meta property="og:image" content="https://quran-lights.firebaseapp.com/images/appicon_202003270756.png" />
     <meta charset=utf-8 />
@@ -88,7 +88,7 @@
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));</script>
 
-    <div style="padding: 20px; color: white;background-color: rgba(0,0,0,.4);">
+    <div class="text">
         <h1 align="center">Quran Lights</h1>
         <h3 align="center">
             <!-- Visualize and boost your engagement with Quran -->
@@ -250,18 +250,43 @@
         </div>
     </main>
     </div>
-    <div id="radar-chart" style="height: 800px; margin: 20px"></div>
-    <div id="review_score_guage" style="height: 100%; margin: 20px"></div>
-    <div id="memorization-chart" style="height: 500px; margin: 20px"></div>
-    <div id="light-ratio-chart-container" style="height: 100%; margin: 20px"></div>
-    <div id="conquer-ratio-chart-container" style="height: 100%; margin: 20px"></div>
-    <div id="khatma-progress-chart" style="height: 100%; margin: 20px"></div>
-    <div id="daily-score-chart" style="height: 400px; margin: 20px"></div>
-    <div id="monthly-score-chart" style="height: 400px; margin: 20px"></div>
-    <div id="light_days_chart" style="height: 400px; margin: 20px"></div>
-    <div id="dark_days_chart" style="height: 400px; margin: 20px"></div>
-    <div id="yearly-score-chart" style="height: 400px; margin: 20px"></div>
+
+    <h4 class="text">Lights Treemap</h4>
     <div id="treemap-chart" style="height: 1000px; margin: 20px"></div>
+
+    <h4 class="text">Quran Radar: Elapsed days per Surah since last refresh</h4>
+    <div id="radar-chart" style="height: 800px; margin: 20px"></div>
+
+    <h4 class="text">Reviews Balance (Today)</h4>
+    <div id="review_score_guage" style="height: 100%; margin: 20px"></div>
+
+    <h4 class="text">Memorization Progress</h4>
+    <div id="memorization-chart" style="height: 500px; margin: 20px"></div>
+
+    <h4 class="text">Light Ratio: sum of light percentage of all cells</h4>
+    <div id="light-ratio-chart-container" style="height: 100%; margin: 20px"></div>
+
+    <h4 class="text">Non-Dark Cells Ratio: Percentage of cells with light</h4>
+    <div id="conquer-ratio-chart-container" style="height: 100%; margin: 20px"></div>
+
+    <h4 class="text">Khatma Progress</h4>
+    <div id="khatma-progress-chart" style="height: 100%; margin: 20px"></div>
+
+    <h4 class="text">Daily Balance</h4>
+    <div id="daily-score-chart" style="height: 400px; margin: 20px"></div>
+
+    <h4 class="text">Monthlty Balance</h4>
+    <div id="monthly-score-chart" style="height: 400px; margin: 20px"></div>
+
+    <h4 class="text">Yearly Balance</h4>
+    <div id="yearly-score-chart" style="height: 400px; margin: 20px"></div>
+
+    <h4 class="text">Light days per month: days with non-zero balance</h4>
+    <div id="light_days_chart" style="height: 400px; margin: 20px"></div>
+
+    <h4 class="text">Dark days per month: days with zero balance</h4>
+    <div id="dark_days_chart" style="height: 400px; margin: 20px"></div>
+
     <div id="snackbar"></div>
     <div id="share-buttons" style="width: 100%; margin: 20px;">
 

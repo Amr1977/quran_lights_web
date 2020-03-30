@@ -8,6 +8,7 @@ setTimeout(function(){
 function initCells() {
   user = firebase.auth().currentUser;
   if (user) {
+    fetch_full_history_once();
     document.getElementById("quickstart-sign-in").textContent = "Sign out " + user.email;
     // User is signed in.
     var displayName = user.displayName;
@@ -20,34 +21,34 @@ function initCells() {
     myUserId = firebase.auth().currentUser.uid;
     var database = firebase.database();
 
-    var lastTimeStamp = getLocalStorageObject("lastTransactionTimeStamp");
+    var lastTimeStamp = get_local_storage_object("lastTransactionTimeStamp");
 
     if (lastTimeStamp) {
       lastTransactionTimeStamp = lastTimeStamp;
     } else {
       lastTransactionTimeStamp = 0;
-      setLocalStorageObject("lastTransactionTimeStamp", 0);
+      set_local_storage_object("lastTransactionTimeStamp", 0);
     }
-    var history = getLocalStorageObject("surasHistory");
+    var history = get_local_storage_object("surasHistory");
     if (history) {
       surasHistory = history;
       console.log("LOcalStorage SurasHistory: \n", surasHistory);
     } else {
       lastTransactionTimeStamp = 0;
-      setLocalStorageObject("lastTransactionTimeStamp", 0);
+      set_local_storage_object("lastTransactionTimeStamp", 0);
       console.log("LocalStorage has no/invalid SurasHistory information: \n", surasHistory);
     }
 
     console.log("grapping transactions after ", lastTransactionTimeStamp);
 
-    sort_order = getLocalStorageObject("sort_order");
+    sort_order = get_local_storage_object("sort_order");
     if (sort_order) {
       set_sort_order_with_value(sort_order);
     } else {
       set_sort_order_with_value(SORT_ORDER_NORMAL);
     }
 
-    selected_suras = getLocalStorageObject("selected_suras")
+    selected_suras = get_local_storage_object("selected_suras")
     if (!selected_suras) { 
       selected_suras = []; 
     }
@@ -71,7 +72,7 @@ function initCells() {
           }
           if (Number(transactionTimeStamp) > Number(lastTransactionTimeStamp)) {
             lastTransactionTimeStamp = transactionTimeStamp;
-            setLocalStorageObject("lastTransactionTimeStamp", lastTransactionTimeStamp);
+            set_local_storage_object("lastTransactionTimeStamp", lastTransactionTimeStamp);
           }
           var transactionRecord = childSnapshot.val();
           var suraIndex = transactionRecord.sura;
@@ -97,8 +98,8 @@ function initCells() {
         for (var suraIndex in surasHistory.keys) {
           surasHistory[suraIndex].history.sort(sortNumber);
         }
-        setLocalStorageObject("surasHistory", surasHistory);
-        setLocalStorageObject("lastTransactionTimeStamp", lastTransactionTimeStamp);
+        set_local_storage_object("surasHistory", surasHistory);
+        set_local_storage_object("lastTransactionTimeStamp", lastTransactionTimeStamp);
       }
 
       document.getElementById("reviews").textContent = "";

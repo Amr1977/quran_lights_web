@@ -19,7 +19,7 @@ function toggle_select(suraIndex) {
       $(".sura-" + suraIndex).removeClass("old-refresh");
       $(".sura-" + suraIndex).addClass("selected");
     }
-    setLocalStorageObject("selected_suras", selected_suras);
+    set_local_storage_object("selected_suras", selected_suras);
     update_selection_score();
   }
 
@@ -44,7 +44,7 @@ function toggle_select(suraIndex) {
     }
 
     selected_suras = [];
-    setLocalStorageObject("selected_suras", selected_suras);
+    set_local_storage_object("selected_suras", selected_suras);
     update_selection_score();
   }
 

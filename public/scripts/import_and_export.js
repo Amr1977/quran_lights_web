@@ -25,7 +25,7 @@ function exportJSON() {
 
 //TODO export and import using json format
 function export_history_to_json() {
-  return JSON.stringify(surasHistory, null, 2);
+  return JSON.stringify(get_transactions_history(), null, 2);
 }
 
 //TODO implement import from json
@@ -40,74 +40,66 @@ function importJSON() {
     var result = is_json_string(e.target.result);
     console.log("imported & parser result: \n", result);
     if (result[0]) {
-      var history = result[1];
-      merge_imported_history(history);
+      var transactions = result[1];
+      merge_imported_transactions_in_suras_history(transactions);
       addSuraCells();
+      alert("IMPORT SUCCESS!");
     } else {
-      console.log("invalid json dropped");
+      console.log("INVALID JSON!!");
+      alert("INVALID JSON!!")
     }
   }
 
   file_reader.readAsText(files.item(0));
 }
 
-function merge_imported_history(history){
-  console.log(history);
-  for (var suraIndex in history) {
-    // Merge/update local refresh histories
-    if (
-      surasHistory[suraIndex] && 
-      surasHistory[suraIndex].history && 
-      surasHistory[suraIndex].history.length > 0 && 
-      history[suraIndex].history &&
-      history[suraIndex].history.length > 0
-      ) {
-      //merge both histories
-      console.log("Merge imported history for ", suraIndex);
-      var new_records = history[suraIndex].history.filter( x => !surasHistory[suraIndex].history.includes(x));
-      new_records.sort(sortNumber);
-      history[suraIndex].history = new_records;
-      surasHistory[suraIndex].history = surasHistory[suraIndex].history.concat(new_records);
-      surasHistory[suraIndex].history.sort(sortNumber);
-    } else {
-      if (!surasHistory[suraIndex] || !surasHistory[suraIndex].history || surasHistory[suraIndex].history.length == 0) {
-        console.log("Replace with imported history for ", suraIndex);
-        surasHistory[suraIndex] = history[suraIndex];
-      }
+function merge_imported_transactions_in_suras_history(transactions) {
+  console.log(transactions);
+  var duplicate_transactions_uuids = [];
+  for (var transaction in transactions) {
+    if (!transaction.uuid) {
+      transaction.uuid = generate_uuid();
     }
 
-    if (surasHistory[suraIndex] && !surasHistory[suraIndex].memorization && history[suraIndex].memorization) {
-      console.log("MSet memorization for ", suraIndex);
-      surasHistory[suraIndex].memorization = history[suraIndex].memorization;
-    } else {
-      history[suraIndex].memorization = null;
+    var suraIndex = transaction.sura;
+
+    if (!surasHistory[suraIndex]) {
+      surasHistory[suraIndex] = {};
+      surasHistory[suraIndex].suraIndex = suraIndex;
+      surasHistory[suraIndex].history = [];
+      surasHistory[suraIndex].memorization = MEMORIZATION_STATE_NOT_MEMORIZED;
     }
-  }
 
-  //filtered history, removed already existing entries
-  return history;
-}
-
-function update_firebase_database(history) {
-
-  var flat_history = {};
-  for (var suraIndex in history) {
-    var memorizationRecord = {
-      op: "memorize",
-      sura: suraIndex,
-      state: history[suraIndex].memorization
-    };
-
-    flat_history[get_time_stamp()] = memorizationRecord;
-    for (var refreshTimeStamp in history[suraIndex].history) {
-      var refreshRecord = {
-        op: "refresh",
-        sura: suraIndex,
-        time: refreshTimeStamp
-      };
-
-      flat_history[get_time_stamp()] = refreshRecord;
+    switch (transaction.op) {
+      case "memorize":
+        surasHistory[suraIndex].memorization = transaction.state;
+        break;
+      case "refresh":
+        if (surasHistory[suraIndex].history.indexOf(transaction.time) == -1) {
+          surasHistory[suraIndex].history.push(transaction.time);
+        }
+        else {
+          console.log("duplicate refresh eliminated ", transaction);
+          duplicate_transactions_uuids.push(transaction.uuid);
+        }
     }
   }
-//TODO do it!
+
+  for (var suraIndex in surasHistory.keys) {
+    surasHistory[suraIndex].history.sort(sortNumber);
+  }
+  addSuraCells();
+  set_local_storage_object("surasHistory", surasHistory);
+
+  if (duplicate_transactions_uuids.length) {
+    transactions = transactions.filter(function (transaction) {
+      return duplicate_transactions_uuids.indexOf(transaction.uuid) == -1;
+    });
+  }
+
+  transactions.forEach((transaction) => { 
+    enqueue_for_upload(transaction);
+  });
+
+  add_to_transactions_history(transactions);
 }

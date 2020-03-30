@@ -11,7 +11,7 @@ function get_refresh_period_days() {
 function set_refresh_period_days(value) {
     if (!value) return;
     //refreshPeriodDays = value;
-    setLocalStorageObject("refreshPeriodDays", value);
+    set_local_storage_object("refreshPeriodDays", value);
 }
 
 /**
@@ -23,7 +23,6 @@ var update_stamp = 0;
 var serverOffset = 0;
 var lightRatio = 0;
 var conquerRatio = 0;
-var autoRefreshPeriod = 6 * 60 * 60 * 1000;
 
 var surasColorTable = [];
 var selected_suras = [];
