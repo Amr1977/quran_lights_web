@@ -19,7 +19,7 @@ function toggle_select(suraIndex) {
       $(".sura-" + suraIndex).removeClass("old-refresh");
       $(".sura-" + suraIndex).addClass("selected");
     }
-    setLocalStorageObject("selected_suras", selected_suras);
+    set_local_storage_object("selected_suras", selected_suras);
     update_selection_score();
   }
 
@@ -31,7 +31,7 @@ function toggle_select(suraIndex) {
       selected_total += suraCharCount[selected_suras[i] - 1];
     }
   
-    document.getElementById("selected_total").textContent = " Selected Amount: [" + SCORE_CURRENCY + readableFormat(selected_total) + "]";
+    document.getElementById("selected_total").textContent = " Selected Amount: [" + formatter.format(selected_total) + "]";
   }
 
   function deselectAll() {
@@ -44,7 +44,7 @@ function toggle_select(suraIndex) {
     }
 
     selected_suras = [];
-    setLocalStorageObject("selected_suras", selected_suras);
+    set_local_storage_object("selected_suras", selected_suras);
     update_selection_score();
   }
 
@@ -58,6 +58,6 @@ function toggle_select(suraIndex) {
 
     var daysElapsed = ((currentTimeStamp - maxStamp) /
       (60 * 60 * 24.0)).toFixed(0);
-    console.log("(daysElapsed >= refreshPeriodDays): " + (daysElapsed >= refreshPeriodDays));
-    return  (daysElapsed >= refreshPeriodDays);
+    console.log("(daysElapsed >= refreshPeriodDays): " + (daysElapsed >= get_refresh_period_days()));
+    return  (daysElapsed >= get_refresh_period_days());
   }

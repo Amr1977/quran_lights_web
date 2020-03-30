@@ -1,4 +1,4 @@
-function drawRadarChart(divID) {
+async function drawRadarChart(divID) {
     Highcharts.chart(divID, {
 
         chart: {
@@ -11,7 +11,7 @@ function drawRadarChart(divID) {
         },
 
         title: {
-            text: 'Quran Radar: Elapsed Days since last refresh',
+            text: 'Quran Radar',
         },
 
         pane: {

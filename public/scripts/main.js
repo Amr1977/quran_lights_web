@@ -1,47 +1,30 @@
 //TODO fix for new FDB structure
+//TODO put in upload queue and schedule a dispatcher function
 function refreshSura(suraIndex, refreshTimeStamp) {
   //TODO update model
   //TODO check for empty history array
 
   //update FDB
-  var refreshRecord = {
+  var transaction_record = {
     op: "refresh",
     sura: suraIndex,
     time: refreshTimeStamp
   };
-  var transactionTimeStamp = (Date.now() + serverOffset) * 1000;
-  var newEntry = firebase
-    .database()
-    .ref(
-      "users/" +
-      firebase.auth().currentUser.uid +
-      "/Master/reviews/" +
-      transactionTimeStamp
-    );
-  newEntry.set(refreshRecord, function (error) {
-    if (error) {
-      alert("Data could not be saved, check your connection. " + error);
-    } else {
-      lastTransactionTimeStamp = transactionTimeStamp.toString();
-      surasHistory[suraIndex].history.push(refreshTimeStamp);
-      sortedTimestampSuraArray = [];
-      refreshCountSortedSuraArray = [];
-      addSuraCells();
-      //to avoid pulling history again
-      ownTimeStamps.push(transactionTimeStamp);
-      //trigger update on other devices
-      firebase
-        .database()
-        .ref(
-          "users/" + firebase.auth().currentUser.uid + "/Master/update_stamp"
-        )
-        .set(transactionTimeStamp);
-      playSuraRefreshSound();
-      animate_score_elements();
-    }
-  });
+
+  var transactions_records = [];
+  transactions_records.push(transaction_record);
+  add_to_transactions_history(transactions_records);
+
+  enqueue_for_upload(transaction_record);
+  surasHistory[suraIndex].history.push(transaction_record.time);
+  sortedTimestampSuraArray = [];
+  refreshCountSortedSuraArray = [];
+  playSuraRefreshSound();
+  add_sura_cells();
+  animate_score_elements();
 }
 
+//TODO animate ony after score change
 function animate_score_elements(){
   $(".score").addClass("animated bounceIn");
 }
@@ -72,7 +55,7 @@ function set_light_days() {
   var light_days_selection_element = document.getElementById("light_days");
   var light_days_count = Number(light_days_selection_element.value);
   set_refresh_period_days(light_days_count);
-  addSuraCells();
+  add_sura_cells();
 }
 
 function setup_light_days_options() {

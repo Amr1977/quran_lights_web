@@ -1,4 +1,4 @@
-function updateGuageChart(chartID, title, ratio) {
+async function updateGuageChart(chartID, title, ratio) {
     chartRatio = null;
     chartRatio = new Highcharts.chart(
       chartID,

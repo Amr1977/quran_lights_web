@@ -30,8 +30,11 @@ function export_history_to_json() {
 
 //TODO implement import from json
 function importJSON() {
+  showToast("Import Started...");
   var files = document.getElementById('selectFiles').files;
   if (files.length <= 0) {
+    hideToast();
+    alert("Choose Quran Lights history file to import!");
     return false;
   }
 
@@ -41,21 +44,57 @@ function importJSON() {
     console.log("imported & parser result: \n", result);
     if (result[0]) {
       var history = result[1];
-      merge_imported_history(history);
-      addSuraCells();
+      merge_imported_suras_history(history);
+      add_sura_cells();
+      hideToast();
+      alert("IMPORT SUCCESS!");
     } else {
-      console.log("invalid json dropped");
+      hideToast();
+      console.log("INVALID JSON!!");
+      alert("INVALID JSON!!")
     }
   }
 
   file_reader.readAsText(files.item(0));
 }
 
-function merge_imported_history(history){
-  console.log(history);
+function create_refresh_transaction_record(sura_index, timestamp){
+  var transaction_record = {
+    op: "refresh",
+    sura: sura_index,
+    time: timestamp
+  };
+
+ return transaction_record;
+}
+
+function create_memorization_transaction_record(sura_index, timestamp, memorization_state){
+  var transaction_record = {
+    op: "memorize",
+    sura: sura_index,
+    state: memorization_state,
+    time: timestamp
+  };
+
+ return transaction_record;
+}
+
+function create_refresh_transaction_batch(sura_index, timestamps) {
+  var transactions = [];
+  for(var key in timestamps) {
+    var timestamp = timestamps[key];
+    transactions.push(create_refresh_transaction_record(sura_index, timestamp));
+  }
+
+  return transactions;
+}
+
+function merge_imported_suras_history(history){
+  var new_transactions = [];
   for (var suraIndex in history) {
     // Merge/update local refresh histories
     if (
+      //both local and imported histories got entries
       surasHistory[suraIndex] && 
       surasHistory[suraIndex].history && 
       surasHistory[suraIndex].history.length > 0 && 
@@ -66,6 +105,7 @@ function merge_imported_history(history){
       console.log("Merge imported history for ", suraIndex);
       var new_records = history[suraIndex].history.filter( x => !surasHistory[suraIndex].history.includes(x));
       new_records.sort(sortNumber);
+      new_transactions = new_transactions.concat(create_refresh_transaction_batch(suraIndex, new_records));
       history[suraIndex].history = new_records;
       surasHistory[suraIndex].history = surasHistory[suraIndex].history.concat(new_records);
       surasHistory[suraIndex].history.sort(sortNumber);
@@ -73,41 +113,26 @@ function merge_imported_history(history){
       if (!surasHistory[suraIndex] || !surasHistory[suraIndex].history || surasHistory[suraIndex].history.length == 0) {
         console.log("Replace with imported history for ", suraIndex);
         surasHistory[suraIndex] = history[suraIndex];
+        if (history[suraIndex] && history[suraIndex].history &&  history[suraIndex].history.length) {
+          new_transactions = new_transactions.concat(create_refresh_transaction_batch(suraIndex, history[suraIndex].history));
+        }
       }
     }
 
-    if (surasHistory[suraIndex] && !surasHistory[suraIndex].memorization && history[suraIndex].memorization) {
-      console.log("MSet memorization for ", suraIndex);
+    if (history[suraIndex] !== null && history[suraIndex].memorization !== null) {
+      if (!surasHistory[suraIndex]) {
+        surasHistory[suraIndex] = {};
+      }
       surasHistory[suraIndex].memorization = history[suraIndex].memorization;
-    } else {
-      history[suraIndex].memorization = null;
+      //TODO fix this tragendy: no memorization data in surasHistory
+      new_transactions.push(create_memorization_transaction_record(suraIndex, get_time_stamp(), history[suraIndex].memorization));
     }
   }
 
-  //filtered history, removed already existing entries
-  return history;
-}
-
-function update_firebase_database(history) {
-
-  var flat_history = {};
-  for (var suraIndex in history) {
-    var memorizationRecord = {
-      op: "memorize",
-      sura: suraIndex,
-      state: history[suraIndex].memorization
-    };
-
-    flat_history[getTimeStamp()] = memorizationRecord;
-    for (var refreshTimeStamp in history[suraIndex].history) {
-      var refreshRecord = {
-        op: "refresh",
-        sura: suraIndex,
-        time: refreshTimeStamp
-      };
-
-      flat_history[getTimeStamp()] = refreshRecord;
-    }
+  for (var suraIndex in surasHistory.keys) {
+    surasHistory[suraIndex].history.sort(sortNumber);
   }
-//TODO do it!
+
+  set_local_storage_object("surasHistory", surasHistory);
+  enqueue_batch_for_upload(new_transactions);
 }

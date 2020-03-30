@@ -37,18 +37,20 @@ function getScore() {
     return [total, today, review_score, read_score];
   }
 
-  function update_score () {
+  async function update_score () {
     var score_array = getScore();
     review_today = score_array[2];
     console.log(score_array);
-    document.getElementById("score").textContent = "Total Balance: " + SCORE_CURRENCY + readableFormat(score_array[0]);
-    document.getElementById("today_score").textContent = "Today Amount: " + SCORE_CURRENCY + readableFormat(score_array[1]);
-    document.getElementById("today_review_score").textContent = "Today Review Amount: " + SCORE_CURRENCY + readableFormat(review_today);
-    document.getElementById("today_read_score").textContent = "Today Read Amount: " + SCORE_CURRENCY + readableFormat(score_array[3]);
+    document.getElementById("score").textContent = "Total Balance: " + formatter.format(score_array[0]);
+    document.getElementById("today_score").textContent = "Today Amount: " + formatter.format(score_array[1]);
+    document.getElementById("today_review_score").textContent = "Today Review Amount: " + formatter.format(review_today);
+    document.getElementById("today_read_score").textContent = "Today Read Amount: " +formatter.format(score_array[3]);
     animate_score();
   }
 
-  function animate_score() {
+  async function animate_score() {
     document.getElementById("today_score").className = "score";
-    document.getElementById("today_score").className = "score animated bounce";
+    //TODO test it!
+    //document.getElementById("today_score").className = "score animated bounceIn";
+    $("#today_score").addClass("animated bounceIn");
   }

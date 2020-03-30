@@ -82,7 +82,7 @@ function getKhatmaProgressData() {
     return khatmaProgress;
   }
 
-  function drawKhatmaPieChart() {
+  async function drawKhatmaPieChart() {
     var khatmaProgress = getKhatmaProgressData();
     var data = khatmaProgress.data;
   

@@ -24,7 +24,7 @@ function get_flat_timestamp_score_array() {
  * @param {*} mode 0 dor days, 1 for months, 2 for years
  */
 
-function drawTimeSeriesChart(divID, mode) {
+async function drawTimeSeriesChart(divID, mode) {
   var data = {};
 
   switch (mode) {
@@ -44,15 +44,15 @@ function drawTimeSeriesChart(divID, mode) {
   var chartTitle;
   switch (mode) {
     case DAILY_SCORE_MODE://daily chart
-      chartTitle = "Daily Score";
+      chartTitle = "Daily Revenue";
       break;
 
     case MONTHLY_SCORE_MODE://monthly chart 
-      chartTitle = "Monthly Score";
+      chartTitle = "Monthly Revenue";
       break;
 
     case YEARLY_SCORE_MODE://yearly chart
-      chartTitle = "Yearly Score";
+      chartTitle = "Yearly Revenue";
       break;
 
     case DARK_DAYS_MODE:
@@ -122,7 +122,7 @@ function drawTimeSeriesChart(divID, mode) {
     series: [
       {
         type: "area",
-        name: "score",
+        name: "Revenue",
         data: data
       }
     ]

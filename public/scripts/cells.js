@@ -1,25 +1,24 @@
 var click_event_queue = [];
-function addSuraCells() {
-  console.log("addSuraCells invoked.");
+
+async function add_sura_cells() {
+  console.log("add_sura_cells invoked.");
   //TODO reuse cells
   if (buildingSurasFlag) {
     return;
   }
   surasColorTable = [];
   buildingSurasFlag = true;
-  var reviewsNode = document.getElementById("reviews");
-  while (reviewsNode.firstChild) {
-    reviewsNode.removeChild(reviewsNode.firstChild);
-  }
+  clrear_reviews();
+  
   var currentTimeStamp = Math.floor(Date.now() / 1000);
-  var refreshPeriod = refreshPeriodDays * 24 * 60 * 60;
+  var refreshPeriod = get_refresh_period_days() * 24 * 60 * 60;
   lightRatio = 0;
   conquerRatio = 0;
   for (var cellIndex = 1; cellIndex <= 114; cellIndex++) {
     var suraIndex = sortedSuraIndexConverter(cellIndex);
     var element = document.createElement("button");
     element.index = suraIndex;
-    element.className = "sura-cell" + " sura-" + suraIndex;
+    element.className = "sura-cell" + " sura-" + suraIndex + " animated bounceIn";
     if (surasHistory[suraIndex] == null) {
       surasHistory[suraIndex] = {};
       surasHistory[suraIndex].history = [];
@@ -62,7 +61,7 @@ function addSuraCells() {
     if (selected_suras.indexOf(suraIndex) !== -1) {
       element.classList.add("selected");
     }
-    else if (daysElapsed >= refreshPeriodDays) {
+    else if (daysElapsed >= get_refresh_period_days()) {
       element.classList.add("old-refresh");
     }
 
@@ -92,7 +91,7 @@ function addSuraCells() {
     suraNameElementAr.className = "sura_name_label";
     switch (surasHistory[suraIndex].memorization) {
       case MEMORIZATION_STATE_MEMORIZED:
-        if (daysElapsed >= MAX_ELAPSED_DAYS_FOR_MEMORIZED_SURAS) {
+        if (daysElapsed >= MAX_ELAPSED_DAYS_FOR_MEMORIZED_SURAS || daysElapsed >= get_refresh_period_days()) {
           suraNameElement.className = "old-memorized sura_name_label";
         }
         else {
@@ -128,21 +127,8 @@ function addSuraCells() {
       element.appendChild(daysElapsedElement);
     }
   
-    element.onclick = function () {
-      if (click_event_queue.length > 0 && click_event_queue[0].index == this.index) {
-        console.log("double click detected.");
-        do_double_click(this.index);
-      } else {
-        var click_event = {};
-        click_event.index = this.index;
-        click_event.alt_pressed = alt_pressed;
-        click_event.shift_pressed = shift_pressed;
-        click_event.ctrl_pressed = ctrl_pressed;
-        click_event.cmd_pressed = cmd_pressed;
-  
-        click_event_queue.unshift(click_event);
-        setTimeout(do_click, SINGLE_CLICK_EVENT_DAMPING_DELAY);
-      }
+    element.onclick = function() {
+      click_handler(this.index);
     };
 
     document.getElementById("reviews").appendChild(element);
@@ -158,7 +144,7 @@ function addSuraCells() {
   if (periodicRefreshTimerRef != null) {
     clearInterval(periodicRefreshTimerRef);
   }
-  periodicRefreshTimerRef = setInterval(addSuraCells, autoRefreshPeriod);
+  periodicRefreshTimerRef = setInterval(add_sura_cells, AUTO_REFRESH_PERIOD);
 }
 
 function do_double_click(index){
@@ -191,3 +177,21 @@ function do_click() {
     toggle_select(event.index);
   }
 }
+
+//TODO fix this: this.index how to pass parameter
+var click_handler = function (index) {
+  if (click_event_queue.length > 0 && click_event_queue[0].index == index) {
+    console.log("double click detected.");
+    do_double_click(index);
+  } else {
+    var click_event = {};
+    click_event.index = index;
+    click_event.alt_pressed = alt_pressed;
+    click_event.shift_pressed = shift_pressed;
+    click_event.ctrl_pressed = ctrl_pressed;
+    click_event.cmd_pressed = cmd_pressed;
+
+    click_event_queue.unshift(click_event);
+    setTimeout(do_click, SINGLE_CLICK_EVENT_DAMPING_DELAY);
+  }
+};
