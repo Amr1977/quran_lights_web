@@ -43,6 +43,7 @@ var isFirstLoad = 1;
 
 window.onload = function () {
   Sentry.init({ dsn: 'https://55c264ec9a484103890f2ca7ad8a4543@sentry.io/238887' });
+  init_collapsibles();
   initApp();
 };
 
@@ -87,5 +88,22 @@ function hide_sign_in_only_elements(){
   for (var i = 0; i < SIGN_OUT_ONLY_ELEMENTS.length; i++) {
     var element = document.getElementById(SIGN_OUT_ONLY_ELEMENTS[i]);
     if(element) element.style.display = "block";
+  }
+}
+
+function init_collapsibles() {
+  var coll = document.getElementsByClassName("collapsible");
+  var i;
+
+  for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function () {
+      this.classList.toggle("active");
+      var content = this.nextElementSibling;
+      if (content.style.display === "block") {
+        content.style.display = "none";
+      } else {
+        content.style.display = "block";
+      }
+    });
   }
 }

@@ -1,5 +1,10 @@
 h1 {
     color: rgba(0,255,0,1);
+    font-weight: 800 !important;
+}
+
+body {
+    font-family: "Tahoma", "Roboto", "Helvetica","Arial","sans-serif" !important;
 }
 
 .wrapper {
@@ -16,6 +21,7 @@ h1 {
 
 .fulljustify {
     text-align:justify;
+    display: none;
 }
 
 .memorized {
@@ -196,4 +202,48 @@ button:focus {
       .mdl-card {
           background-color: rgb(50, 50, 52) !important;
       }
+
+      .collapsible {
+        background-color: #555;
+        color: greenyellow;
+        font-weight: 800;
+        /* cursor: pointer; */
+        /* padding: 18px; */
+        /* width: 100%; */
+        /* border: none; */
+        text-align: left;
+        display: inline;
+        /* outline: none; */
+        font-size: 30px;
+        /* margin: 20px; */
+        border-radius: 10px;
+      }
+      
+      .active, .collapsible:hover {
+        background-color: darkslategray;
+      }
+      
+      .content {
+        padding: 0 18px;
+        display: none;
+        overflow: hidden;
+        background-color: #f1f1f1;
+      }
+
+      .collapsible:after {
+        /* content: '\002B'; */
+        color: white;
+        font-weight: bold;
+        float: right;
+        margin-left: 5px;
+      }
+      
+      .active:after {
+        /* content: "\2212"; */
+      }
+
+      .mdl-button {
+          color: whitesmoke !important;
+      }
+      
     

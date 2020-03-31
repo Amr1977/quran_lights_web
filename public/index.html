@@ -22,34 +22,34 @@
     <link rel="stylesheet" type="text/css" href="font-awesome.css"/>
 
     <title>Quran Lights</title>
-    <link rel="stylesheet" href="styles.css?v=2020_0331_1145">
+    <link rel="stylesheet" href="styles.css?v=2020_0331_2020">
 
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
-    <script src="scripts/suras_data.js?2020_0331_1145"></script>
-    <script src="scripts/constants.js?2020_0331_1145"></script>
-    <script src="scripts/utils.js?2020_0331_1145"></script>
-    <script src="scripts/state.js?2020_0331_1145"></script>
-    <script src="scripts/sync.js?2020_0331_1145"></script>
-    <script src="scripts/main.js?2020_0331_1145"></script>
-    <script src="scripts/init_app.js?2020_0331_1145"></script>
-    <script src="scripts/init_cells.js?2020_0331_1145"></script>
-    <script src="scripts/keyboard.js?2020_0331_1145"></script>
-    <script src="scripts/memorization.js?2020_0331_1145"></script>
-    <script src="scripts/bright_days_dark_days_chart.js?2020_0331_1145"></script>
-    <script src="scripts/sort.js?2020_0331_1145"></script>
-    <script src="scripts/treemap.js?2020_0331_1145"></script>
-    <script src="scripts/guage.js?2020_0331_1145"></script>
-    <script src="scripts/khatma.js?2020_0331_1145"></script>
-    <script src="scripts/time_series.js?2020_0331_1145"></script>
-    <script src="scripts/import_and_export.js?2020_0331_1145"></script>
-    <script src="scripts/audio.js?2020_0331_1145"></script>
-    <script src="scripts/account.js?2020_0331_1145"></script>
-    <script src="scripts/selection.js?2020_0331_1145"></script>
-    <script src="scripts/score.js?2020_0331_1145"></script>
-    <script src="scripts/cells.js?2020_0331_1145"></script>
-    <script src="scripts/login.js?2020_0331_1145"></script>
-    <script src="scripts/charts.js?2020_0331_1145"></script>
-    <script src="scripts/radar.js?2020_0331_1145"></script>
+    <script src="scripts/suras_data.js?2020_0331_2020"></script>
+    <script src="scripts/constants.js?2020_0331_2020"></script>
+    <script src="scripts/utils.js?2020_0331_2020"></script>
+    <script src="scripts/state.js?2020_0331_2020"></script>
+    <script src="scripts/sync.js?2020_0331_2020"></script>
+    <script src="scripts/main.js?2020_0331_2020"></script>
+    <script src="scripts/init_app.js?2020_0331_2020"></script>
+    <script src="scripts/init_cells.js?2020_0331_2020"></script>
+    <script src="scripts/keyboard.js?2020_0331_2020"></script>
+    <script src="scripts/memorization.js?2020_0331_2020"></script>
+    <script src="scripts/bright_days_dark_days_chart.js?2020_0331_2020"></script>
+    <script src="scripts/sort.js?2020_0331_2020"></script>
+    <script src="scripts/treemap.js?2020_0331_2020"></script>
+    <script src="scripts/guage.js?2020_0331_2020"></script>
+    <script src="scripts/khatma.js?2020_0331_2020"></script>
+    <script src="scripts/time_series.js?2020_0331_2020"></script>
+    <script src="scripts/import_and_export.js?2020_0331_2020"></script>
+    <script src="scripts/audio.js?2020_0331_2020"></script>
+    <script src="scripts/account.js?2020_0331_2020"></script>
+    <script src="scripts/selection.js?2020_0331_2020"></script>
+    <script src="scripts/score.js?2020_0331_2020"></script>
+    <script src="scripts/cells.js?2020_0331_2020"></script>
+    <script src="scripts/login.js?2020_0331_2020"></script>
+    <script src="scripts/charts.js?2020_0331_2020"></script>
+    <script src="scripts/radar.js?2020_0331_2020"></script>
 
     <meta property="og:image" content="https://quran-lights.firebaseapp.com/images/appicon_202003270756.png" />
     <meta charset=utf-8 />
@@ -94,7 +94,6 @@
     <div class="text">
         <h1 align="center">Quran Lights</h1>
         <h3 align="center">
-            <!-- Visualize and boost your engagement with Quran -->
             Visualize and boost your Quran Engagement
             <br><br>
         </h3>
@@ -117,7 +116,13 @@
                         height="40px;" /></a>
             </div>
         </div>
-        <h4 class="fulljustify">How it works: After you read any chapter of Quran remember to <strong>double
+        <br>
+        <br>
+        <br>
+        <button class="collapsible">How it works
+            <svg focusable="false" height="24px" viewBox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>
+        </button>
+        <h4 class="fulljustify">After you read any chapter of Quran remember to <strong>double
                 click</strong> its cell here, the cell will take its maximum
             light, cell light will decay with time until you refresh it again, your history is cloud-stored and charts
             are updated accordingly,
@@ -246,7 +251,7 @@
                             </button>
                         </div>
                         <div id="today_score" class="score" float="right"></div> 
-                        <div id="reviews" class="wrapper" style="margin: 10px;"></div>
+                        <div id="reviews" class="wrapper" style="margin: 5px;"></div>
                     </div>
                 </div>
             </div>
@@ -378,7 +383,7 @@
             data-size="small" data-show-faces="true" data-share="false" style="margin: 20px;"></div>
     </div>
     <!--div class="fb-comments" data-href="https://quran-lights.firebaseapp.com" data-width="100%" data-numposts="7"></div-->
-    <div class="text">V0.2020_0331_1145</div>
+    <div class="text">V0.2020_0331_2020</div>
 </body>
 
 </html>
