@@ -192,4 +192,8 @@ button:focus {
                   user-select: none; /* Non-prefixed version, currently
                                         supported by Chrome, Opera and Firefox */
       }
+
+      .mdl-card {
+          background-color: rgb(50, 50, 52) !important;
+      }
     
