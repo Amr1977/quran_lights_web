@@ -126,13 +126,16 @@ async function add_sura_cells() {
       // daysElapsedElement.id = "days";
       element.appendChild(daysElapsedElement);
     }
+
+    Array.from(element.children).forEach((child)=> {
+      $(child).addClass("noselect");
+    })
   
     element.onclick = function() {
       click_handler(this.index);
     };
 
     element.onmouseenter = function(event) {
-      console.log(event);
       if(event.buttons) {
         toggle_select(this.index);
       }
