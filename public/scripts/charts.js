@@ -2,10 +2,11 @@
 async function update_charts() {
     drawMemorizationPieChart();
     //TODO update ticket https://trello.com/c/qf6EoLOB/106-1-daily-review-gauge-calculation
-    var daily_review_max = fullKhatmaCharCount / get_refresh_period_days();
-    updateGuageChart("review_score_guage", "Today Review Ratio [" + readableFormat(review_today) 
-                   + " of Target " + readableFormat(daily_review_max) + "], ", 100 * review_today / daily_review_max);
-    updateGuageChart("daily-read-guage", "Daily Read Progress", 100 * get_today_read() / (get_non_memorized_amount() / get_refresh_period_days()));
+    updateGuageChart("review_score_guage", 
+                     "Today Review Revenue [" + format(scores["today_review"]) + " of Target " + format(get_review_werd()) + "]", 
+                     100 * review_today / get_review_werd());
+    updateGuageChart("daily-read-guage", "Today Read Revenue [" + format(scores["today_read"]) + " of Target " + format(get_read_werd()) + "]",
+                    100 * get_today_read() / get_read_werd());
     updateGuageChart("light-ratio-chart-container", "Light Ratio", lightRatio);
     updateGuageChart("conquer-ratio-chart-container", "Conquer Ratio", conquerRatio);
     drawTimeSeriesChart("daily-score-chart", DAILY_SCORE_MODE);
@@ -16,6 +17,14 @@ async function update_charts() {
     drawKhatmaPieChart();
     drawTreeMapChart("treemap-chart");
     drawRadarChart("radar-chart");
+}
+
+function get_review_werd(){
+    return memorization_state["memorized"] / get_refresh_period_days();
+}
+
+function get_read_werd() {
+    return (get_non_memorized_amount() / get_refresh_period_days());
 }
 
 function get_today_read() {

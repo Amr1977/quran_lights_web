@@ -147,3 +147,7 @@ function clrear_reviews() {
     reviewsNode.removeChild(reviewsNode.firstChild);
   }
 }
+
+function format(number) {
+  return formatter.format(number);
+}

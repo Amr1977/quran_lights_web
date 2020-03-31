@@ -43,10 +43,10 @@ function getScore() {
     var score_array = getScore();
     review_today = score_array[2];
     console.log(score_array);
-    document.getElementById("score").textContent = "Total Balance: " + formatter.format(score_array[0]);
-    document.getElementById("today_score").textContent = "Today Amount: " + formatter.format(score_array[1]);
-    document.getElementById("today_review_score").textContent = "Today Review Amount: " + formatter.format(review_today);
-    document.getElementById("today_read_score").textContent = "Today Read Amount: " +formatter.format(score_array[3]);
+    document.getElementById("score").textContent = "Total Balance: " + format(score_array[0]);
+    document.getElementById("today_score").textContent = "Today Revenue: " + format(score_array[1]);
+    document.getElementById("today_review_score").textContent = "* Review Revenue: " + format(review_today) + " of [" + format(memorization_state["memorized"] / get_refresh_period_days()) +"]";
+    document.getElementById("today_read_score").textContent = "* Read Revenue: " + format(score_array[3]) + " of [" + format(memorization_state["not_memorized"] / get_refresh_period_days()) +"]";;
     animate_score();
   }
 
