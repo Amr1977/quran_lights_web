@@ -131,6 +131,13 @@ async function add_sura_cells() {
       click_handler(this.index);
     };
 
+    element.onmouseenter = function(event) {
+      console.log(event);
+      if(event.buttons) {
+        toggle_select(this.index);
+      }
+    }
+
     document.getElementById("reviews").appendChild(element);
   }
   buildingSurasFlag = false;
