@@ -42,3 +42,6 @@ var elapsed_days = [];
 var review_today = 0;
 var read_daily_target = 100_000;
 var review_daily_target = 100_000; 
+
+var scores = {};
+var memorization_state = {};

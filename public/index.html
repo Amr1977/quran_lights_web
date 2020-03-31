@@ -22,34 +22,34 @@
     <link rel="stylesheet" type="text/css" href="font-awesome.css"/>
 
     <title>Quran Lights</title>
-    <link rel="stylesheet" href="styles.css?v=2020_0331_2020">
+    <link rel="stylesheet" href="styles.css?v=1585690761">
 
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
-    <script src="scripts/suras_data.js?2020_0331_2020"></script>
-    <script src="scripts/constants.js?2020_0331_2020"></script>
-    <script src="scripts/utils.js?2020_0331_2020"></script>
-    <script src="scripts/state.js?2020_0331_2020"></script>
-    <script src="scripts/sync.js?2020_0331_2020"></script>
-    <script src="scripts/main.js?2020_0331_2020"></script>
-    <script src="scripts/init_app.js?2020_0331_2020"></script>
-    <script src="scripts/init_cells.js?2020_0331_2020"></script>
-    <script src="scripts/keyboard.js?2020_0331_2020"></script>
-    <script src="scripts/memorization.js?2020_0331_2020"></script>
-    <script src="scripts/bright_days_dark_days_chart.js?2020_0331_2020"></script>
-    <script src="scripts/sort.js?2020_0331_2020"></script>
-    <script src="scripts/treemap.js?2020_0331_2020"></script>
-    <script src="scripts/guage.js?2020_0331_2020"></script>
-    <script src="scripts/khatma.js?2020_0331_2020"></script>
-    <script src="scripts/time_series.js?2020_0331_2020"></script>
-    <script src="scripts/import_and_export.js?2020_0331_2020"></script>
-    <script src="scripts/audio.js?2020_0331_2020"></script>
-    <script src="scripts/account.js?2020_0331_2020"></script>
-    <script src="scripts/selection.js?2020_0331_2020"></script>
-    <script src="scripts/score.js?2020_0331_2020"></script>
-    <script src="scripts/cells.js?2020_0331_2020"></script>
-    <script src="scripts/login.js?2020_0331_2020"></script>
-    <script src="scripts/charts.js?2020_0331_2020"></script>
-    <script src="scripts/radar.js?2020_0331_2020"></script>
+    <script src="scripts/suras_data.js?v=1585690761"></script>
+    <script src="scripts/constants.js?v=1585690761"></script>
+    <script src="scripts/utils.js?v=1585690761"></script>
+    <script src="scripts/state.js?v=1585690761"></script>
+    <script src="scripts/sync.js?v=1585690761"></script>
+    <script src="scripts/main.js?v=1585690761"></script>
+    <script src="scripts/init_app.js?v=1585690761"></script>
+    <script src="scripts/init_cells.js?v=1585690761"></script>
+    <script src="scripts/keyboard.js?v=1585690761"></script>
+    <script src="scripts/memorization.js?v=1585690761"></script>
+    <script src="scripts/bright_days_dark_days_chart.js?v=1585690761"></script>
+    <script src="scripts/sort.js?v=1585690761"></script>
+    <script src="scripts/treemap.js?v=1585690761"></script>
+    <script src="scripts/guage.js?v=1585690761"></script>
+    <script src="scripts/khatma.js?v=1585690761"></script>
+    <script src="scripts/time_series.js?v=1585690761"></script>
+    <script src="scripts/import_and_export.js?v=1585690761"></script>
+    <script src="scripts/audio.js?v=1585690761"></script>
+    <script src="scripts/account.js?v=1585690761"></script>
+    <script src="scripts/selection.js?v=1585690761"></script>
+    <script src="scripts/score.js?v=1585690761"></script>
+    <script src="scripts/cells.js?v=1585690761"></script>
+    <script src="scripts/login.js?v=1585690761"></script>
+    <script src="scripts/charts.js?v=1585690761"></script>
+    <script src="scripts/radar.js?v=1585690761"></script>
 
     <meta property="og:image" content="https://quran-lights.firebaseapp.com/images/appicon_202003270756.png" />
     <meta charset=utf-8 />
@@ -265,8 +265,11 @@
     <h4 class="text">Quran Radar: Elapsed days per Surah since last refresh</h4>
     <div id="radar-chart" style="height: 800px; margin: 20px"></div>
 
-    <h4 class="text">Reviews Balance (Today)</h4>
+    <h4 class="text">Review Werd: Reviewed_Today / ((SUM(Memorized) / Light_Days)</h4>
     <div id="review_score_guage" style="height: 100%; margin: 20px"></div>
+
+    <h4 class="text">Read Werd: Read_Today / ((SUM(Non_Memorized) / Light_Days)  </h4>
+    <div id="daily-read-guage" style="height: 100%; margin: 20px"></div>
 
     <h4 class="text">Memorization Progress</h4>
     <div id="memorization-chart" style="height: 500px; margin: 20px"></div>
@@ -274,19 +277,19 @@
     <h4 class="text">Light Ratio: sum of light percentage of all cells</h4>
     <div id="light-ratio-chart-container" style="height: 100%; margin: 20px"></div>
 
-    <h4 class="text">Non-Dark Cells Ratio: Percentage of cells with light</h4>
+    <h4 class="text">Lighting Cells Ratio: Percentage of cells not not older than Light days</h4>
     <div id="conquer-ratio-chart-container" style="height: 100%; margin: 20px"></div>
 
     <h4 class="text">Khatma Progress</h4>
     <div id="khatma-progress-chart" style="height: 100%; margin: 20px"></div>
 
-    <h4 class="text">Daily Balance</h4>
+    <h4 class="text">Daily Revenue</h4>
     <div id="daily-score-chart" style="height: 400px; margin: 20px"></div>
 
-    <h4 class="text">Monthlty Balance</h4>
+    <h4 class="text">Monthlty Revenue</h4>
     <div id="monthly-score-chart" style="height: 400px; margin: 20px"></div>
 
-    <h4 class="text">Yearly Balance</h4>
+    <h4 class="text">Yearly Revenue</h4>
     <div id="yearly-score-chart" style="height: 400px; margin: 20px"></div>
 
     <h4 class="text">Light days per month: days with non-zero balance</h4>
@@ -383,7 +386,6 @@
             data-size="small" data-show-faces="true" data-share="false" style="margin: 20px;"></div>
     </div>
     <!--div class="fb-comments" data-href="https://quran-lights.firebaseapp.com" data-width="100%" data-numposts="7"></div-->
-    <div class="text">V0.2020_0331_2020</div>
+    <div class="text">V0.1585690761</div>
 </body>
-
 </html>

@@ -34,10 +34,12 @@ function getScore() {
       }
     }
 
+    scores = {"total": total, "today_total": today, "today_review": review_score, "today_read": read_score};
+
     return [total, today, review_score, read_score];
   }
 
-  async function update_score () {
+  function update_score () {
     var score_array = getScore();
     review_today = score_array[2];
     console.log(score_array);

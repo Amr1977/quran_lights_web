@@ -85,6 +85,13 @@ function get_memorization_data() {
     }
   }
 
+  memorization_state = {
+    "not_memorized" : not_memorized_amount,
+    "being_memorized" : being_memorized_amount,
+    "memorized" : memorized_amount,
+    "was_memorized" : was_memorized_amount
+  };
+
   being_memorized_percentage =
     (being_memorized_amount / fullKhatmaCharCount) * 100;
   memorized_percentage = (memorized_amount / fullKhatmaCharCount) * 100;
@@ -141,7 +148,7 @@ function get_memorization_data() {
   return memorizationData;
 }
 
-async function drawMemorizationPieChart() {
+function drawMemorizationPieChart() {
   // Build the chart
 
   var memorizationOptions = get_memorization_data();
