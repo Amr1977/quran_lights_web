@@ -141,7 +141,7 @@ function sort_transactions_by_timestamp(array) {
   });
 }
 
-function clrear_reviews() {
+function clear_reviews() {
   var reviewsNode = document.getElementById("reviews");
   while (reviewsNode.firstChild) {
     reviewsNode.removeChild(reviewsNode.firstChild);

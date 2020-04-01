@@ -8,7 +8,7 @@ async function add_sura_cells() {
   }
   surasColorTable = [];
   buildingSurasFlag = true;
-  clrear_reviews();
+  clear_reviews();
   
   var currentTimeStamp = Math.floor(Date.now() / 1000);
   var refreshPeriod = get_refresh_period_days() * 24 * 60 * 60;
