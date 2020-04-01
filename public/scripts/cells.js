@@ -147,9 +147,9 @@ async function add_sura_cells() {
   $("#reviews").addClass("animated bounce");
   setup_light_days_options();
   updateDeselectButton();
-  update_score();
   update_selection_score();
   update_charts();
+  update_score();
   //periodically refresh
   if (periodicRefreshTimerRef != null) {
     clearInterval(periodicRefreshTimerRef);
