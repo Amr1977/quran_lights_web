@@ -207,15 +207,10 @@ button:focus {
         background-color: #555;
         color: greenyellow;
         font-weight: 800;
-        /* cursor: pointer; */
-        /* padding: 18px; */
-        /* width: 100%; */
-        /* border: none; */
-        text-align: left;
-        display: inline;
-        /* outline: none; */
+        text-align: right;
+        display: block;
         font-size: 20px;
-        /* margin: 20px; */
+        margin: 10px;
         border-radius: 10px;
       }
       

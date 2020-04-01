@@ -22,34 +22,34 @@
     <link rel="stylesheet" type="text/css" href="font-awesome.css"/>
 
     <title>Quran Lights</title>
-    <link rel="stylesheet" href="styles.css?v=1585734529">
+    <link rel="stylesheet" href="styles.css?v=1585746854">
 
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
-    <script src="scripts/suras_data.js?v=1585734529"></script>
-    <script src="scripts/constants.js?v=1585734529"></script>
-    <script src="scripts/utils.js?v=1585734529"></script>
-    <script src="scripts/state.js?v=1585734529"></script>
-    <script src="scripts/sync.js?v=1585734529"></script>
-    <script src="scripts/main.js?v=1585734529"></script>
-    <script src="scripts/init_app.js?v=1585734529"></script>
-    <script src="scripts/init_cells.js?v=1585734529"></script>
-    <script src="scripts/keyboard.js?v=1585734529"></script>
-    <script src="scripts/memorization.js?v=1585734529"></script>
-    <script src="scripts/bright_days_dark_days_chart.js?v=1585734529"></script>
-    <script src="scripts/sort.js?v=1585734529"></script>
-    <script src="scripts/treemap.js?v=1585734529"></script>
-    <script src="scripts/guage.js?v=1585734529"></script>
-    <script src="scripts/khatma.js?v=1585734529"></script>
-    <script src="scripts/time_series.js?v=1585734529"></script>
-    <script src="scripts/import_and_export.js?v=1585734529"></script>
-    <script src="scripts/audio.js?v=1585734529"></script>
-    <script src="scripts/account.js?v=1585734529"></script>
-    <script src="scripts/selection.js?v=1585734529"></script>
-    <script src="scripts/score.js?v=1585734529"></script>
-    <script src="scripts/cells.js?v=1585734529"></script>
-    <script src="scripts/login.js?v=1585734529"></script>
-    <script src="scripts/charts.js?v=1585734529"></script>
-    <script src="scripts/radar.js?v=1585734529"></script>
+    <script src="scripts/suras_data.js?v=1585746854"></script>
+    <script src="scripts/constants.js?v=1585746854"></script>
+    <script src="scripts/utils.js?v=1585746854"></script>
+    <script src="scripts/state.js?v=1585746854"></script>
+    <script src="scripts/sync.js?v=1585746854"></script>
+    <script src="scripts/main.js?v=1585746854"></script>
+    <script src="scripts/init_app.js?v=1585746854"></script>
+    <script src="scripts/init_cells.js?v=1585746854"></script>
+    <script src="scripts/keyboard.js?v=1585746854"></script>
+    <script src="scripts/memorization.js?v=1585746854"></script>
+    <script src="scripts/bright_days_dark_days_chart.js?v=1585746854"></script>
+    <script src="scripts/sort.js?v=1585746854"></script>
+    <script src="scripts/treemap.js?v=1585746854"></script>
+    <script src="scripts/guage.js?v=1585746854"></script>
+    <script src="scripts/khatma.js?v=1585746854"></script>
+    <script src="scripts/time_series.js?v=1585746854"></script>
+    <script src="scripts/import_and_export.js?v=1585746854"></script>
+    <script src="scripts/audio.js?v=1585746854"></script>
+    <script src="scripts/account.js?v=1585746854"></script>
+    <script src="scripts/selection.js?v=1585746854"></script>
+    <script src="scripts/score.js?v=1585746854"></script>
+    <script src="scripts/cells.js?v=1585746854"></script>
+    <script src="scripts/login.js?v=1585746854"></script>
+    <script src="scripts/charts.js?v=1585746854"></script>
+    <script src="scripts/radar.js?v=1585746854"></script>
 
     <meta property="og:image" content="https://quran-lights.firebaseapp.com/images/appicon_202003270756.png" />
     <meta charset=utf-8 />
@@ -116,8 +116,6 @@
                         height="40px;" /></a>
             </div>
         </div>
-        <br>
-        <br>
         <br>
         <button class="collapsible">How it works
             <svg focusable="false" height="24px" viewBox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>
@@ -200,30 +198,33 @@
                     onclick="sendPasswordReset"
                     >Send Password Reset Email</button>
 
-                    <div id="sort_order_container" style="margin: 10px;">
-                        <div style="float: left">Order Chapters by: </div>
-
-                        <div>
-                            <select id="sort_order" onchange="set_sort_order()">
-                                <option value="normal">Normal Order</option>
-                                <option value="revelation_order">Revelation Order</option>
-                                <option value="light">Cell Light</option>
-                                <option value="chars_count">Character Count</option>
-                                <option value="verse_count">Verse Count</option>
-                                <option value="word_count">Word Count</option>
-                                <option value="refresh_count">Refresh Count</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div id="light_days_container" style="margin: 10px;">
-                        <div style="float: left">Light Days: </div>
-                        <div>
-                            <select id="light_days" onchange="set_light_days()">
-                            </select>
-                        </div>
-                    </div>
+                    
 
                     <div id="daily-score-container" style="margin: 10px; font-weight: 800; color: green;" align="left">
+                        <div id="sort_order_container">
+                            <div class="score" >Order Chapters by: </div>
+    
+                            <div>
+                                <select id="sort_order" onchange="set_sort_order()" style="margin: 10px;">
+                                    <option value="normal">Normal Order</option>
+                                    <option value="revelation_order">Revelation Order</option>
+                                    <option value="light">Cell Light</option>
+                                    <option value="chars_count">Character Count</option>
+                                    <option value="verse_count">Verse Count</option>
+                                    <option value="word_count">Word Count</option>
+                                    <option value="refresh_count">Refresh Count</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <div id="light_days_container">
+                            <div class="score">Light Days: </div>
+                            <div>
+                                <select id="light_days" onchange="set_light_days()" style="margin: 10px;">
+                                </select>
+                            </div>
+                        </div>
+                        <br>
                         <span id="score" class="score">
                             --
                         </span>
@@ -236,6 +237,7 @@
                         </span>
                         <span id="selected_total">
                         </span>
+                        <br>
                         <div id="download" style="margin: 10px;">
                             <button class="mdl-button mdl-js-button mdl-button--raised" onclick='exportJSON();'>Export
                                 Refresh History</button>
@@ -245,6 +247,7 @@
                                 onclick="importJSON();">Import Refresh History</button>
                             <input type="file" id="selectFiles" value="Import" />
                         </div>
+                        <br>
                         <div>
                             <button id="deselect_button" onclick="deselectAll();" style="margin: 10px" float="right"
                                 class="mdl-button mdl-js-button mdl-button--raised">Deselect All
@@ -386,6 +389,6 @@
             data-size="small" data-show-faces="true" data-share="false" style="margin: 20px;"></div>
     </div>
     <!--div class="fb-comments" data-href="https://quran-lights.firebaseapp.com" data-width="100%" data-numposts="7"></div-->
-    <div class="text">V0.1585734529</div>
+    <div class="text">V0.1585746854</div>
 </body>
 </html>
