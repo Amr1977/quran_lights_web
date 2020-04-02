@@ -31,7 +31,7 @@ function readableFormat(number) {
   } else if (number >= 1000) {
     result += (number / 1000).toFixed(NUMBER_OF_DECIMAL_DIGITS) + "K";
   } else {
-    result += number;
+    result += number.toFixed(0);
   }
 
   return result;

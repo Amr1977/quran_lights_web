@@ -18,6 +18,7 @@ function initApp() {
     document.getElementById("quickstart-sign-in").disabled = false;
     if (user) {
       skew();
+      dispatch_uploads();
       document.title = "Quran Lights [" + user.email + "]";
       show_sign_in_only_elements();
       //document.getElementById("sign-in-with-facebook").style.display = "none";
@@ -43,6 +44,7 @@ function initApp() {
       });
     }
     else {
+      document.title = "Quran Lights";
       clearInterval(periodicRefreshTimerRef);
       hide_sign_in_only_elements();
       //document.getElementById("sign-in-with-facebook").style.display = "block";

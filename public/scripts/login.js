@@ -7,13 +7,14 @@ function toggleSignIn() {
     showToast("Signing out...");
     // [START signout]
     firebase.auth().signOut();
+    hide_sign_in_only_elements();
     document.getElementById("quickstart-sign-in").textContent = "Sign in";
-    document.getElementById("sign-in-with-google").textContent =
-      "Sign In with Google";
+    document.getElementById("sign-in-with-google").textContent = "Sign In with Google";
     //document.getElementById('sign-in-with-facebook').textContent = 'Sign In with Facebook';
     //document.getElementById('sign-in-with-twitter').textContent = 'Sign In with Twitter';
     //empty score
     document.getElementById("score").textContent = "--";
+    document.getElementById("today_score").textContent = "--";
     document.getElementById("email").value = "";
     document.getElementById("password").value = "";
     document.getElementById("daily-score-chart").innerHTML = "";
@@ -68,6 +69,8 @@ function toggleSignIn() {
         // [END_EXCLUDE]
       });
     hideToast();
+    show_sign_in_only_elements();
+    dispatch_uploads();
     // [END authwithemail]
   }
   document.getElementById("quickstart-sign-in").disabled = false;
