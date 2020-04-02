@@ -112,7 +112,7 @@ async function add_sura_cells() {
     element.appendChild(suraNameElementAr);
     element.appendChild(suraNameElement);
 
-    var charCountText = SCORE_CURRENCY + readableFormat(suraCharCount[suraIndex - 1]);
+    var charCountText = readableFormat(suraCharCount[suraIndex - 1]);
     //Char count
     var charCountElement = document.createElement("span");
     charCountElement.className = "char-count";

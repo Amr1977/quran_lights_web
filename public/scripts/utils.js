@@ -22,16 +22,19 @@ function hideToast() {
 }
 
 function readableFormat(number) {
+  var result = SCORE_CURRENCY;
   number = Number(number);
   if (number >= 1000_000_000) {
-    return (number / 1000_000_000).toFixed(NUMBER_OF_DECIMAL_DIGITS) + "B";
+    result += (number / 1000_000_000).toFixed(NUMBER_OF_DECIMAL_DIGITS) + "B";
   } else if (number >= 1000_000) {
-    return (number / 1000_000).toFixed(NUMBER_OF_DECIMAL_DIGITS) + "M";
+    result += (number / 1000_000).toFixed(NUMBER_OF_DECIMAL_DIGITS) + "M";
   } else if (number >= 1000) {
-    return (number / 1000).toFixed(NUMBER_OF_DECIMAL_DIGITS) + "K";
+    result += (number / 1000).toFixed(NUMBER_OF_DECIMAL_DIGITS) + "K";
   } else {
-    return number;
+    result += number;
   }
+
+  return result;
 }
 
 function todayStartTimeStamp() {
