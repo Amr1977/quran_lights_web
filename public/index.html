@@ -22,12 +22,12 @@
     <link rel="stylesheet" type="text/css" href="font-awesome.css"/>
 
     <title>Quran Lights</title>
-    <link rel="stylesheet" href="styles.css?v=1585896787">
+    <link rel="stylesheet" href="styles.css?v=1585903823">
 
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
-    <script src="scripts/quran_lights.min.js?v=1585896787"></script>
+    <script src="scripts/quran_lights.min.js?v=1585903823"></script>
 
-    <meta property="og:image" content="https://quran-lights.firebaseapp.com/images/appicon_202003270756.jpg" />
+    <meta property="og:image:secure_url" content="https://quran-lights.firebaseapp.com/images/appicon_202003270756.jpg" />
     <meta charset=utf-8 />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords"
@@ -91,10 +91,10 @@
             </div>
         </div>
         <br>
-        <iframe src="https://quran.ksu.edu.sa/index.php?l=en"
-            style="min-width:1000px;width:100%;height:890px;border:none;overflow:hidden">
+        <iframe id="ayat" src="https://quran.ksu.edu.sa/index.php?l=en">
         </iframe>
         <br>
+        
         <button class="collapsible">How it works
             <svg focusable="false" height="24px" viewBox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>
         </button>
@@ -137,6 +137,7 @@
             <div
                 class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
                 <div style="margin: 5px;">
+                    <iframe id="prayers" src="about:blank"></iframe>
                     <span>
                         <input class="mdl-textfield__input" style="display:inline;width:auto; margin: 10px;" type="text"
                             id="email" name="email" placeholder="Email" />
@@ -368,6 +369,6 @@
     </div>
     <!--div class="fb-comments" data-href="https://quran-lights.firebaseapp.com" data-width="100%" data-numposts="7"></div-->
     
-    <div class="text">V0.1585896787</div>
+    <div class="text">V0.1585903823</div>
 </body>
 </html>

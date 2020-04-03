@@ -6,6 +6,7 @@
 function initApp() {
   // Listening for auth state changes.
   // [START authstatelistener]
+  add_prayer_times();
   document
     .getElementById("password")
     .addEventListener("keyup", function (event) {

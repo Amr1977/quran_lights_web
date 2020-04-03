@@ -151,6 +151,32 @@ function clear_reviews() {
   }
 }
 
+function clear_children(id) {
+  var parent = document.getElementById(id);
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
+}
+
 function format(number) {
   return formatter.format(number);
+}
+
+function add_prayer_times() {
+  fetch('https://extreme-ip-lookup.com/json/')
+      .then(res => res.json())
+      .then(response => {
+        var city = response.city;
+        if(city) {
+          city = city.toLowerCase();
+        }
+          console.log("Country: ", response.country, " city: ", response.city);
+          document.getElementById("prayers").src = "https://timesprayer.com/widgets.php?frame=2&lang=en&name="+city+"&sound=true&avachang=true&time=0";
+      })
+      .catch((data, status) => {
+          var city = "mecca";
+          console.log('Request failed');
+          console.log("Country: ", response.country, " city: ", response.city);
+          document.getElementById("prayers").src = document.getElementById("prayers").src = "https://timesprayer.com/widgets.php?frame=2&lang=en&name="+city+"&sound=true&avachang=true&time=0";
+      })
 }
