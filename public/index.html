@@ -27,7 +27,9 @@
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
     <script src="scripts/quran_lights.min.js?v=1585903823"></script>
 
-    <meta property="og:image:secure_url" content="https://quran-lights.firebaseapp.com/images/app_icon.jpg" />
+    <meta property="og:image" content="http://quran-lights.firebaseapp.com/images/app_icon.png" />
+    <meta property="og:image:secure_url" content="https://quran-lights.firebaseapp.com/images/app_icon.png" /> 
+    <meta property="og:image:type" content="image/png" /> 
     <meta charset=utf-8 />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords"
@@ -57,13 +59,9 @@
 
 <body background="images/background.jpg">
     <div id="fb-root"></div>
-    <script>(function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id;
-            js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=978253842313944';
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));</script>
+    <script async defer crossorigin="anonymous"
+        src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v6.0&appId=546100602990294&autoLogAppEvents=1">
+    </script>
 
     <div class="text">
         <h1 align="center">Quran Lights</h1>
@@ -364,8 +362,12 @@
     </div>
 
     <div style="background-color: blanchedalmond; width: 100%;">
-        <div class="fb-like" data-href="https://quran-lights.firebaseapp.com" data-layout="standard" data-action="like"
-            data-size="small" data-show-faces="true" data-share="false" style="margin: 20px;"></div>
+        <div class="fb-like" 
+        data-href="https://quran-lights.firebaseapp.com" 
+        data-width="" data-layout="standard"
+            data-action="like" 
+            data-size="small" 
+            data-share="true"></div>
     </div>
     <!--div class="fb-comments" data-href="https://quran-lights.firebaseapp.com" data-width="100%" data-numposts="7"></div-->
     
