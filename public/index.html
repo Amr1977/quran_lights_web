@@ -22,10 +22,10 @@
     <link rel="stylesheet" type="text/css" href="font-awesome.css"/>
 
     <title>Quran Lights</title>
-    <link rel="stylesheet" href="styles.css?v=1585921681">
+    <link rel="stylesheet" href="styles.css?v=1585938443">
 
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
-    <script src="scripts/quran_lights.min.js?v=1585921681"></script>
+    <script src="scripts/quran_lights.min.js?v=1585938443"></script>
 
     <meta property="og:image" content="http://quran-lights.firebaseapp.com/images/app_icon.png" />
     <meta property="og:image:width" content="573"/>
@@ -67,6 +67,28 @@
 </head>
 
 <body background="images/background.jpg">
+
+<script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '546100602990294',
+        cookie     : true,
+        xfbml      : true,
+        version    : 'v6.0'
+      });
+        
+      FB.AppEvents.logPageView();   
+        
+    };
+  
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "https://connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
     <div id="fb-root"></div>
     <script async defer crossorigin="anonymous"
         src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v6.0&appId=546100602990294&autoLogAppEvents=1">
@@ -169,12 +191,17 @@
                     </span>
 
                     <!--span>
-                        <button  style="margin: 10px; display: none;" class="mdl-button mdl-js-button mdl-button--raised" id="sign-in-with-facebook" name="signinfacebook">Sign In with Facebook</button>
+                        <button  
+                        style="margin: 10px; display: none;" 
+                        class="mdl-button mdl-js-button mdl-button--raised" 
+                        id="sign-in-with-facebook" 
+                        name="signinfacebook">Sign In with Facebook
+                        </button>
                     </span>
-
+ 
                     <span>
                         <button  style="margin: 10px; display: none;" class="mdl-button mdl-js-button mdl-button--raised" id="sign-in-with-twitter" name="signintwitter">Sign In with Twitter</button>
-                    </span-->
+                    </span>
                     <!--button style="margin: 10px;" class="mdl-button mdl-js-button mdl-button--raised" disabled id="quickstart-verify-email" name="verify-email">Send Email Verification</button-->
                     <button 
                     id="quickstart-password-reset" 
@@ -248,44 +275,57 @@
     </main>
     </div>
 
-    <h4 class="text">Lights Treemap</h4>
-    <div id="treemap-chart" style="height: 1000px; margin: 20px"></div>
+    <h4 class="text">Lights treemap
+        <div id="treemap-chart" style="height: 1000px; margin: 20px"></div>
+    </h4>
 
-    <h4 class="text">Quran Radar: Elapsed days per Surah since last refresh</h4>
-    <div id="radar-chart" style="height: 800px; margin: 20px"></div>
+    <h4 class="text">Quran Radar: Elapsed days per Surah since last refresh
+        <div id="radar-chart" style="height: 800px; margin: 20px"></div>
+    </h4>
 
-    <h4 class="text">Review Werd: Reviewed_Today / ((SUM(Memorized) / Light_Days)</h4>
-    <div id="review_score_guage" style="height: 100%; margin: 20px"></div>
+    <h4 class="text">Review Werd: Reviewed_Today / ((SUM(Memorized) / Light_Days)
+        <div id="review_score_guage" style="height: 100%; margin: 20px"></div>
+    </h4>
 
-    <h4 class="text">Read Werd: Read_Today / ((SUM(Non_Memorized) / Light_Days)  </h4>
-    <div id="daily-read-guage" style="height: 100%; margin: 20px"></div>
+    <h4 class="text">Read Werd: Read_Today / ((SUM(Non_Memorized) / Light_Days)  
+        <div id="daily-read-guage" style="height: 100%; margin: 20px"></div>
+    </h4>
 
-    <h4 class="text">Memorization Progress</h4>
-    <div id="memorization-chart" style="height: 500px; margin: 20px"></div>
+    <h4 class="text">Memorization Progress
+        <div id="memorization-chart" style="height: 500px; margin: 20px"></div>
+    </h4>
 
-    <h4 class="text">Light Ratio: sum of light percentage of all cells</h4>
-    <div id="light-ratio-chart-container" style="height: 100%; margin: 20px"></div>
+    <h4 class="text">Light Ratio: sum of light percentage of all cells
+        <div id="light-ratio-chart-container" style="height: 100%; margin: 20px"></div>
+    </h4>
 
-    <h4 class="text">Lighting Cells Ratio: Percentage of cells not not older than Light days</h4>
-    <div id="conquer-ratio-chart-container" style="height: 100%; margin: 20px"></div>
+    <h4 class="text">Lighting Cells Ratio: Percentage of cells not not older than Light days
+        <div id="conquer-ratio-chart-container" style="height: 100%; margin: 20px"></div>
+    </h4>
 
-    <h4 class="text">Khatma Progress</h4>
-    <div id="khatma-progress-chart" style="height: 100%; margin: 20px"></div>
+    <h4 class="text">Khatma Progress
+        <div id="khatma-progress-chart" style="height: 100%; margin: 20px"></div>
+    </h4>
 
-    <h4 class="text">Daily Revenue</h4>
-    <div id="daily-score-chart" style="height: 400px; margin: 20px"></div>
+    <h4 class="text">Daily Revenue
+        <div id="daily-score-chart" style="height: 400px; margin: 20px"></div>
+    </h4>
 
-    <h4 class="text">Monthlty Revenue</h4>
-    <div id="monthly-score-chart" style="height: 400px; margin: 20px"></div>
+    <h4 class="text">Monthlty Revenue
+        <div id="monthly-score-chart" style="height: 400px; margin: 20px"></div>
+    </h4>
 
-    <h4 class="text">Yearly Revenue</h4>
-    <div id="yearly-score-chart" style="height: 400px; margin: 20px"></div>
+    <h4 class="text">Yearly Revenue
+        <div id="yearly-score-chart" style="height: 400px; margin: 20px"></div>
+    </h4>
 
-    <h4 class="text">Light days per month: days with non-zero balance</h4>
-    <div id="light_days_chart" style="height: 400px; margin: 20px"></div>
+    <h4 class="text">Light days per month: days with non-zero balance
+        <div id="light_days_chart" style="height: 400px; margin: 20px"></div>
+    </h4>
 
-    <h4 class="text">Dark days per month: days with zero balance</h4>
-    <div id="dark_days_chart" style="height: 400px; margin: 20px"></div>
+    <h4 class="text">Dark days per month: days with zero balance
+        <div id="dark_days_chart" style="height: 400px; margin: 20px"></div>
+    </h4>
 
     <div id="snackbar"></div>
     <div id="share-buttons" style="width: 100%; margin: 20px;">
@@ -380,6 +420,6 @@
     </div>
     <!--div class="fb-comments" data-href="https://quran-lights.firebaseapp.com" data-width="100%" data-numposts="7"></div-->
     
-    <div class="text">V0.1585921681</div>
+    <div class="text">V0.1585938443</div>
 </body>
 </html>

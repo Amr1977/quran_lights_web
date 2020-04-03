@@ -17,7 +17,7 @@ function signInWithGoogle() {
   
       case "twitter":
         console.log("sign in with Twitter");
-        provider = new firebase.auth.GoogleAuthProvider();
+        provider = new firebase.auth.TwitterAuthProvider();
         break;
     }
   

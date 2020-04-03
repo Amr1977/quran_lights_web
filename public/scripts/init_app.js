@@ -18,6 +18,13 @@ function initApp() {
   firebase.auth().onAuthStateChanged(function (user) {
     document.getElementById("quickstart-sign-in").disabled = false;
     if (user) {
+      Highcharts.setOptions({
+        chart: {
+            style: {
+                fontFamily: 'tahoma'
+            }
+        }
+    });
       skew();
       dispatch_uploads();
       document.title = "Quran Lights [" + user.email + "]";
