@@ -8,7 +8,6 @@ function cacheIt(event) {
   shift_pressed = event.shiftKey;
   ctrl_pressed = event.ctrlKey;
   cmd_pressed = event.metaKey;
-  console.log(event);
   if (event.key == "l" && event.type == "keyup" && event.ctrlKey) {
     set_sort_order_with_value("light");
   }

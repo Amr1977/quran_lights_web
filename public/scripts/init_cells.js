@@ -31,7 +31,6 @@ function initCells() {
     var history = get_local_storage_object("surasHistory");
     if (history) {
       surasHistory = history;
-      console.log("LOcalStorage SurasHistory: \n", surasHistory);
     } else {
       lastTransactionTimeStamp = 0;
       set_local_storage_object("lastTransactionTimeStamp", 0);
