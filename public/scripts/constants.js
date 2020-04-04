@@ -24,7 +24,7 @@ const SCORE_CURRENCY = "$";
 
 // Initialize Firebase
 const config = {
-    apiKey: "AIzaSyAn1GqNGEI3cB8pa5jBgaKxVdnf7xckw2c",
+    apiKey: "AIzaSyAEdMiadM_2s39jcHnirT1HPZnXBg3bk6k",
     authDomain: "quran-lights.firebaseapp.com",
     databaseURL: "https://quran-lights.firebaseio.com",
     projectId: "quran-lights",
