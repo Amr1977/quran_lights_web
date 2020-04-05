@@ -81,3 +81,5 @@ const config = {
   });
 
   const AUTO_REFRESH_PERIOD = 30 * 60 * 1000;
+
+  document.constants = true;

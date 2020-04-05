@@ -6,6 +6,11 @@
 function initApp() {
   // Listening for auth state changes.
   // [START authstatelistener]
+
+  if (!(document.utils && document.constants && document.suras_data && document.state)) {
+    setTimeout(initApp, 1000);
+  }
+
   add_prayer_times();
   document
     .getElementById("password")

@@ -45,3 +45,5 @@ var review_daily_target = 100_000;
 
 var scores = {};
 var memorization_state = {};
+
+document.state = true;

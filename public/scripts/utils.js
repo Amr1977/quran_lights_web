@@ -180,3 +180,5 @@ function add_prayer_times() {
           document.getElementById("prayers").src = document.getElementById("prayers").src = "https://timesprayer.com/widgets.php?frame=2&lang=en&name="+city+"&sound=true&avachang=true&time=0";
       })
 }
+
+document.utils = true;

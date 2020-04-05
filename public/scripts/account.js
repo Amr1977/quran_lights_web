@@ -128,3 +128,4 @@ function signInWithGoogle() {
     // [END sendpasswordemail];
   }
   
+  document.account = true;
