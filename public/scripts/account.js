@@ -6,17 +6,14 @@ function signInWithGoogle() {
   function signInWithOAuth(signInProvider) {
     switch (signInProvider) {
       case "google":
-        console.log("sign in with google");
         var provider = new firebase.auth.GoogleAuthProvider();
         break;
   
       case "facebook":
-        console.log("sign in with facebook");
         provider = new firebase.auth.FacebookAuthProvider();
         break;
   
       case "twitter":
-        console.log("sign in with Twitter");
         provider = new firebase.auth.TwitterAuthProvider();
         break;
     }

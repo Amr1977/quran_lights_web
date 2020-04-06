@@ -34,7 +34,6 @@ function initCells() {
     } else {
       lastTransactionTimeStamp = 0;
       set_local_storage_object("lastTransactionTimeStamp", 0);
-      console.log("LocalStorage has no/invalid SurasHistory information: \n", surasHistory);
     }
 
     console.log("grapping transactions after ", lastTransactionTimeStamp);

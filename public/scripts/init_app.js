@@ -44,7 +44,6 @@ function initApp() {
         if (indexOfTimeStamp != -1) {
           //delete matching own timestamp
           ownTimeStamps.splice(indexOfTimeStamp, 1);
-          console.log("dropping own update.");
           return;
         }
         //stabilize successive triggers

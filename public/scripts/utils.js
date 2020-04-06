@@ -170,7 +170,6 @@ function add_prayer_times() {
         if(city) {
           city = city.toLowerCase();
         }
-          console.log("Country: ", response.country, " city: ", response.city);
           document.getElementById("prayers").src = "https://timesprayer.com/widgets.php?frame=2&lang=en&name="+city+"&sound=true&avachang=true&time=0";
       })
       .catch((data, status) => {

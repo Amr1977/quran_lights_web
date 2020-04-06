@@ -177,7 +177,6 @@ function do_click() {
     return;
   }
 
-  console.log("Delayed click event on cell: ", event.index);
   if (event.alt_pressed) {
     $(".sura-" + event.index).addClass("animated bounceIn");
     toggle_memorization(event.index);
@@ -191,7 +190,6 @@ function do_click() {
 //TODO fix this: this.index how to pass parameter
 var click_handler = function (index) {
   if (click_event_queue.length > 0 && click_event_queue[0].index == index) {
-    console.log("double click detected.");
     do_double_click(index);
   } else {
     var click_event = {};

@@ -28,7 +28,6 @@ function get_read_werd() {
 }
 
 function get_today_read() {
-    console.log("today_read: " + scores["today_read"]);
   return scores["today_read"];
 }
 

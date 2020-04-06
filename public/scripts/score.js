@@ -42,7 +42,6 @@ function getScore() {
   function update_score () {
     var score_array = getScore();
     review_today = score_array[2];
-    console.log(score_array);
     document.getElementById("score").textContent = "Total Balance: " + readableFormat(score_array[0]);
     document.getElementById("today_score").textContent = "Today Revenue: " + readableFormat(score_array[1]);
     document.getElementById("today_review_score").textContent = "* Review Revenue: " + readableFormat(review_today) + " of [" + readableFormat(memorization_state["memorized"] / get_refresh_period_days()) +"]";
