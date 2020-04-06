@@ -8,8 +8,10 @@ function initApp() {
   // [START authstatelistener]
 
   if (!(document.utils && document.constants && document.suras_data && document.state)) {
+    console.log("Scheduled initApp after 1 second");
     setTimeout(initApp, 1000);
   }
+  console.log("initApp invoked...");
 
   add_prayer_times();
   document

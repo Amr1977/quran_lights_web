@@ -1,9 +1,9 @@
 //Do Refresh at midnight
 var now = new Date();
 var eta = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 0) - now;
-setTimeout(function(){
-  add_sura_cells();
-}, eta);
+// setTimeout(function(){
+//   add_sura_cells();
+// }, eta);
 
 function initCells() {
   user = firebase.auth().currentUser;
