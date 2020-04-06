@@ -180,4 +180,8 @@ function add_prayer_times() {
       })
 }
 
+function stack_trace(){
+  console.log(new Error().stack);
+}
+
 document.utils = true;

@@ -1,8 +1,6 @@
 var click_event_queue = [];
 
 async function add_sura_cells() {
-  console.log("add_sura_cells invoked.");
-  console.log(new Error().stack);
   //TODO reuse cells
   if (buildingSurasFlag) {
     return;
