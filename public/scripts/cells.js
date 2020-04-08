@@ -135,6 +135,7 @@ async function add_sura_cells() {
     };
 
     element.onmouseenter = function(event) {
+      play_mouse_enter_sound();
       if(event.buttons) {
         toggle_select(this.index);
       }
