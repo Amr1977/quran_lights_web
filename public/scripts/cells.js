@@ -131,6 +131,7 @@ async function add_sura_cells() {
     })
   
     element.onclick = function() {
+      play_mouse_enter_sound();
       click_handler(this.index);
     };
 
