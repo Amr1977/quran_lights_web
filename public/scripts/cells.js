@@ -1,7 +1,6 @@
 var click_event_queue = [];
-
+//TODO needs refactor!!!
 async function add_sura_cells() {
-  //TODO reuse cells
   if (buildingSurasFlag) {
     return;
   }
@@ -27,12 +26,12 @@ async function add_sura_cells() {
     var timeStampsArray = surasHistory[suraIndex].history;
     //TODO if not refreshed before make it zero instead of (currentTimeStamp - refreshPeriod) and condition timeDifferenceRatio value to be zero too
     //TODO use minimum timestamp in all suras otherwise save current time as that minimum for later calculations
-    var maxStamp = timeStampsArray.length > 0
+    var previous_refresh_time_stamp = timeStampsArray.length > 0
       ? timeStampsArray[timeStampsArray.length - 1]
       : get_initial_local_object("min_timestamp", currentTimeStamp);
     var timeDifferenceRatio = 1 -
       ((currentTimeStamp -
-        (maxStamp == 0 ? currentTimeStamp - refreshPeriod : maxStamp)) *
+        (previous_refresh_time_stamp == 0 ? currentTimeStamp - refreshPeriod : previous_refresh_time_stamp)) *
         1.0) /
       refreshPeriod;
     timeDifferenceRatio = timeDifferenceRatio < 0 ? 0 : timeDifferenceRatio;
@@ -41,7 +40,7 @@ async function add_sura_cells() {
         fullKhatmaCharCount) *
       100.0;
     conquerRatio +=
-      currentTimeStamp - maxStamp < refreshPeriod
+      currentTimeStamp - previous_refresh_time_stamp < refreshPeriod
         ? (suraCharCount[suraIndex - 1] / fullKhatmaCharCount) * 100.0
         : 0;
     var greenComponent = (255.0 * timeDifferenceRatio).toFixed(0);
@@ -54,8 +53,8 @@ async function add_sura_cells() {
       surasColorTable[suraIndex - 1] = 0;
     }
     colorHash[cellIndex] = rgbToHex(0, greenComponent, 0);
-    var daysElapsed = ((currentTimeStamp - maxStamp) /
-      (60 * 60 * 24.0)).toFixed(0);
+    var daysElapsed = ((currentTimeStamp - previous_refresh_time_stamp) /
+      (60 * 60 * 24.0));
       elapsed_days[suraIndex - 1] = Number(daysElapsed);
     if (selected_suras.indexOf(suraIndex) !== -1) {
       element.classList.add("selected");
@@ -81,7 +80,7 @@ async function add_sura_cells() {
     element.appendChild(header);
 
     var suraName = SuraNamesEn[suraIndex - 1];
-    var daysElapsedText = daysElapsed == 0 ? "" : get_humanized_period(daysElapsed);
+    var daysElapsedText = get_humanized_period(daysElapsed);
 
     var suraNameElement = document.createElement("div");
     var suraNameElementAr = document.createElement("div");

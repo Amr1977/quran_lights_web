@@ -20,12 +20,14 @@ function getScore() {
         if (surasHistory[i].memorization == MEMORIZATION_STATE_MEMORIZED) {
           if (!reviewed_today.has(i)) {
             reviewed_today.add(i);
+            console.log("reviewed_today: " + i);
             review_score += suraScore;
           }
         }
         else {
           if (!read_today.has(i)) {
             read_today.add(i);
+            console.log("read_today: " + i);
             read_score += suraScore;
           }
         }
@@ -35,7 +37,6 @@ function getScore() {
     }
 
     scores = {"total": total, "today_total": today, "today_review": review_score, "today_read": read_score};
-
     return [total, today, review_score, read_score];
   }
 

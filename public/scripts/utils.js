@@ -77,6 +77,10 @@ function set_local_storage_object(key, value) {
   return saved;
 }
 
+function jsonfy(value){
+  return JSON.stringify(value);
+}
+
 /**
  * 
  * @param {*} json_string string to be checked and parsed
@@ -99,10 +103,17 @@ function get_humanized_period(days_count) {
     return (days_count / 365).toFixed(NUMBER_OF_DECIMAL_DIGITS) + "Y";
   } else if (days_count >= 30) {
     return (days_count / 30).toFixed(NUMBER_OF_DECIMAL_DIGITS) + "M";
-  } else if (days_count >= 14) {
+  } else if (days_count >= 7) {
     return (days_count / 7).toFixed(NUMBER_OF_DECIMAL_DIGITS) + "W";
+  } else if (days_count >= 1) {
+    return days_count.toFixed(1) + "D";
   } else {
-    return days_count + "D";
+    var hours = days_count * 24;
+    if (hours > 1) {
+      return (hours).toFixed(NUMBER_OF_DECIMAL_DIGITS) + "H";
+    } else {
+    return (hours * 60).toFixed(NUMBER_OF_DECIMAL_DIGITS) + "m";
+    }
   }
 }
 
