@@ -11,7 +11,7 @@ async function update_charts() {
                      100 * Number(scores["today_review"]) / get_review_werd());
     updateGuageChart("daily-read-guage", "Today Read Revenue [" + format(scores["today_read"]) + " of Target " + format(get_read_werd()) + "]",
                     100 * get_today_read() / get_read_werd());
-    }, 1000);
+    }, 2000);
     }
     
     updateGuageChart("light-ratio-chart-container", "Light Ratio", lightRatio);
