@@ -103,8 +103,10 @@ function get_humanized_period(days_count) {
     return (days_count / 365).toFixed(NUMBER_OF_DECIMAL_DIGITS) + "Y";
   } else if (days_count >= 30) {
     return (days_count / 30).toFixed(NUMBER_OF_DECIMAL_DIGITS) + "M";
-  } else if (days_count >= 7) {
+  }else if (days_count >= 7 && days_count > get_refresh_period_days()) {
     return (days_count / 7).toFixed(NUMBER_OF_DECIMAL_DIGITS) + "W";
+  } else if (days_count <= get_refresh_period_days() && days_count >= 1) {
+    return days_count.toFixed(1) + "D";
   } else if (days_count >= 1) {
     return days_count.toFixed(1) + "D";
   } else {
