@@ -40,11 +40,11 @@ function createVerseCountSuraOrderArray() {
     return;
   }
   for (suraIndex = 1; suraIndex <= 114; suraIndex++) {
-    var suraWithCharCountRecord = {
+    var suraWithVerseCountRecord = {
       suraID: suraIndex,
-      verseCount: suraCharCount[suraIndex - 1]
+      verseCount: suraVerseCount[suraIndex - 1]
     };
-    verseCountSortedSuraArray.push(suraWithCharCountRecord);
+    verseCountSortedSuraArray.push(suraWithVerseCountRecord);
   }
 
   verseCountSortedSuraArray = sortByKey(
