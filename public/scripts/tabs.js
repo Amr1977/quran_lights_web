@@ -7,7 +7,7 @@ function openTab(evt, id) {
 
   function click_light_cells_tab(){
     turn_all_tbs_off();
-    document.getElementById("Light Cells").style.display = "block";
+    document.getElementById("light_cells").style.display = "block";
     document.getElementById("cells_link").className += " active";
   }
 
