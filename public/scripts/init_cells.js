@@ -103,6 +103,7 @@ function initCells() {
       sortedTimestampSuraArray = [];
       refreshCountSortedSuraArray = [];
       add_sura_cells();
+      click_light_cells_tab();
       bounceList.forEach(function (suraIndex) {
         bounce(suraIndex);
       });
