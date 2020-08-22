@@ -87,6 +87,7 @@ function dispatch_uploads() {
         )
         .set(lastTransactionTimeStamp);
       remove_from_queue(updates);
+      playSound(pulse_sound);
     }
   });
 

@@ -9,3 +9,8 @@ async function play_mouse_enter_sound() {
   var audio = new Audio(pulse_sound);
   audio.play();
 }
+
+async function playSound(sound) {
+  var audio = new Audio(sound);
+  audio.play();
+}
