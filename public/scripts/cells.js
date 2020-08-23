@@ -180,7 +180,7 @@ function do_click() {
     $(".sura-" + event.index).addClass("animated bounceIn");
     toggle_memorization(event.index);
   } else if(event.shift_pressed) {
-    // window.open("http://quran.ksu.edu.sa/index.php?l=en#aya=" + event.index + "_1&m=hafs&qaree=tunaiji&trans=en_sh");
+    unrefresh(event.index);
   } else {
     toggle_select(event.index);
   }

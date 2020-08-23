@@ -21,35 +21,35 @@
     <!-- <link rel="stylesheet" type="text/css" href="font-awesome.css"/> -->
 
     <title>Quran Lights</title>
-    <link rel="stylesheet" href="styles.css?v=1598085007">
+    <link rel="stylesheet" href="styles.css?v=1598170280">
 
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
-    <script src="scripts/suras_data.js?v=1598085007"></script>
-    <script src="scripts/constants.js?v=1598085007"></script>
-    <script src="scripts/utils.js?v=1598085007"></script>
-    <script src="scripts/state.js?v=1598085007"></script>
-    <script src="scripts/sync.js?v=1598085007"></script>
-    <script src="scripts/main.js?v=1598085007"></script>
-    <script src="scripts/tabs.js?v=1598085007"></script>
-    <script src="scripts/init_app.js?v=1598085007"></script>
-    <script src="scripts/init_cells.js?v=1598085007"></script>
-    <script src="scripts/keyboard.js?v=1598085007"></script>
-    <script src="scripts/memorization.js?v=1598085007"></script>
-    <script src="scripts/bright_days_dark_days_chart.js?v=1598085007"></script>
-    <script src="scripts/sort.js?v=1598085007"></script>
-    <script src="scripts/treemap.js?v=1598085007"></script>
-    <script src="scripts/guage.js?v=1598085007"></script>
-    <script src="scripts/khatma.js?v=1598085007"></script>
-    <script src="scripts/time_series.js?v=1598085007"></script>
-    <script src="scripts/import_and_export.js?v=1598085007"></script>
-    <script src="scripts/audio.js?v=1598085007"></script>
-    <script src="scripts/account.js?v=1598085007"></script>
-    <script src="scripts/selection.js?v=1598085007"></script>
-    <script src="scripts/score.js?v=1598085007"></script>
-    <script src="scripts/cells.js?v=1598085007"></script>
-    <script src="scripts/login.js?v=1598085007"></script>
-    <script src="scripts/charts.js?v=1598085007"></script>
-    <script src="scripts/radar.js?v=1598085007"></script>
+    <script src="scripts/suras_data.js?v=1598170280"></script>
+    <script src="scripts/constants.js?v=1598170280"></script>
+    <script src="scripts/utils.js?v=1598170280"></script>
+    <script src="scripts/state.js?v=1598170280"></script>
+    <script src="scripts/sync.js?v=1598170280"></script>
+    <script src="scripts/main.js?v=1598170280"></script>
+    <script src="scripts/tabs.js?v=1598170280"></script>
+    <script src="scripts/init_app.js?v=1598170280"></script>
+    <script src="scripts/init_cells.js?v=1598170280"></script>
+    <script src="scripts/keyboard.js?v=1598170280"></script>
+    <script src="scripts/memorization.js?v=1598170280"></script>
+    <script src="scripts/bright_days_dark_days_chart.js?v=1598170280"></script>
+    <script src="scripts/sort.js?v=1598170280"></script>
+    <script src="scripts/treemap.js?v=1598170280"></script>
+    <script src="scripts/guage.js?v=1598170280"></script>
+    <script src="scripts/khatma.js?v=1598170280"></script>
+    <script src="scripts/time_series.js?v=1598170280"></script>
+    <script src="scripts/import_and_export.js?v=1598170280"></script>
+    <script src="scripts/audio.js?v=1598170280"></script>
+    <script src="scripts/account.js?v=1598170280"></script>
+    <script src="scripts/selection.js?v=1598170280"></script>
+    <script src="scripts/score.js?v=1598170280"></script>
+    <script src="scripts/cells.js?v=1598170280"></script>
+    <script src="scripts/login.js?v=1598170280"></script>
+    <script src="scripts/charts.js?v=1598170280"></script>
+    <script src="scripts/radar.js?v=1598170280"></script>
 
 
     <meta property="og:image" content="http://quranlights.net/images/app_icon.png" />
@@ -190,7 +190,7 @@
             <div
                 class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
                 <div style="margin: 5px;">
-                    <iframe id="prayers" src="about:blank"></iframe>
+                    
                     <span>
                         <input class="mdl-textfield__input" style="display:inline;width:auto; margin: 10px; color: white !important;" type="text"
                             id="email" name="email" placeholder="Email" />
@@ -234,29 +234,7 @@
 
 
                     <div id="daily-score-container" style="margin: 10px; font-weight: 800; color: green;" align="left">
-                        <div id="sort_order_container">
-                            <div class="score">Order Chapters by: </div>
-
-                            <div>
-                                <select id="sort_order" onchange="set_sort_order()" style="margin: 10px;">
-                                    <option value="normal">Normal Order</option>
-                                    <option value="revelation_order">Revelation Order</option>
-                                    <option value="light">Cell Light</option>
-                                    <option value="chars_count">Character Count</option>
-                                    <option value="verse_count">Verse Count</option>
-                                    <option value="word_count">Word Count</option>
-                                    <option value="refresh_count">Refresh Count</option>
-                                </select>
-                            </div>
-                        </div>
-                        <br>
-                        <div id="light_days_container">
-                            <div class="score">Light Days: </div>
-                            <div>
-                                <select id="light_days" onchange="set_light_days()" style="margin: 10px;">
-                                </select>
-                            </div>
-                        </div>
+                        
                         <br>
                         <span id="score" class="score">
                             --
@@ -270,16 +248,7 @@
                         </span>
                         <span id="selected_total">
                         </span>
-                        <br>
-                        <div id="download" style="margin: 10px;">
-                            <button class="mdl-button mdl-js-button mdl-button--raised" onclick='exportJSON();'>Export
-                                Refresh History</button>
-                        </div>
-                        <div style="margin: 10px;">
-                            <button id="import" class="mdl-button mdl-js-button mdl-button--raised"
-                                onclick="importJSON();">Import Refresh History</button>
-                            <input type="file" id="selectFiles" value="Import" />
-                        </div>
+                        
                         <br>
                         <div>
                             <button id="deselect_button" onclick="deselectAll();" style="margin: 10px" float="right"
@@ -304,6 +273,11 @@
                             <button class="tablinks" onclick="openTab(event, 'yearly_score_chart_tab')">Yearly Score</button>
                             <button class="tablinks" onclick="openTab(event, 'light_days_chart_tab')">Bright Days</button>
                             <button class="tablinks" onclick="openTab(event, 'dark_days_chart_tab')">Dark Days</button>
+
+                            <button class="tablinks" onclick="openTab(event, 'import_export_tab')">Import & Export</button>
+                            <button class="tablinks" onclick="openTab(event, 'prayers_tab')">Prayers</button>
+                            <button class="tablinks" onclick="openTab(event, 'settings_tab')">Settings</button>
+                            <button class="tablinks" onclick="openTab(event, 'about_tab')">About</button>
                         </div>
 
                         <div id="light_cells" class="tabcontent">
@@ -396,12 +370,57 @@
                             </h4>
                         </div>
 
-
-                        <br>
                         <div id="ayat_tab" class="tabcontent">
                             <iframe id="ayat" src="https://quran.ksu.edu.sa/index.php?l=en">
                             </iframe>
                         </div>
+
+                        <div id="about_tab" class="tabcontent">
+                            Coming Soon InshaAllah!
+                        </div>
+
+                        <div id="prayers_tab" class="tabcontent" align="center">
+                            <iframe id="prayers" src="about:blank"></iframe>
+                        </div>
+
+                        <div id="import_export_tab" class="tabcontent">
+                            <div id="download" style="margin: 10px;">
+                                <button class="mdl-button mdl-js-button mdl-button--raised" onclick='exportJSON();'>Export
+                                    Refresh History</button>
+                            </div>
+                            <div style="margin: 10px;">
+                                <button id="import" class="mdl-button mdl-js-button mdl-button--raised"
+                                    onclick="importJSON();">Import Refresh History</button>
+                                <input type="file" id="selectFiles" value="Import" />
+                            </div>
+                        </div>
+
+                        <div id="settings_tab" class="tabcontent">
+                            <div id="sort_order_container">
+                                <div class="score">Order Chapters by: </div>
+    
+                                <div>
+                                    <select id="sort_order" onchange="set_sort_order()" style="margin: 10px;">
+                                        <option value="normal">Normal Order</option>
+                                        <option value="revelation_order">Revelation Order</option>
+                                        <option value="light">Cell Light</option>
+                                        <option value="chars_count">Character Count</option>
+                                        <option value="verse_count">Verse Count</option>
+                                        <option value="word_count">Word Count</option>
+                                        <option value="refresh_count">Refresh Count</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br>
+                            <div id="light_days_container">
+                                <div class="score">Light Days: </div>
+                                <div>
+                                    <select id="light_days" onchange="set_light_days()" style="margin: 10px;">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -485,7 +504,7 @@
             <img src="images/yummly.png" alt="Yummly" />
         </a>
     </div>
-    <div class="text">V0.1598085007</div>
+    <div class="text">V0.1598170280</div>
 
     <!-- <div style="background-color: blanchedalmond; width: 100%;">
         <div class="fb-like" data-href="https://quranlights.net" data-width="" data-layout="standard" data-action="like"

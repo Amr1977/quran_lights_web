@@ -247,7 +247,7 @@ button:focus {
         overflow: hidden; 
         width: 400px; 
         height: 274px;
-        float: right;
+        display: block;
         background-color: #333;
         border-radius: 5px;
       }

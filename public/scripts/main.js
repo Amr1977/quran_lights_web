@@ -24,6 +24,20 @@ function refreshSura(suraIndex, refreshTimeStamp) {
   animate_score_elements();
 }
 
+function unrefresh(sura_index){
+  //TODO: complete it!
+  // console.log("sura_index ", sura_index);
+  // var history_size = surasHistory[sura_index].history.length;
+  // var refreshTimeStamp = surasHistory[sura_index].history(history_size - 1);
+  // var transaction_record = {
+  //   op: "unrefresh",
+  //   sura: sura_index,
+  //   time: refreshTimeStamp
+  // };
+  // //TODO: complete it!
+  console.log("TODO: unrefresh selected sura: remove refresh entry ", transaction_record);
+}
+
 //TODO animate ony after score change
 function animate_score_elements(){
   $(".score").addClass("animated bounceIn");
