@@ -1,5 +1,5 @@
 //TODO use async for all UI update operations!!
- function update_charts() {
+ async function update_charts() {
     drawMemorizationPieChart();
     //TODO update ticket https://trello.com/c/qf6EoLOB/106-1-daily-review-gauge-calculation
     if (isNaN(scores["today_review"])) {

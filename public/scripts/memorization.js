@@ -148,7 +148,7 @@ function get_memorization_data() {
   return memorizationData;
 }
 
-function drawMemorizationPieChart() {
+async  function drawMemorizationPieChart() {
   // Build the chart
 
   var memorizationOptions = get_memorization_data();

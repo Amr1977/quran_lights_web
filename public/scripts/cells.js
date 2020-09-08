@@ -147,7 +147,6 @@ async function add_sura_cells() {
   setup_light_days_options();
   updateDeselectButton();
   update_selection_score();
-  update_charts();
   update_score();
   //periodically refresh
   if (periodicRefreshTimerRef != null) {
