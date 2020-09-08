@@ -27,11 +27,14 @@ function openTab(evt, id) {
         break;
 
         case "review_guage":
-        
+          updateGuageChart("review_score_guage", 
+          "Today Review Revenue [" + format(scores["today_review"]) + " of Target " + format(get_review_werd()) + "]", 
+          100 * Number(scores["today_review"]) / get_review_werd());
         break;
 
         case "daily_read_guage":
-        
+          updateGuageChart("daily-read-guage", "Today Read Revenue [" + format(scores["today_read"]) + " of Target " + format(get_read_werd()) + "]",
+          100 * get_today_read() / get_read_werd());
         break;
 
         case "light_ratio_chart_tab":
@@ -43,7 +46,7 @@ function openTab(evt, id) {
         break;
 
         case "khatma_progress_tab":
-        
+          drawKhatmaPieChart();
         break;
 
         case "daily_score_chart_tab":
