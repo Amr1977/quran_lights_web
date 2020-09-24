@@ -77,6 +77,7 @@ function dispatch_uploads() {
       //TODDO reschedule upload attempt!!
       clearTimeout(reference_to_scheduled_upload_function);
       reference_to_scheduled_upload_function = setTimeout(dispatch_uploads, UPLOAD_DISPATCH_DAMPING_DELAY * 3);
+      playSound(error_sound_spring);
     } else {
       console.log("upload success: " + updates);
       //trigger update on other devices
