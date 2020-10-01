@@ -194,3 +194,8 @@ function stack_trace(){
 }
 
 document.utils = true;
+
+function clear_local_storage(){
+  localStorage.clear();
+  location.reload();
+}
