@@ -17,6 +17,7 @@ body {
     padding: 10px;
     margin: auto;
     border-radius: 15px;
+    direction: rtl;
 }
 
 .fulljustify {
