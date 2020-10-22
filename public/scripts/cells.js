@@ -179,10 +179,15 @@ function do_click() {
     $(".sura-" + event.index).addClass("animated bounceIn");
     toggle_memorization(event.index);
   } else if(event.shift_pressed) {
-    unrefresh(event.index);
+    open_ayat_for_sura(event.index);
   } else {
     toggle_select(event.index);
   }
+}
+
+function open_ayat_for_sura(sura_index) {
+  window.open( 
+    "http://quran.ksu.edu.sa/index.php?l=en#aya=" + sura_index + "_1&m=hafs&qaree=absulbasit.m&trans=en_sh", "_blank"); 
 }
 
 //TODO fix this: this.index how to pass parameter
