@@ -62,9 +62,16 @@ window.onload = function () {
 };
 
 function set_light_days() {
-  var light_days_selection_element = document.getElementById("light_days");
+  var light_days_selection_element = document.getElementById("mlight_days");
   var light_days_count = Number(light_days_selection_element.value);
   set_refresh_period_days(light_days_count);
+  add_sura_cells();
+}
+
+function set_memorized_light_days() {
+  var memorized_light_days_selection_element = document.getElementById("memorized_light_days");
+  var memorized_light_days_count = Number(memorized_light_days_selection_element.value);
+  set_memorized_refresh_period_days(memorized_light_days_count);
   add_sura_cells();
 }
 
@@ -79,6 +86,19 @@ function setup_light_days_options() {
   }
 
   light_days_selection_element.value = get_refresh_period_days();
+}
+
+function setup_memorized_light_days_options(){
+  var memorized_light_days_selection_element = document.getElementById("memorized_light_days");
+  memorized_light_days_selection_element.innerHTML = "";
+  for (var i = 1; i < 31; i++) {
+    var option = document.createElement("option");
+    option.value = i;
+    option.text = i;
+    memorized_light_days_selection_element.appendChild(option);
+  }
+
+  memorized_light_days_selection_element.value = get_memorized_refresh_period_days();
 }
 
 function show_sign_in_only_elements() {

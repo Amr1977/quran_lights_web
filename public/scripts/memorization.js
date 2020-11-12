@@ -93,10 +93,10 @@ function get_memorization_data() {
   };
 
   being_memorized_percentage =
-    (being_memorized_amount / fullKhatmaCharCount) * 100;
-  memorized_percentage = (memorized_amount / fullKhatmaCharCount) * 100;
-  was_memorized_percentage = (was_memorized_amount / fullKhatmaCharCount) * 100;
-  not_memorized_percentage = (not_memorized_amount / fullKhatmaCharCount) * 100;
+    (being_memorized_amount / full_khatma_char_count) * 100;
+  memorized_percentage = (memorized_amount / full_khatma_char_count) * 100;
+  was_memorized_percentage = (was_memorized_amount / full_khatma_char_count) * 100;
+  not_memorized_percentage = (not_memorized_amount / full_khatma_char_count) * 100;
 
   memorizationData.data = [
     {

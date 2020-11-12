@@ -40,7 +40,7 @@ function getKhatmaProgressData() {
       },
       {
         name: "Completed",
-        y: fullKhatmaCharCount - comulatedScoreOfCurrentMinimumHistoryLengthSuras,
+        y: full_khatma_char_count - comulatedScoreOfCurrentMinimumHistoryLengthSuras,
         drilldown: "Completed"
       }
     ];

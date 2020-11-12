@@ -1,6 +1,6 @@
 
 //total score of all suras
-const fullKhatmaCharCount = 322604;
+const full_khatma_char_count = 322604;
 
 const MEMORIZATION_STATE_NOT_MEMORIZED = "0";
 const MEMORIZATION_STATE_WAS_MEMORIZED = "1";
@@ -73,7 +73,7 @@ const config = {
   SINGLE_CLICK_EVENT_DAMPING_DELAY = 300; 
   MAX_ELAPSED_DAYS_FOR_MEMORIZED_SURAS = 10; 
   LIGHT_DAYS = 30;
-  DAILY_REVIEW_SCORE_THRESHOLD = fullKhatmaCharCount / 3;
+  DAILY_REVIEW_SCORE_THRESHOLD = full_khatma_char_count / 3;
   NUMBER_OF_DECIMAL_DIGITS = 1;
 
   const formatter = new Intl.NumberFormat('en-US', {
@@ -92,3 +92,6 @@ const config = {
   };
   
   const is_mobile = window.mobileCheck();
+
+  // Start uploading after 10 seconds of last enqueue
+const UPLOAD_DISPATCH_DAMPING_DELAY = 3_000;

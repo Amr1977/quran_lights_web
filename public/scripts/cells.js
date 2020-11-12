@@ -37,11 +37,11 @@ async function add_sura_cells() {
     timeDifferenceRatio = timeDifferenceRatio < 0 ? 0 : timeDifferenceRatio;
     lightRatio +=
       ((timeDifferenceRatio * suraCharCount[suraIndex - 1]) /
-        fullKhatmaCharCount) *
+      full_khatma_char_count) *
       100.0;
     conquerRatio +=
       currentTimeStamp - previous_refresh_time_stamp < refreshPeriod
-        ? (suraCharCount[suraIndex - 1] / fullKhatmaCharCount) * 100.0
+        ? (suraCharCount[suraIndex - 1] / full_khatma_char_count) * 100.0
         : 0;
     var greenComponent = (255.0 * timeDifferenceRatio).toFixed(0);
     if (timeStampsArray.length > 0) {
@@ -89,7 +89,7 @@ async function add_sura_cells() {
     suraNameElementAr.className = "sura_name_label";
     switch (surasHistory[suraIndex].memorization) {
       case MEMORIZATION_STATE_MEMORIZED:
-        if (daysElapsed >= MAX_ELAPSED_DAYS_FOR_MEMORIZED_SURAS || daysElapsed >= get_refresh_period_days()) {
+        if (daysElapsed >= get_memorized_refresh_period_days() || daysElapsed >= get_refresh_period_days()) {
           suraNameElement.className = "old-memorized sura_name_label";
         }
         else {
@@ -145,6 +145,7 @@ async function add_sura_cells() {
   buildingSurasFlag = false;
   $("#reviews").addClass("animated bounce");
   setup_light_days_options();
+  setup_memorized_light_days_options();
   updateDeselectButton();
   update_selection_score();
   update_score();

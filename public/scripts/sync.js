@@ -34,8 +34,6 @@ function set_upload_queue(queue) {
 
 var reference_to_scheduled_upload_function;
 
-// Start uploading after 10 seconds of last enqueue
-const UPLOAD_DISPATCH_DAMPING_DELAY = 10_000;
 function enqueue_for_upload(transaction_record) {
   console.log("enqueue_for_upload: \n" + transaction_record);
   var queue = get_upload_queue();

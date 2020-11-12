@@ -14,6 +14,16 @@ function set_refresh_period_days(value) {
     set_local_storage_object("refresh_period_days", value);
 }
 
+function get_memorized_refresh_period_days() {
+    return get_initial_local_object("memorized_refresh_period_days", MAX_ELAPSED_DAYS_FOR_MEMORIZED_SURAS);
+};
+
+function set_memorized_refresh_period_days(value) {
+    if (!value) return;
+    //refreshPeriodDays = value;
+    set_local_storage_object("memorized_refresh_period_days", value);
+}
+
 /**
  * Used to record the most recent transaction timestamp so in the next fetch we get more recent transactions only.
  */

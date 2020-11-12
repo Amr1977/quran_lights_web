@@ -27,7 +27,7 @@
 }
 
 function get_review_werd(){
-    return memorization_state["memorized"] / get_refresh_period_days();
+    return memorization_state["memorized"] / get_memorized_refresh_period_days();
 }
 
 function get_read_werd() {
@@ -39,5 +39,5 @@ function get_today_read() {
 }
 
 function get_non_memorized_amount(){
-  return memorization_state["not_memorized"];
+  return full_khatma_char_count - memorization_state["memorized"];
 }
