@@ -3,11 +3,21 @@ var alt_pressed = false;
 var shift_pressed = false;
 var ctrl_pressed = false;
 var cmd_pressed = false;
+
+function modifier_keys_state() {
+  return {
+    "alt_pressed": alt_pressed,
+    "shift_pressed": shift_pressed,
+    "ctrl_pressed": ctrl_pressed,
+    "cmd_pressed": cmd_pressed
+  };
+}
 function cacheIt(event) {
   alt_pressed = event.altKey;
   shift_pressed = event.shiftKey;
   ctrl_pressed = event.ctrlKey;
   cmd_pressed = event.metaKey;
+  console.log(modifier_keys_state());
   if (event.key == "l" && event.type == "keyup" && event.ctrlKey) {
     set_sort_order_with_value("light");
     add_sura_cells();

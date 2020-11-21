@@ -128,9 +128,10 @@ async function add_sura_cells() {
       $(child).addClass("noselect");
     })
   
-    element.onclick = function() {
+    element.onclick = function(event) {
+      console.log(event);
       play_mouse_enter_sound();
-      click_handler(this.index);
+      click_handler(this.index, event);
     };
 
     element.onmouseenter = function(event) {
@@ -192,16 +193,22 @@ function open_ayat_for_sura(sura_index) {
 }
 
 //TODO fix this: this.index how to pass parameter
-var click_handler = function (index) {
+var click_handler = function (index, e) {
   if (is_mobile || click_event_queue.length > 0 && click_event_queue[0].index == index) {
     do_double_click(index);
   } else {
     var click_event = {};
     click_event.index = index;
+    alt_pressed = e.altKey;
+    shift_pressed = e.shiftKey;
+    ctrl_pressed = e.ctrlKey;
+    cmd_pressed = e.metaKey;
+
     click_event.alt_pressed = alt_pressed;
     click_event.shift_pressed = shift_pressed;
     click_event.ctrl_pressed = ctrl_pressed;
     click_event.cmd_pressed = cmd_pressed;
+    click_event.event = e;
 
     click_event_queue.unshift(click_event);
     setTimeout(do_click, SINGLE_CLICK_EVENT_DAMPING_DELAY);
