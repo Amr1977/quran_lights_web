@@ -1,7 +1,7 @@
-function openTab(evt, id) {
+function openTab(id) {
     turn_all_tbs_off();
     document.getElementById(id).style.display = "block";
-    evt.currentTarget.className += " active";
+    document.getElementById(id + "_button").className += " active";
     switch(id) {
       case "light_radar":
         drawRadarChart("radar-chart");
@@ -76,7 +76,7 @@ function openTab(evt, id) {
   function click_light_cells_tab(){
     turn_all_tbs_off();
     document.getElementById("light_cells").style.display = "block";
-    document.getElementById("cells_link").className += " active";
+    document.getElementById("light_cells_button").className += " active";
   }
 
   function turn_all_tbs_off() {

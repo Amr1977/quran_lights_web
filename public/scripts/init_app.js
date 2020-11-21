@@ -18,7 +18,8 @@ function initApp() {
     .getElementById("password")
     .addEventListener("keyup", function (event) {
       event.preventDefault();
-      if (event.keyCode == 13) {
+      console.log("event.key: ", event.key);
+      if (event.key == "Enter") {
         document.getElementById("quickstart-sign-in").click();
       }
     });
