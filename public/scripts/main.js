@@ -62,7 +62,7 @@ window.onload = function () {
 };
 
 function set_light_days() {
-  var light_days_selection_element = document.getElementById("mlight_days");
+  var light_days_selection_element = document.getElementById("light_days");
   var light_days_count = Number(light_days_selection_element.value);
   set_refresh_period_days(light_days_count);
   add_sura_cells();
