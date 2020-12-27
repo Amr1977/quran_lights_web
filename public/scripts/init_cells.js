@@ -63,6 +63,8 @@ function initCells() {
       var bounceList = [];
       if (snapshot != null) {
         snapshot.forEach(function (childSnapshot) {
+          //TODO check on guid here to avoid dropping valid different transactions
+          //TODO review/refactor model
           var transactionTimeStamp = childSnapshot.key;
           if (lastTransactionTimeStamp == transactionTimeStamp) {
             return;

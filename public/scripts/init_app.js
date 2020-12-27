@@ -39,6 +39,7 @@ function initApp() {
       show_sign_in_only_elements();
       //document.getElementById("sign-in-with-facebook").style.display = "none";
       //document.getElementById("sign-in-with-twitter").style.display = "none";
+      //TODO fix sync error between clients
       var update_timestamp_ref = firebase.database()
         .ref("users/" + firebase.auth().currentUser.uid + "/Master/update_stamp");
       update_timestamp_ref.on("value", function (snapshot) {

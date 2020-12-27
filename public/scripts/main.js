@@ -8,7 +8,8 @@ function refreshSura(suraIndex, refreshTimeStamp) {
   var transaction_record = {
     op: "refresh",
     sura: suraIndex,
-    time: refreshTimeStamp
+    time: refreshTimeStamp,
+    guid: uuidv4()
   };
 
   var transactions_records = [];

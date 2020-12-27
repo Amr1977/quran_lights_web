@@ -57,3 +57,6 @@ var scores = {};
 var memorization_state = {};
 
 document.state = true;
+
+//TODO store all transactoins (with guid) for duplicate dropping
+var trnsactions = [];
