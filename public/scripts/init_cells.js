@@ -86,12 +86,13 @@ function initCells() {
               surasHistory[suraIndex].memorization = transactionRecord.state;
               break;
             case "refresh":
-              if (surasHistory[suraIndex].history.indexOf(transactionRecord.time) == -1) {
-                surasHistory[suraIndex].history.push(transactionRecord.time);
-              }
-              else {
-                console.log("duplicate refresh eliminated ", transactionRecord);
-              }
+              surasHistory[suraIndex].history.push(transactionRecord.time);
+              // if (surasHistory[suraIndex].history.indexOf(transactionRecord.time) == -1) {
+                
+              // }
+              // else {
+              //   console.log("duplicate refresh eliminated ", transactionRecord);
+              // }
           }
         });
         for (var suraIndex in surasHistory.keys) {
