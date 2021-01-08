@@ -28,6 +28,14 @@ function set_memorized_refresh_period_days(value) {
  * Used to record the most recent transaction timestamp so in the next fetch we get more recent transactions only.
  */
 var lastTransactionTimeStamp = "0";
+function set_last_transaction_timestamp(timestamp) {
+    lastTransactionTimeStamp = timestamp;
+    set_local_storage_object("lastTransactionTimeStamp", timestamp);
+}
+
+function get_last_transaction_timestamp(){
+    return get_initial_local_object("lastTransactionTimeStamp", 0);
+}
 
 var update_stamp = 0;
 var serverOffset = 0;

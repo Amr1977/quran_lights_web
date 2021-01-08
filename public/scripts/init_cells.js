@@ -20,23 +20,14 @@ function initCells() {
     myUserId = firebase.auth().currentUser.uid;
     var database = firebase.database();
 
-    var lastTimeStamp = get_local_storage_object("lastTransactionTimeStamp");
-
-    if (lastTimeStamp) {
-      lastTransactionTimeStamp = lastTimeStamp;
-    } else {
-      lastTransactionTimeStamp = 0;
-      set_local_storage_object("lastTransactionTimeStamp", 0);
-    }
     var history = get_local_storage_object("surasHistory");
     if (history) {
       surasHistory = history;
     } else {
-      lastTransactionTimeStamp = 0;
-      set_local_storage_object("lastTransactionTimeStamp", 0);
+      set_last_transaction_timestamp(0);
     }
 
-    console.log("grapping transactions after ", lastTransactionTimeStamp);
+    console.log("grapping transactions after ", get_last_transaction_timestamp());
 
     sort_order = get_local_storage_object("sort_order");
     if (sort_order) {
@@ -54,7 +45,7 @@ function initCells() {
       .database()
       .ref("users/" + myUserId + "/Master/reviews")
       .orderByKey()
-      .startAt(lastTransactionTimeStamp.toString());
+      .startAt(get_last_transaction_timestamp().toString());
       
     showToast("Fetching history...");
     reviewsRef.once("value", function (snapshot) {
@@ -63,17 +54,19 @@ function initCells() {
       var bounceList = [];
       if (snapshot != null) {
         snapshot.forEach(function (childSnapshot) {
+          var transactionRecord = childSnapshot.val();
+          console.log("Received TRX: ", transactionRecord);
           //TODO check on guid here to avoid dropping valid different transactions
           //TODO review/refactor model
           var transactionTimeStamp = childSnapshot.key;
-          if (lastTransactionTimeStamp == transactionTimeStamp) {
-            return;
+          //BUG BUG BUG !!! causes equal timespamed entries to drop all but first one!!!!!
+          // if (lastTransactionTimeStamp == transactionTimeStamp) {
+          //   return;
+          // }
+          if (Number(transactionTimeStamp) > Number(get_last_transaction_timestamp())) {
+            console.log("INFO: updating lastTransactionTimeStamp from ", get_last_transaction_timestamp, " to ", transactionTimeStamp);
+            set_last_transaction_timestamp(transactionTimeStamp);
           }
-          if (Number(transactionTimeStamp) > Number(lastTransactionTimeStamp)) {
-            lastTransactionTimeStamp = transactionTimeStamp;
-            set_local_storage_object("lastTransactionTimeStamp", lastTransactionTimeStamp);
-          }
-          var transactionRecord = childSnapshot.val();
           var suraIndex = transactionRecord.sura;
           bounceList.push(suraIndex);
           if (surasHistory[suraIndex] == null) {
@@ -99,7 +92,6 @@ function initCells() {
           surasHistory[suraIndex].history.sort(sortNumber);
         }
         set_local_storage_object("surasHistory", surasHistory);
-        set_local_storage_object("lastTransactionTimeStamp", lastTransactionTimeStamp);
       }
 
       document.getElementById("reviews").textContent = "";
