@@ -64,8 +64,7 @@ function dispatch_uploads() {
     var transactionTimeStamp = get_time_stamp();
     firebase.database().ref(`users/${firebase.auth().currentUser.uid}/Master/reviews/` + transactionTimeStamp).set({});
     updates[`users/${firebase.auth().currentUser.uid}/Master/reviews/` + transactionTimeStamp] = transacton_record;
-    lastTransactionTimeStamp = transactionTimeStamp;
-    ownTimeStamps.push(lastTransactionTimeStamp);
+    ownTimeStamps.push(transactionTimeStamp);
   });
 
   firebase.database().ref().update(updates, function (error) {
@@ -84,12 +83,11 @@ function dispatch_uploads() {
         .ref(
           "users/" + firebase.auth().currentUser.uid + "/Master/update_stamp"
         )
-        .set(lastTransactionTimeStamp);
+        .set(get_last_transaction_timestamp());
       remove_from_queue(updates);
       playSound(pulse_sound);
     }
   });
-
 }
 
 function get_firebase_reviews_node() {

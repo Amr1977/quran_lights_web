@@ -140,10 +140,12 @@ function generate_uuid() {
    * returns timestamp in microseconds with server skew offset
    */
 function get_time_stamp() {
-  var millis = window.performance.timing.navigationStart + window.performance.now();
-  var transactionTimeStamp = (millis + serverOffset) * 1000;
+  var millis = performance.now() + performance.timeOrigin;
+  var transactionTimeStamp = (millis + serverOffset) * 1000 + time_stamp_index_increment++;
   return transactionTimeStamp;
 }
+
+var time_stamp_index_increment = 0;
 
 function sort_transactions_by_timestamp(array) {
   return array.sort(function (a, b) {
