@@ -8,7 +8,7 @@ async function add_sura_cells() {
   buildingSurasFlag = true;
   clear_reviews();
   
-  var currentTimeStamp = Math.floor(Date.now() / 1000);
+  var currentTimeStamp = get_time_stamp();
   var refreshPeriod = get_refresh_period_days() * 24 * 60 * 60;
   lightRatio = 0;
   conquerRatio = 0;
@@ -163,9 +163,8 @@ function do_double_click(index){
     click_event_queue.shift()
   }
   
-  var timeStamp = Math.floor(Date.now() / 1000);
   $(".sura-" + index).addClass("animated bounceIn");
-  refreshSura(index, timeStamp);
+  refreshSura(index, get_time_stamp());
 }
 
 function do_click() {

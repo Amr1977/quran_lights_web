@@ -141,7 +141,7 @@ function generate_uuid() {
    */
 function get_time_stamp() {
   var millis = performance.now() + performance.timeOrigin;
-  var transactionTimeStamp = (millis + serverOffset) * 1000 + time_stamp_index_increment++;
+  var transactionTimeStamp = Math.floor((millis + serverOffset)/1000) + time_stamp_index_increment++;
   return transactionTimeStamp;
 }
 

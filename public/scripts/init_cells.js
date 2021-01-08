@@ -64,7 +64,7 @@ function initCells() {
           //   return;
           // }
           if (Number(transactionTimeStamp) > Number(get_last_transaction_timestamp())) {
-            console.log("INFO: updating lastTransactionTimeStamp from ", get_last_transaction_timestamp, " to ", transactionTimeStamp);
+            console.log("INFO: updating lastTransactionTimeStamp from ", get_last_transaction_timestamp(), " to ", transactionTimeStamp);
             set_last_transaction_timestamp(transactionTimeStamp);
           }
           var suraIndex = transactionRecord.sura;
