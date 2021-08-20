@@ -18,42 +18,42 @@ function cacheIt(event) {
   ctrl_pressed = event.ctrlKey;
   cmd_pressed = event.metaKey;
   console.log(modifier_keys_state());
-  if (event.key == "l" && event.type == "keyup" && event.ctrlKey) {
+  if (event.key == "l" && event.type == "keyup") {
     set_sort_order_with_value("light");
     add_sura_cells();
   }
 
-  if (event.key == "n" && event.type == "keyup" && event.ctrlKey) {
+  if (event.key == "n" && event.type == "keyup") {
     set_sort_order_with_value("normal");
     add_sura_cells();
   }
 
-  if (event.key == "c" && event.type == "keyup" && event.ctrlKey) {
+  if (event.key == "c" && event.type == "keyup") {
     set_sort_order_with_value("chars_count");
     add_sura_cells();
   }
 
-  if (event.key == "v" && event.type == "keyup" && event.ctrlKey) {
+  if (event.key == "v" && event.type == "keyup") {
     set_sort_order_with_value("verse_count");
     add_sura_cells();
   }
 
-  if (event.key == "w" && event.type == "keyup" && event.ctrlKey) {
+  if (event.key == "w" && event.type == "keyup") {
     set_sort_order_with_value("word_count");
     add_sura_cells();
   }
 
-  if (event.key == "f" && event.type == "keyup" && event.ctrlKey) {
+  if (event.key == "f" && event.type == "keyup") {
     set_sort_order_with_value("refresh_count");
     add_sura_cells();
   }
 
-  if (event.key == "r" && event.type == "keyup" && event.ctrlKey) {
+  if (event.key == "r" && event.type == "keyup") {
     set_sort_order_with_value("revelation_order");
     add_sura_cells();
   }
 
-  if (event.key == "d" && event.type == "keyup" && event.ctrlKey) {
+  if (event.key == "d" && event.type == "keyup") {
     deselectAll();
   }
 
