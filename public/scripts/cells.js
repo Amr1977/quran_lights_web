@@ -1,4 +1,5 @@
 var click_event_queue = [];
+var debts = {"reading_debt": 0, "review_debt": 0};
 //TODO needs refactor!!!
 async function add_sura_cells() {
   if (buildingSurasFlag) {
@@ -7,7 +8,8 @@ async function add_sura_cells() {
   surasColorTable = [];
   buildingSurasFlag = true;
   clear_reviews();
-  
+  debts = {"read": 0, "review": 0};
+
   var currentTimeStamp = Math.floor(Date.now() / 1000);
   var refreshPeriod = get_refresh_period_days() * 24 * 60 * 60;
   lightRatio = 0;
@@ -91,6 +93,7 @@ async function add_sura_cells() {
       case MEMORIZATION_STATE_MEMORIZED:
         if (daysElapsed >= get_memorized_refresh_period_days() || daysElapsed >= get_refresh_period_days()) {
           suraNameElement.className = "old-memorized sura_name_label";
+          debts["review"] += suraCharCount[suraIndex - 1];
         }
         else {
           suraNameElement.className = "memorized sura_name_label";
@@ -98,6 +101,9 @@ async function add_sura_cells() {
         break;
       default:
         suraNameElement.className = "not_memorized sura_name_label";
+        if (daysElapsed >= get_refresh_period_days()) {
+          debts["read"] += suraCharCount[suraIndex - 1];
+        }
     }
     if (timeDifferenceRatio >= 0.5) {
       element.style.color = "black";

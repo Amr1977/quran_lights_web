@@ -31,7 +31,7 @@ function toggle_select(suraIndex) {
       selected_total += suraCharCount[selected_suras[i] - 1];
     }
   
-    document.getElementById("selected_total").textContent = " Selected Amount: [" + formatter.format(selected_total) + "]";
+    document.getElementById("selected_total").textContent = " Selected Amount: [" + readableFormat(selected_total) + "]";
   }
 
   function deselectAll() {

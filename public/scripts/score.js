@@ -48,6 +48,10 @@ function getScore() {
     document.getElementById("today_score").textContent = "Today Revenue: " + readableFormat(score_array[1]);
     document.getElementById("today_review_score").textContent = "* Review Revenue: " + readableFormat(review_today) + " of [" + readableFormat(memorization_state["memorized"] / get_memorized_refresh_period_days()) +"]";
     document.getElementById("today_read_score").textContent = "* Read Revenue: " + readableFormat(score_array[3]) + " of [" + readableFormat(memorization_state["not_memorized"] / get_refresh_period_days()) +"]";;
+    document.getElementById("review_debt").textContent = readableFormat(debts["review"]);
+    document.getElementById("read_debt").textContent = readableFormat(debts["read"]);
+    document.getElementById("total_debt").textContent = readableFormat(debts["read"] + debts["review"]);
+
     animate_score();
   }
 
