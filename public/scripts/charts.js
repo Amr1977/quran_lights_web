@@ -1,12 +1,19 @@
 //TODO use async for all UI update operations!!
-async function update_charts() {
+ async function update_charts() {
     drawMemorizationPieChart();
     //TODO update ticket https://trello.com/c/qf6EoLOB/106-1-daily-review-gauge-calculation
-    updateGuageChart("review_score_guage", 
+    if (isNaN(scores["today_review"])) {
+      console.log("deferring guage chart rendering");
+    setTimeout(function() {
+      console.log("performing guage chart rendering");
+      updateGuageChart("review_score_guage", 
                      "Today Review Revenue [" + format(scores["today_review"]) + " of Target " + format(get_review_werd()) + "]", 
-                     100 * review_today / get_review_werd());
+                     100 * Number(scores["today_review"]) / get_review_werd());
     updateGuageChart("daily-read-guage", "Today Read Revenue [" + format(scores["today_read"]) + " of Target " + format(get_read_werd()) + "]",
                     100 * get_today_read() / get_read_werd());
+    }, 2000);
+    }
+    
     updateGuageChart("light-ratio-chart-container", "Light Ratio", lightRatio);
     updateGuageChart("conquer-ratio-chart-container", "Conquer Ratio", conquerRatio);
     drawTimeSeriesChart("daily-score-chart", DAILY_SCORE_MODE);
@@ -20,7 +27,7 @@ async function update_charts() {
 }
 
 function get_review_werd(){
-    return memorization_state["memorized"] / get_refresh_period_days();
+    return memorization_state["memorized"] / get_memorized_refresh_period_days();
 }
 
 function get_read_werd() {
@@ -28,10 +35,9 @@ function get_read_werd() {
 }
 
 function get_today_read() {
-    console.log("today_read: " + scores["today_read"]);
   return scores["today_read"];
 }
 
 function get_non_memorized_amount(){
-  return memorization_state["not_memorized"];
+  return full_khatma_char_count - memorization_state["memorized"];
 }

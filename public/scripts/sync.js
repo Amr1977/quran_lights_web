@@ -34,8 +34,6 @@ function set_upload_queue(queue) {
 
 var reference_to_scheduled_upload_function;
 
-// Start uploading after 10 seconds of last enqueue
-const UPLOAD_DISPATCH_DAMPING_DELAY = 10_000;
 function enqueue_for_upload(transaction_record) {
   console.log("enqueue_for_upload: \n" + transaction_record);
   var queue = get_upload_queue();
@@ -77,6 +75,7 @@ function dispatch_uploads() {
       //TODDO reschedule upload attempt!!
       clearTimeout(reference_to_scheduled_upload_function);
       reference_to_scheduled_upload_function = setTimeout(dispatch_uploads, UPLOAD_DISPATCH_DAMPING_DELAY * 3);
+      playSound(error_sound_spring);
     } else {
       console.log("upload success: " + updates);
       //trigger update on other devices
@@ -87,6 +86,7 @@ function dispatch_uploads() {
         )
         .set(lastTransactionTimeStamp);
       remove_from_queue(updates);
+      playSound(pulse_sound);
     }
   });
 

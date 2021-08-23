@@ -20,12 +20,14 @@ function getScore() {
         if (surasHistory[i].memorization == MEMORIZATION_STATE_MEMORIZED) {
           if (!reviewed_today.has(i)) {
             reviewed_today.add(i);
+            console.log("reviewed_today: " + i);
             review_score += suraScore;
           }
         }
         else {
           if (!read_today.has(i)) {
             read_today.add(i);
+            console.log("read_today: " + i);
             read_score += suraScore;
           }
         }
@@ -35,18 +37,21 @@ function getScore() {
     }
 
     scores = {"total": total, "today_total": today, "today_review": review_score, "today_read": read_score};
-
     return [total, today, review_score, read_score];
   }
 
   function update_score () {
+    get_memorization_data();
     var score_array = getScore();
     review_today = score_array[2];
-    console.log(score_array);
     document.getElementById("score").textContent = "Total Balance: " + readableFormat(score_array[0]);
     document.getElementById("today_score").textContent = "Today Revenue: " + readableFormat(score_array[1]);
-    document.getElementById("today_review_score").textContent = "* Review Revenue: " + readableFormat(review_today) + " of [" + readableFormat(memorization_state["memorized"] / get_refresh_period_days()) +"]";
+    document.getElementById("today_review_score").textContent = "* Review Revenue: " + readableFormat(review_today) + " of [" + readableFormat(memorization_state["memorized"] / get_memorized_refresh_period_days()) +"]";
     document.getElementById("today_read_score").textContent = "* Read Revenue: " + readableFormat(score_array[3]) + " of [" + readableFormat(memorization_state["not_memorized"] / get_refresh_period_days()) +"]";;
+    document.getElementById("review_debt").textContent = readableFormat(debts["review"]);
+    document.getElementById("read_debt").textContent = readableFormat(debts["read"]);
+    document.getElementById("total_debt").textContent = readableFormat(debts["read"] + debts["review"]);
+
     animate_score();
   }
 

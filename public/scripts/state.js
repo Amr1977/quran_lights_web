@@ -5,13 +5,23 @@
 //var refreshPeriodDays = get_initial_local_object("refreshPeriodDays", MAX_ELAPSED_DAYS_FOR_MEMORIZED_SURAS);
 
 function get_refresh_period_days() {
-    return get_initial_local_object("refreshPeriodDays", MAX_ELAPSED_DAYS_FOR_MEMORIZED_SURAS);
+    return get_initial_local_object("refresh_period_days", LIGHT_DAYS);
 };
 
 function set_refresh_period_days(value) {
     if (!value) return;
     //refreshPeriodDays = value;
-    set_local_storage_object("refreshPeriodDays", value);
+    set_local_storage_object("refresh_period_days", value);
+}
+
+function get_memorized_refresh_period_days() {
+    return get_initial_local_object("memorized_refresh_period_days", MAX_ELAPSED_DAYS_FOR_MEMORIZED_SURAS);
+};
+
+function set_memorized_refresh_period_days(value) {
+    if (!value) return;
+    //refreshPeriodDays = value;
+    set_local_storage_object("memorized_refresh_period_days", value);
 }
 
 /**
@@ -45,3 +55,5 @@ var review_daily_target = 100_000;
 
 var scores = {};
 var memorization_state = {};
+
+document.state = true;

@@ -41,7 +41,6 @@ function importJSON() {
   var file_reader = new FileReader();
   file_reader.onload = function (e) {
     var result = is_json_string(e.target.result);
-    console.log("imported & parser result: \n", result);
     if (result[0]) {
       var history = result[1];
       merge_imported_suras_history(history);
@@ -50,7 +49,6 @@ function importJSON() {
       alert("IMPORT SUCCESS!");
     } else {
       hideToast();
-      console.log("INVALID JSON!!");
       alert("INVALID JSON!!")
     }
   }
@@ -102,7 +100,6 @@ function merge_imported_suras_history(history){
       history[suraIndex].history.length > 0
       ) {
       //merge both histories
-      console.log("Merge imported history for ", suraIndex);
       var new_records = history[suraIndex].history.filter( x => !surasHistory[suraIndex].history.includes(x));
       new_records.sort(sortNumber);
       new_transactions = new_transactions.concat(create_refresh_transaction_batch(suraIndex, new_records));
@@ -111,7 +108,6 @@ function merge_imported_suras_history(history){
       surasHistory[suraIndex].history.sort(sortNumber);
     } else {
       if (!surasHistory[suraIndex] || !surasHistory[suraIndex].history || surasHistory[suraIndex].history.length == 0) {
-        console.log("Replace with imported history for ", suraIndex);
         surasHistory[suraIndex] = history[suraIndex];
         if (history[suraIndex] && history[suraIndex].history &&  history[suraIndex].history.length) {
           new_transactions = new_transactions.concat(create_refresh_transaction_batch(suraIndex, history[suraIndex].history));

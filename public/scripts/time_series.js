@@ -121,7 +121,7 @@ async function drawTimeSeriesChart(divID, mode) {
 
     series: [
       {
-        type: "area",
+        type: "column",
         name: "Revenue",
         data: data
       }

@@ -3,8 +3,8 @@
 
 <head>
     <script src="https://browser.sentry-cdn.com/5.15.4/bundle.min.js"
-        integrity="sha384-Nrg+xiw+qRl3grVrxJtWazjeZmUwoSt0FAVsbthlJ5OMpx0G08bqIq3b/v0hPjhB"
-        crossorigin="anonymous"></script>
+        integrity="sha384-Nrg+xiw+qRl3grVrxJtWazjeZmUwoSt0FAVsbthlJ5OMpx0G08bqIq3b/v0hPjhB" crossorigin="anonymous">
+    </script>
     <!-- Global Site Tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107477273-1"></script>
     <script>
@@ -21,25 +21,52 @@
     <!-- <link rel="stylesheet" type="text/css" href="font-awesome.css"/> -->
 
     <title>Quran Lights</title>
-    <link rel="stylesheet" href="styles.css?v=1586035666">
+    <link rel="stylesheet" href="styles.css?v=1629746643">
 
+    <script async src="https://c6.patreon.com/becomePatronButton.bundle.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
-    <script src="scripts/quran_lights.min.js?v=1586035666"></script>
+    <script src="scripts/suras_data.js?v=1629746643"></script>
+    <script src="scripts/constants.js?v=1629746643"></script>
+    <script src="scripts/utils.js?v=1629746643"></script>
+    <script src="scripts/state.js?v=1629746643"></script>
+    <script src="scripts/sync.js?v=1629746643"></script>
+    <script src="scripts/main.js?v=1629746643"></script>
+    <script src="scripts/tabs.js?v=1629746643"></script>
+    <script src="scripts/init_app.js?v=1629746643"></script>
+    <script src="scripts/init_cells.js?v=1629746643"></script>
+    <script src="scripts/keyboard.js?v=1629746643"></script>
+    <script src="scripts/memorization.js?v=1629746643"></script>
+    <script src="scripts/bright_days_dark_days_chart.js?v=1629746643"></script>
+    <script src="scripts/sort.js?v=1629746643"></script>
+    <script src="scripts/treemap.js?v=1629746643"></script>
+    <script src="scripts/guage.js?v=1629746643"></script>
+    <script src="scripts/khatma.js?v=1629746643"></script>
+    <script src="scripts/time_series.js?v=1629746643"></script>
+    <script src="scripts/import_and_export.js?v=1629746643"></script>
+    <script src="scripts/audio.js?v=1629746643"></script>
+    <script src="scripts/account.js?v=1629746643"></script>
+    <script src="scripts/selection.js?v=1629746643"></script>
+    <script src="scripts/score.js?v=1629746643"></script>
+    <script src="scripts/cells.js?v=1629746643"></script>
+    <script src="scripts/login.js?v=1629746643"></script>
+    <script src="scripts/charts.js?v=1629746643"></script>
+    <script src="scripts/radar.js?v=1629746643"></script>
 
-    <meta property="og:image" content="http://quran-lights.firebaseapp.com/images/app_icon.png" />
-    <meta property="og:image:width" content="573"/>
-    <meta property="og:image:height" content="200"/>
-    <meta property="og:image:secure_url" content="https://quran-lights.firebaseapp.com/images/app_icon.png" /> 
-    <meta property="og:image:type" content="image/png" /> 
-    <meta property="og:description" content="Visualize your Quran-engagement with Performance Charts" /> 
-    <meta property="fb:app_id" content="546100602990294" /> 
-    <meta property="og:url" content="http://quran-lights.firebaseapp.com">
+
+    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0" />
+    <meta property="og:image" content="http://quranlights.net/images/app_icon.png" />
+    <meta property="og:image:width" content="573" />
+    <meta property="og:image:height" content="200" />
+    <meta property="og:image:secure_url" content="https://quranlights.net/images/app_icon.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:description" content="Visualize your Quran-engagement with Performance Charts" />
+    <meta property="fb:app_id" content="546100602990294" />
+    <meta property="og:url" content="http://quranlights.net">
     <!-- <meta property="og:type" content=""> -->
     <meta property="og:title" content="Quran Lights">
-    
+
 
     <meta charset=utf-8 />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords"
         content="Allah,islam,mohammad,religion,quran,recite, visualize, charts, timer, memorize, muslim, moslim, ramadan,الاسلام , القرآن, الله, محمد " />
     <title>Email/Password Authentication Example</title>
@@ -67,42 +94,19 @@
 
 <body background="images/background.jpg">
 
-<script>
-    window.fbAsyncInit = function() {
-      FB.init({
-        appId      : '546100602990294',
-        cookie     : true,
-        xfbml      : true,
-        version    : 'v6.0'
-      });
-        
-      FB.AppEvents.logPageView();   
-        
-    };
-  
-    (function(d, s, id){
-       var js, fjs = d.getElementsByTagName(s)[0];
-       if (d.getElementById(id)) {return;}
-       js = d.createElement(s); js.id = id;
-       js.src = "https://connect.facebook.net/en_US/sdk.js";
-       fjs.parentNode.insertBefore(js, fjs);
-     }(document, 'script', 'facebook-jssdk'));
-  </script>
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-        src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v6.0&appId=546100602990294&autoLogAppEvents=1">
-    </script>
-
     <div class="text">
-        <h1 align="center">Quran Lights</h1>
-        <h3 align="center">
-            Visualize and boost your Quran Engagement
+        <h1 align="center">
+            رَبَّنَا أَتْمِمْ لَنَا نُورَنَا وَاغْفِرْ لَنَا ۖ إِنَّكَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ
+        </h1>
+        <h1 align="center">Quran Lights
             <br><br>
-        </h3>
+        </h1>
+
         <div align="center">
             <div align="center" style="background-color: rgba(255,255,255,0.4); width: 280px">
 
-                <a style="margin: 10px;" target="_blank" href="https://github.com/Amr1977/quran_lights_web">
+                <a style="margin: 10px;" target="_blank" rel="noopener noreferrer"
+                    href="https://github.com/Amr1977/quran_lights_web">
                     <svg aria-hidden="true" class="octicon octicon-mark-github" height="32" version="1.1"
                         viewBox="0 0 16 16" width="32">
                         <path fill-rule="evenodd"
@@ -110,27 +114,86 @@
                         </path>
                     </svg>
                 </a>
-                <a align="center" style="margin: 10px;" target="_blank"
+                <a align="center" style="margin: 10px;" target="_blank" rel="noopener noreferrer"
                     href="https://itunes.apple.com/us/app/quran-lights/id1218872513?mt=8"><img
                         src="images/Download_on_the_App_Store_Badge_US-UK_135x40.svg" /></a>
-                <a align="center" style="margin: 10px;" target="_blank"
+                <a align="center" style="margin: 10px;" target="_blank" rel="noopener noreferrer"
                     href="https://www.facebook.com/QuranicLights/"><img src="images/fb.png" width="40px;"
                         height="40px;" /></a>
             </div>
         </div>
         <br>
-        <iframe id="ayat" src="https://quran.ksu.edu.sa/index.php?l=en">
-        </iframe>
-        <br>
-        
-        <button class="collapsible">How it works
-            <svg focusable="false" height="24px" viewBox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>
+
+        <button class="collapsible">What is this about
+            <svg focusable="false" height="24px" viewBox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 10l5 5 5-5z"></path>
+                <path d="M0 0h24v24H0z" fill="none"></path>
+            </svg>
         </button>
-        <h4 class="fulljustify">After you read any chapter of Quran remember to <strong>double
+        <h4 class="fulljustify">
+            As Muslims we do believe that Quran is the word of God and is the best guidance book ever, in the matter of
+            fact Quran is a program to be loaded and executed by us .. Humans <br><br>
+
+            Memorizing (loading) and frequent-reading of each verse of Quran in our heart is indeed a critical objective
+            for each practicing muslim in oder to execute it and follow its guidance when needed.<br><br>
+
+            In 2014 I was so sad that I was losing (forgetting) many memorized chapters due to infrequent review, I felt
+            it would be much better if we could measure and visualize user reading and memorization of each Quran
+            chapter, so Alhamdu Lillah I created Quran Lights iOS App on app store while I was in iOS learning track at
+            BadrIT company where all employees and management encouraged me so much, a couple of years later I created
+            the web app https://quranlights.net/ because iOS devices are expensive to have here in my country, I didn't
+            have a designer and it was a POC, the idea helped me to get motivated and keep my memorized chapters and
+            reclaim many chapters that needed re-memorization and even memorized other chapters. app had 4.8 score on
+            app store, and because my profession is not web development I made it by following online resources<br><br>
+
+            the app simply provides 114 light cells, each Quran chapter is represented with a cell, each cell has score
+            that is character count of chapter text, cell light goes on for user-defined number of days, during these
+            days light gets darker gradually until it is completely black by the end of light days unless chapter is
+            read again, a light cell view looks like a heat map (reversed), user score is calculated by summing scores
+            of each chapter he reads, this information is then time stamped , stored, visualized in various charts,
+            daily, monthly and yearly scores, Quran Radar chart where chapters are spread in radar/spider view based on
+            days elapsed since last refresh, and some other visualizations in the iOS app and web app<br><br>
+
+            The plan is to create a social network around this idea where users can post their recitations and scholars
+            could certify or make comments on any time point of the uploaded recitation, and other users could interact
+            with this post creating a connection network<br><br>
+
+            A critical social issue could be prevented by these Quran measurements , that is divorce,<br><br>
+
+            Divorce happens when the mindset of wife and husband are so far apart to the point that they can't stand
+            being together.<br><br>
+
+            Given that Quran programs soul, heart and brain, and given that servant's place in paradise is proportional
+            to engagement with Quran in current life, then if we could gather couples with nearly same mindset(program)
+            and who are supposed to be nearly in same level in paradise then there should be a high probability of a
+            successful and everlasting happy marriage and united big blessed family<br><br>
+
+            To complete this idea I think it should be designed and developed by professional team which is beyond
+            current budget, it took me 7 years to reach current very basic and primitive state, I think a professional
+            team could get the complete Quran Lights Network within 6 months to one year inshaAllah.
+            <br><br>
+            So Quran Lights Network should be able to
+            <li> Measure and Visualize your engagement with Quran</li>
+            <li> Connect with Quran people</li>
+            <li> Get your recitations certified or corrected by scholars</li>
+            <li> Find you the best matching spouse based on your Quran Performance Measures.</li>
+            <br><br>
+
+            Funding project: <a target="_blank" rel="noopener noreferrer" href="http://fnd.us/71qrr9?ref=sh_cAO135">
+                http://fnd.us/71qrr9?ref=sh_cAO135</a> <br>
+            Patreon: <a target="_blank" rel="noopener noreferrer"
+                href="https://www.patreon.com/quran_network">https://www.patreon.com/quran_network</a><br><br>
+
+            Project board on Trello: https://trello.com/b/VMjQNa6H<br>
+            https://github.com/Amr1977/quran_lights_web<br>
+            https://github.com/Amr1977/quran_lights_ios <br><br>
+
+            This is a proof of concept core part that allows you to log your Quran activity: <br>
+            After you read any chapter of Quran remember to <strong>double
                 click</strong> its cell here, the cell will take its maximum
             light, cell light will decay with time until you refresh it again, your history is cloud-stored and charts
             are updated accordingly,
-            your history is accessible either from this web app or from <a
+            your history is accessible either from this web app or from <a target="_blank" rel="noopener noreferrer"
                 href="https://itunes.apple.com/us/app/quran-lights/id1218872513?mt=8">Quran Lights iOS App</a>, also you
             have a daily score and total score, score of any chapter
             equals number of characters in this chapter, this should motivate you to maintain Quran
@@ -142,18 +205,19 @@
             Double Click: Refresh Sura.<br>
             <!-- Shift + Click: Open Chapter in another tab. <br> -->
             Alt + Click: Toggle Sura Memorization mark ON/OFF<br>
+            Shift + Click: Open Sura page at Ayat site<br>
             <br>
             Keyboard shortcuts:<br>
             Ordering Quran Chapters:<br>
-            Ctrl + L : Cell <strong>L</strong>ight<br>
-            Ctrl + N : <strong>N</strong>ormal Order <br>
-            Ctrl + C : <strong>C</strong>haracter Count<br>
-            Ctrl + V : <strong>V</strong>erse Count<br>
-            Ctrl + W : <strong>W</strong>ord Count<br>
-            Ctrl + R : <strong>R</strong>evalation order<br>
-            Ctrl + F : Re<strong>f</strong>resh Count<br>
+            L : Cell <strong>L</strong>ight<br>
+            N : <strong>N</strong>ormal Order <br>
+            C : <strong>C</strong>haracter Count<br>
+            V : <strong>V</strong>erse Count<br>
+            W : <strong>W</strong>ord Count<br>
+            R : <strong>R</strong>evalation order<br>
+            F : Re<strong>f</strong>resh Count<br>
             <br>
-            Ctrl + D: Deselect cells.
+            D : Deselect cells.
         </h4>
     </div>
     <main>
@@ -165,28 +229,30 @@
             <div
                 class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
                 <div style="margin: 5px;">
-                    <iframe id="prayers" src="about:blank"></iframe>
+
                     <span>
-                        <input class="mdl-textfield__input" style="display:inline;width:auto; margin: 10px;" type="text"
+                        <input class="mdl-textfield__input"
+                            style="display:inline;width:auto; margin: 10px; color: white !important;" type="text"
                             id="email" name="email" placeholder="Email" />
                     </span>
                     <span>
-                        <input class="mdl-textfield__input" style="display:inline;width:auto;margin: 10px;"
-                            type="password" id="password" name="password" placeholder="Password" />
+                        <input class="mdl-textfield__input"
+                            style="display:inline;width:auto;margin: 10px; color: white  !important;" type="password"
+                            id="password" name="password" placeholder="Password" />
                     </span>
                     <span>
                         <button style="margin: 10px;" class="mdl-button mdl-js-button mdl-button--raised"
-                            id="quickstart-sign-in" name="signin">Sign In</button>
-                    </span>
-
-                    <span>
-                        <button style="margin: 10px;" class="mdl-button mdl-js-button mdl-button--raised"
-                            id="quickstart-sign-up" name="signup">Sign Up(free)</button>
+                            id="quickstart-sign-in" name="signin" onclick="">Sign In</button>
                     </span>
 
                     <span>
                         <button style="margin: 10px;" class="mdl-button mdl-js-button mdl-button--raised"
-                            id="sign-in-with-google" name="signingoogle">Sign In with Google</button>
+                            id="quickstart-sign-up" name="signup" onclick="">Sign Up(free)</button>
+                    </span>
+
+                    <span>
+                        <button style="margin: 10px;" class="mdl-button mdl-js-button mdl-button--raised"
+                            id="sign-in-with-google" name="signingoogle" onclick="">Sign In with Google</button>
                     </span>
 
                     <!--span>
@@ -202,71 +268,281 @@
                         <button  style="margin: 10px; display: none;" class="mdl-button mdl-js-button mdl-button--raised" id="sign-in-with-twitter" name="signintwitter">Sign In with Twitter</button>
                     </span>
                     <!--button style="margin: 10px;" class="mdl-button mdl-js-button mdl-button--raised" disabled id="quickstart-verify-email" name="verify-email">Send Email Verification</button-->
-                    <button 
-                    id="quickstart-password-reset" 
-                    style="margin: 10px;" 
-                    class="mdl-button mdl-js-button mdl-button--raised" 
-                    name="verify-email"
-                    onclick="sendPasswordReset()"
-                    >Send Password Reset Email</button>
+                    <button id="quickstart-password-reset" style="margin: 10px;"
+                        class="mdl-button mdl-js-button mdl-button--raised" name="verify-email"
+                        onclick="sendPasswordReset()">Send Password Reset Email</button>
 
-                    
+
 
                     <div id="daily-score-container" style="margin: 10px; font-weight: 800; color: green;" align="left">
-                        <div id="sort_order_container">
-                            <div class="score" >Order Chapters by: </div>
-    
+
+
+
+
+                        <div class="tab">
+                            <button id="light_cells_button" class="tablinks" onclick="openTab('light_cells')">Light
+                                Cells</button>
+                            <!-- <button id = "ayat_tab_button" class="tablinks" onclick="openTab('ayat_tab')">Read</button> -->
+                            <button id="light_treemap_button" class="tablinks"
+                                onclick="openTab('light_treemap')">Treemap</button>
+                            <button id="light_radar_button" class="tablinks"
+                                onclick="openTab('light_radar')">Radar</button>
+                            <button id="review_guage_button" class="tablinks" onclick="openTab('review_guage')">Daily
+                                Review</button>
+                            <button id="daily_read_guage_button" class="tablinks"
+                                onclick="openTab('daily_read_guage')">Daily Read</button>
+                            <button id="memorization_chart_tab_button" class="tablinks"
+                                onclick="openTab('memorization_chart_tab')">Memorization</button>
+                            <button id="light_ratio_chart_tab_button" class="tablinks"
+                                onclick="openTab('light_ratio_chart_tab')">Light Ratio</button>
+                            <button id="conquer_ratio_chart_tab_button" class="tablinks"
+                                onclick="openTab('conquer_ratio_chart_tab')">Conquer Ratio</button>
+                            <button id="khatma_progress_tab_button" class="tablinks"
+                                onclick="openTab('khatma_progress_tab')">Khatma</button>
+                            <button id="daily_score_chart_tab_button" class="tablinks"
+                                onclick="openTab('daily_score_chart_tab')">Daily Score</button>
+                            <button id="monthly_score_chart_tab_button" class="tablinks"
+                                onclick="openTab('monthly_score_chart_tab')">Monthly Score</button>
+                            <button id="yearly_score_chart_tab_button" class="tablinks"
+                                onclick="openTab('yearly_score_chart_tab')">Yearly Score</button>
+                            <button id="light_days_chart_tab_button" class="tablinks"
+                                onclick="openTab('light_days_chart_tab')">Bright Days</button>
+                            <!--button id = "dark_days_chart_tab_button" class="tablinks" onclick="openTab('dark_days_chart_tab')">Dark Days</button-->
+
+                            <button id="import_export_tab_button" class="tablinks"
+                                onclick="openTab('import_export_tab')">Import & Export</button>
+                            <!-- <button id = "prayers_tab_button" class="tablinks" onclick="openTab('prayers_tab')">Prayers</button> -->
+                            <button id="settings_tab_button" class="tablinks"
+                                onclick="openTab('settings_tab')">Settings</button>
+                            <!-- <button id = "donate_tab_button" class="tablinks" onclick="openTab('donate_tab')">Donate | Sponsor </button> -->
+                            <button id="contribute_tab_button" class="tablinks"
+                                onclick="openTab('contribute_tab')">Contribute</button>
+                            <!-- <button id = "rate_tab_button" class="tablinks" onclick="openTab('rate_tab')">Rate & Feedback</button> -->
+                            <!-- <button id = "about_tab_button" class="tablinks" onclick="openTab('about_tab')">About</button> -->
+                            <button id="boycott_tab_button" class="tablinks"
+                                onclick="openTab('boycott_tab')">#Boycott_French_Products</button>
+                        </div>
+
+                        <div id="light_cells" class="tabcontent">
+                            <div id="today_score" class="score" float="right"></div>
+                            <div id="reviews" class="wrapper" style="margin: 5px;"></div>
+                            <br>
+                            <span id="score" class="score">
+                                --
+                            </span>
+
+                            <span id="today_review_score" class="score">
+
+                            </span>
+                            <span id="today_read_score" class="score">
+
+                            </span>
+                            <span id="selected_total">
+                            </span>
+                            <br>
+                            <span class="tooltip">
+                                Review Debt:
+                                <span class="tooltiptext"> Sum score of memorized Surahs exceeding allowed light days </span>
+                                <span id="review_debt"></span>
+                                    
+                                </span>
+                            <br>
+                            <span class="tooltip">
+                            Reading Debt:
+                           <span class="tooltiptext"> Sum score of non-memorized Surahs exceeding allowed light days </span>
+                            <span id="read_debt">
+                                
+                            </span>
+                            <br>
+                            <span>
+                            Total Debt:
+                            <span id="total_debt">
+                            </span>
+
+                            <br>
                             <div>
-                                <select id="sort_order" onchange="set_sort_order()" style="margin: 10px;">
-                                    <option value="normal">Normal Order</option>
-                                    <option value="revelation_order">Revelation Order</option>
-                                    <option value="light">Cell Light</option>
-                                    <option value="chars_count">Character Count</option>
-                                    <option value="verse_count">Verse Count</option>
-                                    <option value="word_count">Word Count</option>
-                                    <option value="refresh_count">Refresh Count</option>
-                                </select>
+                                <button id="deselect_button" onclick="deselectAll();" style="margin: 10px" float="right"
+                                    class="mdl-button mdl-js-button mdl-button--raised">Deselect All
+                                </button>
                             </div>
                         </div>
-                        <br>
-                        <div id="light_days_container">
-                            <div class="score">Light Days: </div>
-                            <div>
-                                <select id="light_days" onchange="set_light_days()" style="margin: 10px;">
-                                </select>
+
+                        <div id="light_treemap" class="tabcontent">
+                            <div id="treemap-chart" style="height: 1000px; margin: 20px"></div>
+                        </div>
+
+                        <div id="light_radar" class="tabcontent">
+                            <h4 class="text">Quran Radar: Elapsed days per Surah since last refresh
+                                <div id="radar-chart" style="height: 800px; margin: 20px"></div>
+                            </h4>
+                        </div>
+
+                        <div id="review_guage" class="tabcontent">
+                            <h4 class="text">Review Werd: Reviewed_Today / ((SUM(Memorized) /
+                                Memorized_inter-refresh_Light_Days)
+                                <div id="review_score_guage" style="height: 100%; margin: 20px"></div>
+                            </h4>
+                        </div>
+
+                        <div id="daily_read_guage" class="tabcontent">
+                            <h4 class="text">Read Werd: Read_Today / ((SUM(Non_Memorized) / Light_Days)
+                                <div id="daily-read-guage" style="height: 100%; margin: 20px"></div>
+                            </h4>
+                        </div>
+                        <div id="memorization_chart_tab" class="tabcontent">
+                            <h4 class="text">Memorization Progress
+                                <div id="memorization-chart" style="height: 500px; margin: 20px"></div>
+                            </h4>
+                        </div>
+
+
+                        <div id="light_ratio_chart_tab" class="tabcontent">
+                            <h4 class="text">Light Ratio: sum of light percentage of all cells
+                                <div id="light-ratio-chart-container" style="height: 100%; margin: 20px"></div>
+                            </h4>
+                        </div>
+
+
+                        <div id="conquer_ratio_chart_tab" class="tabcontent">
+                            <h4 class="text">Lighting Cells Ratio: Percentage of cells within Light days
+                                <div id="conquer-ratio-chart-container" style="height: 100%; margin: 20px"></div>
+                            </h4>
+                        </div>
+
+
+                        <div id="khatma_progress_tab" class="tabcontent">
+                            <h4 class="text">Khatma Progress
+                                <div id="khatma-progress-chart" style="height: 100%; margin: 20px"></div>
+                            </h4>
+                        </div>
+
+
+                        <div id="daily_score_chart_tab" class="tabcontent">
+                            <h4 class="text">Daily Revenue
+                                <div id="daily-score-chart" style="height: 400px; margin: 20px"></div>
+                            </h4>
+                        </div>
+
+
+                        <div id="monthly_score_chart_tab" class="tabcontent">
+                            <h4 class="text">Monthlty Revenue
+                                <div id="monthly-score-chart" style="height: 400px; margin: 20px"></div>
+                            </h4>
+                        </div>
+
+
+                        <div id="yearly_score_chart_tab" class="tabcontent">
+                            <h4 class="text">Yearly Revenue
+                                <div id="yearly-score-chart" style="height: 400px; margin: 20px"></div>
+                            </h4>
+                        </div>
+
+
+                        <div id="light_days_chart_tab" class="tabcontent">
+                            <h4 class="text">Light days per month: days with non-zero balance
+                                <div id="light_days_chart" style="height: 400px; margin: 20px"></div>
+                            </h4>
+                        </div>
+
+
+                        <div id="dark_days_chart_tab" class="tabcontent">
+                            <h4 class="text">Dark days per month: days with zero balance
+                                <div id="dark_days_chart" style="height: 400px; margin: 20px"></div>
+                            </h4>
+                        </div>
+                        <!-- 
+                        <div id="ayat_tab" class="tabcontent">
+                            <iframe id="ayat" src="https://quran.ksu.edu.sa/index.php?l=en">
+                            </iframe>
+                        </div> -->
+
+                        <div id="about_tab" class="tabcontent">
+
+                            SOON
+
+
+
+                        </div>
+
+                        <div id="boycott_tab" class="tabcontent">
+                            TODO
+                        </div>
+
+                        <div id="rate_tab" class="tabcontent">
+                            TODO
+                        </div>
+
+                        <div id="donate_tab" class="tabcontent">
+                            <a href="https://www.patreon.com/quran_network" target="_blank" rel="noopener noreferrer"
+                                rel="noopener noreferrer"> Support on Patreon. </a>
+                            <br>
+                            <a href="http://fnd.us/71qrr9?ref=sh_cAO135" target="_blank" rel="noopener noreferrer"
+                                rel="noopener noreferrer"> Support on FundRazr. </a>
+                        </div>
+
+                        <div id="contribute_tab" class="tabcontent">
+                            <a href="https://github.com/Amr1977/quran_lights_web" target="_blank"
+                                rel="noopener noreferrer"> Github Repository.</a>
+                        </div>
+
+                        <div id="prayers_tab" class="tabcontent" align="center">
+                            <iframe id="prayers" src="about:blank"></iframe>
+                        </div>
+
+                        <div id="import_export_tab" class="tabcontent">
+                            <div id="download" style="margin: 10px;">
+                                <button class="mdl-button mdl-js-button mdl-button--raised"
+                                    onclick='exportJSON();'>Export
+                                    Refresh History</button>
+                            </div>
+                            <div style="margin: 10px;">
+                                <button id="import" class="mdl-button mdl-js-button mdl-button--raised"
+                                    onclick="importJSON();">Import Refresh History</button>
+                                <input type="file" id="selectFiles" value="Import" />
                             </div>
                         </div>
-                        <br>
-                        <span id="score" class="score">
-                            --
-                        </span>
-                        
-                        <span id="today_review_score" class="score">
 
-                        </span>
-                        <span id="today_read_score" class="score">
+                        <div id="settings_tab" class="tabcontent">
+                            <div id="sort_order_container">
+                                <div class="score">Order Chapters by: </div>
 
-                        </span>
-                        <span id="selected_total">
-                        </span>
-                        <br>
-                        <div id="download" style="margin: 10px;">
-                            <button class="mdl-button mdl-js-button mdl-button--raised" onclick='exportJSON();'>Export
-                                Refresh History</button>
-                        </div>
-                        <div style="margin: 10px;">
-                            <button id="import" class="mdl-button mdl-js-button mdl-button--raised"
-                                onclick="importJSON();">Import Refresh History</button>
-                            <input type="file" id="selectFiles" value="Import" />
-                        </div>
-                        <br>
-                        <div>
-                            <button id="deselect_button" onclick="deselectAll();" style="margin: 10px" float="right"
-                                class="mdl-button mdl-js-button mdl-button--raised">Deselect All
+                                <div>
+                                    <select id="sort_order" onchange="set_sort_order()" style="margin: 10px;">
+                                        <option value="normal">Normal Order</option>
+                                        <option value="revelation_order">Revelation Order</option>
+                                        <option value="light">Cell Light</option>
+                                        <option value="chars_count">Character Count</option>
+                                        <option value="verse_count">Verse Count</option>
+                                        <option value="word_count">Word Count</option>
+                                        <option value="refresh_count">Refresh Count</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br>
+                            <div id="light_days_container">
+                                <div class="score">Light Days: </div>
+                                <div>
+                                    <select id="light_days" onchange="set_light_days()" style="margin: 10px;">
+                                    </select>
+                                </div>
+                            </div>
+
+                            <br>
+                            <div id="memorized_light_days_container">
+                                <div class="score">Max inter-refresh period for memorized Suras: </div>
+                                <div>
+                                    <select id="memorized_light_days" onchange="set_memorized_light_days()"
+                                        style="margin: 10px;">
+                                    </select>
+                                </div>
+                            </div>
+
+                            <br>
+                            <button onclick="clear_local_storage()">
+                                Clear Local Storage and reload.
                             </button>
                         </div>
-                        <div id="today_score" class="score" float="right"></div> 
-                        <div id="reviews" class="wrapper" style="margin: 5px;"></div>
+
                     </div>
                 </div>
             </div>
@@ -274,64 +550,12 @@
     </main>
     </div>
 
-    <h4 class="text">Lights treemap
-        <div id="treemap-chart" style="height: 1000px; margin: 20px"></div>
-    </h4>
-
-    <h4 class="text">Quran Radar: Elapsed days per Surah since last refresh
-        <div id="radar-chart" style="height: 800px; margin: 20px"></div>
-    </h4>
-
-    <h4 class="text">Review Werd: Reviewed_Today / ((SUM(Memorized) / Light_Days)
-        <div id="review_score_guage" style="height: 100%; margin: 20px"></div>
-    </h4>
-<br>
-    <h4 class="text">Read Werd: Read_Today / ((SUM(Non_Memorized) / Light_Days)  
-        <div id="daily-read-guage" style="height: 100%; margin: 20px"></div>
-    </h4>
-
-    <h4 class="text">Memorization Progress
-        <div id="memorization-chart" style="height: 500px; margin: 20px"></div>
-    </h4>
-
-    <h4 class="text">Light Ratio: sum of light percentage of all cells
-        <div id="light-ratio-chart-container" style="height: 100%; margin: 20px"></div>
-    </h4>
-
-    <h4 class="text">Lighting Cells Ratio: Percentage of cells not not older than Light days
-        <div id="conquer-ratio-chart-container" style="height: 100%; margin: 20px"></div>
-    </h4>
-
-    <h4 class="text">Khatma Progress
-        <div id="khatma-progress-chart" style="height: 100%; margin: 20px"></div>
-    </h4>
-
-    <h4 class="text">Daily Revenue
-        <div id="daily-score-chart" style="height: 400px; margin: 20px"></div>
-    </h4>
-
-    <h4 class="text">Monthlty Revenue
-        <div id="monthly-score-chart" style="height: 400px; margin: 20px"></div>
-    </h4>
-
-    <h4 class="text">Yearly Revenue
-        <div id="yearly-score-chart" style="height: 400px; margin: 20px"></div>
-    </h4>
-
-    <h4 class="text">Light days per month: days with non-zero balance
-        <div id="light_days_chart" style="height: 400px; margin: 20px"></div>
-    </h4>
-
-    <h4 class="text">Dark days per month: days with zero balance
-        <div id="dark_days_chart" style="height: 400px; margin: 20px"></div>
-    </h4>
-
     <div id="snackbar"></div>
     <div id="share-buttons" style="width: 100%; margin: 20px;">
-
+        <a target="_blank" rel="noopener noreferrer" href="https://www.patreon.com/bePatron?u=50824648"
+            data-patreon-widget-type="become-patron-button">Become a Patron!</a>
         <!-- Buffer -->
-        <a href="https://bufferapp.com/add?url=https://quran-lights.firebaseapp.com&amp;text=Quran Lights"
-            target="_blank">
+        <a href="https://bufferapp.com/add?url=https://quranlights.net&amp;text=Quran Lights" target="_blank">
             <img src="images/buffer.png" alt="Buffer" />
         </a>
 
@@ -341,23 +565,22 @@
         </a>
 
         <!-- Email -->
-        <a href="mailto:?Subject=Quran Lights&amp;Body=https://quran-lights.firebaseapp.com">
+        <a href="mailto:?Subject=Quran Lights&amp;Body=https://quranlights.net">
             <img src="images/email.png" alt="Email" />
         </a>
 
         <!-- Facebook -->
-        <a href="http://www.facebook.com/sharer.php?u=https://quran-lights.firebaseapp.com" target="_blank">
+        <a href="http://www.facebook.com/sharer.php?u=https://quranlights.net" target="_blank">
             <img src="images/facebook.png" alt="Facebook" />
         </a>
 
         <!-- Google+ -->
-        <a href="https://plus.google.com/share?url=https://quran-lights.firebaseapp.com&amp;text=Quran Lights"
-            target="_blank">
+        <a href="https://plus.google.com/share?url=https://quranlights.net&amp;text=Quran Lights" target="_blank">
             <img src="images/google.png" alt="Google" />
         </a>
 
         <!-- LinkedIn -->
-        <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://quran-lights.firebaseapp.com&amp;text=Quran Lights"
+        <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://quranlights.net&amp;text=Quran Lights"
             target="_blank">
             <img src="images/linkedin.png" alt="LinkedIn" />
         </a>
@@ -374,50 +597,45 @@
         </a>
 
         <!-- Reddit -->
-        <a href="http://reddit.com/submit?url=https://quran-lights.firebaseapp.com&amp;title=Quran Lights"
-            target="_blank">
+        <a href="http://reddit.com/submit?url=https://quranlights.net&amp;title=Quran Lights" target="_blank">
             <img src="images/reddit.png" alt="Reddit" />
         </a>
 
         <!-- StumbleUpon-->
-        <a href="http://www.stumbleupon.com/submit?url=https://quran-lights.firebaseapp.com&amp;title=Quran Lights"
-            target="_blank">
+        <a href="http://www.stumbleupon.com/submit?url=https://quranlights.net&amp;title=Quran Lights" target="_blank">
             <img src="images/stumbleupon.png" alt="StumbleUpon" />
         </a>
 
         <!-- Tumblr-->
-        <a href="http://www.tumblr.com/share/link?url=https://quran-lights.firebaseapp.com&amp;title=Quran Lights"
-            target="_blank">
+        <a href="http://www.tumblr.com/share/link?url=https://quranlights.net&amp;title=Quran Lights" target="_blank">
             <img src="images/tumblr.png" alt="Tumblr" />
         </a>
 
         <!-- Twitter -->
-        <a href="https://twitter.com/share?url=https://quran-lights.firebaseapp.com&amp;text=Quran Lights&amp;hashtags=quranlights"
+        <a href="https://twitter.com/share?url=https://quranlights.net&amp;text=Quran Lights&amp;hashtags=quranlights"
             target="_blank">
             <img src="images/twitter.png" alt="Twitter" />
         </a>
 
         <!-- VK -->
-        <a href="http://vkontakte.ru/share.php?url=https://quran-lights.firebaseapp.com" target="_blank">
+        <a href="http://vkontakte.ru/share.php?url=https://quranlights.net" target="_blank">
             <img src="images/vk.png" alt="VK" />
         </a>
 
         <!-- Yummly -->
-        <a href="http://www.yummly.com/urb/verify?url=https://quran-lights.firebaseapp.com&amp;title=Quran Lights"
-            target="_blank">
+        <a href="http://www.yummly.com/urb/verify?url=https://quranlights.net&amp;title=Quran Lights" target="_blank">
             <img src="images/yummly.png" alt="Yummly" />
         </a>
     </div>
-    <div class="text">V0.1586035666</div>
+    <div class="text">V0.1629746643</div>
 
-    <div style="background-color: blanchedalmond; width: 100%;">
-        <div class="fb-like" 
-        data-href="https://quran-lights.firebaseapp.com" 
-        data-width="" data-layout="standard"
-            data-action="like" 
-            data-size="small" 
-            data-share="true"></div>
+    <!-- <div style="background-color: blanchedalmond; width: 100%;">
+        <div class="fb-like" data-href="https://quranlights.net" data-width="" data-layout="standard" data-action="like"
+            data-size="small" data-share="true">
+        </div>
     </div>
-    <div class="fb-comments" style="background-color: blanchedalmond; width: 100%;" data-href="https://quran-lights.firebaseapp.com" data-width="100%" data-numposts="7"></div>
+    <div class="fb-comments" style="background-color: blanchedalmond; width: 100%;" data-href="https://quranlights.net"
+        data-width="100%" data-numposts="7"></div> -->
 </body>
+
 </html>

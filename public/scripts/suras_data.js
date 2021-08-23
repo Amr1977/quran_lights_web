@@ -699,3 +699,5 @@ const suraCharCount = [
 function get_sura_index_from_sura_name(sura_name) {
   return SuraNamesEn.indexOf(sura_name) + 1;
 }
+
+document.suras_data = true;

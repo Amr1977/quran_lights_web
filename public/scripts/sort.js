@@ -1,5 +1,6 @@
 function set_sort_order() {
   set_sort_order_with_value(document.getElementById("sort_order").value);
+  add_sura_cells();
 }
 
 function  set_sort_order_with_value(value)  {
@@ -10,8 +11,6 @@ function  set_sort_order_with_value(value)  {
   sort_order = value;
   set_local_storage_object("sort_order", sort_order);
   document.getElementById("sort_order").value = value;
-
-  add_sura_cells();
 }
 
 var revalationSortedSuraArray = [];
@@ -41,11 +40,11 @@ function createVerseCountSuraOrderArray() {
     return;
   }
   for (suraIndex = 1; suraIndex <= 114; suraIndex++) {
-    var suraWithCharCountRecord = {
+    var suraWithVerseCountRecord = {
       suraID: suraIndex,
-      verseCount: suraCharCount[suraIndex - 1]
+      verseCount: suraVerseCount[suraIndex - 1]
     };
-    verseCountSortedSuraArray.push(suraWithCharCountRecord);
+    verseCountSortedSuraArray.push(suraWithVerseCountRecord);
   }
 
   verseCountSortedSuraArray = sortByKey(

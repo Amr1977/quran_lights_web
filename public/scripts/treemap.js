@@ -12,7 +12,6 @@ async function drawTreeMapChart(DevId) {
         events: {
           click: function (event) {
             click_handler(get_sura_index_from_sura_name(event.point.name));
-            console.log("clicked cell: ", event.point.name);
           }
         }
       }

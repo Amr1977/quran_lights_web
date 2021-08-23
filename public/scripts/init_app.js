@@ -6,12 +6,20 @@
 function initApp() {
   // Listening for auth state changes.
   // [START authstatelistener]
+
+  if (!(document.utils && document.constants && document.suras_data && document.state)) {
+    console.log("Scheduled initApp after 1 second");
+    setTimeout(initApp, 1000);
+  }
+  console.log("initApp invoked...");
+
   add_prayer_times();
   document
     .getElementById("password")
     .addEventListener("keyup", function (event) {
       event.preventDefault();
-      if (event.keyCode == 13) {
+      console.log("event.key: ", event.key);
+      if (event.key == "Enter") {
         document.getElementById("quickstart-sign-in").click();
       }
     });
@@ -39,7 +47,6 @@ function initApp() {
         if (indexOfTimeStamp != -1) {
           //delete matching own timestamp
           ownTimeStamps.splice(indexOfTimeStamp, 1);
-          console.log("dropping own update.");
           return;
         }
         //stabilize successive triggers

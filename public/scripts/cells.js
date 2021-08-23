@@ -1,15 +1,15 @@
 var click_event_queue = [];
-
+var debts = {"reading_debt": 0, "review_debt": 0};
+//TODO needs refactor!!!
 async function add_sura_cells() {
-  console.log("add_sura_cells invoked.");
-  //TODO reuse cells
   if (buildingSurasFlag) {
     return;
   }
   surasColorTable = [];
   buildingSurasFlag = true;
   clear_reviews();
-  
+  debts = {"read": 0, "review": 0};
+
   var currentTimeStamp = Math.floor(Date.now() / 1000);
   var refreshPeriod = get_refresh_period_days() * 24 * 60 * 60;
   lightRatio = 0;
@@ -28,22 +28,22 @@ async function add_sura_cells() {
     var timeStampsArray = surasHistory[suraIndex].history;
     //TODO if not refreshed before make it zero instead of (currentTimeStamp - refreshPeriod) and condition timeDifferenceRatio value to be zero too
     //TODO use minimum timestamp in all suras otherwise save current time as that minimum for later calculations
-    var maxStamp = timeStampsArray.length > 0
+    var previous_refresh_time_stamp = timeStampsArray.length > 0
       ? timeStampsArray[timeStampsArray.length - 1]
       : get_initial_local_object("min_timestamp", currentTimeStamp);
     var timeDifferenceRatio = 1 -
       ((currentTimeStamp -
-        (maxStamp == 0 ? currentTimeStamp - refreshPeriod : maxStamp)) *
+        (previous_refresh_time_stamp == 0 ? currentTimeStamp - refreshPeriod : previous_refresh_time_stamp)) *
         1.0) /
       refreshPeriod;
     timeDifferenceRatio = timeDifferenceRatio < 0 ? 0 : timeDifferenceRatio;
     lightRatio +=
       ((timeDifferenceRatio * suraCharCount[suraIndex - 1]) /
-        fullKhatmaCharCount) *
+      full_khatma_char_count) *
       100.0;
     conquerRatio +=
-      currentTimeStamp - maxStamp < refreshPeriod
-        ? (suraCharCount[suraIndex - 1] / fullKhatmaCharCount) * 100.0
+      currentTimeStamp - previous_refresh_time_stamp < refreshPeriod
+        ? (suraCharCount[suraIndex - 1] / full_khatma_char_count) * 100.0
         : 0;
     var greenComponent = (255.0 * timeDifferenceRatio).toFixed(0);
     if (timeStampsArray.length > 0) {
@@ -55,8 +55,8 @@ async function add_sura_cells() {
       surasColorTable[suraIndex - 1] = 0;
     }
     colorHash[cellIndex] = rgbToHex(0, greenComponent, 0);
-    var daysElapsed = ((currentTimeStamp - maxStamp) /
-      (60 * 60 * 24.0)).toFixed(0);
+    var daysElapsed = ((currentTimeStamp - previous_refresh_time_stamp) /
+      (60 * 60 * 24.0));
       elapsed_days[suraIndex - 1] = Number(daysElapsed);
     if (selected_suras.indexOf(suraIndex) !== -1) {
       element.classList.add("selected");
@@ -82,7 +82,7 @@ async function add_sura_cells() {
     element.appendChild(header);
 
     var suraName = SuraNamesEn[suraIndex - 1];
-    var daysElapsedText = daysElapsed == 0 ? "" : get_humanized_period(daysElapsed);
+    var daysElapsedText = get_humanized_period(daysElapsed);
 
     var suraNameElement = document.createElement("div");
     var suraNameElementAr = document.createElement("div");
@@ -91,16 +91,19 @@ async function add_sura_cells() {
     suraNameElementAr.className = "sura_name_label";
     switch (surasHistory[suraIndex].memorization) {
       case MEMORIZATION_STATE_MEMORIZED:
-        if (daysElapsed >= MAX_ELAPSED_DAYS_FOR_MEMORIZED_SURAS || daysElapsed >= get_refresh_period_days()) {
+        if (daysElapsed >= get_memorized_refresh_period_days() || daysElapsed >= get_refresh_period_days()) {
           suraNameElement.className = "old-memorized sura_name_label";
+          debts["review"] += suraCharCount[suraIndex - 1];
         }
         else {
           suraNameElement.className = "memorized sura_name_label";
-          suraNameElement.style.backgroundColor = "rgba(255, 255, 0," + (MAX_ELAPSED_DAYS_FOR_MEMORIZED_SURAS - daysElapsed) / MAX_ELAPSED_DAYS_FOR_MEMORIZED_SURAS + ")";
         }
         break;
       default:
         suraNameElement.className = "not_memorized sura_name_label";
+        if (daysElapsed >= get_refresh_period_days()) {
+          debts["read"] += suraCharCount[suraIndex - 1];
+        }
     }
     if (timeDifferenceRatio >= 0.5) {
       element.style.color = "black";
@@ -131,11 +134,14 @@ async function add_sura_cells() {
       $(child).addClass("noselect");
     })
   
-    element.onclick = function() {
-      click_handler(this.index);
+    element.onclick = function(event) {
+      console.log(event);
+      play_mouse_enter_sound();
+      click_handler(this.index, event);
     };
 
     element.onmouseenter = function(event) {
+      play_mouse_enter_sound();
       if(event.buttons) {
         toggle_select(this.index);
       }
@@ -146,9 +152,9 @@ async function add_sura_cells() {
   buildingSurasFlag = false;
   $("#reviews").addClass("animated bounce");
   setup_light_days_options();
+  setup_memorized_light_days_options();
   updateDeselectButton();
   update_selection_score();
-  update_charts();
   update_score();
   //periodically refresh
   if (periodicRefreshTimerRef != null) {
@@ -177,29 +183,38 @@ function do_click() {
     return;
   }
 
-  console.log("Delayed click event on cell: ", event.index);
   if (event.alt_pressed) {
     $(".sura-" + event.index).addClass("animated bounceIn");
     toggle_memorization(event.index);
   } else if(event.shift_pressed) {
-    // window.open("http://quran.ksu.edu.sa/index.php?l=en#aya=" + event.index + "_1&m=hafs&qaree=tunaiji&trans=en_sh");
+    open_ayat_for_sura(event.index);
   } else {
     toggle_select(event.index);
   }
 }
 
+function open_ayat_for_sura(sura_index) {
+  window.open( 
+    "http://quran.ksu.edu.sa/index.php?l=en#aya=" + sura_index + "_1&m=hafs&qaree=absulbasit.m&trans=en_sh", "_blank"); 
+}
+
 //TODO fix this: this.index how to pass parameter
-var click_handler = function (index) {
-  if (click_event_queue.length > 0 && click_event_queue[0].index == index) {
-    console.log("double click detected.");
+var click_handler = function (index, e) {
+  if (is_mobile || click_event_queue.length > 0 && click_event_queue[0].index == index) {
     do_double_click(index);
   } else {
     var click_event = {};
     click_event.index = index;
+    alt_pressed = e.altKey;
+    shift_pressed = e.shiftKey;
+    ctrl_pressed = e.ctrlKey;
+    cmd_pressed = e.metaKey;
+
     click_event.alt_pressed = alt_pressed;
     click_event.shift_pressed = shift_pressed;
     click_event.ctrl_pressed = ctrl_pressed;
     click_event.cmd_pressed = cmd_pressed;
+    click_event.event = e;
 
     click_event_queue.unshift(click_event);
     setTimeout(do_click, SINGLE_CLICK_EVENT_DAMPING_DELAY);

@@ -1,9 +1,9 @@
 //Do Refresh at midnight
 var now = new Date();
 var eta = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 0) - now;
-setTimeout(function(){
-  add_sura_cells();
-}, eta);
+// setTimeout(function(){
+//   add_sura_cells();
+// }, eta);
 
 function initCells() {
   user = firebase.auth().currentUser;
@@ -34,7 +34,6 @@ function initCells() {
     } else {
       lastTransactionTimeStamp = 0;
       set_local_storage_object("lastTransactionTimeStamp", 0);
-      console.log("LocalStorage has no/invalid SurasHistory information: \n", surasHistory);
     }
 
     console.log("grapping transactions after ", lastTransactionTimeStamp);
@@ -104,6 +103,7 @@ function initCells() {
       sortedTimestampSuraArray = [];
       refreshCountSortedSuraArray = [];
       add_sura_cells();
+      click_light_cells_tab();
       bounceList.forEach(function (suraIndex) {
         bounce(suraIndex);
       });

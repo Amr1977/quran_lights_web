@@ -31,7 +31,7 @@ function toggle_select(suraIndex) {
       selected_total += suraCharCount[selected_suras[i] - 1];
     }
   
-    document.getElementById("selected_total").textContent = " Selected Amount: [" + formatter.format(selected_total) + "]";
+    document.getElementById("selected_total").textContent = " Selected Amount: [" + readableFormat(selected_total) + "]";
   }
 
   function deselectAll() {
@@ -58,6 +58,5 @@ function toggle_select(suraIndex) {
 
     var daysElapsed = ((currentTimeStamp - maxStamp) /
       (60 * 60 * 24.0)).toFixed(0);
-    console.log("(daysElapsed >= refreshPeriodDays): " + (daysElapsed >= get_refresh_period_days()));
     return  (daysElapsed >= get_refresh_period_days());
   }
