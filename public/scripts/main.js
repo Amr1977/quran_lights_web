@@ -101,6 +101,10 @@ function setup_memorized_light_days_options(){
   memorized_light_days_selection_element.value = get_memorized_refresh_period_days();
 }
 
+function setup_reverse_sort_order_checkbox(){
+  document.getElementById('reverse_sura_sort_order_checkbox').checked = get_reverse_sort_order();
+}
+
 function show_sign_in_only_elements() {
   for (var i = 0; i < SIGN_IN_ONLY_ELEMENTS.length; i++) {
     var element = document.getElementById(SIGN_IN_ONLY_ELEMENTS[i]);

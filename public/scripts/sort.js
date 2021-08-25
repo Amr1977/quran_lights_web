@@ -1,3 +1,14 @@
+function get_reverse_sort_order() {
+  var is_reverse_sort_order = get_initial_local_object("reverse_sort_order", false);;
+  console.log("is_reverse_sort_order: ", is_reverse_sort_order);
+  return is_reverse_sort_order;
+};
+
+function set_reverse_sort_order(value) {
+  set_local_storage_object("reverse_sort_order", value);
+  add_sura_cells();
+}
+
 function set_sort_order() {
   set_sort_order_with_value(document.getElementById("sort_order").value);
   add_sura_cells();
@@ -16,9 +27,7 @@ function  set_sort_order_with_value(value)  {
 var revalationSortedSuraArray = [];
 
 function createRevalationSuraOrderArray() {
-  if (revalationSortedSuraArray.length != 0) {
-    return;
-  }
+  revalationSortedSuraArray = [];
   for (suraIndex = 1; suraIndex <= 114; suraIndex++) {
     var suraWithCharCountRecord = {
       suraID: suraIndex,
@@ -31,14 +40,16 @@ function createRevalationSuraOrderArray() {
     revalationSortedSuraArray,
     "revalOrder"
   );
+
+  if (get_reverse_sort_order()) {
+    revalationSortedSuraArray.reverse();
+  }
 }
 
 var verseCountSortedSuraArray = [];
 
 function createVerseCountSuraOrderArray() {
-  if (verseCountSortedSuraArray.length != 0) {
-    return;
-  }
+  verseCountSortedSuraArray = []
   for (suraIndex = 1; suraIndex <= 114; suraIndex++) {
     var suraWithVerseCountRecord = {
       suraID: suraIndex,
@@ -51,14 +62,16 @@ function createVerseCountSuraOrderArray() {
     verseCountSortedSuraArray,
     "verseCount"
   );
+
+  if (get_reverse_sort_order()) {
+    verseCountSortedSuraArray.reverse();
+  }
 }
 
 var characterCountSortedSuraArray = [];
 
 function createCharCountSuraOrderArray() {
-  if (characterCountSortedSuraArray.length != 0) {
-    return;
-  }
+  characterCountSortedSuraArray = [];
   for (suraIndex = 1; suraIndex <= 114; suraIndex++) {
     var suraWithCharCountRecord = {
       suraID: suraIndex,
@@ -71,14 +84,16 @@ function createCharCountSuraOrderArray() {
     characterCountSortedSuraArray,
     "charCount"
   );
+
+  if (get_reverse_sort_order()) {
+    characterCountSortedSuraArray.reverse();
+  }
 }
 
 var wordCountSortedSuraArray = [];
 
 function createWordCountSuraOrderArray() {
-  if (wordCountSortedSuraArray.length != 0) {
-    return;
-  }
+  wordCountSortedSuraArray = [];
   for (suraIndex = 1; suraIndex <= 114; suraIndex++) {
     var suraWithWordCountRecord = {
       suraID: suraIndex,
@@ -88,12 +103,14 @@ function createWordCountSuraOrderArray() {
   }
 
   wordCountSortedSuraArray = sortByKey(wordCountSortedSuraArray, "wordCount");
+
+  if (get_reverse_sort_order()) {
+    wordCountSortedSuraArray.reverse();
+  }
 }
 
 function createSortedTimeStampSuraArray() {
-  if (sortedTimestampSuraArray.length != 0) {
-    return;
-  }
+  sortedTimestampSuraArray = [];
 
   for (suraIndex = 1; suraIndex <= 114; suraIndex++) {
     var timeStampsArray =
@@ -112,14 +129,16 @@ function createSortedTimeStampSuraArray() {
   }
 
   sortedTimestampSuraArray = sortByKey(sortedTimestampSuraArray, "timeStamp");
+
+  if (get_reverse_sort_order()) {
+    sortedTimestampSuraArray.reverse();
+  }
 }
 
 var refreshCountSortedSuraArray = [];
 
 function createSortedRefreshCountSuraArray() {
-  if (refreshCountSortedSuraArray.length != 0) {
-    return;
-  }
+  refreshCountSortedSuraArray = [];
   for (suraIndex = 1; suraIndex <= 114; suraIndex++) {
     var timeStampsArray =
       surasHistory[suraIndex] != null && surasHistory[suraIndex].history != null
@@ -137,6 +156,10 @@ function createSortedRefreshCountSuraArray() {
     refreshCountSortedSuraArray,
     "refreshCount"
   );
+
+  if (get_reverse_sort_order()) {
+    refreshCountSortedSuraArray.reverse();
+  }
 }
 
 function sortedSuraIndexConverter(index) {
@@ -178,4 +201,9 @@ function sortedSuraIndexConverter(index) {
     default:
       return index;
   }
+}
+
+function apply_reverse_sort_order(){
+  set_reverse_sort_order(!get_reverse_sort_order());
+  add_sura_cells();
 }

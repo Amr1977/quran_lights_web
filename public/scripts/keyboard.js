@@ -57,6 +57,11 @@ function cacheIt(event) {
     deselectAll();
   }
 
+  if (event.key == "x" && event.type == "keyup") {
+    apply_reverse_sort_order();
+    add_sura_cells();
+  }
+
 }
 document.onkeydown = cacheIt;
 document.onkeyup = cacheIt;

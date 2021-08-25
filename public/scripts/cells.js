@@ -151,6 +151,7 @@ async function add_sura_cells() {
   }
   buildingSurasFlag = false;
   $("#reviews").addClass("animated bounce");
+  setup_reverse_sort_order_checkbox();
   setup_light_days_options();
   setup_memorized_light_days_options();
   updateDeselectButton();
