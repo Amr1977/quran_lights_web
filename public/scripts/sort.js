@@ -166,6 +166,9 @@ function sortedSuraIndexConverter(index) {
   switch (sort_order) {
     //Normal sura order
     case SORT_ORDER_NORMAL:
+      if (get_reverse_sort_order()) {
+        return 114 - index + 1;
+      }
       return index;
 
     //light order
