@@ -21,36 +21,36 @@
     <!-- <link rel="stylesheet" type="text/css" href="font-awesome.css"/> -->
 
     <title>Quran Lights</title>
-    <link rel="stylesheet" href="styles.css?v=1629932469">
+    <link rel="stylesheet" href="styles.css?v=1630713157">
 
     <script async src="https://c6.patreon.com/becomePatronButton.bundle.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
-    <script src="scripts/suras_data.js?v=1629932469"></script>
-    <script src="scripts/constants.js?v=1629932469"></script>
-    <script src="scripts/utils.js?v=1629932469"></script>
-    <script src="scripts/state.js?v=1629932469"></script>
-    <script src="scripts/sync.js?v=1629932469"></script>
-    <script src="scripts/main.js?v=1629932469"></script>
-    <script src="scripts/tabs.js?v=1629932469"></script>
-    <script src="scripts/init_app.js?v=1629932469"></script>
-    <script src="scripts/init_cells.js?v=1629932469"></script>
-    <script src="scripts/keyboard.js?v=1629932469"></script>
-    <script src="scripts/memorization.js?v=1629932469"></script>
-    <script src="scripts/bright_days_dark_days_chart.js?v=1629932469"></script>
-    <script src="scripts/sort.js?v=1629932469"></script>
-    <script src="scripts/treemap.js?v=1629932469"></script>
-    <script src="scripts/guage.js?v=1629932469"></script>
-    <script src="scripts/khatma.js?v=1629932469"></script>
-    <script src="scripts/time_series.js?v=1629932469"></script>
-    <script src="scripts/import_and_export.js?v=1629932469"></script>
-    <script src="scripts/audio.js?v=1629932469"></script>
-    <script src="scripts/account.js?v=1629932469"></script>
-    <script src="scripts/selection.js?v=1629932469"></script>
-    <script src="scripts/score.js?v=1629932469"></script>
-    <script src="scripts/cells.js?v=1629932469"></script>
-    <script src="scripts/login.js?v=1629932469"></script>
-    <script src="scripts/charts.js?v=1629932469"></script>
-    <script src="scripts/radar.js?v=1629932469"></script>
+    <script src="scripts/suras_data.js?v=1630713157"></script>
+    <script src="scripts/constants.js?v=1630713157"></script>
+    <script src="scripts/utils.js?v=1630713157"></script>
+    <script src="scripts/state.js?v=1630713157"></script>
+    <script src="scripts/sync.js?v=1630713157"></script>
+    <script src="scripts/main.js?v=1630713157"></script>
+    <script src="scripts/tabs.js?v=1630713157"></script>
+    <script src="scripts/init_app.js?v=1630713157"></script>
+    <script src="scripts/init_cells.js?v=1630713157"></script>
+    <script src="scripts/keyboard.js?v=1630713157"></script>
+    <script src="scripts/memorization.js?v=1630713157"></script>
+    <script src="scripts/bright_days_dark_days_chart.js?v=1630713157"></script>
+    <script src="scripts/sort.js?v=1630713157"></script>
+    <script src="scripts/treemap.js?v=1630713157"></script>
+    <script src="scripts/guage.js?v=1630713157"></script>
+    <script src="scripts/khatma.js?v=1630713157"></script>
+    <script src="scripts/time_series.js?v=1630713157"></script>
+    <script src="scripts/import_and_export.js?v=1630713157"></script>
+    <script src="scripts/audio.js?v=1630713157"></script>
+    <script src="scripts/account.js?v=1630713157"></script>
+    <script src="scripts/selection.js?v=1630713157"></script>
+    <script src="scripts/score.js?v=1630713157"></script>
+    <script src="scripts/cells.js?v=1630713157"></script>
+    <script src="scripts/login.js?v=1630713157"></script>
+    <script src="scripts/charts.js?v=1630713157"></script>
+    <script src="scripts/radar.js?v=1630713157"></script>
 
 
     <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0" />
@@ -340,24 +340,53 @@
                             </span>
                             <span id="selected_total">
                             </span>
+
+                            <br>
+                            <span class="tooltip">
+                                Highest day Score:
+                                <span class="tooltiptext"> Highest daily score recorded so far
+                                </span>
+                                <span id="highest_day_score"></span>
+                            </span>
+
+                            <br>
+                            <span class="tooltip">
+                                Highest month Score:
+                                <span class="tooltiptext"> Highest monthly score recorded so far
+                                </span>
+                                <span id="highest_month_score"></span>
+                            </span>
+
+                            <br>
+                            <span class="tooltip">
+                                Highest year Score:
+                                <span class="tooltiptext"> Highest year score recorded so far
+                                </span>
+                                <span id="highest_year_score"></span>
+                            </span>
+
+                            <br>
                             <br>
                             <span class="tooltip">
                                 Review Debt:
-                                <span class="tooltiptext"> Sum score of memorized Surahs exceeding allowed light days </span>
-                                <span id="review_debt"></span>
-                                    
+                                <span class="tooltiptext"> Sum score of memorized Surahs exceeding allowed light days
                                 </span>
+                                <span id="review_debt"></span>
+                            </span>
+
                             <br>
                             <span class="tooltip">
                             Reading Debt:
                            <span class="tooltiptext"> Sum score of non-memorized Surahs exceeding allowed light days </span>
-                            <span id="read_debt">
+                            <span id="read_debt"></span>
                                 
                             </span>
+
                             <br>
-                            <span>
+                            <span class="tooltip">
                             Total Debt:
-                            <span id="total_debt">
+                            <span class="tooltiptext"> Sum score of all Surahs exceeding allowed light days </span>
+                            <span id="total_debt"></span>
                             </span>
 
                             <br>
@@ -633,7 +662,7 @@
             <img src="images/yummly.png" alt="Yummly" />
         </a>
     </div>
-    <div class="text">V0.1629932469</div>
+    <div class="text">V0.1630713157</div>
 
     <!-- <div style="background-color: blanchedalmond; width: 100%;">
         <div class="fb-like" data-href="https://quranlights.net" data-width="" data-layout="standard" data-action="like"

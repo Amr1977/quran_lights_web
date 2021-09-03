@@ -52,6 +52,14 @@ function getScore() {
     document.getElementById("read_debt").textContent = readableFormat(debts["read"]);
     document.getElementById("total_debt").textContent = readableFormat(debts["read"] + debts["review"]);
 
+    time_series_score_data(0);
+    time_series_score_data(1);
+    time_series_score_data(2);
+
+    document.getElementById("highest_day_score").textContent = readableFormat(scores["day_high_score"]);
+    document.getElementById("highest_month_score").textContent = readableFormat(scores["month_high_score"]);
+    document.getElementById("highest_year_score").textContent = readableFormat(scores["year_high_score"]);
+
     animate_score();
   }
 

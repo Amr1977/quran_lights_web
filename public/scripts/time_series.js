@@ -37,7 +37,7 @@ async function drawTimeSeriesChart(divID, mode) {
       break;
 
     default:
-      data = time_series_score_date(mode);
+      data = time_series_score_data(mode);
   }
 
 
@@ -133,7 +133,7 @@ async function drawTimeSeriesChart(divID, mode) {
 *
 * @param {*} mode 0 daily, 1 monthly, 2 yearly
 */
-function time_series_score_date(mode) {
+function time_series_score_data(mode) {
   //TODO add zeros for missing days
   var allEntries = [];
   dark_days_map = {};
@@ -160,6 +160,11 @@ function time_series_score_date(mode) {
 
   var periodStartTimestamp = sortedEntries[0][0];
   var periodEndTimestamp = sortedEntries[0][0];
+
+  var day_high_score = 0;
+  var month_high_score = 0;
+  var year_high_score = 0;
+
   for (var index = 0; index < sortedEntries.length; index++) {
     var date = new Date(sortedEntries[index][0]);
     var currentDate = date.getDate();
@@ -177,13 +182,39 @@ function time_series_score_date(mode) {
       var periodTimestamp = (periodEndTimestamp - periodStartTimestamp) / 2 + periodStartTimestamp;
       periodStartTimestamp = sortedEntries[index][0];
 
-      scoreArray.push([periodTimestamp, periodScore]);
-
+      if(periodEndTimestamp == 1610296531000) {
+        console.log("filter: ", sortedEntries[index][0]);
+      } else {
+        scoreArray.push([periodTimestamp, periodScore]);
+        if(mode == DAILY_SCORE_MODE) {
+          if (periodScore > day_high_score) {
+            day_high_score = periodScore;
+          }
+        }
+  
+        if(mode == MONTHLY_SCORE_MODE) {
+          if (periodScore > month_high_score) {
+            month_high_score = periodScore;
+          }
+        }
+  
+        if(mode == YEARLY_SCORE_MODE) {
+          if (periodScore > year_high_score) {
+            year_high_score = periodScore;
+          }
+        }
+      }
+      
       if (mode !== DARK_DAYS_MODE) {
         periodScore = sortedEntries[index][1];
       }
     } else {
-      periodScore += sortedEntries[index][1];
+      if(periodEndTimestamp == 1610296531000) {
+        console.log("filter: ", sortedEntries[index][0]);
+      } else {
+        periodScore += sortedEntries[index][1];
+      }
+      
       if (index == (sortedEntries.length - 1)) {
         scoreArray.push([sortedEntries[index][0], periodScore]);
       }
@@ -192,6 +223,19 @@ function time_series_score_date(mode) {
     prevDate = currentDate;
     prevMonth = currentMonth;
     prevYear = currentYear;
+  }
+
+  if (mode == DAILY_SCORE_MODE) {
+    scores["day_high_score"] = day_high_score;
+    console.log("day high score ", day_high_score)
+  }
+
+  if (mode == MONTHLY_SCORE_MODE) {
+    scores["month_high_score"] = month_high_score;
+  }
+
+  if (mode == YEARLY_SCORE_MODE) {
+    scores["year_high_score"] = year_high_score;
   }
 
   return scoreArray;
