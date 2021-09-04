@@ -1,3 +1,5 @@
+var menu;
+
 var click_event_queue = [];
 var debts = {"reading_debt": 0, "review_debt": 0};
 //TODO needs refactor!!!
@@ -89,6 +91,7 @@ async function add_sura_cells() {
     suraNameElement.className = "sura_name_label";
     suraNameElementAr.textContent = SuraNamesAr[suraIndex - 1];
     suraNameElementAr.className = "sura_name_label";
+    var memorization_sbmenu;
     switch (surasHistory[suraIndex].memorization) {
       case MEMORIZATION_STATE_MEMORIZED:
         if (daysElapsed >= get_memorized_refresh_period_days() || daysElapsed >= get_refresh_period_days()) {
@@ -123,7 +126,7 @@ async function add_sura_cells() {
     element.appendChild(charCountElement);
     //Days elapsed
     if (daysElapsed != 0) {
-      var daysElapsedElement = document.createElement("span"); //document.createTextNode(daysElapsedText);
+      var daysElapsedElement = document.createElement("span");
       daysElapsedElement.className = "elapsed_days";
       daysElapsedElement.textContent = daysElapsedText;
       // daysElapsedElement.id = "days";
@@ -139,6 +142,45 @@ async function add_sura_cells() {
       play_mouse_enter_sound();
       click_handler(this.index, event);
     };
+
+    // var open_context_menu = 
+
+    element.oncontextmenu = function (event) {
+      console.log("context on ", this.index);
+      event.index = this.index;
+      menu = new ContextMenu({
+        'theme': 'default', // or 'blue'
+        'items': [
+          {
+            'name': 'Refresh', action: function () {
+              console.log("Refresh command fired ", event.index );
+              do_double_click(event.index);
+            }
+          },
+          {
+            'name': 'Memorize', action: function () {
+              console.log("Memeorize command fired ", event.index);
+              toggle_memorization(event.index);
+            }
+          }
+        ]
+      });
+
+      // prevent default event
+      event.preventDefault();
+    
+      // open the menu with a delay
+      const time = menu.isOpen() ? 100 : 0;
+    
+      // hide the current menu (if any)
+      menu.hide();
+    
+      // display menu at mouse click position
+      setTimeout(() => { menu.show(event.pageX, event.pageY) }, time);
+
+      // close the menu if the user clicks anywhere on the screen
+      document.addEventListener('click', hideContextMenu, false);
+    }
 
     element.onmouseenter = function(event) {
       play_mouse_enter_sound();
@@ -162,6 +204,14 @@ async function add_sura_cells() {
     clearInterval(periodicRefreshTimerRef);
   }
   periodicRefreshTimerRef = setInterval(add_sura_cells, AUTO_REFRESH_PERIOD);
+}
+
+var hideContextMenu = function (event) {
+  // hide the menu
+  menu.hide();
+
+  // remove the listener from the document
+  document.removeEventListener('click', hideContextMenu);
 }
 
 function do_double_click(index){
