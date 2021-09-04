@@ -148,6 +148,9 @@ async function add_sura_cells() {
     element.oncontextmenu = function (event) {
       console.log("context on ", this.index);
       event.index = this.index;
+      if (menu) {
+        menu.hide();
+      }
       menu = new ContextMenu({
         'theme': 'default', // or 'blue'
         'items': [
@@ -158,7 +161,7 @@ async function add_sura_cells() {
             }
           },
           {
-            'name': 'Memorize', action: function () {
+            'name': 'Toggle Memorize', action: function () {
               console.log("Memeorize command fired ", event.index);
               toggle_memorization(event.index);
             }
