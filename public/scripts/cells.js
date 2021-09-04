@@ -165,6 +165,12 @@ async function add_sura_cells() {
               console.log("Memeorize command fired ", event.index);
               toggle_memorization(event.index);
             }
+          },
+          {
+            'name': 'Open for Reading', action: function () {
+              console.log("Open for read command fired ", event.index);
+              open_ayat_for_sura(event.index);
+            }
           }
         ]
       });
