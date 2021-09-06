@@ -32,6 +32,20 @@ body {
     color: black;
 }
 
+.was_memorized {
+  /*color: black;*/
+  background-color: rgb(224, 223, 142);
+  border-radius: 10px;
+  color: black;
+}
+
+.being_memorized {
+  /*color: black;*/
+  background-color: rgb(224, 135, 154);
+  border-radius: 10px;
+  color: black;
+}
+
 .old-memorized {
     color: white;
     background-color: red;

@@ -91,7 +91,6 @@ async function add_sura_cells() {
     suraNameElement.className = "sura_name_label";
     suraNameElementAr.textContent = SuraNamesAr[suraIndex - 1];
     suraNameElementAr.className = "sura_name_label";
-    var memorization_sbmenu;
     switch (surasHistory[suraIndex].memorization) {
       case MEMORIZATION_STATE_MEMORIZED:
         if (daysElapsed >= get_memorized_refresh_period_days() || daysElapsed >= get_refresh_period_days()) {
@@ -102,6 +101,16 @@ async function add_sura_cells() {
           suraNameElement.className = "memorized sura_name_label";
         }
         break;
+
+        case MEMORIZATION_STATE_WAS_MEMORIZED:
+          suraNameElement.className = "was_memorized sura_name_label";
+          break;
+
+          case MEMORIZATION_STATE_BEING_MEMORIZED:
+          suraNameElement.className = "being_memorized sura_name_label";
+          break;
+
+
       default:
         suraNameElement.className = "not_memorized sura_name_label";
         if (daysElapsed >= get_refresh_period_days()) {
@@ -161,9 +170,27 @@ async function add_sura_cells() {
             }
           },
           {
-            'name': 'Toggle Memorize', action: function () {
+            'name': 'Mark as Memorized', action: function () {
               console.log("Memeorize command fired ", event.index);
-              toggle_memorization(event.index);
+              set_memorization(event.index, MEMORIZATION_STATE_MEMORIZED);
+            }
+          },
+          {
+            'name': 'Mark as Not Memorized', action: function () {
+              console.log("Memeorize command fired ", event.index);
+              set_memorization(event.index, MEMORIZATION_STATE_NOT_MEMORIZED);
+            }
+          },
+          {
+            'name': 'Mark as Being Memorized', action: function () {
+              console.log("Memeorize command fired ", event.index);
+              set_memorization(event.index, MEMORIZATION_STATE_BEING_MEMORIZED);
+            }
+          },
+          {
+            'name': 'Mark as WAS Memorized', action: function () {
+              console.log("Memeorize command fired ", event.index);
+              set_memorization(event.index, MEMORIZATION_STATE_WAS_MEMORIZED);
             }
           },
           {
