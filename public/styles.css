@@ -34,16 +34,16 @@ body {
 
 .was_memorized {
   /*color: black;*/
-  background-color: rgb(224, 223, 142);
+  background-color: rgba(255, 255, 0, 0.5);
   border-radius: 10px;
   color: black;
 }
 
 .being_memorized {
   /*color: black;*/
-  background-color: rgb(224, 135, 154);
+  background-color: orange;
   border-radius: 10px;
-  color: black;
+  color: white;
 }
 
 .old-memorized {
