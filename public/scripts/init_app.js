@@ -85,21 +85,28 @@ function initApp() {
   //document.getElementById('sign-in-with-twitter').addEventListener('click', signInWithTwitter, false);
 }
 
-const messaging = firebase.messaging();
-messaging.getToken({vapidKey: "BIkW7qfzIEoSdvPGahaiNASloY70ZJMxsAqRJGR2wAp2CTRVZ07YolISvz2PSw9otCAYpgVCh1nVFWs9Eff7iQo"});
+// const messaging = firebase.messaging();
+
+// messaging.requestPermission().then(function () {
+//   console.log("Notification permission granted");
+//   //messaging.getToken({ vapidKey: "BIkW7qfzIEoSdvPGahaiNASloY70ZJMxsAqRJGR2wAp2CTRVZ07YolISvz2PSw9otCAYpgVCh1nVFWs9Eff7iQo" });
+
+// }).catch(function (error) {
+//   console.log(error)
+// });
 
 // Get registration token. Initially this makes a network call, once retrieved
 // subsequent calls to getToken will return from cache.
-messaging.getToken({ vapidKey: 'BIkW7qfzIEoSdvPGahaiNASloY70ZJMxsAqRJGR2wAp2CTRVZ07YolISvz2PSw9otCAYpgVCh1nVFWs9Eff7iQo' }).then((currentToken) => {
-  if (currentToken) {
-    // Send the token to your server and update the UI if necessary
-    // ...
-  } else {
-    // Show permission request UI
-    console.log('No registration token available. Request permission to generate one.');
-    // ...
-  }
-}).catch((err) => {
-  console.log('An error occurred while retrieving token. ', err);
-  // ...
-});
+// messaging.getToken({ vapidKey: 'BIkW7qfzIEoSdvPGahaiNASloY70ZJMxsAqRJGR2wAp2CTRVZ07YolISvz2PSw9otCAYpgVCh1nVFWs9Eff7iQo' }).then((currentToken) => {
+//   if (currentToken) {
+//     // Send the token to your server and update the UI if necessary
+//     // ...
+//   } else {
+//     // Show permission request UI
+//     console.log('No registration token available. Request permission to generate one.');
+//     // ...
+//   }
+// }).catch((err) => {
+//   console.log('An error occurred while retrieving token. ', err);
+//   // ...
+// });
