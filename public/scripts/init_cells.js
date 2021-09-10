@@ -69,7 +69,7 @@ function initCells() {
           }
           if (Number(transactionTimeStamp) > Number(lastTransactionTimeStamp)) {
             lastTransactionTimeStamp = transactionTimeStamp;
-            set_local_storage_object("lastTransactionTimeStamp", lastTransactionTimeStamp);
+            // set_local_storage_object("lastTransactionTimeStamp", lastTransactionTimeStamp);
           }
           var transactionRecord = childSnapshot.val();
           var suraIndex = transactionRecord.sura;

@@ -84,3 +84,22 @@ function initApp() {
   //document.getElementById('sign-in-with-facebook').addEventListener('click', signInWithFacebook, false);
   //document.getElementById('sign-in-with-twitter').addEventListener('click', signInWithTwitter, false);
 }
+
+const messaging = firebase.messaging();
+messaging.getToken({vapidKey: "BIkW7qfzIEoSdvPGahaiNASloY70ZJMxsAqRJGR2wAp2CTRVZ07YolISvz2PSw9otCAYpgVCh1nVFWs9Eff7iQo"});
+
+// Get registration token. Initially this makes a network call, once retrieved
+// subsequent calls to getToken will return from cache.
+messaging.getToken({ vapidKey: 'BIkW7qfzIEoSdvPGahaiNASloY70ZJMxsAqRJGR2wAp2CTRVZ07YolISvz2PSw9otCAYpgVCh1nVFWs9Eff7iQo' }).then((currentToken) => {
+  if (currentToken) {
+    // Send the token to your server and update the UI if necessary
+    // ...
+  } else {
+    // Show permission request UI
+    console.log('No registration token available. Request permission to generate one.');
+    // ...
+  }
+}).catch((err) => {
+  console.log('An error occurred while retrieving token. ', err);
+  // ...
+});
