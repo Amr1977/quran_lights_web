@@ -21,7 +21,7 @@ function get_flat_timestamp_score_array() {
 /**
  * 
  * @param {*} divID 
- * @param {*} mode 0 dor days, 1 for months, 2 for years
+ * @param {*} mode 0 dor days, 1 for months, 2 for years, 3 refresh count times score
  */
 
 async function drawTimeSeriesChart(divID, mode) {
@@ -36,12 +36,20 @@ async function drawTimeSeriesChart(divID, mode) {
       data = light_days_data();
       break;
 
+      case REFRESH_COUNT_TIME_SCORE_MODE:
+        data = refresh_count_times_score();
+        break;
+
+
     default:
       data = time_series_score_data(mode);
   }
 
 
   var chartTitle;
+  var xAxe = {
+    type: "datetime"
+  };
   switch (mode) {
     case DAILY_SCORE_MODE://daily chart
       chartTitle = "Daily Revenue";
@@ -62,6 +70,15 @@ async function drawTimeSeriesChart(divID, mode) {
     case LIGHT_DAYS_MODE:
       chartTitle = "Bright Days";
       break;
+
+      case REFRESH_COUNT_TIME_SCORE_MODE:
+        chartTitle = "Surah Score";
+        xAxe = { categories: SuraNamesEn };
+        break;
+
+        default:
+          chartTitle = "Title";
+
   }
   Highcharts.chart(divID, {
     chart: {
@@ -76,9 +93,7 @@ async function drawTimeSeriesChart(divID, mode) {
           ? "Click and drag in the plot area to zoom in"
           : "Pinch the chart to zoom in"
     },
-    xAxis: {
-      type: "datetime"
-    },
+    xAxis: xAxe,
     yAxis: {
       title: {
         text: chartTitle
@@ -131,7 +146,7 @@ async function drawTimeSeriesChart(divID, mode) {
 
 /**
 *
-* @param {*} mode 0 daily, 1 monthly, 2 yearly
+* @param {*} mode 0 daily, 1 monthly, 2 yearly, 3 RefreshCountxScoreChart
 */
 function time_series_score_data(mode) {
   //TODO add zeros for missing days
@@ -236,6 +251,17 @@ function time_series_score_data(mode) {
 
   if (mode == YEARLY_SCORE_MODE) {
     scores["year_high_score"] = year_high_score;
+  }
+
+  return scoreArray;
+}
+
+function refresh_count_times_score(){
+  var scoreArray = [];
+  
+  for (let cellIndex = 1; cellIndex <= 114; cellIndex++) {
+    var history = surasHistory[cellIndex].history;
+    scoreArray.push([SuraNamesEn[cellIndex - 1], history.length * suraCharCount[cellIndex - 1]]);
   }
 
   return scoreArray;

@@ -12,6 +12,7 @@ const MONTHLY_SCORE_MODE = 1;
 const YEARLY_SCORE_MODE  = 2;
 const DARK_DAYS_MODE = 3;
 const LIGHT_DAYS_MODE = 4;
+const REFRESH_COUNT_TIME_SCORE_MODE = 5;
 
 const SORT_ORDER_NORMAL = "normal";
 const SORT_ORDER_REVELATION = "revelation_order";

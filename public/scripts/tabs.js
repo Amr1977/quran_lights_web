@@ -69,6 +69,10 @@ function openTab(id) {
           drawTimeSeriesChart("dark_days_chart", LIGHT_DAYS_MODE);
         break;
 
+        case "sura_score_chart_tab":
+          drawTimeSeriesChart("sura-score-chart", REFRESH_COUNT_TIME_SCORE_MODE);
+        break;
+
         default: ;
     }
   }
