@@ -21,6 +21,7 @@ async function add_sura_cells() {
     var element = document.createElement("button");
     element.index = suraIndex;
     element.className = "sura-cell" + " sura-" + suraIndex + " animated bounceIn";
+    element.id = "sura-" + suraIndex;
     if (surasHistory[suraIndex] == null) {
       surasHistory[suraIndex] = {};
       surasHistory[suraIndex].history = [];
@@ -74,11 +75,13 @@ async function add_sura_cells() {
     var sura_verse_count_element = document.createElement("div");
     sura_verse_count_element.className = "sura_verse_count";
     sura_verse_count_element.textContent = verseCount + "V";
+    add_tooltip(sura_verse_count_element, "Verses count");
     header.appendChild(sura_verse_count_element);
 
     var sura_index_element = document.createElement("div");
     sura_index_element.className = "sura_index";
     sura_index_element.textContent = "#" + suraIndex;
+    add_tooltip(sura_index_element, "Surah Index");
     header.appendChild(sura_index_element);
 
     element.appendChild(header);
@@ -95,15 +98,18 @@ async function add_sura_cells() {
       case MEMORIZATION_STATE_MEMORIZED:
         if (daysElapsed >= get_memorized_refresh_period_days() || daysElapsed >= get_refresh_period_days()) {
           suraNameElement.className = "old-memorized sura_name_label";
+          add_tooltip(suraNameElement, "Memorized but passed light days");
           debts["review"] += suraCharCount[suraIndex - 1];
         }
         else {
           suraNameElement.className = "memorized sura_name_label";
+          add_tooltip(suraNameElement, "This Surah Memorized");
         }
         break;
 
         case MEMORIZATION_STATE_WAS_MEMORIZED:
           suraNameElement.className = "was_memorized sura_name_label";
+          add_tooltip(suraNameElement, "Surah was Memorized");
           if (daysElapsed >= get_refresh_period_days()) {
             debts["read"] += suraCharCount[suraIndex - 1];
           }
@@ -111,6 +117,7 @@ async function add_sura_cells() {
 
           case MEMORIZATION_STATE_BEING_MEMORIZED:
           suraNameElement.className = "being_memorized sura_name_label";
+          add_tooltip(suraNameElement, "Being Memorized");
           if (daysElapsed >= get_refresh_period_days()) {
             debts["read"] += suraCharCount[suraIndex - 1];
           }
@@ -119,6 +126,7 @@ async function add_sura_cells() {
 
       default:
         suraNameElement.className = "not_memorized sura_name_label";
+        add_tooltip(suraNameElement, "Not Memorized");
         if (daysElapsed >= get_refresh_period_days()) {
           debts["read"] += suraCharCount[suraIndex - 1];
         }
@@ -138,12 +146,14 @@ async function add_sura_cells() {
     var charCountElement = document.createElement("span");
     charCountElement.className = "char-count";
     charCountElement.textContent = charCountText;
+    add_tooltip(charCountElement, "Character count");
     element.appendChild(charCountElement);
     //Days elapsed
     if (daysElapsed != 0) {
       var daysElapsedElement = document.createElement("span");
       daysElapsedElement.className = "elapsed_days";
       daysElapsedElement.textContent = daysElapsedText;
+      add_tooltip(daysElapsedElement, "Elapsed period since last refresh");
       // daysElapsedElement.id = "days";
       element.appendChild(daysElapsedElement);
     }
@@ -246,6 +256,8 @@ async function add_sura_cells() {
     clearInterval(periodicRefreshTimerRef);
   }
   periodicRefreshTimerRef = setInterval(add_sura_cells, AUTO_REFRESH_PERIOD);
+  // $(".sura-" + suraIndex).attr('tooltip', 'some tooltip');
+  add_tooltip(element, "Some tooltip");
 }
 
 var hideContextMenu = function (event) {
@@ -255,6 +267,7 @@ var hideContextMenu = function (event) {
   // remove the listener from the document
   document.removeEventListener('click', hideContextMenu);
 }
+
 
 function do_double_click(index){
   while(click_event_queue.length > 0 && click_event_queue[0].index == index) {

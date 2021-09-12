@@ -199,3 +199,11 @@ function clear_local_storage(){
   localStorage.clear();
   location.reload();
 }
+
+function add_tooltip(element, tooltip) {
+  $(element).hover(function () {
+    $(this).css('cursor', 'pointer').attr('title', tooltip);
+  }, function () {
+    $(this).css('cursor', 'auto');
+  });
+}
