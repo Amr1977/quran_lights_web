@@ -240,7 +240,7 @@ async function add_sura_cells() {
         toggle_select(this.index);
       }
     }
-
+    add_tooltip(element, "Refresh Count: " + timeStampsArray.length);
     document.getElementById("reviews").appendChild(element);
   }
   buildingSurasFlag = false;
@@ -256,8 +256,6 @@ async function add_sura_cells() {
     clearInterval(periodicRefreshTimerRef);
   }
   periodicRefreshTimerRef = setInterval(add_sura_cells, AUTO_REFRESH_PERIOD);
-  // $(".sura-" + suraIndex).attr('tooltip', 'some tooltip');
-  add_tooltip(element, "Some tooltip");
 }
 
 var hideContextMenu = function (event) {
