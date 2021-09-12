@@ -104,10 +104,16 @@ async function add_sura_cells() {
 
         case MEMORIZATION_STATE_WAS_MEMORIZED:
           suraNameElement.className = "was_memorized sura_name_label";
+          if (daysElapsed >= get_refresh_period_days()) {
+            debts["read"] += suraCharCount[suraIndex - 1];
+          }
           break;
 
           case MEMORIZATION_STATE_BEING_MEMORIZED:
           suraNameElement.className = "being_memorized sura_name_label";
+          if (daysElapsed >= get_refresh_period_days()) {
+            debts["read"] += suraCharCount[suraIndex - 1];
+          }
           break;
 
 
