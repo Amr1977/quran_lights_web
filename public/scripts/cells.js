@@ -29,6 +29,7 @@ async function add_sura_cells() {
       surasHistory[suraIndex].memorization = MEMORIZATION_STATE_NOT_MEMORIZED;
     }
     var timeStampsArray = surasHistory[suraIndex].history;
+    var tooltip_text = "Surah index: " +  suraIndex;
     //TODO if not refreshed before make it zero instead of (currentTimeStamp - refreshPeriod) and condition timeDifferenceRatio value to be zero too
     //TODO use minimum timestamp in all suras otherwise save current time as that minimum for later calculations
     var previous_refresh_time_stamp = timeStampsArray.length > 0
@@ -76,12 +77,14 @@ async function add_sura_cells() {
     sura_verse_count_element.className = "sura_verse_count";
     sura_verse_count_element.textContent = verseCount + "V";
     add_tooltip(sura_verse_count_element, "Verses count");
+    tooltip_text = tooltip_text.concat("\nVerses count: " +  verseCount);
     header.appendChild(sura_verse_count_element);
 
     var sura_index_element = document.createElement("div");
     sura_index_element.className = "sura_index";
     sura_index_element.textContent = "#" + suraIndex;
     add_tooltip(sura_index_element, "Surah Index");
+    
     header.appendChild(sura_index_element);
 
     element.appendChild(header);
@@ -99,17 +102,20 @@ async function add_sura_cells() {
         if (daysElapsed >= get_memorized_refresh_period_days() || daysElapsed >= get_refresh_period_days()) {
           suraNameElement.className = "old-memorized sura_name_label";
           add_tooltip(suraNameElement, "Memorized but passed light days");
+          tooltip_text = tooltip_text.concat("\nMemorization: Memorized");
           debts["review"] += suraCharCount[suraIndex - 1];
         }
         else {
           suraNameElement.className = "memorized sura_name_label";
           add_tooltip(suraNameElement, "This Surah Memorized");
+          tooltip_text = tooltip_text.concat("\nMemorization: Memorized");
         }
         break;
 
         case MEMORIZATION_STATE_WAS_MEMORIZED:
           suraNameElement.className = "was_memorized sura_name_label";
           add_tooltip(suraNameElement, "Surah was Memorized");
+          tooltip_text = tooltip_text.concat("\nMemorization: Was Memorized");
           if (daysElapsed >= get_refresh_period_days()) {
             debts["read"] += suraCharCount[suraIndex - 1];
           }
@@ -118,6 +124,7 @@ async function add_sura_cells() {
           case MEMORIZATION_STATE_BEING_MEMORIZED:
           suraNameElement.className = "being_memorized sura_name_label";
           add_tooltip(suraNameElement, "Being Memorized");
+          tooltip_text = tooltip_text.concat("\nMemorization: Being Memorized");
           if (daysElapsed >= get_refresh_period_days()) {
             debts["read"] += suraCharCount[suraIndex - 1];
           }
@@ -127,6 +134,7 @@ async function add_sura_cells() {
       default:
         suraNameElement.className = "not_memorized sura_name_label";
         add_tooltip(suraNameElement, "Not Memorized");
+        tooltip_text = tooltip_text.concat("\nMemorization: Not Memorized");
         if (daysElapsed >= get_refresh_period_days()) {
           debts["read"] += suraCharCount[suraIndex - 1];
         }
@@ -147,6 +155,7 @@ async function add_sura_cells() {
     charCountElement.className = "char-count";
     charCountElement.textContent = charCountText;
     add_tooltip(charCountElement, "Character count");
+    tooltip_text = tooltip_text.concat("\nCharacter count:" + suraCharCount[suraIndex - 1]);
     element.appendChild(charCountElement);
     //Days elapsed
     if (daysElapsed != 0) {
@@ -154,6 +163,7 @@ async function add_sura_cells() {
       daysElapsedElement.className = "elapsed_days";
       daysElapsedElement.textContent = daysElapsedText;
       add_tooltip(daysElapsedElement, "Elapsed period since last refresh");
+      tooltip_text = tooltip_text.concat("\nElapsed period since last refresh: " + daysElapsedText);
       // daysElapsedElement.id = "days";
       element.appendChild(daysElapsedElement);
     }
@@ -240,7 +250,9 @@ async function add_sura_cells() {
         toggle_select(this.index);
       }
     }
-    add_tooltip(element, "Refresh Count: " + timeStampsArray.length);
+
+    tooltip_text = tooltip_text.concat("\nRefresh Count: " + timeStampsArray.length);
+    add_tooltip(element, tooltip_text);
     document.getElementById("reviews").appendChild(element);
   }
   buildingSurasFlag = false;
