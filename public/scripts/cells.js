@@ -178,6 +178,10 @@ async function add_sura_cells() {
       click_handler(this.index, event);
     };
 
+    element.onauxclick = function(event){
+      open_ayat_for_sura(this.index);
+    }
+
     // var open_context_menu = 
 
     element.oncontextmenu = function (event) {
