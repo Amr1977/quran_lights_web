@@ -178,7 +178,11 @@ async function add_sura_cells() {
       click_handler(this.index, event);
     };
 
-    element.onauxclick = function(event){
+    element.onauxclick = function (event) {
+      if (event.button === 2) {
+        return;
+      }
+      console.log("Mouse Button clicked: " + event.button);
       open_ayat_for_sura(this.index);
     }
 
