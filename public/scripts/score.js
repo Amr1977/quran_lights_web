@@ -1,6 +1,10 @@
 function getScore() {
     var total = 0;
+    var total_verses = 0;
+
     var today = 0;
+    var today_verses = 0;
+
     var read_today = new Set();
     var read_score = 0;
     var review_score = 0;
@@ -8,11 +12,14 @@ function getScore() {
     var todayStart = todayStartTimeStamp();
     for (i = 1; i <= 114; i++) {
       var suraScore = suraCharCount[i - 1];
+      var sura_verse_count = suraVerseCount[i - 1];
       var history = surasHistory[i].history;
       if (history == null) {
         history = [];
       }
       total = total + Number(history.length) * Number(suraScore);
+      total_verses = total_verses + Number(history.length) * Number(sura_verse_count);
+
       var lastEntryIndex = history.length - 1;
       //timestamps are sorted so we will start from their top going backward until we exceed today's start
       //TODO add a today-refreshed sura index to read_today if not memorized, add it to reviewd if memorized
@@ -32,20 +39,21 @@ function getScore() {
           }
         }
         today += suraScore;
+        today_verses += sura_verse_count
         lastEntryIndex--;
       }
     }
 
-    scores = {"total": total, "today_total": today, "today_review": review_score, "today_read": read_score};
-    return [total, today, review_score, read_score];
+    scores = {"total": total, "today_total": today, "today_review": review_score, "today_read": read_score, "today_verses": today_verses, "total_verses": total_verses};
+    return [total, today, review_score, read_score, today_verses, total_verses];
   }
 
   function update_score () {
     get_memorization_data();
     var score_array = getScore();
     review_today = score_array[2];
-    document.getElementById("score").textContent = "Total Balance: " + readableFormat(score_array[0]);
-    document.getElementById("today_score").textContent = "Today Revenue: " + readableFormat(score_array[1]);
+    document.getElementById("score").textContent = "Total Balance: " + readableFormat(score_array[0]) + "Verses: " + scores["total_verses"];
+    document.getElementById("today_score").textContent = "Today Revenue: " + readableFormat(score_array[1]) + ", Verses: " + scores["today_verses"];
     document.getElementById("today_review_score").textContent = "* Review Revenue: " + readableFormat(review_today) + " of [" + readableFormat(memorization_state["memorized"] / get_memorized_refresh_period_days()) +"]";
     document.getElementById("today_read_score").textContent = "* Read Revenue: " + readableFormat(score_array[3]) + " of [" + readableFormat(memorization_state["not_memorized"] / get_refresh_period_days()) +"]";;
     document.getElementById("review_debt").textContent = readableFormat(debts["review"]);

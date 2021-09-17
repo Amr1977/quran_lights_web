@@ -26,12 +26,15 @@ function toggle_select(suraIndex) {
   //update selected_total element with total selected suras score
   function update_selection_score() {
     var selected_total = 0;
+    var selected_total_verses = 0;
   
     for (var i = 0; i < selected_suras.length;  i++) {
       selected_total += suraCharCount[selected_suras[i] - 1];
+      selected_total_verses += suraVerseCount[selected_suras[i] - 1];
     }
   
-    document.getElementById("selected_total").textContent = " Selected Amount: [" + readableFormat(selected_total) + "]";
+    document.getElementById("selected_total").textContent = " Selected Amount: [" + readableFormat(selected_total) 
+                                                            + "], Verses Count: " + selected_total_verses;
   }
 
   function deselectAll() {
