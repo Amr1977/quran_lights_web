@@ -34,7 +34,7 @@ function toggle_select(suraIndex) {
     }
   
     document.getElementById("selected_total").textContent = " Selected Amount: [" + readableFormat(selected_total) 
-                                                            + "], Verses Count: " + selected_total_verses;
+                                                            + "], Verses Count: " + format_readable_number(selected_total_verses);
   }
 
   function deselectAll() {

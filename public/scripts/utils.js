@@ -207,3 +207,7 @@ function add_tooltip(element, tooltip) {
     $(this).css('cursor', 'auto');
   });
 }
+
+function format_readable_number(some_number){
+  return String(some_number).replace(/(.)(?=(\d{3})+$)/g,'$1,')
+}
