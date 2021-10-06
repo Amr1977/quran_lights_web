@@ -157,7 +157,10 @@ function time_series_score_data(mode) {
     var history = surasHistory[cellIndex].history;
     for (entry = 0; entry < history.length; entry++) {
       var timestamp = history[entry] * 1000;
-      allEntries.push([timestamp, suraCharCount[cellIndex - 1]]);
+      if (timestamp) {
+        allEntries.push([timestamp, suraCharCount[cellIndex - 1]]);
+      }
+      
     }
   }
 

@@ -147,7 +147,7 @@ body {
 	/* font-size: 150px; */
     /* color: #e00; */
     border: thick solid yellow;
-	animation: beat .4s infinite alternate;
+	animation: beat .3s infinite alternate;
 	transform-origin: center;
 }
 
