@@ -56,7 +56,7 @@ var periodicRefreshTimerRef = null;
 var isFirstLoad = 1;
 
 window.onload = function () {
-  Sentry.init({ dsn: 'https://55c264ec9a484103890f2ca7ad8a4543@sentry.io/238887' });
+  // Sentry.init({ dsn: 'https://55c264ec9a484103890f2ca7ad8a4543@sentry.io/238887' });
   init_collapsibles();
   initApp();
 };

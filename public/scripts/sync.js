@@ -162,3 +162,28 @@ function fetch_full_history_once() {
     }
   });
 }
+
+//WIP
+function refresh_range(start_sura_index, start_verse, end_sura_index, end_verse, refresh_count, refresh_time_stamp){
+  var transaction_record = {
+    op: "refresh_range",
+    start_sura: start_sura_index,
+    start_verse: start_verse,
+    end_sura: end_sura_index,
+    end_verse: end_verse,
+    count: refresh_count,
+    time: refreshTimeStamp
+  };
+
+  var transactions_records = [];
+  transactions_records.push(transaction_record);
+  add_to_transactions_history(transactions_records);
+
+  enqueue_for_upload(transaction_record);
+  surasHistory[suraIndex].history.push(transaction_record.time);
+  sortedTimestampSuraArray = [];
+  refreshCountSortedSuraArray = [];
+  playSuraRefreshSound();
+  add_sura_cells();
+  animate_score_elements();
+}
