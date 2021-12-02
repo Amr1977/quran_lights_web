@@ -190,6 +190,7 @@ img
         font-weight: 1000;
         /* font-style: italic; */
         line-height: 2em;
+        background-color: rgba(0, 0, 0, 0.5);
     }
 #home img
     {
