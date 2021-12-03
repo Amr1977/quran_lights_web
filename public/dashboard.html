@@ -2,61 +2,39 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#">
 
 <head>
-    <!-- <script src="https://browser.sentry-cdn.com/5.15.4/bundle.min.js"
-        integrity="sha384-Nrg+xiw+qRl3grVrxJtWazjeZmUwoSt0FAVsbthlJ5OMpx0G08bqIq3b/v0hPjhB" crossorigin="anonymous">
-    </script> -->
-    <!-- Global Site Tag (gtag.js) - Google Analytics -->
-    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107477273-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments)
-        };
-        gtag('js', new Date());
-
-        gtag('config', 'UA-107477273-1');
-    </script> -->
-
-    <!-- <link rel="stylesheet" type="text/css" href="font-awesome.css"/> -->
-
     <title>Quran Lights</title>
-    <link rel="stylesheet" href="styles.css?v=1638389574">
+    <link rel="stylesheet" href="dashboard/css/styles.css?v=1638389574">
 
-    <link href="context-menu.css" rel="stylesheet">
-    <script src="scripts/context-menu.js"></script>
+    <link href="dashboard/css/context-menu.css" rel="stylesheet">
+    <script src="dashboard/scripts/context-menu.js"></script>
 
     <!-- <script async src="https://c6.patreon.com/becomePatronButton.bundle.js"></script> -->
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
-    <script src="scripts/suras_data.js?v=1638389574"></script>
-    <script src="scripts/constants.js?v=1638389574"></script>
-    <script src="scripts/utils.js?v=1638389574"></script>
-    <script src="scripts/state.js?v=1638389574"></script>
-    <script src="scripts/sync.js?v=1638389574"></script>
-    <script src="scripts/main.js?v=1638389574"></script>
-    <script src="scripts/tabs.js?v=1638389574"></script>
-    <script src="scripts/init_app.js?v=1638389574"></script>
-    <script src="scripts/init_cells.js?v=1638389574"></script>
-    <script src="scripts/keyboard.js?v=1638389574"></script>
-    <script src="scripts/memorization.js?v=1638389574"></script>
-    <script src="scripts/bright_days_dark_days_chart.js?v=1638389574"></script>
-    <script src="scripts/sort.js?v=1638389574"></script>
-    <script src="scripts/treemap.js?v=1638389574"></script>
-    <script src="scripts/guage.js?v=1638389574"></script>
-    <script src="scripts/khatma.js?v=1638389574"></script>
-    <script src="scripts/time_series.js?v=1638389574"></script>
-    <script src="scripts/import_and_export.js?v=1638389574"></script>
-    <script src="scripts/audio.js?v=1638389574"></script>
-    <script src="scripts/account.js?v=1638389574"></script>
-    <script src="scripts/selection.js?v=1638389574"></script>
-    <script src="scripts/score.js?v=1638389574"></script>
-    <script src="scripts/cells.js?v=1638389574"></script>
-
-    <script src="scripts/charts.js?v=1638389574"></script>
-    <script src="scripts/radar.js?v=1638389574"></script>
-
-
-
+    <script src="dashboard/scripts/suras_data.js?v=1638389574"></script>
+    <script src="js/constants.js?v=1638389574"></script>
+    <script src="js/utils.js?v=1638389574"></script>
+    <script src="dashboard/scripts/state.js?v=1638389574"></script>
+    <script src="dashboard/scripts/sync.js?v=1638389574"></script>
+    <script src="dashboard/scripts/main.js?v=1638389574"></script>
+    <script src="dashboard/scripts/tabs.js?v=1638389574"></script>
+    <script src="dashboard/scripts/init_app.js?v=1638389574"></script>
+    <script src="dashboard/scripts/init_cells.js?v=1638389574"></script>
+    <script src="dashboard/scripts/keyboard.js?v=1638389574"></script>
+    <script src="dashboard/scripts/memorization.js?v=1638389574"></script>
+    <script src="dashboard/scripts/bright_days_dark_days_chart.js?v=1638389574"></script>
+    <script src="dashboard/scripts/sort.js?v=1638389574"></script>
+    <script src="dashboard/scripts/treemap.js?v=1638389574"></script>
+    <script src="dashboard/scripts/guage.js?v=1638389574"></script>
+    <script src="dashboard/scripts/khatma.js?v=1638389574"></script>
+    <script src="dashboard/scripts/time_series.js?v=1638389574"></script>
+    <script src="dashboard/scripts/import_and_export.js?v=1638389574"></script>
+    <script src="dashboard/scripts/audio.js?v=1638389574"></script>
+    <script src="dashboard/scripts/account.js?v=1638389574"></script>
+    <script src="dashboard/scripts/selection.js?v=1638389574"></script>
+    <script src="dashboard/scripts/score.js?v=1638389574"></script>
+    <script src="dashboard/scripts/cells.js?v=1638389574"></script>
+    <script src="dashboard/scripts/charts.js?v=1638389574"></script>
+    <script src="dashboard/scripts/radar.js?v=1638389574"></script>
 
     <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0" />
     <meta property="og:image" content="http://quranlights.net/images/app_icon.png" />
@@ -97,7 +75,7 @@
     <script src="https://code.highcharts.com/8.0.0/themes/dark-unica.js"></script>
 </head>
 
-<body background="images/background.jpg">
+<body background="dashboard/images/background.jpg">
 
     <!-- Messenger Chat Plugin Code -->
     <!-- <div id="fb-root"></div> -->
@@ -127,51 +105,7 @@
       }(document, 'script', 'facebook-jssdk'));
     </script> -->
 
-    <div class="text">
-
-        <button class="collapsible">What is this about
-            <svg focusable="false" height="24px" viewBox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7 10l5 5 5-5z"></path>
-                <path d="M0 0h24v24H0z" fill="none"></path>
-            </svg>
-        </button>
-
-        <div style="margin-left: auto; 
-        margin-right: 0;"> 
-<div ><a href="login.html">تسجيل دخول</a></div>
-        
-        <div>
-        <a href="signup.html">إنشاء حساب</a>
-         </div>
-
-        </div>
-        
-        <h4 class="fulljustify">
-            TODO.
-
-            Actions on cells: <br>
-            Click: Toggle Sura Selection (Sura Score Calculator)<br>
-            Double Click: Refresh Sura.<br>
-            <!-- Shift + Click: Open Chapter in another tab. <br> -->
-            Alt + Click: Toggle Sura Memorization mark ON/OFF<br>
-            Shift + Click: Open Sura page at Ayat site<br>
-            <br>
-            Keyboard shortcuts:<br>
-            Ordering Quran Chapters:<br>
-            L : Cell <strong>L</strong>ight<br>
-            N : <strong>N</strong>ormal Order <br>
-            C : <strong>C</strong>haracter Count<br>
-            V : <strong>V</strong>erse Count<br>
-            W : <strong>W</strong>ord Count<br>
-            R : <strong>R</strong>evalation order<br>
-            F : Re<strong>f</strong>resh Count<br>
-            X: Reverse Sort Order <br>
-            <br>
-            D : Deselect cells.
-        </h4>
-    </div>
     <main>
-
         <!--class="mdl-layout__content mdl-color--grey-100"-->
         <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-grid">
 
@@ -497,6 +431,7 @@
     </div>
 
     <div class="text">V0.1638389574</div>
+    <div  id="snackbar"\>
 </body>
 
 </html>

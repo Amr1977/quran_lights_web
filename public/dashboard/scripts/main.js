@@ -111,10 +111,10 @@ function show_sign_in_only_elements() {
     if(element) element.style.display = "block";
   }
 
-  for (var i = 0; i < SIGN_OUT_ONLY_ELEMENTS.length; i++) {
-    var element = document.getElementById(SIGN_OUT_ONLY_ELEMENTS[i]);
-    if(element) element.style.display = "none";
-  }
+  // for (var i = 0; i < SIGN_OUT_ONLY_ELEMENTS.length; i++) {
+  //   var element = document.getElementById(SIGN_OUT_ONLY_ELEMENTS[i]);
+  //   if(element) element.style.display = "none";
+  // }
 }
 
 function hide_sign_in_only_elements(){

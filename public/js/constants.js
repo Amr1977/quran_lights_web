@@ -33,13 +33,7 @@ const config = {
     messagingSenderId: "35819574492"
   };
 
-  var fbase = sessionStorage.getItem("firebase");
-  if (fbase) {
-    firebase = fbase;
-    console.log("Firebase initialized from session!!");
-  } else {
-    firebase.initializeApp(config);
-  }
+  firebase.initializeApp(config);
   
 
   const SIGN_IN_ONLY_ELEMENTS = [

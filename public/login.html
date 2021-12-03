@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,9 +12,9 @@
     <!-- Main css -->
     <link rel="stylesheet" href="login/css/style.css">
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
-    <script src="login/scripts/constants.js?v=123121"></script>
-    <script src="login/scripts/utils.js?v=1231231"></script>
-    <script src="login/scripts/login.js?v=asdasdfa"></script>
+    <script src="js/constants.js?v=3"></script>
+    <script src="js/utils.js?v=3"></script>
+    <script src="login/js/login.js?v=1"></script>
 
 </head>
 <body>
@@ -31,7 +31,7 @@
 
                     <div class="signin-form">
                         <h2 class="form-title">تسجيل الدخول</h2>
-                        <form method="POST" class="register-form" id="login-form" action=index.html>
+                        <form method="POST" class="register-form" id="login-form">
                             <div class="form-group">
                                 <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
                                 <input type="text" name="your_name" id="your_name" placeholder="Email"/>
@@ -45,7 +45,7 @@
                                 <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
                             </div>
                             <div class="form-group form-button">
-                                <input type="submit" name="signin" id="signin" class="form-submit" value="Log in" onclick="sign_in"/>
+                                <input type="button" name="signin" id="signin" class="form-submit" value="Log in" onclick="sign_in()"/>
                             </div>
                             
                         </form>

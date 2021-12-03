@@ -6,19 +6,9 @@ var eta = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59,
 // }, eta);
 
 function initCells() {
-  user = firebase.auth().currentUser;
   if (user) {
-    document.getElementById("quickstart-sign-in").textContent = "Sign out " + user.email;
     // User is signed in.
-    var displayName = user.displayName;
-    var email = user.email;
-    var emailVerified = user.emailVerified;
-    var photoURL = user.photoURL;
-    var isAnonymous = user.isAnonymous;
-    var uid = user.uid;
-    var providerData = user.providerData;
     myUserId = firebase.auth().currentUser.uid;
-    var database = firebase.database();
 
     var lastTimeStamp = get_local_storage_object("lastTransactionTimeStamp");
 
