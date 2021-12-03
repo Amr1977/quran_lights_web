@@ -2,12 +2,11 @@
 //TODO move to index.html
 function sign_out(){
   clear_reviews();
-  showToast("Signing out...");
   // [START signout]
-  firebase.auth().signOut();  
+  firebase.auth().signOut();
   surasHistory = {};
-  hideToast();
-  // [END signout]
+  localStorage.removeItem("user");
+  window.location.href="index.html";
 }
 
 /**
@@ -23,7 +22,6 @@ function toggleSignIn() {
 }
 
 function sign_in(){
-  // showToast("Signing in...");
   add_auth_handler();
   var email = document.getElementById("your_name").value;
   var password = document.getElementById("your_pass").value;
@@ -63,20 +61,13 @@ function sign_in(){
 function add_auth_handler() {
   // Listening for auth state changes.
   // [START authstatelistener]
-  console.log("initApp invoked...");
-
-  firebase.auth().onAuthStateChanged(function (user) {
+  console.log("add_auth_handler invoked...");
+  firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       console.log(JSON.stringify(user));
       alert("sign in", JSON.stringify(user));
       localStorage.setItem("user", JSON.stringify(user));
       window.location.href = "dashboard.html";
-    }
-    else {
-      localStorage.removeItem("user");
-      console.log("Signed out");
-      alert("sign out");
-      window.location.href = "index.html";
     }
   });
 }
