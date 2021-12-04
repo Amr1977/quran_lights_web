@@ -18,10 +18,11 @@ function toggleSignIn() {
   }
 }
 
-function sign_in(){
+//TODO pass email and password as parameters
+function sign_in(email, password){
+  firebase.auth().signOut();
   add_auth_handler();
-  var email = document.getElementById("your_name").value;
-  var password = document.getElementById("your_pass").value;
+
   if (email.length < 4) {
     alert("Please enter an email address.");
     return;
@@ -61,4 +62,34 @@ function add_auth_handler() {
       window.location.href = "dashboard.html";
     }
   });
+}
+
+function sign_up(email, password) {
+  firebase.auth().signOut();
+  localStorage.removeItem("user");
+  add_auth_handler();
+  if (email.length < 4) {
+    alert("Please enter an email address.");
+    return;
+  }
+  if (password.length < 4) {
+    alert("Please enter a password.");
+    return;
+  }
+  // Sign in with email and pass.
+  // [START createwithemail]
+  firebase
+    .auth()
+    .createUserWithEmailAndPassword(email, password)
+    .catch(function (error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      if (errorCode == "auth/weak-password") {
+        alert("The password is too weak.");
+      } else {
+        alert(errorMessage);
+      }
+      console.log(error);
+    });
 }

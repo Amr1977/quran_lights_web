@@ -20,6 +20,7 @@ function initApp() {
     window.location.href = "index.html";
   } else {
     console.log("current logged in user uid: " + user.uid);
+    document.getElementById("current_user").innerHTML = user.email;
   }
 
   Highcharts.setOptions({

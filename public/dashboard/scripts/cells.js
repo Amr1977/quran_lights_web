@@ -55,7 +55,7 @@ async function add_sura_cells() {
       surasColorTable[suraIndex - 1] = (greenComponent / 255) * 114;
     }
     else {
-      element.style.backgroundImage = "url('images/desert.jpg')";
+      element.style.backgroundImage = "url('dashboard/images/desert.jpg')";
       surasColorTable[suraIndex - 1] = 0;
     }
     colorHash[cellIndex] = rgbToHex(0, greenComponent, 0);
