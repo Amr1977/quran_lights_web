@@ -134,7 +134,9 @@
                                 onclick="openTab('change_log_tab')">Change Log </button>
 
                                 <button id="exit" 
-                                onclick="window.location.href='index.html'">BACK</button>
+                                onclick="window.location.href='index.html'">الرجوع للرئيسية</button>
+                                <button id="sign_out" 
+                                onclick="localStorage.removeItem('user'); window.location.href='index.html'; ">الخروج </button>
                         </div>
 
                         <div id="light_cells" class="tabcontent">
