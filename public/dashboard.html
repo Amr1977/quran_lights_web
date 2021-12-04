@@ -46,7 +46,6 @@
     <meta property="og:description" content="Visualize your Quran-engagement with Performance Charts" />
     <meta property="fb:app_id" content="546100602990294" />
     <meta property="og:url" content="http://quranlights.net">
-    <!-- <meta property="og:type" content=""> -->
     <meta property="og:title" content="Quran Lights">
 
 
@@ -57,11 +56,9 @@
 
     <!-- Material Design Theming -->
     <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.orange-indigo.min.css">
-    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> -->
-    <!-- <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script> -->
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css">
-    <!-- <link rel="stylesheet" href="main.css"> -->
 
     <script src="https://code.highcharts.com/8.0.0/highcharts.js"></script>
     <script src="https://code.highcharts.com/8.0.0/highcharts-more.js"></script>
@@ -75,43 +72,9 @@
     <script src="https://code.highcharts.com/8.0.0/modules/accessibility.js"></script>
     <script src="https://code.highcharts.com/8.0.0/themes/dark-unica.js"></script>
 
-    <link rel="stylesheet" href="css/animate.min.css">
-    <!-- bootstrap css -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <!-- font-awesome -->
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-    <!-- google font -->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700,800' rel='stylesheet' type='text/css'>
-
-    <!-- custom css -->
-    <link rel="stylesheet" href="css/templatemo-style.css">
 </head>
 
 <body background="dashboard/images/background.jpg">
-
-		<!-- start navigation -->
-		<nav class="navbar navbar-default navbar-fixed-top templatemo-nav" role="navigation">
-			<div class="container">
-				<div class="navbar-header">
-					<button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-						<span class="icon icon-bar"></span>
-						<span class="icon icon-bar"></span>
-						<span class="icon icon-bar"></span>
-					</button>
-					<a href="#" class="navbar-brand">
-                        <span style="display: inline-block;" onclick="window.location.href='index.html';">أنوار القرآن</span>
-                    </a>
-				</div>
-				<div class="collapse navbar-collapse">
-					<ul class="nav navbar-nav navbar-right text-uppercase">
-                        <li><a onclick="sign_out()">خروج</a></li>
-					</ul>
-                    
-				</div>
-			</div>
-		</nav>
-		<!-- end navigation -->
-
         <section id="home">
     <main>
         <!--class="mdl-layout__content mdl-color--grey-100"-->
@@ -169,6 +132,9 @@
                             <!-- <button id = "about_tab_button" class="tablinks" onclick="openTab('about_tab')">About</button> -->
                             <button id="change_log_tab_button" class="tablinks"
                                 onclick="openTab('change_log_tab')">Change Log </button>
+
+                                <button id="exit" 
+                                onclick="window.location.href='index.html'">BACK</button>
                         </div>
 
                         <div id="light_cells" class="tabcontent">

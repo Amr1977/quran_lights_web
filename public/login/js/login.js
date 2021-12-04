@@ -1,10 +1,7 @@
 
 //TODO move to index.html
 function sign_out(){
-  clear_reviews();
-  // [START signout]
   firebase.auth().signOut();
-  surasHistory = {};
   localStorage.removeItem("user");
   window.location.href="index.html";
 }
@@ -52,10 +49,6 @@ function sign_in(){
       console.log(JSON.stringify(error));
       // [END_EXCLUDE]
     });
-  // hideToast();
-  alert("login END");
-  
-  console.log("done login!!");
 }
 
 function add_auth_handler() {
@@ -64,8 +57,6 @@ function add_auth_handler() {
   console.log("add_auth_handler invoked...");
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      console.log(JSON.stringify(user));
-      alert("sign in", JSON.stringify(user));
       localStorage.setItem("user", JSON.stringify(user));
       window.location.href = "dashboard.html";
     }
