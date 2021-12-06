@@ -52,7 +52,7 @@ function getScore() {
     get_memorization_data();
     var score_array = getScore();
     review_today = score_array[2];
-    document.getElementById("score").textContent = "الرصيد الكلي: " + readableFormat(score_array[0]) + ", الآيات: " + format_readable_number(scores["total_verses"]);
+    document.getElementById("score").textContent = "الرصيد الإجمالي: " + readableFormat(score_array[0]) + ", الآيات: " + format_readable_number(scores["total_verses"]);
     document.getElementById("today_score").textContent = "رصيد اليوم: " + readableFormat(score_array[1]) + ", الآيات: " + format_readable_number(scores["today_verses"]);
     document.getElementById("today_review_score").textContent = "* رصيد المراجعة: " + readableFormat(review_today) + " of [" + readableFormat(memorization_state["memorized"] / get_memorized_refresh_period_days()) +"]";
     document.getElementById("today_read_score").textContent = "* رصيد التلاوة: " + readableFormat(score_array[3]) + " of [" + readableFormat((memorization_state["not_memorized"] + memorization_state["was_memorized"] + memorization_state["being_memorized"]) / get_refresh_period_days()) +"]";;

@@ -142,12 +142,13 @@
                         </div>
 
                         <div id="light_cells" class="tabcontent" dir="rtl" lang="ar">
-                            <div id="today_score" class="score" float="right"></div>
-                            <div id="reviews" class="wrapper" style="margin: 5px;"></div>
-                            <br>
-                            <span id="score" class="score">
+                            <div id="score" class="score" float="right">
                                 --
-                            </span>
+                            </div>
+                            <br>
+                            <div id="today_score" class="score" float="right"></div>
+                            <br>
+                            <div id="reviews" class="wrapper" style="margin: 5px;"></div>
 
                             <span id="today_review_score" class="score">
 

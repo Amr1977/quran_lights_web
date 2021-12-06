@@ -127,7 +127,7 @@ body {
     font-size: 14;
 }
 
-#today_score {
+#today_score, #score {
     text-align: right;
     font-size: 32px;
     margin: 15px;

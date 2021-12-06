@@ -33,8 +33,8 @@ function toggle_select(suraIndex) {
       selected_total_verses += suraVerseCount[selected_suras[i] - 1];
     }
   
-    document.getElementById("selected_total").textContent = " Selected Amount: [" + readableFormat(selected_total) 
-                                                            + "], Verses Count: " + format_readable_number(selected_total_verses);
+    document.getElementById("selected_total").textContent = " إجمالي رصيد السور المختارة: [" + readableFormat(selected_total) 
+                                                            + "], إجمالي الآيات: " + format_readable_number(selected_total_verses);
   }
 
   function deselectAll() {
