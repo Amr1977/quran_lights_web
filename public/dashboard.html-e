@@ -72,47 +72,9 @@
     <script src="https://code.highcharts.com/8.0.0/modules/accessibility.js"></script>
     <script src="https://code.highcharts.com/8.0.0/themes/dark-unica.js"></script>
 
-    <!-- animate css -->
-		<link rel="stylesheet" href="css/animate.min.css">
-    <!-- bootstrap css -->
-		<link rel="stylesheet" href="css/bootstrap.min.css">
-        <!-- font-awesome -->
-		<link rel="stylesheet" href="css/font-awesome.min.css">
-		<!-- google font -->
-		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700,800' rel='stylesheet' type='text/css'>
-
-		<!-- custom css -->
-		<link rel="stylesheet" href="css/templatemo-style.css">
-
 </head>
 
 <body background="dashboard/images/background.jpg" dir="rtl" lang="ar">
-    		<!-- start preloader -->
-		<!-- <div class="preloader">
-			<div class="sk-spinner sk-spinner-rotating-plane"></div>
-    	 </div> -->
-		<!-- end preloader -->
-		<!-- start navigation -->
-		<nav class="navbar navbar-default navbar-fixed-top templatemo-nav" role="navigation">
-			<div class="container">
-				<div class="navbar-header">
-					<button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-						<span class="icon icon-bar"></span>
-						<span class="icon icon-bar"></span>
-						<span class="icon icon-bar"></span>
-					</button>
-					<a href="#" class="navbar-brand">
-                        <span style="display: inline-block;" onclick="window.location.href='index.html'">أنوار القرآن</span>
-                    </a>
-				</div>
-				<div class="collapse navbar-collapse">
-					<ul class="nav navbar-nav navbar-right text-uppercase">
-                        <li><a id="sign_out_nav_item" onclick="sign_out()">الخروج</a></li>
-					</ul>
-                    
-				</div>
-			</div>
-		</nav>
         <section id="home" dir="rtl" lang="ar">
     <main dir="rtl" lang="ar">
         <!--class="mdl-layout__content mdl-color--grey-100"-->
@@ -161,17 +123,11 @@
                             <!-- <button id = "prayers_tab_button" class="tablinks" onclick="openTab('prayers_tab')">Prayers</button> -->
                             <button id="settings_tab_button" class="tablinks"
                                 onclick="openTab('settings_tab')">الإعدادات</button>
-                            <button id = "donate_tab_button" class="tablinks" onclick="openTab('donate_tab')">دعم الموقع</button>
-                            <button id="contribute_tab_button" class="tablinks"
-                                onclick="openTab('contribute_tab')">المشاركة  في التطوير</button>
-                            <!-- <button id = "rate_tab_button" class="tablinks" onclick="openTab('rate_tab')">Rate & Feedback</button> -->
-                            <!-- <button id = "about_tab_button" class="tablinks" onclick="openTab('about_tab')">About</button> -->
-                            <button id="change_log_tab_button" class="tablinks"
-                                onclick="openTab('change_log_tab')">آخر التحديثات </button>
 
-                            <button  onclick="window.location.href='age.html'"> العمر ساعة</button>
                             <button id="controls_tab_button" class="tablinks"
                             onclick="openTab('controls_tab')">مفاتيح التحكم</button>
+                            <button id="sign_out_nav_item" onclick="sign_out()">تسجيل الخروج</button>
+                            <button id="home_buttton" onclick="window.location.href='index.html'">الرئيسية</button>
                         </div>
 
                         <div id="light_cells" class="tabcontent" dir="rtl" lang="ar">
