@@ -52,10 +52,10 @@ function getScore() {
     get_memorization_data();
     var score_array = getScore();
     review_today = score_array[2];
-    document.getElementById("score").textContent = "Total Balance: " + readableFormat(score_array[0]) + ", Verses: " + format_readable_number(scores["total_verses"]);
-    document.getElementById("today_score").textContent = "Today Revenue: " + readableFormat(score_array[1]) + ", Verses: " + format_readable_number(scores["today_verses"]);
-    document.getElementById("today_review_score").textContent = "* Review Revenue: " + readableFormat(review_today) + " of [" + readableFormat(memorization_state["memorized"] / get_memorized_refresh_period_days()) +"]";
-    document.getElementById("today_read_score").textContent = "* Read Revenue: " + readableFormat(score_array[3]) + " of [" + readableFormat((memorization_state["not_memorized"] + memorization_state["was_memorized"] + memorization_state["being_memorized"]) / get_refresh_period_days()) +"]";;
+    document.getElementById("score").textContent = "الرصيد الكلي: " + readableFormat(score_array[0]) + ", الآيات: " + format_readable_number(scores["total_verses"]);
+    document.getElementById("today_score").textContent = "رصيد اليوم: " + readableFormat(score_array[1]) + ", الآيات: " + format_readable_number(scores["today_verses"]);
+    document.getElementById("today_review_score").textContent = "* رصيد المراجعة: " + readableFormat(review_today) + " of [" + readableFormat(memorization_state["memorized"] / get_memorized_refresh_period_days()) +"]";
+    document.getElementById("today_read_score").textContent = "* رصيد التلاوة: " + readableFormat(score_array[3]) + " of [" + readableFormat((memorization_state["not_memorized"] + memorization_state["was_memorized"] + memorization_state["being_memorized"]) / get_refresh_period_days()) +"]";;
     document.getElementById("review_debt").textContent = readableFormat(debts["review"]);
     document.getElementById("read_debt").textContent = readableFormat(debts["read"]);
     document.getElementById("total_debt").textContent = readableFormat(debts["read"] + debts["review"]);

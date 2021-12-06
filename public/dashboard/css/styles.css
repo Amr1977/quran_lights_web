@@ -280,12 +280,13 @@ button:focus {
     overflow: hidden;
     border: 1px solid #ccc;
     background-color: #f1f1f1;
+    direction: rtl;
   }
   
   /* Style the buttons inside the tab */
   .tab button {
     background-color: inherit;
-    float: left;
+    float: right;
     border: none;
     outline: none;
     cursor: pointer;
