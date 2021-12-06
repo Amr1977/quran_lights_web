@@ -139,6 +139,8 @@
                                 onclick="sign_out()">الخروج </button>
 
                             <button  onclick="window.location.href='age.html'">ساعة العمر</button>
+                            <button id="controls_tab_button" class="tablinks"
+                            onclick="openTab('controls_tab')">مفاتيح التحكم</button>
                         </div>
 
                         <div id="light_cells" class="tabcontent">
@@ -401,6 +403,28 @@
                             <button onclick="clear_local_storage()">
                                 Clear Local Storage and reload.
                             </button>
+                        </div> <!-- settings tab/-->
+
+                        <div id="controls_tab" class="tabcontent">
+                            Actions on cells: <br>
+            Click: Toggle Sura Selection (Sura Score Calculator)<br>
+            Double Click: Refresh Sura.<br>
+            <!-- Shift + Click: Open Chapter in another tab. <br> -->
+            Alt + Click: Toggle Sura Memorization mark ON/OFF<br>
+            Shift + Click: Open Sura page at Ayat site<br>
+            <br>
+            Keyboard shortcuts:<br>
+            Ordering Quran Chapters:<br>
+            L : Cell <strong>L</strong>ight<br>
+            N : <strong>N</strong>ormal Order <br>
+            C : <strong>C</strong>haracter Count<br>
+            V : <strong>V</strong>erse Count<br>
+            W : <strong>W</strong>ord Count<br>
+            R : <strong>R</strong>evalation order<br>
+            F : Re<strong>f</strong>resh Count<br>
+            X: Reverse Sort Order <br>
+            <br>
+            D : Deselect cells.
                         </div>
 
                     </div>
@@ -410,11 +434,10 @@
     </main>
     </div>
 </section>
-<div id="current_user">
 
-</div>
-    <div class="text">V0.1638647416</div>
+    <div class="text">V0.1638647416 <div id="current_user"\></div>
     <div  id="snackbar"\>
+        
 </body>
 
 </html>

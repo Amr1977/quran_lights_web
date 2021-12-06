@@ -1,5 +1,5 @@
 const money_sound = "kaching.mp3";
-const pulse_sound = "ulse_sound.mp3";
+const pulse_sound = "pulse_sound.mp3";
 const water_drop_sound = "water_drop.mp3";
 const error_sound_spring = "error_spring.mp3";
 async function playSuraRefreshSound() {
