@@ -198,37 +198,37 @@ async function add_sura_cells() {
         'theme': 'default', // or 'blue'
         'items': [
           {
-            'name': 'Refresh', action: function () {
+            'name': 'إضاءة', action: function () {
               console.log("Refresh command fired ", event.index );
               do_double_click(event.index);
             }
           },
           {
-            'name': 'Mark as Memorized', action: function () {
+            'name': 'تم الحفظ', action: function () {
               console.log("Memeorize command fired ", event.index);
               set_memorization(event.index, MEMORIZATION_STATE_MEMORIZED);
             }
           },
           {
-            'name': 'Mark as Not Memorized', action: function () {
+            'name': 'لم تحفظ بعد', action: function () {
               console.log("Memeorize command fired ", event.index);
               set_memorization(event.index, MEMORIZATION_STATE_NOT_MEMORIZED);
             }
           },
           {
-            'name': 'Mark as Being Memorized', action: function () {
+            'name': 'جاري الحفظ', action: function () {
               console.log("Memeorize command fired ", event.index);
               set_memorization(event.index, MEMORIZATION_STATE_BEING_MEMORIZED);
             }
           },
           {
-            'name': 'Mark as WAS Memorized', action: function () {
+            'name': 'أنسيتها !', action: function () {
               console.log("Memeorize command fired ", event.index);
               set_memorization(event.index, MEMORIZATION_STATE_WAS_MEMORIZED);
             }
           },
           {
-            'name': 'Open for Reading', action: function () {
+            'name': 'القراءة من موقع آيات', action: function () {
               console.log("Open for read command fired ", event.index);
               open_ayat_for_sura(event.index);
             }

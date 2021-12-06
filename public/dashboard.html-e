@@ -94,7 +94,7 @@
                             <button id="light_treemap_button" class="tablinks"
                                 onclick="openTab('light_treemap')">حقول الأنوار</button>
                             <button id="light_radar_button" class="tablinks"
-                                onclick="openTab('light_radar')">رادار التفلت</button>
+                                onclick="openTab('light_radar')">رادار تفلت السور</button>
                             <button id="review_guage_button" class="tablinks" onclick="openTab('review_guage')">ورد المراجعة</button>
                             <button id="daily_read_guage_button" class="tablinks"
                                 onclick="openTab('daily_read_guage')">ورد التلاوة</button>
@@ -244,14 +244,14 @@
 
 
                         <div id="light_ratio_chart_tab" class="tabcontent">
-                            <h4 class="text">Light Ratio: sum of light percentage of all cells
+                            <h4 class="text">نسبة النور الإجمالية
                                 <div id="light-ratio-chart-container" style="height: 100%; margin: 20px"></div>
                             </h4>
                         </div>
 
 
                         <div id="conquer_ratio_chart_tab" class="tabcontent">
-                            <h4 class="text">Lighting Cells Ratio: Percentage of cells within Light days
+                            <h4 class="text">نسبة السور التي لم تتخط حدود الأيام  المضيئة
                                 <div id="conquer-ratio-chart-container" style="height: 100%; margin: 20px"></div>
                             </h4>
                         </div>
@@ -363,13 +363,13 @@
 
                                 <div>
                                     <select id="sort_order" onchange="set_sort_order()" style="margin: 10px;">
-                                        <option value="normal">Normal Order</option>
-                                        <option value="revelation_order">Revelation Order</option>
-                                        <option value="light">Cell Light</option>
-                                        <option value="chars_count">Character Count</option>
-                                        <option value="verse_count">Verse Count</option>
-                                        <option value="word_count">Word Count</option>
-                                        <option value="refresh_count">Refresh Count</option>
+                                        <option value="normal">ترتيب المصحف</option>
+                                        <option value="revelation_order">ترتيب النزول</option>
+                                        <option value="light">إضاءة الخلية</option>
+                                        <option value="chars_count">عدد الحروف</option>
+                                        <option value="verse_count">عدد الآيات</option>
+                                        <option value="word_count">عدد الكلمات</option>
+                                        <option value="refresh_count">عدد مرات التلاوة</option>
                                     </select>
                                 </div>
                             </div>
@@ -384,13 +384,14 @@
 
                             <br>
                             <div id="memorized_light_days_container">
-                                <div class="score">وضع علامة تنبيه على السور المحفوظة بعد عدد أيام: </div>
+                                <div class="score">وضع علامة تنبيه على السور المحفوظة إذا لم تراجع بعد عدد أيام: </div>
                                 <div>
                                     <select id="memorized_light_days" onchange="set_memorized_light_days()"
                                         style="margin: 10px;">
                                     </select>
                                 </div>
                             </div>
+                            <br>
 
                             <div>
                                 <input type="checkbox" id="reverse_sura_sort_order_checkbox" name="reverse_sura_sort_order_checkbox" onclick="apply_reverse_sort_order();">
@@ -401,6 +402,8 @@
                             <button onclick="clear_local_storage()">
                                 في حالة الخلل في تطابق الرصيد بين الأجهزة.
                             </button>
+                            <br>
+                            <br>
                         </div> <!-- settings tab/-->
 
                         <div id="controls_tab" class="tabcontent">
