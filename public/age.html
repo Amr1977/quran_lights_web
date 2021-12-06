@@ -163,12 +163,7 @@ body {
 </head>
 <body onload="init_birth()">
   <div style="width: 100%; height:100%">
-    <div>
-      <form action="/action_page.php">
-        <label for="birthday" style="color:#1df52f">تاريخ ميلادك: </label>
-        <input type="date" id="birthday" name="birthday" onchange="set_birth()">
-      </form>
-    </div>
+    
   
       <div class="clock">
           <div class="outer-clock-face">
@@ -183,9 +178,16 @@ body {
             </div>
           </div>
         </div>
+        <div>
+          <form action="/action_page.php">
+            <label for="birthday" id = "label_text" style="color:#1df52f">أدخل تاريخ ميلادك: </label>
+            <input type="date" id="birthday" name="birthday" onchange="set_birth()">
+          </form>
+        </div>
 
         <div>
           <p id="age_text"  style="color:#1df52f"> </p>
+          <a href="index.html" style="color:#1df52f"> موقع أنوار القرآن</a>
         </div>
   </div>
   
@@ -304,7 +306,6 @@ function setAge() {
   } else {
     clearTimeout(delayed_exec);
   }
-  
   const age = getAge(birth_date)["age"];
 
   const seconds = (age["months"] * 30 + age["days"]) / 6;
@@ -322,6 +323,11 @@ function setAge() {
   // hourHand.style.transform = `rotate(${minsDegrees}deg)`;
   // hourHand.style.display = "none";
   secondHand.style.transform = `rotate(${minsDegrees}deg)`;
+
+  if (mins > 1) {
+    document.getElementById("label_text").innerHTML = "";
+  }
+  console.log(mins)
 }
 
 
