@@ -161,27 +161,61 @@ body {
 }
     </style>
 </head>
-<body>
-    <div class="clock">
-        <div class="outer-clock-face">
-          <div class="marking marking-one"></div>
-          <div class="marking marking-two"></div>
-          <div class="marking marking-three"></div>
-          <div class="marking marking-four"></div>
-          <div class="inner-clock-face">
-            <div class="hand hour-hand"></div>
-            <div class="hand min-hand"></div>
-            <div class="hand second-hand"></div>
+<body onload="init_birth()">
+  <div style="width: 100%; height:100%">
+    <div>
+      <form action="/action_page.php">
+        <label for="birthday" style="color:#1df52f">تاريخ ميلادك: </label>
+        <input type="date" id="birthday" name="birthday" onchange="set_birth()">
+      </form>
+    </div>
+  
+      <div class="clock">
+          <div class="outer-clock-face">
+            <div class="marking marking-one"></div>
+            <div class="marking marking-two"></div>
+            <div class="marking marking-three"></div>
+            <div class="marking marking-four"></div>
+            <div class="inner-clock-face">
+              <div class="hand hour-hand"></div>
+              <div class="hand min-hand"></div>
+              <div class="hand second-hand"></div>
+            </div>
           </div>
         </div>
-      </div>
+
+        <div>
+          <p id="age_text"  style="color:#1df52f"> </p>
+        </div>
+  </div>
+  
   <script>
+    var birth_date;
+    function init_birth(){
+      birth_date = JSON.parse(localStorage.getItem("birth_date"));
+      if (!birth_date) {
+        birth_date = Date.now();
+      } else {
+        document.getElementById("birthday").value = birth_date;
+      }
+      
+      console.log("birth: " + birth_date);
+    }
+
+    function set_birth(){
+      birth_date = document.getElementById("birthday").value;
+      localStorage.setItem("birth_date", JSON.stringify(birth_date));
+      console.log("saved in localStorage: " + JSON.stringify(birth_date));
+    }
  
  const secondHand = document.querySelector('.second-hand');
 const minsHand = document.querySelector('.min-hand');
 const hourHand = document.querySelector('.hour-hand');
 
 function getAge(dateString) {
+  if (!dateString) {
+    return null;
+  }
   var now = new Date();
   var today = new Date(now.getYear(),now.getMonth(),now.getDate());
 
@@ -189,9 +223,9 @@ function getAge(dateString) {
   var monthNow = now.getMonth();
   var dateNow = now.getDate();
 
-  var dob = new Date(dateString.substring(6,10),
-                     dateString.substring(0,2)-1,                   
-                     dateString.substring(3,5)                  
+  var dob = new Date(dateString.substring(0,4),//year, month, date  YYYY/MM/DD                
+                     dateString.substring(5,7),
+                     dateString.substring(8,10)             
                      );
 
   var yearDob = dob.getYear();
@@ -206,11 +240,12 @@ function getAge(dateString) {
 
   yearAge = yearNow - yearDob;
 
+  var monthAge;
   if (monthNow >= monthDob)
-    var monthAge = monthNow - monthDob;
+     monthAge = monthNow - monthDob + 1;
   else {
     yearAge--;
-    var monthAge = 12 + monthNow -monthDob;
+     monthAge = 12 + monthNow -monthDob;
   }
 
   if (dateNow >= dateDob)
@@ -256,12 +291,20 @@ function getAge(dateString) {
   else ageString = "Oops! Could not calculate age!";
   
   console.log(ageString);
+  document.getElementById("age_text").innerHTML = ageString;
   return {"age": age, age_string: ageString};
 }
-
+var delayed_exec;
 function setAge() {
+
+  if (!birth_date) {
+    delayed_exec = setInterval(setAge, 1000);
+   return;
+  } else {
+    clearTimeout(delayed_exec);
+  }
   
-  const age = getAge("17/07/1977")["age"];
+  const age = getAge(birth_date)["age"];
 
   const seconds = (age["months"] * 30 + age["days"]) / 6;
   const secondsDegrees = ((seconds / 60) * 360) + 90;
