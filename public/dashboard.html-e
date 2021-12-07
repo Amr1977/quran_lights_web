@@ -30,7 +30,6 @@
     <script src="dashboard/scripts/time_series.js?v=1638647416"></script>
     <script src="dashboard/scripts/import_and_export.js?v=1638647416"></script>
     <script src="dashboard/scripts/audio.js?v=1638647416"></script>
-    <script src="login/js/account.js?v=1638647416"></script>
     <script src="dashboard/scripts/selection.js?v=1638647416"></script>
     <script src="dashboard/scripts/score.js?v=1638647416"></script>
     <script src="dashboard/scripts/cells.js?v=1638647416"></script>
@@ -95,6 +94,12 @@
                                 onclick="openTab('light_treemap')">حقول الأنوار</button>
                             <button id="light_radar_button" class="tablinks"
                                 onclick="openTab('light_radar')">رادار تفلت السور</button>
+                                <button id="daily_score_chart_tab_button" class="tablinks"
+                                onclick="openTab('daily_score_chart_tab')">الرصيد اليومي</button>
+                            <button id="monthly_score_chart_tab_button" class="tablinks"
+                                onclick="openTab('monthly_score_chart_tab')">الرصيد الشهري</button>
+                            <button id="yearly_score_chart_tab_button" class="tablinks"
+                                onclick="openTab('yearly_score_chart_tab')">الرصيد السنوي</button>
                             <button id="review_guage_button" class="tablinks" onclick="openTab('review_guage')">ورد المراجعة</button>
                             <button id="daily_read_guage_button" class="tablinks"
                                 onclick="openTab('daily_read_guage')">ورد التلاوة</button>
@@ -108,12 +113,7 @@
                                 onclick="openTab('khatma_progress_tab')">الختمة الحالية</button>
                                 <button id="sura_score_chart_tab_button" class="tablinks"
                                 onclick="openTab('sura_score_chart_tab')">مساهمات السور في الرصيد الكلي</button>
-                            <button id="daily_score_chart_tab_button" class="tablinks"
-                                onclick="openTab('daily_score_chart_tab')">الرصيد اليومي</button>
-                            <button id="monthly_score_chart_tab_button" class="tablinks"
-                                onclick="openTab('monthly_score_chart_tab')">الرصيد الشهري</button>
-                            <button id="yearly_score_chart_tab_button" class="tablinks"
-                                onclick="openTab('yearly_score_chart_tab')">الرصيد السنوي</button>
+                            
                             <button id="light_days_chart_tab_button" class="tablinks"
                                 onclick="openTab('light_days_chart_tab')">الأيام المنيرة بكل شهر</button>
                             <!--button id = "dark_days_chart_tab_button" class="tablinks" onclick="openTab('dark_days_chart_tab')">Dark Days</button-->

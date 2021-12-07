@@ -324,7 +324,7 @@ function open_ayat_for_sura(sura_index) {
 
 //TODO fix this: this.index how to pass parameter
 var click_handler = function (index, e) {
-  if (is_mobile || click_event_queue.length > 0 && click_event_queue[0].index == index) {
+  if (click_event_queue.length > 0 && click_event_queue[0].index == index) {
     do_double_click(index);
   } else {
     var click_event = {};
