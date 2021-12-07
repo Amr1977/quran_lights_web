@@ -77,3 +77,52 @@ function getScore() {
     //document.getElementById("today_score").className = "score animated bounceIn";
     $("#today_score").addClass("animated bounceIn");
   }
+
+
+  // الباقي يتم وضعه مع الآية الأولى
+  // The remainder is added to the first verse only
+  function verse_score(sura, verse){
+    let score = Math.floor(suraCharCount[sura - 1] / suraVerseCount[sura - 1]);
+    if (verse == 1) {
+      score += suraCharCount[sura - 1] % suraVerseCount[sura - 1];
+    }
+
+    return score;
+  }
+
+  function verse_range_score(start_sura, start_verse, end_sura, end_verse){
+    let char_count_score = 0;
+    let verse_count_score = 0;
+
+    if (start_sura == end_sura) {
+      for(let verse = start_verse; verse <= end_verse; verse++){
+        char_count_score += verse_score(start_sura, verse);
+        verse_count_score++;
+      }
+
+      return {char_count: char_count_score, verse_count: verse_count_score };
+    }
+    //calculate first sura portion score
+    for(let verse = start_verse; verse <= suraVerseCount[start_sura - 1]; verse++){
+      char_count_score += verse_score(start_sura, verse);
+      verse_count_score++;
+    }
+
+    //calcuate last sure partial scores
+    for(let verse = 1; verse <= end_verse; verse++){
+      char_count_score += verse_score(end_sura, verse);
+      verse_count_score++;
+    }
+    
+    //caculate full suras score sum
+    if ((end_sura - start_sura) > 1) {
+      for (let sura=(start_sura + 1); sura < end_sura; sura++) {
+        char_count_score += suraCharCount[sura - 1];
+        verse_count_score += suraVerseCount[sura - 1];
+      }
+    }
+
+    let range_score = {char_count: char_count_score, verse_count: verse_count_score };
+
+    return range_score;
+  }

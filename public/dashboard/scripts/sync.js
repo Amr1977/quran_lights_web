@@ -172,7 +172,8 @@ function refresh_range(start_sura_index, start_verse, end_sura_index, end_verse,
     end_sura: end_sura_index,
     end_verse: end_verse,
     count: refresh_count,
-    time: refreshTimeStamp
+    time: refreshTimeStamp,
+    uid: generate_uuid()
   };
 
   var transactions_records = [];
@@ -180,6 +181,7 @@ function refresh_range(start_sura_index, start_verse, end_sura_index, end_verse,
   add_to_transactions_history(transactions_records);
 
   enqueue_for_upload(transaction_record);
+  //FIX
   surasHistory[suraIndex].history.push(transaction_record.time);
   sortedTimestampSuraArray = [];
   refreshCountSortedSuraArray = [];
