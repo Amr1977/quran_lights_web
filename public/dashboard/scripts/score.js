@@ -109,9 +109,14 @@ function getScore() {
     }
 
     //calcuate last sure partial scores
-    for(let verse = 1; verse <= end_verse; verse++){
-      char_count_score += verse_score(end_sura, verse);
-      verse_count_score++;
+    if (end_verse == suraVerseCount[end_sura - 1]) {
+      char_count_score += suraCharCount[end_sura - 1];
+      verse_count_score += suraVerseCount[end_sura - 1];
+    } else {
+      for (let verse = 1; verse <= end_verse; verse++) {
+        char_count_score += verse_score(end_sura, verse);
+        verse_count_score++;
+      }
     }
     
     //caculate full suras score sum
