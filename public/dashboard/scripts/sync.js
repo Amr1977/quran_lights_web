@@ -122,10 +122,10 @@ function get_transactions_history() {
 }
 
 function add_to_transactions_history(transactions_records) {
-  var transactions_history = get_transactions_history();
+  let transactions_history = get_transactions_history();
 
   transactions_records = transactions_records.filter(function(transaction) {
-    for(var old_transaction in transactions_history) {
+    for(let old_transaction in transactions_history) {
       if (old_transaction.uuid == transaction.uuid) {
         return false;
       }
@@ -172,9 +172,11 @@ function refresh_range(start_sura_index, start_verse, end_sura_index, end_verse,
     end_sura: end_sura_index,
     end_verse: end_verse,
     count: refresh_count,
-    time: refreshTimeStamp,
+    time: refresh_time_stamp,
     uid: generate_uuid()
   };
+
+  verse_range_history.push(transaction_record);
 
   var transactions_records = [];
   transactions_records.push(transaction_record);
@@ -182,7 +184,7 @@ function refresh_range(start_sura_index, start_verse, end_sura_index, end_verse,
 
   enqueue_for_upload(transaction_record);
   //FIX
-  surasHistory[suraIndex].history.push(transaction_record.time);
+  // surasHistory[suraIndex].history.push(transaction_record.time);
   sortedTimestampSuraArray = [];
   refreshCountSortedSuraArray = [];
   playSuraRefreshSound();

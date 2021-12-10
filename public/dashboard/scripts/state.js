@@ -44,6 +44,7 @@ var myUserId;
 var user;
 
 var surasHistory = {};//TODO replace {} with new Map()
+var verse_range_history = [];
 var sortedTimestampSuraArray = [];
 
 var colorHash = {};

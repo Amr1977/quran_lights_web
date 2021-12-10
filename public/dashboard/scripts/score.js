@@ -44,10 +44,30 @@ function getScore() {
       }
     }
 
+    //TODO handle verse_range score calculation
+    for (let verse_range_fragment_index = 0; verse_range_fragment_index < verse_range_history.length; verse_range_fragment_index++) {
+      let verse_range_transaction = verse_range_history[verse_range_fragment_index];
+      let transaction_score = verse_range_score(verse_range_transaction["start_sura"], verse_range_transaction["start_verse"], verse_range_transaction["end_sura"], verse_range_transaction["end_verse"]);
+      total += Number(transaction_score["char_count"]) * Number(verse_range_transaction["count"]);
+      total_verse += Number(transaction_score["verse_count"]) * Number(verse_range_transaction["count"]);
+
+      if (Number(verse_range_transaction["time"]) >= todayStartTimeStamp()) {
+        today += Number(transaction_score["char_count"]) * Number(verse_range_transaction["count"]);
+        today_verses += Number(transaction_score["verse_count"]) * Number(verse_range_transaction["count"]);
+      }
+
+      //TODO calculate read & review parts!!
+
+    }
+
+
     scores = {"total": total, "today_total": today, "today_review": review_score, "today_read": read_score, "today_verses": today_verses, "total_verses": total_verses};
+    
+    //WHAT!!! \\O.O// never return an array of different variables, instead use map!!!
     return [total, today, review_score, read_score, today_verses, total_verses];
   }
 
+  //VIEW
   function update_score () {
     get_memorization_data();
     var score_array = getScore();
