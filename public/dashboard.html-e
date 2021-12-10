@@ -134,19 +134,19 @@
                             <div id="score" class="score" float="right">
                                 --
                             </div>
-                            <br>
+
                             <div id="today_score" class="score" float="right"></div>
-                            <br>
+
                             <div id="reviews" class="wrapper" style="margin: 5px;"></div>
 
-                            <span id="today_review_score" class="score">
+                            <div id="today_review_score" class="score">
 
-                            </span>
-                            <span id="today_read_score" class="score">
+                            </div>
+                            <div id="today_read_score" class="score">
 
-                            </span>
-                            <span id="selected_total">
-                            </span>
+                            </div>
+                            <div id="selected_total">
+                            </div>
 
                             <br>
                             <span class="tooltip">
@@ -426,7 +426,7 @@
     </div>
 </section>
 
-    <div class="text"> الإصدار 0.1638904516 <div id="current_user"\></div>
+    <div class="text"> الإصدار 0.1638905063 <div id="current_user"\></div>
     <div  id="snackbar"\>
         
 </body>
