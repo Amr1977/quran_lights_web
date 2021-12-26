@@ -23,7 +23,13 @@ const SORT_ORDER_WORD_COUNT = "word_count";
 const SORT_ORDER_REFRESH_COUNT = "refresh_count";
 const SCORE_CURRENCY = "$";
 
-// Initialize Firebase
+//Transaction operation values
+const REFRESH_RANGE_OPERATION = "rr";
+const REFRESH_SURAH_OPERATION = "refresh";
+
+const LAST_TRANSACTION_TIMESTAMP_KEY = "lastTransactionTimeStamp";
+
+
 const config = {
     apiKey: "AIzaSyAEdMiadM_2s39jcHnirT1HPZnXBg3bk6k",
     authDomain: "quran-lights.firebaseapp.com",

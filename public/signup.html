@@ -12,18 +12,18 @@
     <!-- Main css -->
     <link rel="stylesheet" href="login/css/style.css">
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
-    <script src="js/constants.js?v=1639125613"></script>
-    <script src="js/utils.js?v=1639125613"></script>
-    <script src="login/js/login.js?v=1639125613"></script>
+    <script src="js/constants.js?v=1639158405"></script>
+    <script src="js/utils.js?v=1639158405"></script>
+    <script src="login/js/login.js?v=1639158405"></script>
 </head>
 <body>
 
     <script>
         function on_sign_up_button_pressed(){
 
-            var email = document.getElementById("email").value;
-            var password = document.getElementById("pass").value;
-            var re_pass = document.getElementById("re_pass").value;
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("pass").value;
+            let re_pass = document.getElementById("re_pass").value;
 
             if (password !== re_pass) {
                 alert("Passwords mismatch, retype passwords");

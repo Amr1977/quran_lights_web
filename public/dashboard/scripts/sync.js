@@ -6,7 +6,7 @@ var ownTimeStamps = [];
 function onTimeStampUpdated() {
   timeStampTriggerTimerRef = null;
   console.log("Fetching history...");
-  initCells();
+  init_cells();
 }
 
 function skew() {
@@ -51,6 +51,7 @@ function enqueue_batch_for_upload(records) {
   dispatch_uploads();
 }
 
+//الرفع
 function dispatch_uploads() {
   //upload all enqueued transactions
   console.log("Upload Queue: ", get_upload_queue());
@@ -163,17 +164,45 @@ function fetch_full_history_once() {
   });
 }
 
+//TODO fix for new FDB structure
+//TODO put in upload queue and schedule a dispatcher function
+function refresh_surah(suraIndex, refreshTimeStamp) {
+  //TODO update model
+  //TODO check for empty history array
+
+  //update FDB
+  var transaction_record = {
+    op: REFRESH_SURAH_OPERATION,
+    sura: suraIndex,
+    time: refreshTimeStamp,
+    uuid: generate_uuid()()
+  };
+
+  var transactions_records = [];
+  transactions_records.push(transaction_record);
+  add_to_transactions_history(transactions_records);
+
+  enqueue_for_upload(transaction_record);
+  surasHistory[suraIndex].history.push(transaction_record.time);
+  sortedTimestampSuraArray = [];
+  refreshCountSortedSuraArray = [];
+  playSuraRefreshSound();
+  add_sura_cells();
+  animate_score_elements();
+}
+
 //WIP
+// separate full surahs ?
 function refresh_range(start_sura_index, start_verse, end_sura_index, end_verse, refresh_count, refresh_time_stamp){
   var transaction_record = {
-    op: "refresh_range",
+    op: "rr",
     start_sura: start_sura_index,
     start_verse: start_verse,
     end_sura: end_sura_index,
     end_verse: end_verse,
     count: refresh_count,
     time: refresh_time_stamp,
-    uid: generate_uuid()
+    uuid: generate_uuid()
   };
 
   verse_range_history.push(transaction_record);

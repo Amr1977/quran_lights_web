@@ -80,6 +80,7 @@ function getScore() {
     document.getElementById("read_debt").textContent = readableFormat(debts["read"]);
     document.getElementById("total_debt").textContent = readableFormat(debts["read"] + debts["review"]);
 
+    //TODO remove magic numbers and use constants instead!
     time_series_score_data(0);
     time_series_score_data(1);
     time_series_score_data(2);

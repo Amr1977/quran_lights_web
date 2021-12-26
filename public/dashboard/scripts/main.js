@@ -1,29 +1,3 @@
-//TODO fix for new FDB structure
-//TODO put in upload queue and schedule a dispatcher function
-function refreshSura(suraIndex, refreshTimeStamp) {
-  //TODO update model
-  //TODO check for empty history array
-
-  //update FDB
-  var transaction_record = {
-    op: "refresh",
-    sura: suraIndex,
-    time: refreshTimeStamp
-  };
-
-  var transactions_records = [];
-  transactions_records.push(transaction_record);
-  add_to_transactions_history(transactions_records);
-
-  enqueue_for_upload(transaction_record);
-  surasHistory[suraIndex].history.push(transaction_record.time);
-  sortedTimestampSuraArray = [];
-  refreshCountSortedSuraArray = [];
-  playSuraRefreshSound();
-  add_sura_cells();
-  animate_score_elements();
-}
-
 function unrefresh(sura_index){
   //TODO: complete it!
   // console.log("sura_index ", sura_index);
@@ -43,8 +17,8 @@ function animate_score_elements(){
   $(".score").addClass("animated bounceIn");
 }
 
-function refreshByName(suraName) {
-  refreshSura(SuraNamesEn.indexOf(suraName) + 1, Math.floor(Date.now() / 1000))
+function refresh_by_name(suraName) {
+  refresh_surah(SuraNamesEn.indexOf(suraName) + 1, Math.floor(Date.now() / 1000))
 }
 
 var buildingSurasFlag = false;

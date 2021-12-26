@@ -5,25 +5,25 @@ var eta = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59,
 //   add_sura_cells();
 // }, eta);
 
-function initCells() {
+function init_cells() {
   if (user) {
     // User is signed in.
     myUserId = firebase.auth().currentUser.uid;
 
-    var lastTimeStamp = get_local_storage_object("lastTransactionTimeStamp");
+    let lastTimeStamp = get_local_storage_object(LAST_TRANSACTION_TIMESTAMP_KEY);
 
     if (lastTimeStamp) {
       lastTransactionTimeStamp = lastTimeStamp;
     } else {
       lastTransactionTimeStamp = 0;
-      set_local_storage_object("lastTransactionTimeStamp", 0);
+      set_local_storage_object(LAST_TRANSACTION_TIMESTAMP_KEY, 0);
     }
     var history = get_local_storage_object("surasHistory");
     if (history) {
       surasHistory = history;
     } else {
       lastTransactionTimeStamp = 0;
-      set_local_storage_object("lastTransactionTimeStamp", 0);
+      set_local_storage_object(LAST_TRANSACTION_TIMESTAMP_KEY, 0);
     }
 
     console.log("grapping transactions after ", lastTransactionTimeStamp);
@@ -59,7 +59,7 @@ function initCells() {
           }
           if (Number(transactionTimeStamp) > Number(lastTransactionTimeStamp)) {
             lastTransactionTimeStamp = transactionTimeStamp;
-            // set_local_storage_object("lastTransactionTimeStamp", lastTransactionTimeStamp);
+            // set_local_storage_object(LAST_TRANSACTION_TIMESTAMP_KEY, lastTransactionTimeStamp);
           }
           var transactionRecord = childSnapshot.val();
           var suraIndex = transactionRecord.sura;
@@ -86,7 +86,7 @@ function initCells() {
           surasHistory[suraIndex].history.sort(sortNumber);
         }
         set_local_storage_object("surasHistory", surasHistory);
-        set_local_storage_object("lastTransactionTimeStamp", lastTransactionTimeStamp);
+        set_local_storage_object(LAST_TRANSACTION_TIMESTAMP_KEY, lastTransactionTimeStamp);
       }
 
       document.getElementById("reviews").textContent = "";
