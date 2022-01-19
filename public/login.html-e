@@ -12,18 +12,18 @@
     <!-- Main css -->
     <link rel="stylesheet" href="login/css/style.css">
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
-    <script src="js/constants.js?v=1639125613"></script>
-    <script src="js/utils.js?v=1639125613"></script>
-    <script src="login/js/account.js?v=1639125613"></script>
-    <script src="login/js/login.js?v=1639125613"></script>
+    <script src="js/constants.js?v=1639158405"></script>
+    <script src="js/utils.js?v=1639158405"></script>
+    <script src="login/js/account.js?v=1639158405"></script>
+    <script src="login/js/login.js?v=1639158405"></script>
 </head>
 <body>
 
     <script>
         function on_sign_in_button_pressed(){
 
-            var email = document.getElementById("your_name").value;
-            var password = document.getElementById("your_pass").value;
+            let email = document.getElementById("your_name").value;
+            let password = document.getElementById("your_pass").value;
 
             sign_in(email, password);
         }

@@ -3,38 +3,38 @@
 
 <head>
     <title>Quran Lights</title>
-    <link rel="stylesheet" href="dashboard/css/styles.css?v=1638647416">
+    <link rel="stylesheet" href="dashboard/css/styles.css?v=1639158405">
 
     <link href="dashboard/css/context-menu.css" rel="stylesheet">
     <script src="dashboard/scripts/context-menu.js"></script>
 
     <!-- <script async src="https://c6.patreon.com/becomePatronButton.bundle.js"></script> -->
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
-    <script src="dashboard/scripts/suras_data.js?v=1638647416"></script>
-    <script src="js/constants.js?v=1638647416"></script>
-    <script src="js/utils.js?v=1638647416"></script>
-    <script src="login/js/login.js?v=1638647416"></script>
-    <script src="dashboard/scripts/state.js?v=1638647416"></script>
-    <script src="dashboard/scripts/sync.js?v=1638647416"></script>
-    <script src="dashboard/scripts/main.js?v=1638647416"></script>
-    <script src="dashboard/scripts/tabs.js?v=1638647416"></script>
-    <script src="dashboard/scripts/init_app.js?v=1638647416"></script>
-    <script src="dashboard/scripts/init_cells.js?v=1638647416"></script>
-    <script src="dashboard/scripts/keyboard.js?v=1638647416"></script>
-    <script src="dashboard/scripts/memorization.js?v=1638647416"></script>
-    <script src="dashboard/scripts/bright_days_dark_days_chart.js?v=1638647416"></script>
-    <script src="dashboard/scripts/sort.js?v=1638647416"></script>
-    <script src="dashboard/scripts/treemap.js?v=1638647416"></script>
-    <script src="dashboard/scripts/guage.js?v=1638647416"></script>
-    <script src="dashboard/scripts/khatma.js?v=1638647416"></script>
-    <script src="dashboard/scripts/time_series.js?v=1638647416"></script>
-    <script src="dashboard/scripts/import_and_export.js?v=1638647416"></script>
-    <script src="dashboard/scripts/audio.js?v=1638647416"></script>
-    <script src="dashboard/scripts/selection.js?v=1638647416"></script>
-    <script src="dashboard/scripts/score.js?v=1638647416"></script>
-    <script src="dashboard/scripts/cells.js?v=1638647416"></script>
-    <script src="dashboard/scripts/charts.js?v=1638647416"></script>
-    <script src="dashboard/scripts/radar.js?v=1638647416"></script>
+    <script src="dashboard/scripts/suras_data.js?v=1639158405"></script>
+    <script src="js/constants.js?v=1639158405"></script>
+    <script src="js/utils.js?v=1639158405"></script>
+    <script src="login/js/login.js?v=1639158405"></script>
+    <script src="dashboard/scripts/state.js?v=1639158405"></script>
+    <script src="dashboard/scripts/sync.js?v=1639158405"></script>
+    <script src="dashboard/scripts/main.js?v=1639158405"></script>
+    <script src="dashboard/scripts/tabs.js?v=1639158405"></script>
+    <script src="dashboard/scripts/init_app.js?v=1639158405"></script>
+    <script src="dashboard/scripts/init_cells.js?v=1639158405"></script>
+    <script src="dashboard/scripts/keyboard.js?v=1639158405"></script>
+    <script src="dashboard/scripts/memorization.js?v=1639158405"></script>
+    <script src="dashboard/scripts/bright_days_dark_days_chart.js?v=1639158405"></script>
+    <script src="dashboard/scripts/sort.js?v=1639158405"></script>
+    <script src="dashboard/scripts/treemap.js?v=1639158405"></script>
+    <script src="dashboard/scripts/guage.js?v=1639158405"></script>
+    <script src="dashboard/scripts/khatma.js?v=1639158405"></script>
+    <script src="dashboard/scripts/time_series.js?v=1639158405"></script>
+    <script src="dashboard/scripts/import_and_export.js?v=1639158405"></script>
+    <script src="dashboard/scripts/audio.js?v=1639158405"></script>
+    <script src="dashboard/scripts/selection.js?v=1639158405"></script>
+    <script src="dashboard/scripts/score.js?v=1639158405"></script>
+    <script src="dashboard/scripts/cells.js?v=1639158405"></script>
+    <script src="dashboard/scripts/charts.js?v=1639158405"></script>
+    <script src="dashboard/scripts/radar.js?v=1639158405"></script>
 
     <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0" />
     <meta property="og:image" content="http://quranlights.net/images/app_icon.png" />
@@ -426,7 +426,7 @@
     </div>
 </section>
 
-    <div class="text"> الإصدار 0.1639007204 <div id="current_user"\></div>
+    <div class="text"> الإصدار 0.1639158405 <div id="current_user"\></div>
     <div  id="snackbar"\>
         
 </body>

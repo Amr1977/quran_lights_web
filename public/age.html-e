@@ -207,31 +207,31 @@ function getAge(dateString) {
   if (!dateString) {
     return null;
   }
-  var now = new Date();
-  var today = new Date(now.getYear(),now.getMonth(),now.getDate());
+  let now = new Date();
+  let today = new Date(now.getYear(),now.getMonth(),now.getDate());
 
-  var yearNow = now.getYear();
-  var monthNow = now.getMonth();
-  var dateNow = now.getDate();
+  let yearNow = now.getYear();
+  let monthNow = now.getMonth();
+  let dateNow = now.getDate();
 
-  var dob = new Date(dateString.substring(0,4),//year, month, date  YYYY/MM/DD                
+  let dob = new Date(dateString.substring(0,4),//year, month, date  YYYY/MM/DD                
                      dateString.substring(5,7),
                      dateString.substring(8,10)             
                      );
 
-  var yearDob = dob.getYear();
-  var monthDob = dob.getMonth();
-  var dateDob = dob.getDate();
-  var age = {};
-  var ageString = "";
-  var yearString = "";
-  var monthString = "";
-  var dayString = "";
+  let yearDob = dob.getYear();
+  let monthDob = dob.getMonth();
+  let dateDob = dob.getDate();
+  let age = {};
+  let ageString = "";
+  let yearString = "";
+  let monthString = "";
+  let dayString = "";
 
 
   yearAge = yearNow - yearDob;
 
-  var monthAge;
+  let monthAge;
   if (monthNow >= monthDob)
      monthAge = monthNow - monthDob + 1;
   else {
