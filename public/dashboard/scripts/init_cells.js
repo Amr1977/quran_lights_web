@@ -72,6 +72,7 @@ function initCells() {
           switch (transactionRecord.op) {
             case "memorize":
               surasHistory[suraIndex].memorization = transactionRecord.state;
+              surasHistory[suraIndex].memorization_date = transactionRecord.time;
               break;
             case "refresh":
               if (surasHistory[suraIndex].history.indexOf(transactionRecord.time) == -1) {

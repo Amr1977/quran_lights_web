@@ -340,3 +340,7 @@ button:focus {
     visibility: visible;
     opacity: 1;
   }
+
+  .box{
+    border: thick solid orange;
+  }

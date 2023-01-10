@@ -2,6 +2,29 @@ var menu;
 
 var click_event_queue = [];
 var debts = {"reading_debt": 0, "review_debt": 0};
+
+function get_current_timestamp() {
+  return Math.floor(Date.now() / 1000);
+}
+
+function is_newly_memorized(suraIndex) {
+  let newly_memorized_days_period = 30 * 24 * 60 * 60;
+  if (surasHistory[suraIndex].memorization !== MEMORIZATION_STATE_MEMORIZED) {
+    return false;
+  }
+
+  let currentTimeStamp = get_current_timestamp();
+  let timeStampsArray = surasHistory[suraIndex].history;
+  let previous_refresh_time_stamp = timeStampsArray.length > 0
+  ? timeStampsArray[timeStampsArray.length - 1]
+  : get_initial_local_object("min_timestamp", currentTimeStamp);
+  if (currentTimeStamp - Math.floor(surasHistory[suraIndex].memorization_date/1000000) < newly_memorized_days_period) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 //TODO needs refactor!!!
 async function add_sura_cells() {
   if (buildingSurasFlag) {
@@ -12,8 +35,8 @@ async function add_sura_cells() {
   clear_reviews();
   debts = {"read": 0, "review": 0};
 
-  var currentTimeStamp = Math.floor(Date.now() / 1000);
-  var refreshPeriod = get_refresh_period_days() * 24 * 60 * 60;
+  let currentTimeStamp = get_current_timestamp();
+  let refreshPeriod = get_refresh_period_days() * 24 * 60 * 60;
   lightRatio = 0;
   conquerRatio = 0;
   for (var cellIndex = 1; cellIndex <= 114; cellIndex++) {
@@ -28,14 +51,14 @@ async function add_sura_cells() {
       surasHistory[suraIndex].suraIndex = suraIndex;
       surasHistory[suraIndex].memorization = MEMORIZATION_STATE_NOT_MEMORIZED;
     }
-    var timeStampsArray = surasHistory[suraIndex].history;
-    var tooltip_text = "Surah index: " +  suraIndex;
+    let timeStampsArray = surasHistory[suraIndex].history;
+    let tooltip_text = "Surah index: " +  suraIndex;
     //TODO if not refreshed before make it zero instead of (currentTimeStamp - refreshPeriod) and condition timeDifferenceRatio value to be zero too
     //TODO use minimum timestamp in all suras otherwise save current time as that minimum for later calculations
-    var previous_refresh_time_stamp = timeStampsArray.length > 0
+    let previous_refresh_time_stamp = timeStampsArray.length > 0
       ? timeStampsArray[timeStampsArray.length - 1]
       : get_initial_local_object("min_timestamp", currentTimeStamp);
-    var timeDifferenceRatio = 1 -
+    let timeDifferenceRatio = 1 -
       ((currentTimeStamp -
         (previous_refresh_time_stamp == 0 ? currentTimeStamp - refreshPeriod : previous_refresh_time_stamp)) *
         1.0) /
@@ -49,7 +72,7 @@ async function add_sura_cells() {
       currentTimeStamp - previous_refresh_time_stamp < refreshPeriod
         ? (suraCharCount[suraIndex - 1] / full_khatma_char_count) * 100.0
         : 0;
-    var greenComponent = (255.0 * timeDifferenceRatio).toFixed(0);
+    let greenComponent = (255.0 * timeDifferenceRatio).toFixed(0);
     if (timeStampsArray.length > 0) {
       element.style.backgroundColor = "rgb(0," + greenComponent + ",0)";
       surasColorTable[suraIndex - 1] = (greenComponent / 255) * 114;
@@ -59,7 +82,7 @@ async function add_sura_cells() {
       surasColorTable[suraIndex - 1] = 0;
     }
     colorHash[cellIndex] = rgbToHex(0, greenComponent, 0);
-    var daysElapsed = ((currentTimeStamp - previous_refresh_time_stamp) /
+    let daysElapsed = ((currentTimeStamp - previous_refresh_time_stamp) /
       (60 * 60 * 24.0));
       elapsed_days[suraIndex - 1] = Number(daysElapsed);
     if (selected_suras.indexOf(suraIndex) !== -1) {
@@ -67,13 +90,15 @@ async function add_sura_cells() {
     }
     else if (daysElapsed >= get_refresh_period_days()) {
       element.classList.add("old-refresh");
+    } else if (is_newly_memorized(suraIndex)) {
+      element.classList.add("box");
     }
 
-    var header = document.createElement("div");
+    let header = document.createElement("div");
     header.className = "cell_header";
 
-    var verseCount = suraVerseCount[suraIndex - 1];
-    var sura_verse_count_element = document.createElement("div");
+    let verseCount = suraVerseCount[suraIndex - 1];
+    let sura_verse_count_element = document.createElement("div");
     sura_verse_count_element.className = "sura_verse_count";
     sura_verse_count_element.textContent = verseCount + "V";
     add_tooltip(sura_verse_count_element, "Verses count");
@@ -89,14 +114,15 @@ async function add_sura_cells() {
 
     element.appendChild(header);
 
-    var suraName = SuraNamesEn[suraIndex - 1];
-    var daysElapsedText = get_humanized_period(daysElapsed);
+    let suraName = SuraNamesEn[suraIndex - 1];
+    let daysElapsedText = get_humanized_period(daysElapsed);
 
-    var suraNameElement = document.createElement("div");
-    var suraNameElementAr = document.createElement("div");
+    let suraNameElement = document.createElement("div");
+    let suraNameElementAr = document.createElement("div");
     suraNameElement.className = "sura_name_label";
     suraNameElementAr.textContent = SuraNamesAr[suraIndex - 1];
     suraNameElementAr.className = "sura_name_label";
+    //TODO mark newly memorized suras for 30 days to be marked red daily untili reviewed, if dropped then reset counter
     switch (surasHistory[suraIndex].memorization) {
       case MEMORIZATION_STATE_MEMORIZED:
         if (daysElapsed >= get_memorized_refresh_period_days() || daysElapsed >= get_refresh_period_days()) {
@@ -149,9 +175,9 @@ async function add_sura_cells() {
     element.appendChild(suraNameElementAr);
     element.appendChild(suraNameElement);
 
-    var charCountText = readableFormat(suraCharCount[suraIndex - 1]);
+    let charCountText = readableFormat(suraCharCount[suraIndex - 1]);
     //Char count
-    var charCountElement = document.createElement("span");
+    let charCountElement = document.createElement("span");
     charCountElement.className = "char-count";
     charCountElement.textContent = charCountText;
     add_tooltip(charCountElement, "Character count");

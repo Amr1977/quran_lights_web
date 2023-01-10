@@ -1,4 +1,5 @@
 
+//TODO fix it, memorization date info is dropped!!
 
 function exportJSON() {
   var filename = "quran_lights_history.json";
