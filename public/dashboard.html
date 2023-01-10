@@ -76,16 +76,7 @@
 <body background="dashboard/images/background.jpg" dir="rtl" lang="ar">
         <section id="home" dir="rtl" lang="ar">
 
-            <div id="smart-button-container">
-                <div style="text-align: center;">
-                  <div style="margin-bottom: 1.25rem;">
-                    <p>تبرع للموقع</p>
-                    <select id="item-options"><option value="" price="5"> - 5 USD</option><option value="" price="10"> - 10 USD</option><option value="" price="20"> - 20 USD</option><option value="" price="50"> - 50 USD</option><option value="" price="100"> - 100 USD</option><option value="" price="1000"> - 1000 USD</option></select>
-                    <select style="visibility: hidden" id="quantitySelect"></select>
-                  </div>
-                <div id="paypal-button-container"></div>
-                </div>
-              </div>
+
     <main dir="rtl" lang="ar">
         <!--class="mdl-layout__content mdl-color--grey-100"-->
         <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-grid" dir="rtl" lang="ar">
@@ -129,14 +120,17 @@
                                 onclick="openTab('light_days_chart_tab')">الأيام المنيرة بكل شهر</button>
                             <!--button id = "dark_days_chart_tab_button" class="tablinks" onclick="openTab('dark_days_chart_tab')">Dark Days</button-->
 
-                            <button id="import_export_tab_button" class="tablinks"
-                                onclick="openTab('import_export_tab')">Import & Export</button>
+                            <!--button id="import_export_tab_button" class="tablinks"
+                                onclick="openTab('import_export_tab')">Import & Export</button -->
                             <!-- <button id = "prayers_tab_button" class="tablinks" onclick="openTab('prayers_tab')">Prayers</button> -->
                             <button id="settings_tab_button" class="tablinks"
                                 onclick="openTab('settings_tab')">الإعدادات</button>
 
                             <button id="controls_tab_button" class="tablinks"
                             onclick="openTab('controls_tab')">مفاتيح التحكم</button>
+
+                            <button id="donate_tab_button" class="tablinks"
+                            onclick="openTab('donate_tab')">التبرع للموقع</button>
                             <button id="sign_out_nav_item" onclick="sign_out()">تسجيل الخروج</button>
                             <button id="home_buttton" onclick="window.location.href='index.html'">الرئيسية</button>
                         </div>
@@ -332,6 +326,17 @@
                             <br>
                             <a href="http://fnd.us/71qrr9?ref=sh_cAO135" target="_blank" rel="noopener noreferrer"
                                 rel="noopener noreferrer"> Support on FundRazr. </a>
+
+                                <div id="smart-button-container">
+                                    <div style="text-align: center;">
+                                      <div style="margin-bottom: 1.25rem;">
+                                        <p>تبرع للموقع</p>
+                                        <select id="item-options"><option value="" price="5"> - 5 USD</option><option value="" price="10"> - 10 USD</option><option value="" price="20"> - 20 USD</option><option value="" price="50"> - 50 USD</option><option value="" price="100"> - 100 USD</option><option value="" price="1000"> - 1000 USD</option></select>
+                                        <select style="visibility: hidden" id="quantitySelect"></select>
+                                      </div>
+                                    <div id="paypal-button-container"></div>
+                                    </div>
+                                  </div>
                         </div>
 
                         <div id="contribute_tab" class="tabcontent">
