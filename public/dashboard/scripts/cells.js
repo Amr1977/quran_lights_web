@@ -25,6 +25,19 @@ function is_newly_memorized(suraIndex) {
   }
 }
 
+/** check if timestamp belongs to today */
+function is_today(timestamp) {
+  let today = new Date().setHours(0, 0, 0, 0);
+  let thatDay = new Date(timestamp).setHours(0, 0, 0, 0);
+  console.log("today: ", today, ", that day: ", thatDay);
+
+  if(today == thatDay){
+      return true;
+  }
+  
+  return false;
+  }
+
 //TODO needs refactor!!!
 async function add_sura_cells() {
   if (buildingSurasFlag) {
@@ -91,7 +104,12 @@ async function add_sura_cells() {
     else if (daysElapsed >= get_refresh_period_days()) {
       element.classList.add("old-refresh");
     } else if (is_newly_memorized(suraIndex)) {
-      element.classList.add("box");
+      element.classList.add("new_memorized");
+      if (!is_today(Math.floor(previous_refresh_time_stamp*1000))) {
+        console.log("previous_refresh_time_stamp: ", previous_refresh_time_stamp);
+        element.classList.add("due_today");
+      }
+      
     }
 
     let header = document.createElement("div");

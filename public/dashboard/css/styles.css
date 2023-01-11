@@ -341,6 +341,11 @@ button:focus {
     opacity: 1;
   }
 
-  .box{
+  .new_memorized{
     border: thick solid orange;
+  }
+
+  .due_today{
+    animation: beat .3s infinite alternate;
+	  transform-origin: center;
   }
