@@ -340,3 +340,12 @@ button:focus {
     visibility: visible;
     opacity: 1;
   }
+
+  .new_memorized{
+    border: thick solid orange;
+  }
+
+  .due_today{
+    animation: beat .3s infinite alternate;
+	  transform-origin: center;
+  }

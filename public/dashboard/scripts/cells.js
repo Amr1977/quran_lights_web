@@ -2,6 +2,51 @@ var menu;
 
 var click_event_queue = [];
 var debts = {"reading_debt": 0, "review_debt": 0};
+
+function get_weekday() {
+  const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+  const d = new Date();
+  let day = weekday[d.getDay()];
+
+  return day;
+}
+
+function get_current_timestamp() {
+  return Math.floor(Date.now() / 1000);
+}
+
+function is_newly_memorized(suraIndex) {
+  let newly_memorized_days_period = 30 * 24 * 60 * 60;
+  if (surasHistory[suraIndex].memorization !== MEMORIZATION_STATE_MEMORIZED) {
+    return false;
+  }
+
+  let currentTimeStamp = get_current_timestamp();
+  let timeStampsArray = surasHistory[suraIndex].history;
+  let previous_refresh_time_stamp = timeStampsArray.length > 0
+  ? timeStampsArray[timeStampsArray.length - 1]
+  : get_initial_local_object("min_timestamp", currentTimeStamp);
+  if (currentTimeStamp - Math.floor(surasHistory[suraIndex].memorization_date/1000000) < newly_memorized_days_period) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+/** check if timestamp belongs to today */
+function is_today(timestamp) {
+  let today = new Date().setHours(0, 0, 0, 0);
+  let thatDay = new Date(timestamp).setHours(0, 0, 0, 0);
+  console.log("today: ", today, ", that day: ", thatDay);
+
+  if(today == thatDay){
+      return true;
+  }
+  
+  return false;
+  }
+
 //TODO needs refactor!!!
 async function add_sura_cells() {
   if (buildingSurasFlag) {
@@ -12,7 +57,7 @@ async function add_sura_cells() {
   clear_reviews();
   debts = {"read": 0, "review": 0};
 
-  let currentTimeStamp = Math.floor(Date.now() / 1000);
+  let currentTimeStamp = get_current_timestamp();
   let refreshPeriod = get_refresh_period_days() * 24 * 60 * 60;
   lightRatio = 0;
   conquerRatio = 0;
@@ -35,7 +80,7 @@ async function add_sura_cells() {
     let previous_refresh_time_stamp = timeStampsArray.length > 0
       ? timeStampsArray[timeStampsArray.length - 1]
       : get_initial_local_object("min_timestamp", currentTimeStamp);
-      let timeDifferenceRatio = 1 -
+    let timeDifferenceRatio = 1 -
       ((currentTimeStamp -
         (previous_refresh_time_stamp == 0 ? currentTimeStamp - refreshPeriod : previous_refresh_time_stamp)) *
         1.0) /
@@ -49,7 +94,7 @@ async function add_sura_cells() {
       currentTimeStamp - previous_refresh_time_stamp < refreshPeriod
         ? (suraCharCount[suraIndex - 1] / full_khatma_char_count) * 100.0
         : 0;
-        let greenComponent = (255.0 * timeDifferenceRatio).toFixed(0);
+    let greenComponent = (255.0 * timeDifferenceRatio).toFixed(0);
     if (timeStampsArray.length > 0) {
       element.style.backgroundColor = "rgb(0," + greenComponent + ",0)";
       surasColorTable[suraIndex - 1] = (greenComponent / 255) * 114;
@@ -67,6 +112,18 @@ async function add_sura_cells() {
     }
     else if (daysElapsed >= get_refresh_period_days()) {
       element.classList.add("old-refresh");
+    } else if (is_newly_memorized(suraIndex)) {
+      element.classList.add("new_memorized");
+      if (!is_today(Math.floor(previous_refresh_time_stamp*1000))) {
+        element.classList.add("due_today");
+      }
+    } 
+    
+    if (suraIndex == 18 && (get_weekday() == "Friday")) {
+      console.log("previous_refresh_time_stamp: ", previous_refresh_time_stamp);
+      if (!is_today(Math.floor(previous_refresh_time_stamp*1000))) {
+        element.classList.add("due_today");
+      }
     }
 
     let header = document.createElement("div");
@@ -97,6 +154,7 @@ async function add_sura_cells() {
     suraNameElement.className = "sura_name_label";
     suraNameElementAr.textContent = SuraNamesAr[suraIndex - 1];
     suraNameElementAr.className = "sura_name_label";
+    //TODO mark newly memorized suras for 30 days to be marked red daily untili reviewed, if dropped then reset counter
     switch (surasHistory[suraIndex].memorization) {
       case MEMORIZATION_STATE_MEMORIZED:
         if (daysElapsed >= get_memorized_refresh_period_days() || daysElapsed >= get_refresh_period_days()) {
