@@ -3,6 +3,15 @@ var menu;
 var click_event_queue = [];
 var debts = {"reading_debt": 0, "review_debt": 0};
 
+function get_weekday() {
+  const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+  const d = new Date();
+  let day = weekday[d.getDay()];
+
+  return day;
+}
+
 function get_current_timestamp() {
   return Math.floor(Date.now() / 1000);
 }
@@ -106,10 +115,15 @@ async function add_sura_cells() {
     } else if (is_newly_memorized(suraIndex)) {
       element.classList.add("new_memorized");
       if (!is_today(Math.floor(previous_refresh_time_stamp*1000))) {
-        console.log("previous_refresh_time_stamp: ", previous_refresh_time_stamp);
         element.classList.add("due_today");
       }
-      
+    } 
+    
+    if (suraIndex == 18 && (get_weekday() == "Friday")) {
+      console.log("previous_refresh_time_stamp: ", previous_refresh_time_stamp);
+      if (!is_today(Math.floor(previous_refresh_time_stamp*1000))) {
+        element.classList.add("due_today");
+      }
     }
 
     let header = document.createElement("div");
