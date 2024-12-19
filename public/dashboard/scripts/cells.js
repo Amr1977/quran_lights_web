@@ -180,6 +180,7 @@ async function add_sura_cells() {
           break;
 
           case MEMORIZATION_STATE_BEING_MEMORIZED:
+          element.classList.add("due_today");
           suraNameElement.className = "being_memorized sura_name_label";
           add_tooltip(suraNameElement, "Being Memorized");
           tooltip_text = tooltip_text.concat("\nMemorization: Being Memorized");
