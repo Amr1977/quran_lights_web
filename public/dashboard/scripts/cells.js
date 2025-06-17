@@ -113,10 +113,10 @@ async function add_sura_cells() {
     else if (daysElapsed >= get_refresh_period_days()) {
       element.classList.add("old-refresh");
     } else if (is_newly_memorized(suraIndex)) {
-      element.classList.add("new_memorized");
-      if (!is_today(Math.floor(previous_refresh_time_stamp*1000))) {
-        element.classList.add("due_today");
-      }
+      // element.classList.add("new_memorized");
+      // if (!is_today(Math.floor(previous_refresh_time_stamp*1000))) {
+      //   element.classList.add("due_today");
+      // }
     } 
     
     if (suraIndex == 18 && (get_weekday() == "Friday")) {
