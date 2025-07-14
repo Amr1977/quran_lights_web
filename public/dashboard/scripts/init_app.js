@@ -12,6 +12,10 @@ function initApp() {
     return;
   }
 
+  if (!localStorage.getItem('user')) {
+    window.location.href = '/login.html';
+  }
+
   user = JSON.parse(localStorage.getItem("user"));
 
   if (!user) {

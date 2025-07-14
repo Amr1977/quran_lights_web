@@ -24,37 +24,37 @@ function refreshSura(suraIndex, refreshTimeStamp) {
   animate_score_elements();
 }
 
-function unrefresh(sura_index){
+function unrefresh(sura_index) {
   // FIXED: Complete unrefresh functionality
   if (!surasHistory[sura_index] || !surasHistory[sura_index].history || surasHistory[sura_index].history.length === 0) {
     return;
   }
-  
+
   var history_size = surasHistory[sura_index].history.length;
   var refreshTimeStamp = surasHistory[sura_index].history[history_size - 1];
-  
+
   var transaction_record = {
     op: "unrefresh",
     sura: sura_index,
     time: refreshTimeStamp
   };
-  
+
   // Remove from local history
   surasHistory[sura_index].history.pop();
-  
+
   // Add to upload queue
   enqueue_for_upload(transaction_record);
-  
+
   // Update UI
   sortedTimestampSuraArray = [];
   refreshCountSortedSuraArray = [];
   add_sura_cells();
   animate_score_elements();
-  
+
 }
 
 //TODO animate ony after score change
-function animate_score_elements(){
+function animate_score_elements() {
   $(".score").addClass("animated bounceIn");
 }
 
@@ -103,7 +103,7 @@ function setup_light_days_options() {
   light_days_selection_element.value = get_refresh_period_days();
 }
 
-function setup_memorized_light_days_options(){
+function setup_memorized_light_days_options() {
   var memorized_light_days_selection_element = document.getElementById("memorized_light_days");
   memorized_light_days_selection_element.innerHTML = "";
   for (var i = 1; i < 31; i++) {
@@ -116,14 +116,14 @@ function setup_memorized_light_days_options(){
   memorized_light_days_selection_element.value = get_memorized_refresh_period_days();
 }
 
-function setup_reverse_sort_order_checkbox(){
+function setup_reverse_sort_order_checkbox() {
   document.getElementById('reverse_sura_sort_order_checkbox').checked = get_reverse_sort_order();
 }
 
 function show_sign_in_only_elements() {
   for (var i = 0; i < SIGN_IN_ONLY_ELEMENTS.length; i++) {
     var element = document.getElementById(SIGN_IN_ONLY_ELEMENTS[i]);
-    if(element) element.style.display = "block";
+    if (element) element.style.display = "block";
   }
 
   // for (var i = 0; i < SIGN_OUT_ONLY_ELEMENTS.length; i++) {
@@ -132,15 +132,15 @@ function show_sign_in_only_elements() {
   // }
 }
 
-function hide_sign_in_only_elements(){
+function hide_sign_in_only_elements() {
   for (var i = 0; i < SIGN_IN_ONLY_ELEMENTS.length; i++) {
     var element = document.getElementById(SIGN_IN_ONLY_ELEMENTS[i]);
-    if(element) element.style.display = "none";
+    if (element) element.style.display = "none";
   }
 
   for (var i = 0; i < SIGN_OUT_ONLY_ELEMENTS.length; i++) {
     var element = document.getElementById(SIGN_OUT_ONLY_ELEMENTS[i]);
-    if(element) element.style.display = "block";
+    if (element) element.style.display = "block";
   }
 }
 
@@ -160,3 +160,41 @@ function init_collapsibles() {
     });
   }
 }
+
+// Loading spinner utility
+function showLoading(elementId) {
+  const el = document.getElementById(elementId);
+  if (el) {
+    el.innerHTML = '<div class="spinner" style="text-align:center;"><i class="fa fa-spinner fa-spin fa-2x"></i></div>';
+  }
+}
+function hideLoading(elementId, content) {
+  const el = document.getElementById(elementId);
+  if (el) {
+    el.innerHTML = content;
+  }
+}
+
+// Error message utility
+function showErrorMessage(elementId, message) {
+  const el = document.getElementById(elementId);
+  if (el) {
+    el.innerHTML = `<div class='alert alert-danger' style='text-align:center;'>${message}</div>`;
+  }
+}
+
+// Example usage in an async operation
+async function initializeDashboard() {
+  try {
+    showLoading("score");
+    // Simulate async data fetch
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    // ... your data fetch and processing logic ...
+    hideLoading("score", "الرصيد الإجمالي: ...");
+  } catch (error) {
+    showErrorMessage("score", "حدث خطأ أثناء تحميل البيانات. يرجى المحاولة مرة أخرى.");
+    console.error(error);
+  }
+}
+// Call initializeDashboard on page load or as needed
+// initializeDashboard();

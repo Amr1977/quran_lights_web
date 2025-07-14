@@ -2,558 +2,217 @@
 <html lang="ar" dir="rtl">
 
 <head>
-	<!-- 
-    	Boxer Template
-    	http://www.templatemo.com/tm-446-boxer
-    	-->
 	<meta charset="utf-8">
 	<title>أنوار القرآن - اقرأ و ارتق و رتل</title>
-	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="keywords" content="">
-	<meta name="description" content="">
+	<meta name="description"
+		content="موقع أنوار القرآن يمكنك من متابعة معدلات التلاوة و المراجعة الدورية من خلال الرسوم البيانية">
+	<meta name="theme-color" content="#2E7D32">
+	<link rel="icon" href="favicon.ico">
+	<!-- Bootstrap CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+	<!-- Bootstrap Icons -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			--primary-green: #2E7D32;
+			--accent-green: #66BB6A;
+			--background: #F4FBF6;
+		}
 
-	<!-- animate css -->
-	<link rel="stylesheet" href="css/animate.min.css">
-	<!-- bootstrap css -->
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<!-- font-awesome -->
-	<link rel="stylesheet" href="css/font-awesome.min.css">
-	<!-- google font -->
-	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700,800' rel='stylesheet'
-		type='text/css'>
+		body {
+			font-family: 'Open Sans', sans-serif;
+			background: var(--background);
+			color: #222;
+		}
 
-	<!-- custom css -->
-	<link rel="stylesheet" href="css/templatemo-style.css">
+		.hero {
+			background: linear-gradient(120deg, var(--primary-green) 0%, var(--accent-green) 100%);
+			color: #fff;
+			min-height: 60vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			text-align: center;
+			flex-direction: column;
+			padding: 3rem 1rem 2rem 1rem;
+		}
 
+		.hero h1 {
+			font-size: 2.8rem;
+			font-weight: 800;
+			margin-bottom: 1rem;
+		}
+
+		.hero p {
+			font-size: 1.3rem;
+			margin-bottom: 2rem;
+		}
+
+		.features {
+			margin-top: 2rem;
+			margin-bottom: 2rem;
+		}
+
+		.feature-icon {
+			font-size: 2.5rem;
+			color: var(--primary-green);
+			margin-bottom: 1rem;
+		}
+
+		.cta-section {
+			background: var(--primary-green);
+			color: #fff;
+			padding: 2.5rem 0 2rem 0;
+			text-align: center;
+		}
+
+		.cta-section .btn {
+			background: #fff;
+			color: var(--primary-green);
+			border: 2px solid var(--accent-green);
+			font-weight: bold;
+			border-radius: 25px;
+			padding: 0.75rem 2rem;
+			font-size: 1.2rem;
+			margin-top: 1rem;
+			transition: background 0.2s, color 0.2s;
+		}
+
+		.cta-section .btn:hover {
+			background: var(--accent-green);
+			color: #fff;
+			border-color: #fff;
+		}
+
+		.footer {
+			background: #fff;
+			color: var(--primary-green);
+			text-align: center;
+			padding: 1rem 0;
+			font-size: 1rem;
+			border-top: 1px solid #e0e0e0;
+		}
+
+		/* Button overrides for hero */
+		#cta-buttons .btn-light {
+			background: #fff;
+			color: var(--primary-green);
+			border: 2px solid var(--accent-green);
+			font-weight: bold;
+			border-radius: 25px;
+			margin-left: 0.5rem;
+			margin-right: 0.5rem;
+			transition: background 0.2s, color 0.2s;
+		}
+
+		#cta-buttons .btn-light:hover {
+			background: var(--accent-green);
+			color: #fff;
+			border-color: #fff;
+		}
+
+		#cta-buttons .btn-outline-light {
+			color: #fff;
+			border: 2px solid #fff;
+			background: transparent;
+			border-radius: 25px;
+			margin-left: 0.5rem;
+			margin-right: 0.5rem;
+			font-weight: bold;
+			transition: background 0.2s, color 0.2s;
+		}
+
+		#cta-buttons .btn-outline-light:hover {
+			background: #fff;
+			color: var(--primary-green);
+			border-color: var(--accent-green);
+		}
+
+		#cta-buttons .btn-success {
+			background: var(--accent-green);
+			color: #fff;
+			border: 2px solid #fff;
+			border-radius: 25px;
+			margin-left: 0.5rem;
+			margin-right: 0.5rem;
+			font-weight: bold;
+			transition: background 0.2s, color 0.2s;
+		}
+
+		#cta-buttons .btn-success:hover {
+			background: #fff;
+			color: var(--primary-green);
+			border-color: var(--accent-green);
+		}
+	</style>
 </head>
 
-<body onload="adjust_nav_bar()">
-
-	<script>
-		function adjust_nav_bar() {
-			if (localStorage.getItem("user")) {
-				document.getElementById("dashboard_nav_item").style.display = "block";
-				document.getElementById("sign_in_nav_item").style.display = "none";
-				document.getElementById("sign_up_nav_item").style.display = "none";
-				document.getElementById("sign_out_nav_item").style.display = "block";
-			} else {
-				document.getElementById("dashboard_nav_item").style.display = "none";
-				document.getElementById("sign_in_nav_item").style.display = "block";
-				document.getElementById("sign_up_nav_item").style.display = "block";
-				document.getElementById("sign_out_nav_item").style.display = "none";
-			}
-		}
-
-		function sign_out() {
-			localStorage.removeItem("user");
-			adjust_nav_bar();
-		}
-
-	</script>
-	<!-- start preloader -->
-	<div class="preloader">
-		<div class="sk-spinner sk-spinner-rotating-plane"></div>
-	</div>
-	<!-- end preloader -->
-	<!-- start navigation -->
-	<nav class="navbar navbar-default navbar-fixed-top templatemo-nav" role="navigation">
-		<div class="container">
-			<div class="navbar-header">
-				<button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-					<span class="icon icon-bar"></span>
-					<span class="icon icon-bar"></span>
-					<span class="icon icon-bar"></span>
-				</button>
-				<a href="#" class="navbar-brand">
-					<span style="display: inline-block;">موقع أنوار القرآن</span>
-				</a>
-			</div>
-			<div class="collapse navbar-collapse">
-				<ul class="nav navbar-nav navbar-right text-uppercase">
-					<li><a id="sign_in_nav_item" onclick="window.location.href='login.html';"> الدخول</a></li>
-					<li><a id="sign_up_nav_item" onclick="window.location.href='signup.html';">إنشاء حساب</a></li>
-					<li><a id="sign_out_nav_item" onclick="sign_out()"> الخروج</a></li>
-
-					<li><a href="#testimonials">آراء المستخدمين</a></li>
-					<li><a href="#contact">التواصل</a></li>
-					<li><a onclick="window.location.href='age.html'"> العمر ساعة</a></li>
-					<li><a href="#fund">دعم الموقع</a></li>
-					<li><a href="#cooperate">المشاركة في التطوير</a></li>
-					<!-- <li><a href="#download">تحميل</a></li> -->
-					<!-- <li><a href="#pricing">الاشتراك</a></li> -->
-					<!-- <li><a href="#marriage">زواج أهل القرآن</a></li> -->
-					<li><a href="#feature">الفكرة</a></li>
-					<li><a href="#home">البداية</a></li>
-					<li><a id="dashboard_nav_item" onclick="window.location.href='dashboard.html';">لوحات البيان</a></li>
-				</ul>
-			</div>
+<body>
+	<!-- Hero Section -->
+	<section class="hero">
+		<h1>أنوار القرآن</h1>
+		<p>تابع تلاوتك ومراجعتك للقرآن الكريم برسوم ولوحات بيانية تفاعلية</p>
+		<div id="cta-buttons">
+			<a href="dashboard.html" class="btn btn-light btn-lg d-none" id="dashboard-btn">لوحة التحكم</a>
+			<a href="login.html" class="btn btn-outline-light btn-lg mx-2" id="login-btn">تسجيل الدخول</a>
+			<a href="signup.html" class="btn btn-success btn-lg" id="signup-btn">إنشاء حساب</a>
 		</div>
-	</nav>
-	<!-- end navigation -->
+	</section>
 
-	<!-- start home -->
-	<section id="home">
-		<div class="overlay">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-1"></div>
-					<div class="col-md-10 wow fadeIn" data-wow-delay="0.3s">
-						<h1 class="text-upper">رسوم و لوحات بيان معدلاتك القرآنية</h1>
-						<p class="tm-white">
-							موقع أنوار القرآن يمكنك من متابعة معدلات التلاوة و المراجعة الدورية من خلال الرسوم البيانية
-						</p>
-					</div>
-					<div class="col-md-1"></div>
-				</div>
+	<!-- Features Section -->
+	<section class="container features">
+		<div class="row text-center">
+			<div class="col-6 col-md-3 mb-4">
+				<div class="feature-icon mb-2"><i class="bi bi-grid-1x2"></i></div>
+				<h5>لوحات تفاعلية</h5>
+				<p>تابع تقدمك في التلاوة والمراجعة بسهولة.</p>
+			</div>
+			<div class="col-6 col-md-3 mb-4">
+				<div class="feature-icon mb-2"><i class="bi bi-lightbulb"></i></div>
+				<h5>تنبيهات ذكية</h5>
+				<p>احصل على تذكيرات لمراجعة السور في الوقت المناسب.</p>
+			</div>
+			<div class="col-6 col-md-3 mb-4">
+				<div class="feature-icon mb-2"><i class="bi bi-bar-chart"></i></div>
+				<h5>إحصائيات دقيقة</h5>
+				<p>تحليلات ورسوم بيانية لمتابعة الأداء.</p>
+			</div>
+			<div class="col-6 col-md-3 mb-4">
+				<div class="feature-icon mb-2"><i class="bi bi-people"></i></div>
+				<h5>مشاركة التقدم</h5>
+				<p>شارك نتائجك مع معلمك أو أولياء الأمور.</p>
 			</div>
 		</div>
 	</section>
-	<!-- end home -->
 
-	<!-- start feature -->
-	<section id="feature">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-6 wow fadeInLeft" data-wow-delay="0.6s">
-					<h2 class="text-uppercase">كل سورة يتم تمثيلها بخلية مضيئة</h2>
-					<p dir="rtl"><i class="fa fa-code"></i>درجة إضاءة الخلية تضعف مع مرور الوقت إلى حين إعادة تلاوتها</p>
-					<p dir="rtl"><i class="fa fa-code"></i>موضح على الخلية الزمن المنقضي منذ آخر تلاوة</p>
-					<p dir="rtl"><i class="fa fa-code"></i>و عليها عدد الحروف لحساب الرصيد اليومي و التراكمي</p>
-					<p dir="rtl"><i class="fa fa-code"></i>يمكنك وضع علامات لتمييز حالة الحفظ لكل سورة</p>
-					<p dir="rtl"><i class="fa fa-code"></i>فقط تذكر بعد الفراغ من تلاوة أي سورة أن تقوم بإضاءة الخلية المناظرة لها
-					</p>
-					<p dir="rtl"><i class="fa fa-code"></i>يمكنك اعادة ترتيب سور المصحف بناءا على ترتيب النزول أو بعدد الآيات أو
-						بعدد الحروف أو عدد الكلمات أو عدد مرات التلاوة</p>
-
-				</div>
-				<div class="col-md-6 wow fadeInRight" data-wow-delay="0.6s">
-					<img src="/landing/images/cells.png" class="img-responsive" alt="feature img">
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- end feature -->
-
-	<!-- start feature1 -->
-	<section id="feature1">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-					<img src="/images/heat-map.png" class="img-responsive" alt="feature img">
-				</div>
-				<div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-					<h2 class="text-uppercase"> ستعمل الخلايا الضوئية على بناء خريطة ضوئية توضح حالة كل سورة في ذاكرتك عبر تفاوت
-						درجة الإضاءة مع مرور الوقت ، مع وضع علامات تنبيه على السور التي تتخطى الزمن المسموح به</h2>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- end feature1 -->
-
-	<!-- start feature1 -->
-	<section id="feature1">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-					<h2 class="text-uppercase"> يتم عمل رسوم لبيان الرصيد اليومي و الشهري و السنوي</h2>
-				</div>
-				<div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-					<img src="/images/column.png" class="img-responsive" alt="feature img">
-				</div>
-
-			</div>
-		</div>
-	</section>
-	<!-- end feature1 -->
-
-	<!-- start feature1 -->
-	<section id="feature1">
-		<div class="container">
-			<div class="row">
-
-				<div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-					<img src="/images/radar.png" class="img-responsive" alt="feature img">
-				</div>
-
-				<div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-					<h2 class="text-uppercase">و سيكون لديك رادار لرصد تفلت السور</h2>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- end feature1 -->
-
-	<!-- start feature1 -->
-	<section id="feature1">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-					<h2 class="text-uppercase">و سيمكنك حساب النسبة المئوية لما تحفظ من القرآن</h2>
-				</div>
-				<div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-					<img src="/images/memorization.png" class="img-responsive" alt="feature img">
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- end feature1 -->
-
-	<!-- start feature1 -->
-	<section id="feature1">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-					<img src="/images/class.jpg" class="img-responsive" alt="feature img">
-				</div>
-				<div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-					<h2 class="text-uppercase">يمكن للآباء و محفظي القرآن من متابعة معدلات الأبناء و الطلبة بعمل بروفيل لكل منهم
-					</h2>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- end feature1 -->
-
-	<!-- start feature1 -->
-	<!-- <section id="marriage">
-			<div class="container">
-				<div class="row">
-                    
-                    <div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-						<h2 class="text-uppercase">جاري جمع التمويل لإنشاء موقع لزواج أهل القرآن </h2>
-						<p dir="rtl"><i class="fa fa-code"></i> بالتكامل مع موقع أنوار القرآن حيث سيتيح لمن يرغب في الزواج العثور على من تكافئه في المعدلات القرآنية<p>
-						<p dir="rtl"><i class="fa fa-code"></i> احرص على انشاء حساب هنا في موقع أنوار القرآن و ادخال معدلاتك القرآنية بشكل مستمر ، هذا  إن شاء الله يعطي مصداقية أكثر لبيااتك     <p>
-						<p dir="rtl"><i class="fa fa-code"></i> <a href="https://www.facebook.com/QuranicLights/posts/3726113997612936" target="_blank">لمزيد من التفاصيل</a></p>
-						</div>
-                    <div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-						<img src="/images/marriage.jpeg" class="img-responsive" alt="feature img">
-					</div>
-				</div>
-			</div>
-		</section> -->
-	<!-- end feature1 -->
-
-	<!-- start feature1 -->
-	<!-- <section id="download">
-					<div class="container">
-						<div class="row">
-							<div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-								<a href="https://apps.apple.com/us/app/quran-lights/id1218872513" target="_blank"><img src="/images/app-store.png" class="img-responsive" alt="feature img"></a>
-								
-							</div>
-							<div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-								<h2 class="text-uppercase">يمكن تحميل التطبيق من متجر أبل للتطبيقات</h2>
-								<p dir="rtl"><i class="fa fa-code"></i> <a href="https://apps.apple.com/us/app/quran-lights/id1218872513" target="_blank">التطبيق على أبل آب ستور</a></p>
-							</div>
-
-						</div>
-					</div>
-				</section> -->
-	<!-- end feature1 -->
-
-	<!-- feature2  FUND-->
-	<section id="fund">
-		<div class="container">
-			<div class="row">
-
-				<div class="col-md-6 wow fadeInLeft" data-wow-delay="0.6s">
-					<h2 class="text-uppercase">دعم تطوير الموقع</h2>
-					<p dir="rtl"><i class="fa fa-code"></i> عبر المحفظة الذكية 00201206410261</p>
-					<!-- <p><i class="fa fa-code"></i><a href="https://www.patreon.com/quran_network" target="_blank" rel="noopener noreferrer"
-                                rel="noopener noreferrer"> Support on Patreon. </a></p>
-                            <p><i class="fa fa-code"></i> <a href="http://fnd.us/71qrr9?ref=sh_cAO135" target="_blank" rel="noopener noreferrer"
-                                rel="noopener noreferrer"> Support on FundRazr. </a></p> -->
-				</div>
-
-				<div class="col-md-6 wow fadeInRight" data-wow-delay="0.6s">
-					<img src="/images/seeds.jpg" class="img-responsive" alt="feature img">
-				</div>
-			</div>
-		</div>
-
+	<!-- Call to Action Section -->
+	<section class="cta-section">
+		<h2 class="mb-3">ابدأ رحلتك مع أنوار القرآن الآن</h2>
+		<a href="signup.html" class="btn btn-lg">سجّل مجاناً</a>
 	</section>
 
-	<!-- feature2  COOPERATE-->
-	<section id="cooperate">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-6 wow" data-wow-delay="0.6s">
-					<h2 class="text-uppercase">المشاركة في تطوير الموقع</h2>
-					<p dir="rtl"><i class="fa fa-code"></i><a href="https://github.com/Amr1977/quran_lights_web" target="_blank"
-							rel="noopener noreferrer" rel="noopener noreferrer"> Cooperate and create PR on Github </a></p>
-				</div>
-
-				<div class="col-md-6 wow" data-wow-delay="0.6s">
-					<img src="/images/coding.jpg" class="img-responsive" alt="feature img">
-				</div>
-			</div>
-		</div>
-
-	</section>
-
-	<!-- start divider -->
-	<section id="divider">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-4 wow fadeInUp templatemo-box" data-wow-delay="0.3s">
-					<!-- <i class="fa fa-laptop"></i> -->
-					<h3 class="text-uppercase">ورتل</h3>
-					<p> </p>
-				</div>
-				<div class="col-md-4 wow fadeInUp templatemo-box" data-wow-delay="0.3s">
-					<!-- <i class="fa fa-twitter"></i> -->
-					<h3 class="text-uppercase">وارتقِ</h3>
-					<p> </p>
-				</div>
-				<div class="col-md-4 wow fadeInUp templatemo-box" data-wow-delay="0.3s">
-					<!-- <i class="fa fa-font"></i> -->
-					<h3 class="text-uppercase">اقرأ</h3>
-					<p> </p>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- end divider -->
-
-	<!-- start testimonials -->
-	<section id="testimonials">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12 wow fadeInUp" data-wow-delay="0.6s">
-					<h2 class="text-uppercase text-center">آراء المستخدمين</h2>
-					<p class="text-center" dir="rtl">استمع إلى تجارب المستخدمين مع تطبيق أنوار القرآن</p>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-4 wow fadeInUp" data-wow-delay="0.8s">
-					<div class="testimonial-card">
-						<div class="testimonial-content">
-							<div class="stars">
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-							</div>
-							<p dir="rtl">"تطبيق رائع! ساعدني في تنظيم تلاوتي اليومية والحفاظ على روتين ثابت مع القرآن الكريم. الخلايا
-								الضوئية فكرة عبقرية!"</p>
-							<div class="testimonial-author">
-								<h4>أحمد محمد</h4>
-								<span>طالب جامعي</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 wow fadeInUp" data-wow-delay="1.0s">
-					<div class="testimonial-card">
-						<div class="testimonial-content">
-							<div class="stars">
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-							</div>
-							<p dir="rtl">"الرسوم البيانية والتحليلات ساعدتني في فهم نمط تلاوتي وتحديد المجالات التي أحتاج لتحسينها.
-								تطبيق لا غنى عنه!"</p>
-							<div class="testimonial-author">
-								<h4>فاطمة علي</h4>
-								<span>معلمة قرآن</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 wow fadeInUp" data-wow-delay="1.2s">
-					<div class="testimonial-card">
-						<div class="testimonial-content">
-							<div class="stars">
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-							</div>
-							<p dir="rtl">"منذ أن بدأت باستخدام التطبيق، أصبحت أكثر التزاماً بتلاوة القرآن. الفكرة البصرية للخلايا
-								الضوئية تحفزني يومياً."</p>
-							<div class="testimonial-author">
-								<h4>عمر خالد</h4>
-								<span>مهندس برمجيات</span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6 wow fadeInUp" data-wow-delay="1.4s">
-					<div class="testimonial-card">
-						<div class="testimonial-content">
-							<div class="stars">
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-							</div>
-							<p dir="rtl">"ميزة تتبع الحفظ ممتازة! ساعدتني في تنظيم مراجعتي وتحديد السور التي تحتاج لمراجعة دورية."</p>
-							<div class="testimonial-author">
-								<h4>سارة أحمد</h4>
-								<span>حافظة قرآن</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 wow fadeInUp" data-wow-delay="1.6s">
-					<div class="testimonial-card">
-						<div class="testimonial-content">
-							<div class="stars">
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-							</div>
-							<p dir="rtl">"التطبيق سهل الاستخدام ومفيد جداً. أحب فكرة الرادار لتتبع السور التي تحتاج لمراجعة. شكراً
-								لكم!"</p>
-							<div class="testimonial-author">
-								<h4>محمد عبدالله</h4>
-								<span>طبيب</span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12 text-center wow fadeInUp" data-wow-delay="1.8s">
-					<div class="review-cta">
-						<h3 dir="rtl">شارك تجربتك معنا</h3>
-						<p dir="rtl">هل استفدت من تطبيق أنوار القرآن؟ نود سماع رأيك!</p>
-						<div class="review-buttons">
-							<a href="#contact" class="btn btn-primary">أرسل مراجعتك</a>
-							<a href="https://apps.apple.com/us/app/quran-lights/id1218872513" target="_blank"
-								class="btn btn-secondary">
-								<i class="fa fa-apple"></i> مراجعة على App Store
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- end testimonials -->
-
-	<!-- start contact -->
-	<section id="contact">
-		<div class="overlay">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-6 wow fadeInRight" data-wow-delay="0.6s">
-						<img src="images/contact.jpeg" class="img-responsive" alt="feature img">
-					</div>
-
-					<div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-						<h2 class="text-uppercase">تواصل معنا</h2>
-						<!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation. </p> -->
-						<address>
-							<p><i class="fa fa-facebook"></i> <a href="https://www.facebook.com/QuranicLights/" target="_blank"
-									style="color:#1df52f"> صفحة موقع أنوار القرآن على الفيسبوك </a> </p>
-							<p><i class="fa fa-facebook"></i> <a href="https://www.facebook.com/groups/quranlights" target="_blank"
-									style="color:#1df52f"> يمكنك الاشتراك في مجموعة موقع أنوار القرآن على الفيسبوك </a> </p>
-							<p><i class="fa fa-facebook"></i> <a href="https://www.facebook.com/QuranicLights/posts/3821405261417142"
-									target="_blank" style="color:#1df52f"> يسرنا تلقي مقترحاتكم بالتعليق على هذا المنشور </a> </p>
-							<p><i class="fa fa-envelope-o"></i> quran.lights.network@gmail.com</p>
-						</address>
-
-						<!-- Review Submission Form -->
-						<div class="review-form" style="margin-top: 30px;">
-							<h3 dir="rtl">أرسل مراجعتك</h3>
-							<form id="reviewForm" dir="rtl">
-								<div class="form-group">
-									<label for="reviewerName">الاسم:</label>
-									<input type="text" class="form-control" id="reviewerName" required>
-								</div>
-								<div class="form-group">
-									<label for="reviewerRole">المهنة:</label>
-									<input type="text" class="form-control" id="reviewerRole" required>
-								</div>
-								<div class="form-group">
-									<label for="reviewRating">التقييم:</label>
-									<select class="form-control" id="reviewRating" required>
-										<option value="">اختر التقييم</option>
-										<option value="5">⭐⭐⭐⭐⭐ ممتاز</option>
-										<option value="4">⭐⭐⭐⭐ جيد جداً</option>
-										<option value="3">⭐⭐⭐ جيد</option>
-										<option value="2">⭐⭐ مقبول</option>
-										<option value="1">⭐ ضعيف</option>
-									</select>
-								</div>
-								<div class="form-group">
-									<label for="reviewText">المراجعة:</label>
-									<textarea class="form-control" id="reviewText" rows="4" placeholder="اكتب مراجعتك هنا..."
-										required></textarea>
-								</div>
-								<button type="submit" class="btn btn-primary">إرسال المراجعة</button>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- end contact -->
-
-
-
-	<!-- start footer -->
-	<footer>
-		<div class="container">
-			<div class="row">
-				<p>جميع الحقوق محفوظة لموقع أنوار القرآن ©</p>
-				<p>2021</p>
-			</div>
-		</div>
-
-		<!-- <div class="container">
-				<div class="row">
-					<p>Distributed By <a href="http://themewagon.com" target="_blank">Themewagon</a></p>
-				</div>
-			</div> -->
+	<!-- Footer -->
+	<footer class="footer">
+		جميع الحقوق محفوظة لموقع أنوار القرآن © 2024
 	</footer>
-	<!-- end footer -->
 
-	<!-- Firebase SDK -->
-	<script src="js/config.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+	<!-- Minimal JS for CTA toggle -->
 	<script>
-		// Initialize Firebase
-		if (window.APP_CONFIG && window.APP_CONFIG.firebase) {
-			firebase.initializeApp(window.APP_CONFIG.firebase);
-		}
-	</script>
-	<script src="js/constants.js"></script>
-
-	<script src="js/jquery.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/wow.min.js"></script>
-	<script src="js/jquery.singlePageNav.min.js"></script>
-	<script src="js/custom.js"></script>
-	<script src="js/reviews.js"></script>
-	<script src="js/lazy-loading.js"></script>
-	<script src="js/analytics.js"></script>
-
-	<!-- Service Worker Registration -->
-	<script>
-		if ('serviceWorker' in navigator) {
-			window.addEventListener('load', function () {
-				navigator.serviceWorker.register('/sw.js')
-					.then(function (registration) {
-						console.log('Service Worker registered successfully:', registration.scope);
-					})
-					.catch(function (error) {
-						console.log('Service Worker registration failed:', error);
-					});
-			});
-		}
+		document.addEventListener('DOMContentLoaded', function () {
+			var user = localStorage.getItem('user');
+			if (user) {
+				document.getElementById('dashboard-btn').classList.remove('d-none');
+				document.getElementById('login-btn').style.display = 'none';
+				document.getElementById('signup-btn').style.display = 'none';
+			} else {
+				document.getElementById('dashboard-btn').classList.add('d-none');
+				document.getElementById('login-btn').style.display = '';
+				document.getElementById('signup-btn').style.display = '';
+			}
+		});
 	</script>
 </body>
 

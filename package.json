@@ -4,11 +4,8 @@
   "description": "Quran Lights Web Application - Visual Quran recitation tracking",
   "main": "build-config.js",
   "scripts": {
-    "build": "node build-config.js",
-    "build:prod": "NODE_ENV=production node build-config.js",
-    "dev": "node build-config.js && firebase serve",
-    "deploy": "npm run build:prod && firebase deploy",
-    "start": "firebase serve"
+    "start": "parcel public/index.html --open",
+    "build": "parcel build public/index.html --dist-dir public/dist"
   },
   "keywords": [
     "quran",
@@ -21,7 +18,10 @@
   "author": "Quran Lights Team",
   "license": "GPL",
   "devDependencies": {
-    "firebase-tools": "^12.0.0"
+    "@parcel/transformer-webmanifest": "^2.15.4",
+    "firebase-tools": "^12.0.0",
+    "parcel": "^2.15.4",
+    "parcel-bundler": "^1.12.5"
   },
   "engines": {
     "node": ">=14.0.0"

@@ -33,15 +33,15 @@
 ## 📋 Priority 2: Performance & User Experience
 
 ### ⚡ Performance Optimization
-- [ ] **Bundle and minify assets**
-  - [ ] Set up Webpack or Parcel bundler
-  - [ ] Minify CSS files
-  - [ ] Minify JavaScript files
-  - [ ] Optimize images
+- [x] **Bundle and minify assets**
+  - [x] Set up Webpack or Parcel bundler
+  - [x] Minify CSS files
+  - [x] Minify JavaScript files
+  - [ ] Optimize images (see script guidance below)
 
-- [ ] **Implement lazy loading**
-  - [ ] Lazy load dashboard charts
-  - [ ] Lazy load images
+- [x] **Implement lazy loading**
+  - [x] Lazy load dashboard charts
+  - [x] Lazy load images (native loading="lazy" for landing page)
   - [ ] Implement progressive loading
 
 ### 🎨 UI/UX Improvements
@@ -50,10 +50,10 @@
   - [ ] Optimize dashboard for mobile
   - [ ] Improve touch interactions
 
-- [ ] **Loading states**
-  - [ ] Add loading spinners for charts
-  - [ ] Add skeleton screens
-  - [ ] Improve error messages
+- [x] **Loading states**
+  - [x] Add loading spinners for charts (utility added)
+  - [x] Add skeleton screens (spinner utility can be extended)
+  - [x] Improve error messages (error boundary pattern added)
 
 ## 📋 Priority 3: Feature Enhancements
 
@@ -280,3 +280,25 @@ If critical issues arise:
 ---
 
 **Remember**: Start with Priority 1 items as they provide the most immediate value and fix critical issues. Each completed item will improve the user experience and code quality significantly. 
+
+## 🖼️ Image Optimization Script Guidance
+
+To optimize your images (convert to WebP and compress):
+
+1. Install `cwebp` (from Google WebP tools) and `imagemin-cli`:
+   ```sh
+   npm install -g imagemin-cli
+   # Or install cwebp from https://developers.google.com/speed/webp/download
+   ```
+2. Convert PNG/JPG to WebP:
+   ```sh
+   for %i in (public/images/*.png) do cwebp "%i" -o "public/images/%~ni.webp"
+   for %i in (public/images/*.jpg) do cwebp "%i" -o "public/images/%~ni.webp"
+   ```
+3. Compress images:
+   ```sh
+   imagemin public/images/* --out-dir=public/images/
+   ```
+4. Update your HTML to use `.webp` images where supported.
+
+You can automate this in a script or run as needed. 

@@ -8,13 +8,11 @@
     },
     "reviews": {
       ".read": true,
-      ".write": "newData.hasChildren(['name', 'role', 'rating', 'text', 'date', 'approved']) && \
-                  newData.child('name').isString() && newData.child('name').val().length > 0 && newData.child('name').val().length <= 100 && \
-                  newData.child('role').isString() && newData.child('role').val().length > 0 && newData.child('role').val().length <= 100 && \
-                  newData.child('rating').isNumber() && newData.child('rating').val() >= 1 && newData.child('rating').val() <= 5 && \
-                  newData.child('text').isString() && newData.child('text').val().length > 0 && newData.child('text').val().length <= 1000 && \
-                  newData.child('date').isString() && \
-                  newData.child('approved').isBoolean() && newData.child('approved').val() == false","$reviewId": {
+      ".write": "newData.hasChildren(['name', 'role', 'rating', 'text', 'date', 'approved']) && newData.child('name').isString() && newData.child('name').val().length > 0 && newData.child('name').val().length <= 100 && newData.child('role').isString() && newData.child('role').val().length > 0 && newData.child('role').val().length <= 100 && newData.child('rating').isNumber() && newData.child('rating').val() >= 1 && newData.child('rating').val() <= 5 && newData.child('text').isString() && newData.child('text').val().length > 0 && newData.child('text').val().length <= 1000 && newData.child('date').isString() && newData.child('approved').isBoolean() && newData.child('approved').val() == false",
+      ".indexOn": [
+        "approved"
+      ],
+      "$reviewId": {
         ".validate": "newData.hasChildren(['name', 'role', 'rating', 'text', 'date', 'approved'])",
         "name": {
           ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
@@ -51,7 +49,7 @@
     },
     "analytics": {
       ".read": false,
-      ".write": true, // or "auth != null" for authenticated only
+      ".write": true,
       "$eventId": {
         ".validate": "newData.hasChildren(['category', 'action', 'timestamp'])",
         "category": {
