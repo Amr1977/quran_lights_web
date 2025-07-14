@@ -36,9 +36,9 @@ async function drawTimeSeriesChart(divID, mode) {
       data = light_days_data();
       break;
 
-      case REFRESH_COUNT_TIME_SCORE_MODE:
-        data = refresh_count_times_score();
-        break;
+    case REFRESH_COUNT_TIME_SCORE_MODE:
+      data = refresh_count_times_score();
+      break;
 
 
     default:
@@ -71,13 +71,13 @@ async function drawTimeSeriesChart(divID, mode) {
       chartTitle = "Bright Days";
       break;
 
-      case REFRESH_COUNT_TIME_SCORE_MODE:
-        chartTitle = "Surah Score";
-        xAxe = { categories: SuraNamesEn };
-        break;
+    case REFRESH_COUNT_TIME_SCORE_MODE:
+      chartTitle = "Surah Score";
+      xAxe = { categories: SuraNamesEn };
+      break;
 
-        default:
-          chartTitle = "Title";
+    default:
+      chartTitle = "Title";
 
   }
   Highcharts.chart(divID, {
@@ -160,7 +160,7 @@ function time_series_score_data(mode) {
       if (timestamp) {
         allEntries.push([timestamp, suraCharCount[cellIndex - 1]]);
       }
-      
+
     }
   }
 
@@ -200,39 +200,37 @@ function time_series_score_data(mode) {
       var periodTimestamp = (periodEndTimestamp - periodStartTimestamp) / 2 + periodStartTimestamp;
       periodStartTimestamp = sortedEntries[index][0];
 
-      if(periodEndTimestamp == 1610296531000) {
-        console.log("filter: ", sortedEntries[index][0]);
+      if (periodEndTimestamp == 1610296531000) {
       } else {
         scoreArray.push([periodTimestamp, periodScore]);
-        if(mode == DAILY_SCORE_MODE) {
+        if (mode == DAILY_SCORE_MODE) {
           if (periodScore > day_high_score) {
             day_high_score = periodScore;
           }
         }
-  
-        if(mode == MONTHLY_SCORE_MODE) {
+
+        if (mode == MONTHLY_SCORE_MODE) {
           if (periodScore > month_high_score) {
             month_high_score = periodScore;
           }
         }
-  
-        if(mode == YEARLY_SCORE_MODE) {
+
+        if (mode == YEARLY_SCORE_MODE) {
           if (periodScore > year_high_score) {
             year_high_score = periodScore;
           }
         }
       }
-      
+
       if (mode !== DARK_DAYS_MODE) {
         periodScore = sortedEntries[index][1];
       }
     } else {
-      if(periodEndTimestamp == 1610296531000) {
-        console.log("filter: ", sortedEntries[index][0]);
+      if (periodEndTimestamp == 1610296531000) {
       } else {
         periodScore += sortedEntries[index][1];
       }
-      
+
       if (index == (sortedEntries.length - 1)) {
         scoreArray.push([sortedEntries[index][0], periodScore]);
       }
@@ -245,7 +243,6 @@ function time_series_score_data(mode) {
 
   if (mode == DAILY_SCORE_MODE) {
     scores["day_high_score"] = day_high_score;
-    console.log("day high score ", day_high_score)
   }
 
   if (mode == MONTHLY_SCORE_MODE) {
@@ -259,9 +256,9 @@ function time_series_score_data(mode) {
   return scoreArray;
 }
 
-function refresh_count_times_score(){
+function refresh_count_times_score() {
   var scoreArray = [];
-  
+
   for (let cellIndex = 1; cellIndex <= 114; cellIndex++) {
     var history = surasHistory[cellIndex].history;
     scoreArray.push([SuraNamesEn[cellIndex - 1], history.length * suraCharCount[cellIndex - 1]]);

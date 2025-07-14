@@ -26,8 +26,6 @@ function initCells() {
       set_local_storage_object("lastTransactionTimeStamp", 0);
     }
 
-    console.log("grapping transactions after ", lastTransactionTimeStamp);
-
     sort_order = get_local_storage_object("sort_order");
     if (sort_order) {
       set_sort_order_with_value(sort_order);

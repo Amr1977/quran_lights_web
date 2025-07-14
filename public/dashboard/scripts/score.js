@@ -27,14 +27,12 @@ function getScore() {
         if (surasHistory[i].memorization == MEMORIZATION_STATE_MEMORIZED) {
           if (!reviewed_today.has(i)) {
             reviewed_today.add(i);
-            console.log("reviewed_today: " + i);
             review_score += suraScore;
           }
         }
         else {
           if (!read_today.has(i)) {
             read_today.add(i);
-            console.log("read_today: " + i);
             read_score += suraScore;
           }
         }

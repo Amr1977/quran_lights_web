@@ -5,7 +5,6 @@ var ownTimeStamps = [];
 
 function onTimeStampUpdated() {
   timeStampTriggerTimerRef = null;
-  console.log("Fetching history...");
   initCells();
 }
 
@@ -35,7 +34,6 @@ function set_upload_queue(queue) {
 var reference_to_scheduled_upload_function;
 
 function enqueue_for_upload(transaction_record) {
-  console.log("enqueue_for_upload: \n" + transaction_record);
   var queue = get_upload_queue();
   queue.unshift(transaction_record);
   set_upload_queue(queue);
@@ -44,7 +42,6 @@ function enqueue_for_upload(transaction_record) {
 }
 
 function enqueue_batch_for_upload(records) {
-  console.log("enqueue_for_upload: \n" + records);
   var queue = get_upload_queue();
   queue = records.concat(queue);
   set_upload_queue(queue);
@@ -53,7 +50,6 @@ function enqueue_batch_for_upload(records) {
 
 function dispatch_uploads() {
   //upload all enqueued transactions
-  console.log("Upload Queue: ", get_upload_queue());
   if (get_upload_queue().length == 0) {
     return;
   }
@@ -71,13 +67,11 @@ function dispatch_uploads() {
   firebase.database().ref().update(updates, function (error) {
     if (error) {
       alert("Data could not be saved, check your connection. " + error);
-      console.log("upload ERROR: " + updates);
       //TODDO reschedule upload attempt!!
       clearTimeout(reference_to_scheduled_upload_function);
       reference_to_scheduled_upload_function = setTimeout(dispatch_uploads, UPLOAD_DISPATCH_DAMPING_DELAY * 3);
       playSound(error_sound_spring);
     } else {
-      console.log("upload success: " + updates);
       //trigger update on other devices
       firebase
         .database()
@@ -158,7 +152,6 @@ function fetch_full_history_once() {
       });
       add_to_transactions_history(transactions_records);
       set_local_storage_object("already_fetched_history", true);
-      console.log("fetch_full_history: " + transactions_records);
     }
   });
 }

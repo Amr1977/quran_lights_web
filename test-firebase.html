@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <title>اختبار Firebase - أنوار القرآن</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/templatemo-style.css">
+    
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+    <script src="js/constants.js"></script>
+</head>
+<body>
+    <div class="container" style="margin-top: 50px;">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-center">اختبار اتصال Firebase</h1>
+                <div id="status" class="alert alert-info">
+                    جاري اختبار الاتصال...
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 dir="rtl">اختبار المراجعات</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form id="testReviewForm" dir="rtl">
+                            <div class="form-group">
+                                <label for="testName">الاسم:</label>
+                                <input type="text" class="form-control" id="testName" value="اختبار" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="testRole">المهنة:</label>
+                                <input type="text" class="form-control" id="testRole" value="مطور" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="testRating">التقييم:</label>
+                                <select class="form-control" id="testRating" required>
+                                    <option value="5" selected>⭐⭐⭐⭐⭐ ممتاز</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="testText">المراجعة:</label>
+                                <textarea class="form-control" id="testText" rows="4" required>هذا اختبار للاتصال مع Firebase</textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">إرسال مراجعة اختبار</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Test Firebase connection
+        document.addEventListener('DOMContentLoaded', function() {
+            const statusDiv = document.getElementById('status');
+            
+            // Check if Firebase is loaded
+            if (typeof firebase === 'undefined') {
+                statusDiv.className = 'alert alert-danger';
+                statusDiv.innerHTML = '<strong>خطأ!</strong> Firebase غير محمل';
+                return;
+            }
+            
+            // Check if Firebase is initialized
+            if (!firebase.apps || !firebase.apps.length) {
+                statusDiv.className = 'alert alert-danger';
+                statusDiv.innerHTML = '<strong>خطأ!</strong> Firebase غير مهيأ';
+                return;
+            }
+            
+            // Test database connection
+            const testRef = firebase.database().ref('test');
+            testRef.set({ timestamp: Date.now() })
+                .then(() => {
+                    statusDiv.className = 'alert alert-success';
+                    statusDiv.innerHTML = '<strong>نجح!</strong> Firebase يعمل بشكل صحيح';
+                })
+                .catch((error) => {
+                    statusDiv.className = 'alert alert-danger';
+                    statusDiv.innerHTML = `<strong>خطأ!</strong> مشكلة في الاتصال: ${error.message}`;
+                });
+        });
+        
+        // Test review submission
+        document.getElementById('testReviewForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const review = {
+                name: document.getElementById('testName').value,
+                role: document.getElementById('testRole').value,
+                rating: parseInt(document.getElementById('testRating').value),
+                text: document.getElementById('testText').value,
+                date: new Date().toISOString(),
+                approved: false,
+                userAgent: navigator.userAgent,
+                ipAddress: '',
+                timestamp: firebase.database.ServerValue.TIMESTAMP
+            };
+            
+            const reviewsRef = firebase.database().ref('reviews');
+            reviewsRef.push(review)
+                .then(() => {
+                    alert('تم إرسال مراجعة الاختبار بنجاح!');
+                })
+                .catch((error) => {
+                    alert(`خطأ في إرسال المراجعة: ${error.message}`);
+                });
+        });
+    </script>
+</body>
+</html> 

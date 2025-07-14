@@ -211,3 +211,196 @@ function add_tooltip(element, tooltip) {
 function format_readable_number(some_number){
   return String(some_number).replace(/(.)(?=(\d{3})+$)/g,'$1,')
 }
+
+// Input validation and sanitization utilities
+const InputValidator = {
+  // Sanitize HTML input
+  sanitizeHtml: function(input) {
+    if (typeof input !== 'string') return '';
+    return input
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#x27;')
+      .replace(/\//g, '&#x2F;');
+  },
+
+  // Validate name input
+  validateName: function(name) {
+    if (!name || typeof name !== 'string') return false;
+    const sanitized = this.sanitizeHtml(name.trim());
+    return sanitized.length >= 2 && sanitized.length <= 100;
+  },
+
+  // Validate role input
+  validateRole: function(role) {
+    if (!role || typeof role !== 'string') return false;
+    const sanitized = this.sanitizeHtml(role.trim());
+    return sanitized.length >= 2 && sanitized.length <= 100;
+  },
+
+  // Validate rating input
+  validateRating: function(rating) {
+    const num = parseInt(rating);
+    return !isNaN(num) && num >= 1 && num <= 5;
+  },
+
+  // Validate text input
+  validateText: function(text) {
+    if (!text || typeof text !== 'string') return false;
+    const sanitized = this.sanitizeHtml(text.trim());
+    return sanitized.length >= 10 && sanitized.length <= 1000;
+  },
+
+  // Validate email
+  validateEmail: function(email) {
+    if (!email || typeof email !== 'string') return false;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email.trim());
+  },
+
+  // Rate limiting helper
+  checkRateLimit: function(key, limit = 3, windowMs = 60000) {
+    const now = Date.now();
+    const keyData = localStorage.getItem(`rateLimit_${key}`);
+    
+    if (!keyData) {
+      localStorage.setItem(`rateLimit_${key}`, JSON.stringify({
+        count: 1,
+        firstAttempt: now
+      }));
+      return true;
+    }
+
+    const data = JSON.parse(keyData);
+    const timeDiff = now - data.firstAttempt;
+
+    if (timeDiff > windowMs) {
+      // Reset if window has passed
+      localStorage.setItem(`rateLimit_${key}`, JSON.stringify({
+        count: 1,
+        firstAttempt: now
+      }));
+      return true;
+    }
+
+    if (data.count >= limit) {
+      return false;
+    }
+
+    // Increment count
+    data.count++;
+    localStorage.setItem(`rateLimit_${key}`, JSON.stringify(data));
+    return true;
+  }
+};
+
+// Error handling utilities
+const ErrorHandler = {
+  showError: function(message, duration = 5000) {
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'alert alert-danger';
+    errorDiv.style.cssText = `
+      background: #f8d7da;
+      color: #721c24;
+      padding: 15px;
+      border-radius: 5px;
+      margin: 15px 0;
+      text-align: center;
+      border: 1px solid #f5c6cb;
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+      max-width: 400px;
+    `;
+    errorDiv.innerHTML = `<strong>خطأ!</strong> ${message}`;
+
+    document.body.appendChild(errorDiv);
+
+    setTimeout(() => {
+      errorDiv.remove();
+    }, duration);
+  },
+
+  showSuccess: function(message, duration = 5000) {
+    const successDiv = document.createElement('div');
+    successDiv.className = 'alert alert-success';
+    successDiv.style.cssText = `
+      background: #d4edda;
+      color: #155724;
+      padding: 15px;
+      border-radius: 5px;
+      margin: 15px 0;
+      text-align: center;
+      border: 1px solid #c3e6cb;
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+      max-width: 400px;
+    `;
+    successDiv.innerHTML = `<strong>نجح!</strong> ${message}`;
+
+    document.body.appendChild(successDiv);
+
+    setTimeout(() => {
+      successDiv.remove();
+    }, duration);
+  },
+
+  logError: function(error, context = '') {
+    console.error(`[${context}] Error:`, error);
+    
+    // Send to error tracking service if available
+    if (window.getConfig && window.getConfig('features.errorReporting')) {
+      // TODO: Implement error tracking service
+      console.log('Error tracking enabled but not implemented');
+    }
+  }
+};
+
+// Performance utilities
+const PerformanceUtils = {
+  // Debounce function calls
+  debounce: function(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  },
+
+  // Throttle function calls
+  throttle: function(func, limit) {
+    let inThrottle;
+    return function() {
+      const args = arguments;
+      const context = this;
+      if (!inThrottle) {
+        func.apply(context, args);
+        inThrottle = true;
+        setTimeout(() => inThrottle = false, limit);
+      }
+    };
+  },
+
+  // Measure performance
+  measureTime: function(name, fn) {
+    const start = performance.now();
+    const result = fn();
+    const end = performance.now();
+    console.log(`${name} took ${end - start} milliseconds`);
+    return result;
+  }
+};
+
+// Make utilities globally available
+window.InputValidator = InputValidator;
+window.ErrorHandler = ErrorHandler;
+window.PerformanceUtils = PerformanceUtils;

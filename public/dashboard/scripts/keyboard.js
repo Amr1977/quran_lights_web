@@ -17,7 +17,6 @@ function cacheIt(event) {
   shift_pressed = event.shiftKey;
   ctrl_pressed = event.ctrlKey;
   cmd_pressed = event.metaKey;
-  console.log(modifier_keys_state());
   if (event.key == "l" && event.type == "keyup") {
     set_sort_order_with_value("light");
     add_sura_cells();

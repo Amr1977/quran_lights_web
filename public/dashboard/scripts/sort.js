@@ -1,6 +1,5 @@
 function get_reverse_sort_order() {
   var is_reverse_sort_order = get_initial_local_object("reverse_sort_order", false);;
-  console.log("is_reverse_sort_order: ", is_reverse_sort_order);
   return is_reverse_sort_order;
 };
 
@@ -14,8 +13,8 @@ function set_sort_order() {
   add_sura_cells();
 }
 
-function  set_sort_order_with_value(value)  {
-  if (!value) { 
+function set_sort_order_with_value(value) {
+  if (!value) {
     value = "normal";
   }
 
@@ -206,7 +205,7 @@ function sortedSuraIndexConverter(index) {
   }
 }
 
-function apply_reverse_sort_order(){
+function apply_reverse_sort_order() {
   set_reverse_sort_order(!get_reverse_sort_order());
   add_sura_cells();
 }

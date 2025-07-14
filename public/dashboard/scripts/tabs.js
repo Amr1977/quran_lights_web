@@ -14,9 +14,7 @@ function openTab(id) {
         case "memorization_chart_tab":
         drawMemorizationPieChart();
         if (isNaN(scores["today_review"])) {
-          console.log("deferring guage chart rendering");
-        setTimeout(function() {
-          console.log("performing guage chart rendering");
+          setTimeout(function() {
           updateGuageChart("review_score_guage", 
                          "Today Review Revenue [" + format(scores["today_review"]) + " of Target " + format(get_review_werd()) + "]", 
                          100 * Number(scores["today_review"]) / get_review_werd());

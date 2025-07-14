@@ -27,7 +27,6 @@ function refreshSura(suraIndex, refreshTimeStamp) {
 function unrefresh(sura_index){
   // FIXED: Complete unrefresh functionality
   if (!surasHistory[sura_index] || !surasHistory[sura_index].history || surasHistory[sura_index].history.length === 0) {
-    console.warn("No refresh history found for sura:", sura_index);
     return;
   }
   
@@ -52,7 +51,6 @@ function unrefresh(sura_index){
   add_sura_cells();
   animate_score_elements();
   
-  console.log("Unrefresh completed for sura:", sura_index, "timestamp:", refreshTimeStamp);
 }
 
 //TODO animate ony after score change
