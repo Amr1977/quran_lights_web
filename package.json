@@ -1,0 +1,29 @@
+{
+  "name": "quran-lights-web",
+  "version": "8.6.19",
+  "description": "Quran Lights Web Application - Visual Quran recitation tracking",
+  "main": "build-config.js",
+  "scripts": {
+    "build": "node build-config.js",
+    "build:prod": "NODE_ENV=production node build-config.js",
+    "dev": "node build-config.js && firebase serve",
+    "deploy": "npm run build:prod && firebase deploy",
+    "start": "firebase serve"
+  },
+  "keywords": [
+    "quran",
+    "islam",
+    "recitation",
+    "tracking",
+    "visualization",
+    "arabic"
+  ],
+  "author": "Quran Lights Team",
+  "license": "GPL",
+  "devDependencies": {
+    "firebase-tools": "^12.0.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

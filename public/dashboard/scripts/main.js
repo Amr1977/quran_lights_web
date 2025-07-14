@@ -25,17 +25,34 @@ function refreshSura(suraIndex, refreshTimeStamp) {
 }
 
 function unrefresh(sura_index){
-  //TODO: complete it!
-  // console.log("sura_index ", sura_index);
-  // var history_size = surasHistory[sura_index].history.length;
-  // var refreshTimeStamp = surasHistory[sura_index].history(history_size - 1);
-  // var transaction_record = {
-  //   op: "unrefresh",
-  //   sura: sura_index,
-  //   time: refreshTimeStamp
-  // };
-  // //TODO: complete it!
-  console.log("TODO: unrefresh selected sura: remove refresh entry ", transaction_record);
+  // FIXED: Complete unrefresh functionality
+  if (!surasHistory[sura_index] || !surasHistory[sura_index].history || surasHistory[sura_index].history.length === 0) {
+    console.warn("No refresh history found for sura:", sura_index);
+    return;
+  }
+  
+  var history_size = surasHistory[sura_index].history.length;
+  var refreshTimeStamp = surasHistory[sura_index].history[history_size - 1];
+  
+  var transaction_record = {
+    op: "unrefresh",
+    sura: sura_index,
+    time: refreshTimeStamp
+  };
+  
+  // Remove from local history
+  surasHistory[sura_index].history.pop();
+  
+  // Add to upload queue
+  enqueue_for_upload(transaction_record);
+  
+  // Update UI
+  sortedTimestampSuraArray = [];
+  refreshCountSortedSuraArray = [];
+  add_sura_cells();
+  animate_score_elements();
+  
+  console.log("Unrefresh completed for sura:", sura_index, "timestamp:", refreshTimeStamp);
 }
 
 //TODO animate ony after score change
