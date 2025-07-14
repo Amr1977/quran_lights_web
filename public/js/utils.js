@@ -181,11 +181,10 @@ function add_prayer_times() {
         }
           document.getElementById("prayers").src = "https://timesprayer.com/widgets.php?frame=2&lang=en&name="+city+"&sound=true&avachang=true&time=0";
       })
-      .catch((data, status) => {
-          var city = "mecca";
-          console.log('Request failed');
-          console.log("Country: ", response.country, " city: ", response.city);
-          document.getElementById("prayers").src = document.getElementById("prayers").src = "https://timesprayer.com/widgets.php?frame=2&lang=en&name="+city+"&sound=true&avachang=true&time=0";
+      .catch(err => {
+          const city = "mecca";
+          console.warn('IP lookup failed', err);
+          document.getElementById("prayers").src = "https://timesprayer.com/widgets.php?frame=2&lang=en&name=" + city + "&sound=true&avachang=true&time=0";
       })
 }
 
