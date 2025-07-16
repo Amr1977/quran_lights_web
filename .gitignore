@@ -1,10 +1,35 @@
+# Log files
 *.log
-\.firebase/
+
+# OS generated files
 .DS_Store
-public/\.fuse_hidden00000a1900000004
-public/.DS_Store
-public/index.html-e
+
+# Firebase
+.firebase/
+
+# Parcel and build tool caches
+.parcel-cache/
+.cache/
+
+# Node modules
+node_modules/
+
+# Build outputs
+dist/
+public/dist/
+
+# Ignore generated manifest and service worker if present
+public/manifest.json
+public/sw.js
+
+# Timestamp and cache buster
 public/timestamp.txt
-public/scripts/timestamp.txt
-public/scripts/quran_lights.min.js
-public/scripts/quran_lights.code-workspace
+
+# Remove old or non-existent script references
+# public/scripts/timestamp.txt
+# public/scripts/quran_lights.min.js
+# public/scripts/quran_lights.code-workspace
+
+# Editor/IDE files
+*.code-workspace
+.env

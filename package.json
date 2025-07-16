@@ -1,0 +1,15 @@
+{
+  "scripts": {
+    "start": "node server.js",
+    "test": "jest",
+    "test:e2e": "playwright test",
+    "test:e2e:node": "node run-e2e.js"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.54.1",
+    "jest": "^30.0.4"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

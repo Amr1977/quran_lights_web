@@ -1,86 +1,179 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>موقع أنوار القرآن - إنشاء حساب</title>
+    <link href="https://fonts.googleapis.com/css?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #e8f5e9 0%, #a5d6a7 100%);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-    <!-- Font Icon -->
-    <link rel="stylesheet" href="login/fonts/material-icon/css/material-design-iconic-font.min.css">
+        .auth-container {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+            padding: 2.5rem 2rem 2rem 2rem;
+            max-width: 350px;
+            width: 100%;
+            direction: rtl;
+        }
 
-    <!-- Main css -->
-    <link rel="stylesheet" href="login/css/style.css">
-    <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
-    <script src="js/constants.js?v=1734583520"></script>
-    <script src="js/utils.js?v=1734583520"></script>
-    <script src="login/js/login.js?v=1734583520"></script>
+        .auth-title {
+            color: #388e3c;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .auth-form input {
+            padding: 0.75rem;
+            border: 1px solid #c8e6c9;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: #f9fff9;
+            outline: none;
+            transition: border 0.2s;
+        }
+
+        .auth-form input:focus {
+            border: 1.5px solid #388e3c;
+        }
+
+        .auth-btn {
+            background: linear-gradient(90deg, #43a047 0%, #66bb6a 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            transition: background 0.2s;
+        }
+
+        .auth-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .switch-link {
+            display: block;
+            text-align: center;
+            margin-top: 1.2rem;
+            color: #388e3c;
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .error-msg {
+            color: #c62828;
+            background: #ffebee;
+            border: 1px solid #ffcdd2;
+            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            margin-bottom: 0.5rem;
+            text-align: center;
+            font-size: 0.98rem;
+        }
+
+        @media (max-width: 500px) {
+            .auth-container {
+                padding: 1.5rem 0.5rem;
+            }
+        }
+    </style>
 </head>
+
 <body>
-
-    <script>
-        function on_sign_up_button_pressed(){
-
-            var email = document.getElementById("email").value;
-            var password = document.getElementById("pass").value;
-            var re_pass = document.getElementById("re_pass").value;
-
-            if (password !== re_pass) {
-                alert("Passwords mismatch, retype passwords");
+    <div class="auth-container">
+        <div class="auth-title">إنشاء حساب</div>
+        <div id="signup-step">
+            <form class="auth-form" id="signup-form">
+                <input type="email" id="signup-email" placeholder="البريد الإلكتروني" required autofocus>
+                <input type="text" id="signup-primary-phone" placeholder="رقم الجوال الرئيسي" required>
+                <input type="text" id="signup-secondary-phone" placeholder="رقم الجوال الثانوي (اختياري)">
+                <input type="password" id="signup-password" placeholder="كلمة المرور" required>
+                <input type="password" id="signup-password2" placeholder="تأكيد كلمة المرور" required>
+                <input type="text" id="signup-role" placeholder="الدور (مثال: user)" required>
+                <button type="submit" class="auth-btn">إرسال رمز التحقق</button>
+            </form>
+            <div class="switch-link" onclick="window.location.href='login.html'">لديك حساب بالفعل؟ تسجيل الدخول</div>
+        </div>
+        <div id="otp-step" style="display:none;">
+            <form class="auth-form" id="otp-form">
+                <input type="text" id="signup-otp" placeholder="أدخل رمز التحقق (OTP)" required>
+                <button type="submit" class="auth-btn">تأكيد التسجيل</button>
+            </form>
+        </div>
+        <div id="signup-error" class="error-msg" style="display:none;"></div>
+    </div>
+    <script type="module">
+        import { createAuthClient } from './js/authClient.js';
+        const auth = createAuthClient('http://localhost:YOUR_AUTH_PORT'); // <-- Set your backend URL
+        const signupForm = document.getElementById('signup-form');
+        const otpForm = document.getElementById('otp-form');
+        const signupStep = document.getElementById('signup-step');
+        const otpStep = document.getElementById('otp-step');
+        const signupError = document.getElementById('signup-error');
+        let signupEmail = '';
+        let signupPassword = '';
+        signupForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            signupError.style.display = 'none';
+            signupEmail = document.getElementById('signup-email').value;
+            const primary_phone = document.getElementById('signup-primary-phone').value;
+            const secondary_phone = document.getElementById('signup-secondary-phone').value;
+            signupPassword = document.getElementById('signup-password').value;
+            const password2 = document.getElementById('signup-password2').value;
+            const role = document.getElementById('signup-role').value;
+            if (signupPassword !== password2) {
+                signupError.textContent = 'كلمتا المرور غير متطابقتين';
+                signupError.style.display = 'block';
                 return;
             }
-
-            sign_up(email, password);
-        }
+            try {
+                await auth.register({ email: signupEmail, primary_phone, secondary_phone, password: signupPassword, role });
+                signupStep.style.display = 'none';
+                otpStep.style.display = 'block';
+            } catch (err) {
+                signupError.textContent = err.response?.error || err.message;
+                signupError.style.display = 'block';
+            }
+        });
+        otpForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            signupError.style.display = 'none';
+            const otp = document.getElementById('signup-otp').value;
+            try {
+                const result = await auth.verifyRegistrationOtp({ phoneOrMail: signupEmail, emailOtp: otp, password: signupPassword });
+                // Save user info/token as needed
+                // localStorage.setItem('user', JSON.stringify(result));
+                window.location.href = 'dashboard.html';
+            } catch (err) {
+                signupError.textContent = err.response?.error || err.message;
+                signupError.style.display = 'block';
+            }
+        });
     </script>
+</body>
 
-    <div class="main">
-
-        <!-- Sign up form -->
-        <section class="signup">
-            <div class="container">
-                <div class="signup-content">
-                    <div class="signup-form">
-                        <h2 class="form-title">إنشاء حساب</h2>
-                        <form method="POST" class="register-form" id="register-form">
-                            <!-- <div class="form-group">
-                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="name" id="name" placeholder="الاسم"/>
-                            </div> -->
-                            <div class="form-group">
-                                <label for="email"><i class="zmdi zmdi-email"></i></label>
-                                <input type="email" name="email" id="email" placeholder="البريد الالكتروني"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="pass"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="password" name="pass" id="pass" placeholder="كلمة المرور"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
-                                <input type="password" name="re_pass" id="re_pass" placeholder="تكرار كلمة المرور"/>
-                            </div>
-                            <!-- <div class="form-group">
-                                <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
-                                <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
-                            </div> -->
-                            <div class="form-group form-button">
-                                <input type="button" name="signup" id="signup" class="form-submit" value="إنشاء الحساب" onclick="on_sign_up_button_pressed()"/>
-                                <input type="button" name="back" id="back" class="form-submit" value="الرجوع للصفحة الرئيسية" onclick="window.location.href='index.html'"/>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="signup-image">
-                        <figure><img src="login/images/sign-up.jpg" alt="sing up image" onclick="window.location.href='index.html'"></figure>
-                        <a href="login.html" class="signup-image-link">تسجيل الدخول</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </div>
-
-    <!-- JS -->
-    <script src="login/vendor/jquery/jquery.min.js"></script>
-    <script src="login/js/main.js"></script>
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 </html>

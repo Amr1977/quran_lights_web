@@ -9,7 +9,9 @@
     <script src="dashboard/scripts/context-menu.js"></script>
 
     <!-- <script async src="https://c6.patreon.com/becomePatronButton.bundle.js"></script> -->
-    <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script> -->
+    <script>window.FIREBASE_ENV = window.FIREBASE_ENV || 'prod';</script>
+    <script type="module" src="js/firebase-init.js"></script>
     <script src="dashboard/scripts/suras_data.js?v=1638647416"></script>
     <script src="js/constants.js?v=1638647416"></script>
     <script src="js/utils.js?v=1638647416"></script>
