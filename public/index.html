@@ -52,6 +52,42 @@
 			adjust_nav_bar();
 		}
 
+		// Theme toggle functionality
+		function toggleTheme() {
+			const html = document.documentElement;
+			const currentTheme = html.getAttribute('data-theme');
+			const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+			html.setAttribute('data-theme', newTheme);
+			localStorage.setItem('theme', newTheme);
+
+			// Update icon
+			const icon = document.querySelector('#theme-toggle i');
+			if (newTheme === 'dark') {
+				icon.className = 'fa fa-sun-o';
+			} else {
+				icon.className = 'fa fa-moon-o';
+			}
+		}
+
+		// Load saved theme on page load
+		window.addEventListener('DOMContentLoaded', function () {
+			const savedTheme = localStorage.getItem('theme') || 'light';
+			document.documentElement.setAttribute('data-theme', savedTheme);
+
+			// Update icon based on saved theme
+			const icon = document.querySelector('#theme-toggle i');
+			if (savedTheme === 'dark' && icon) {
+				icon.className = 'fa fa-sun-o';
+			}
+
+			// Add click event to theme toggle button
+			const themeToggle = document.getElementById('theme-toggle');
+			if (themeToggle) {
+				themeToggle.addEventListener('click', toggleTheme);
+			}
+		});
+
 	</script>
 	<!-- start preloader -->
 	<div class="preloader">
@@ -70,6 +106,10 @@
 				<a href="#" class="navbar-brand">
 					<span style="display: inline-block;">موقع أنوار القرآن</span>
 				</a>
+				<button id="theme-toggle" class="btn btn-link navbar-btn"
+					style="color: #28a7e9; font-size: 20px; margin-top: 15px;" title="تبديل الوضع الليلي/النهاري">
+					<i class="fa fa-moon-o"></i>
+				</button>
 			</div>
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav navbar-right text-uppercase">
