@@ -72,13 +72,17 @@
 
 		// Load saved theme on page load
 		window.addEventListener('DOMContentLoaded', function () {
-			const savedTheme = localStorage.getItem('theme') || 'light';
+			const savedTheme = localStorage.getItem('theme') || 'dark';
 			document.documentElement.setAttribute('data-theme', savedTheme);
 
 			// Update icon based on saved theme
 			const icon = document.querySelector('#theme-toggle i');
-			if (savedTheme === 'dark' && icon) {
-				icon.className = 'fa fa-sun-o';
+			if (icon) {
+				if (savedTheme === 'dark') {
+					icon.className = 'fa fa-sun-o';
+				} else {
+					icon.className = 'fa fa-moon-o';
+				}
 			}
 
 			// Add click event to theme toggle button
