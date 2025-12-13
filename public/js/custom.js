@@ -1,3 +1,7 @@
+// Custom Script
+// Developed by: Samson.Onna
+// CopyRights : http://webthemez.com
+
 // preloader
 $(window).load(function () {
     $('.preloader').fadeOut(1000); // set duration in brackets    

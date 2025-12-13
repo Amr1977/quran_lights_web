@@ -451,10 +451,22 @@ img {
 
 /* start footer */
 footer {
-    background: #fff;
+    background: var(--card-bg);
+    color: var(--text-color);
     font-weight: 400;
     text-align: center;
     padding: 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+footer a {
+    color: #28a7e9;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #1d8ec4;
+    text-decoration: underline;
 }
 
 /* end footer */
