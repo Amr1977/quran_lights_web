@@ -1,7 +1,6 @@
 const { Given, When, Then, Before, After, setDefaultTimeout } = require('@cucumber/cucumber');
 const { chromium } = require('@playwright/test');
 const { expect } = require('@playwright/test');
-const path = require('path');
 
 setDefaultTimeout(60000);
 
@@ -9,7 +8,10 @@ let browser, page;
 
 Before(async function () {
     browser = await chromium.launch({ headless: false });
-    const context = await browser.newContext();
+    const context = await browser.newContext({
+        // Set browser language to Arabic for consistent testing
+        locale: 'ar-SA'
+    });
     page = await context.newPage();
 });
 
@@ -20,9 +22,12 @@ After(async function () {
 });
 
 Given('I am on the landing page', async function () {
-    const filePath = path.resolve(__dirname, '../../public/index.html');
-    await page.goto(`file:///${filePath.replace(/\\/g, '/')}`);
+    // Clear localStorage to ensure clean state
+    await page.goto('http://localhost:5000/index.html');
+    await page.evaluate(() => localStorage.clear());
+    await page.reload();
     await page.waitForLoadState('networkidle');
+    await page.waitForTimeout(1000); // Wait for i18n to initialize
 });
 
 Then('I should see the language switcher with globe icon', async function () {
@@ -41,8 +46,18 @@ When('I click on the language switcher', async function () {
 });
 
 When('I select {string} from the dropdown', async function (language) {
+    // Make sure dropdown is visible first
+    const dropdown = page.locator('.language-dropdown');
+    const isVisible = await dropdown.isVisible();
+
+    if (!isVisible) {
+        // Click to open dropdown if not visible
+        await page.locator('.dropdown-toggle:has(.fa-globe)').click();
+        await page.waitForTimeout(500);
+    }
+
     await page.locator(`.language-dropdown a:has-text("${language}")`).click();
-    await page.waitForTimeout(1000); // Wait for translation to apply
+    await page.waitForTimeout(1500); // Wait for translation to apply
 });
 
 Then('the page content should be in {string}', async function (language) {
@@ -60,6 +75,7 @@ Then('the language should persist after page reload', async function () {
     const titleBefore = await page.title();
     await page.reload();
     await page.waitForLoadState('networkidle');
+    await page.waitForTimeout(1000);
     const titleAfter = await page.title();
     expect(titleAfter).toBe(titleBefore);
 });
