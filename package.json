@@ -1,0 +1,28 @@
+{
+  "name": "quran_lights_web",
+  "version": "1.0.0",
+  "description": "This is the web interface of iOS App [Quran Lights](https://itunes.apple.com/us/app/quran-lights/id1218872513?mt=8).",
+  "main": "index.js",
+  "scripts": {
+    "test": "cucumber-js tests/features",
+    "test:localization": "cucumber-js tests/features/localization.feature",
+    "test:report": "cucumber-js tests/features --format html:tests/reports/cucumber-report.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Amr1977/quran_lights_web.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Amr1977/quran_lights_web/issues"
+  },
+  "homepage": "https://github.com/Amr1977/quran_lights_web#readme",
+  "devDependencies": {
+    "@cucumber/cucumber": "^12.4.0",
+    "@cucumber/pretty-formatter": "^2.4.1",
+    "@playwright/test": "^1.57.0"
+  }
+}
