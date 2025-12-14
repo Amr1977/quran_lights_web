@@ -16,7 +16,7 @@ $(function () {
 
     /* Hide mobile menu after clicking on a link
     -----------------------------------------------*/
-    $('.navbar-collapse a:not([onclick])').click(function () {
+    $('.navbar-collapse a:not([onclick]):not([data-lang]):not(.dropdown-toggle)').click(function () {
         $(".navbar-collapse").collapse('hide');
     });
 })

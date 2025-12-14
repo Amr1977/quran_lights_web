@@ -1,0 +1,76 @@
+{
+    "meta": {
+        "title": "Lumières du Coran - Lis, Élève-toi et Récite",
+        "description": "Lumières du Coran - Suivez vos taux de récitation et de révision du Coran grâce à des graphiques interactifs. Lis, élève-toi et récite le Saint Coran",
+        "keywords": "Saint Coran, récitation du Coran, mémorisation du Coran, révision du Coran, Lumières du Coran, taux coraniques, graphiques coraniques"
+    },
+    "nav": {
+        "brand": "Lumières du Coran",
+        "signIn": "Connexion",
+        "signUp": "S'inscrire",
+        "signOut": "Déconnexion",
+        "contact": "Contact",
+        "age": "Horloge d'Âge",
+        "fund": "Soutenir",
+        "cooperate": "Contribuer",
+        "feature": "Fonctionnalités",
+        "home": "Accueil",
+        "dashboard": "Tableau de Bord",
+        "themeToggle": "Mode Nuit",
+        "language": "Français"
+    },
+    "home": {
+        "title": "Graphiques et Tableaux de Bord pour vos Taux Coraniques",
+        "description": "Lumières du Coran vous permet de suivre vos taux de récitation et de révision périodique grâce à des graphiques visuels"
+    },
+    "feature": {
+        "title": "Chaque Sourate est Représentée par une Cellule Lumineuse",
+        "point1": "La luminosité de la cellule s'estompe avec le temps jusqu'à ce que la sourate soit récitée à nouveau",
+        "point2": "Le temps écoulé depuis la dernière récitation est affiché sur la cellule",
+        "point3": "Le nombre de caractères est affiché pour calculer le solde quotidien et cumulatif",
+        "point4": "Vous pouvez ajouter des marqueurs pour distinguer l'état de mémorisation de chaque sourate",
+        "point5": "N'oubliez pas d'illuminer la cellule correspondante après avoir terminé la récitation d'une sourate",
+        "point6": "Vous pouvez réorganiser les sourates du Coran selon l'ordre de révélation, le nombre de versets, de caractères, de mots ou le nombre de récitations"
+    },
+    "feature1": {
+        "title": "Les cellules lumineuses construiront une carte lumineuse montrant l'état de chaque sourate dans votre mémoire grâce à une luminosité variable dans le temps, avec des marqueurs d'avertissement sur les sourates dépassant le temps autorisé"
+    },
+    "feature2": {
+        "title": "Des graphiques sont créés pour afficher le solde quotidien, mensuel et annuel"
+    },
+    "feature3": {
+        "title": "Vous aurez un radar pour surveiller les sourates oubliées"
+    },
+    "feature4": {
+        "title": "Vous pouvez calculer le pourcentage du Coran que vous avez mémorisé"
+    },
+    "feature5": {
+        "title": "Les parents et les enseignants du Coran peuvent suivre les taux des enfants et des étudiants en créant un profil pour chacun"
+    },
+    "fund": {
+        "title": "Soutenir le Développement",
+        "vodafone": "Vodafone Cash:",
+        "usdt": "Via Portefeuille Numérique (USDT - Polygon):",
+        "trustWallet": "Payer via Trust Wallet",
+        "paypal": "Via PayPal:",
+        "paypalLink": "Faire un don via PayPal"
+    },
+    "cooperate": {
+        "title": "Contribuer au Développement",
+        "github": "Coopérer et créer une PR sur Github"
+    },
+    "divider": {
+        "motto": "Lis, Élève-toi et Récite"
+    },
+    "contact": {
+        "title": "Contactez-nous",
+        "facebook": "Page Facebook de Lumières du Coran",
+        "group": "Rejoignez le Groupe Facebook de Lumières du Coran",
+        "suggestions": "Nous accueillons vos suggestions dans les commentaires de cette publication"
+    },
+    "footer": {
+        "copyright": "Tous Droits Réservés - Lumières du Coran ©",
+        "year": "2025",
+        "template": "Modèle Par"
+    }
+}

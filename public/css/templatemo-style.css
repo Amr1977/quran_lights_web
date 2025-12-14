@@ -540,3 +540,96 @@ footer a:hover {
 }
 
 /* end media 360 */
+
+/* start language switcher */
+.language-dropdown {
+    min-width: 200px;
+    max-height: 400px;
+    overflow-y: auto;
+    background: var(--nav-bg);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+}
+
+[data-theme="dark"] .language-dropdown {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.language-dropdown li {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.language-dropdown li:last-child {
+    border-bottom: none;
+}
+
+.language-dropdown li a {
+    padding: 12px 20px !important;
+    font-size: 14px !important;
+    font-weight: normal !important;
+    height: auto !important;
+    line-height: 1.5 !important;
+    transition: all 0.3s ease;
+    display: block;
+    color: var(--text-color) !important;
+}
+
+.language-dropdown li a:hover {
+    background: rgba(40, 167, 233, 0.1);
+    color: #28a7e9 !important;
+}
+
+.language-dropdown li a.active {
+    background: rgba(40, 167, 233, 0.15);
+    color: #28a7e9 !important;
+    font-weight: bold !important;
+}
+
+/* Language switcher icon */
+.navbar-default .nav li .dropdown-toggle .fa-globe {
+    margin-right: 5px;
+}
+
+/* Smooth language transition */
+.lang-transition {
+    transition: all 0.3s ease;
+}
+
+/* RTL specific adjustments */
+[dir="rtl"] #feature span,
+[dir="rtl"] #feature1 span {
+    float: right;
+}
+
+[dir="rtl"] #feature .fa,
+[dir="rtl"] #feature1 .fa {
+    margin-right: 0;
+    margin-left: 20px;
+}
+
+[dir="rtl"] #contact address .fa {
+    margin-right: 0;
+    margin-left: 10px;
+}
+
+[dir="rtl"] .navbar-default .navbar-brand {
+    direction: rtl;
+}
+
+/* Mobile language dropdown */
+@media screen and (max-width: 767px) {
+    .language-dropdown {
+        position: static !important;
+        width: 100%;
+        box-shadow: none;
+        border: none;
+        border-top: 1px solid var(--border-color);
+    }
+
+    .language-dropdown li a {
+        padding: 10px 15px !important;
+    }
+}
+
+/* end language switcher */

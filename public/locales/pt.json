@@ -1,0 +1,76 @@
+{
+    "meta": {
+        "title": "Luzes do Alcorão - Leia, Eleve-se e Recite",
+        "description": "Luzes do Alcorão - Acompanhe suas taxas de recitação e revisão do Alcorão através de gráficos interativos. Leia, eleve-se e recite o Sagrado Alcorão",
+        "keywords": "Sagrado Alcorão, recitação do Alcorão, memorização do Alcorão, revisão do Alcorão, Luzes do Alcorão, taxas alcorânicas, gráficos alcorânicos"
+    },
+    "nav": {
+        "brand": "Luzes do Alcorão",
+        "signIn": "Entrar",
+        "signUp": "Cadastrar",
+        "signOut": "Sair",
+        "contact": "Contato",
+        "age": "Relógio da Idade",
+        "fund": "Apoiar",
+        "cooperate": "Contribuir",
+        "feature": "Recursos",
+        "home": "Início",
+        "dashboard": "Painel",
+        "themeToggle": "Modo Noturno",
+        "language": "Português"
+    },
+    "home": {
+        "title": "Gráficos e Painéis para suas Taxas Alcorânicas",
+        "description": "Luzes do Alcorão permite que você acompanhe suas taxas de recitação e revisão periódica através de gráficos visuais"
+    },
+    "feature": {
+        "title": "Cada Surata é Representada por uma Célula Luminosa",
+        "point1": "O brilho da célula diminui com o tempo até que a surata seja recitada novamente",
+        "point2": "O tempo decorrido desde a última recitação é exibido na célula",
+        "point3": "A contagem de caracteres é mostrada para calcular o saldo diário e cumulativo",
+        "point4": "Você pode adicionar marcadores para distinguir o status de memorização de cada surata",
+        "point5": "Simplesmente lembre-se de iluminar a célula correspondente após terminar qualquer recitação de surata",
+        "point6": "Você pode reorganizar as suratas do Alcorão com base na ordem de revelação, número de versos, caracteres, palavras ou contagem de recitação"
+    },
+    "feature1": {
+        "title": "As células luminosas construirão um mapa de luz mostrando o status de cada surata em sua memória através do brilho variável ao longo do tempo, com marcadores de aviso nas suratas que excedem o tempo permitido"
+    },
+    "feature2": {
+        "title": "Gráficos são criados para exibir o saldo diário, mensal e anual"
+    },
+    "feature3": {
+        "title": "Você terá um radar para monitorar suratas esquecidas"
+    },
+    "feature4": {
+        "title": "Você pode calcular a porcentagem do Alcorão que memorizou"
+    },
+    "feature5": {
+        "title": "Pais e professores do Alcorão podem acompanhar as taxas de crianças e alunos criando um perfil para cada um"
+    },
+    "fund": {
+        "title": "Apoiar o Desenvolvimento",
+        "vodafone": "Vodafone Cash:",
+        "usdt": "Via Carteira Digital (USDT - Polygon):",
+        "trustWallet": "Pagar via Trust Wallet",
+        "paypal": "Via PayPal:",
+        "paypalLink": "Doar via PayPal"
+    },
+    "cooperate": {
+        "title": "Contribuir para o Desenvolvimento",
+        "github": "Cooperar e criar PR no Github"
+    },
+    "divider": {
+        "motto": "Leia, Eleve-se e Recite"
+    },
+    "contact": {
+        "title": "Entre em Contato",
+        "facebook": "Página do Facebook Luzes do Alcorão",
+        "group": "Junte-se ao Grupo do Facebook Luzes do Alcorão",
+        "suggestions": "Agradecemos suas sugestões nos comentários desta publicação"
+    },
+    "footer": {
+        "copyright": "Todos os Direitos Reservados - Luzes do Alcorão ©",
+        "year": "2025",
+        "template": "Template Por"
+    }
+}

@@ -1,0 +1,76 @@
+{
+    "meta": {
+        "title": "古兰经之光 - 诵读、提升与吟诵",
+        "description": "古兰经之光 - 通过交互式图表跟踪您的古兰经诵读和复习率。诵读、提升与吟诵神圣的古兰经",
+        "keywords": "神圣古兰经, 古兰经诵读, 古兰经背诵, 古兰经复习, 古兰经之光, 古兰经率, 古兰经图表"
+    },
+    "nav": {
+        "brand": "古兰经之光",
+        "signIn": "登录",
+        "signUp": "注册",
+        "signOut": "退出",
+        "contact": "联系",
+        "age": "年龄时钟",
+        "fund": "支持",
+        "cooperate": "贡献",
+        "feature": "特点",
+        "home": "首页",
+        "dashboard": "仪表板",
+        "themeToggle": "夜间模式",
+        "language": "中文"
+    },
+    "home": {
+        "title": "您的古兰经率图表和仪表板",
+        "description": "古兰经之光使您能够通过可视化图表跟踪您的诵读和定期复习率"
+    },
+    "feature": {
+        "title": "每个章节由一个发光单元格表示",
+        "point1": "单元格的亮度随时间推移而减弱,直到再次诵读该章节",
+        "point2": "单元格上显示自上次诵读以来经过的时间",
+        "point3": "显示字符数以计算每日和累计余额",
+        "point4": "您可以添加标记来区分每个章节的背诵状态",
+        "point5": "只需记住在完成任何章节诵读后点亮相应的单元格",
+        "point6": "您可以根据启示顺序、经文数量、字符数、单词数或诵读次数重新排列古兰经章节"
+    },
+    "feature1": {
+        "title": "发光单元格将构建一个光图,通过随时间变化的亮度显示您记忆中每个章节的状态,并在超过允许时间的章节上显示警告标记"
+    },
+    "feature2": {
+        "title": "创建图表以显示每日、每月和每年的余额"
+    },
+    "feature3": {
+        "title": "您将拥有一个雷达来监控遗忘的章节"
+    },
+    "feature4": {
+        "title": "您可以计算已背诵的古兰经百分比"
+    },
+    "feature5": {
+        "title": "父母和古兰经老师可以通过为每个人创建个人资料来跟踪孩子和学生的率"
+    },
+    "fund": {
+        "title": "支持开发",
+        "vodafone": "Vodafone Cash:",
+        "usdt": "通过数字钱包 (USDT - Polygon):",
+        "trustWallet": "通过 Trust Wallet 支付",
+        "paypal": "通过 PayPal:",
+        "paypalLink": "通过 PayPal 捐赠"
+    },
+    "cooperate": {
+        "title": "为开发做出贡献",
+        "github": "在 Github 上合作并创建 PR"
+    },
+    "divider": {
+        "motto": "诵读、提升与吟诵"
+    },
+    "contact": {
+        "title": "联系我们",
+        "facebook": "古兰经之光 Facebook 页面",
+        "group": "加入古兰经之光 Facebook 群组",
+        "suggestions": "欢迎在此帖子的评论中提出您的建议"
+    },
+    "footer": {
+        "copyright": "版权所有 - 古兰经之光 ©",
+        "year": "2025",
+        "template": "模板由"
+    }
+}

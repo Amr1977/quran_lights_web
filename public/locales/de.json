@@ -1,0 +1,76 @@
+{
+    "meta": {
+        "title": "Quran Lichter - Lies, Erhebe dich und Rezitiere",
+        "description": "Quran Lichter - Verfolgen Sie Ihre Quran-Rezitations- und Überprüfungsraten durch interaktive Diagramme. Lies, erhebe dich und rezitiere den Heiligen Quran",
+        "keywords": "Heiliger Quran, Quran-Rezitation, Quran-Auswendiglernen, Quran-Überprüfung, Quran Lichter, Quranische Raten, Quranische Diagramme"
+    },
+    "nav": {
+        "brand": "Quran Lichter",
+        "signIn": "Anmelden",
+        "signUp": "Registrieren",
+        "signOut": "Abmelden",
+        "contact": "Kontakt",
+        "age": "Altersuhr",
+        "fund": "Unterstützen",
+        "cooperate": "Beitragen",
+        "feature": "Funktionen",
+        "home": "Startseite",
+        "dashboard": "Dashboard",
+        "themeToggle": "Nachtmodus",
+        "language": "Deutsch"
+    },
+    "home": {
+        "title": "Diagramme und Dashboards für Ihre Quranischen Raten",
+        "description": "Quran Lichter ermöglicht es Ihnen, Ihre Rezitations- und periodischen Überprüfungsraten durch visuelle Diagramme zu verfolgen"
+    },
+    "feature": {
+        "title": "Jede Sure wird durch eine Leuchtende Zelle Dargestellt",
+        "point1": "Die Helligkeit der Zelle verblasst mit der Zeit, bis die Sure erneut rezitiert wird",
+        "point2": "Die seit der letzten Rezitation verstrichene Zeit wird auf der Zelle angezeigt",
+        "point3": "Die Zeichenanzahl wird angezeigt, um das tägliche und kumulative Guthaben zu berechnen",
+        "point4": "Sie können Markierungen hinzufügen, um den Auswendiglernstatus jeder Sure zu unterscheiden",
+        "point5": "Denken Sie einfach daran, die entsprechende Zelle nach Abschluss einer Sure-Rezitation zu beleuchten",
+        "point6": "Sie können die Suren des Qurans nach Offenbarungsreihenfolge, Anzahl der Verse, Zeichen, Wörter oder Rezitationszahl neu ordnen"
+    },
+    "feature1": {
+        "title": "Die leuchtenden Zellen erstellen eine Lichtkarte, die den Status jeder Sure in Ihrem Gedächtnis durch unterschiedliche Helligkeit im Laufe der Zeit zeigt, mit Warnmarkierungen bei Suren, die die zulässige Zeit überschreiten"
+    },
+    "feature2": {
+        "title": "Diagramme werden erstellt, um das tägliche, monatliche und jährliche Guthaben anzuzeigen"
+    },
+    "feature3": {
+        "title": "Sie haben ein Radar, um vergessene Suren zu überwachen"
+    },
+    "feature4": {
+        "title": "Sie können den Prozentsatz des Qurans berechnen, den Sie auswendig gelernt haben"
+    },
+    "feature5": {
+        "title": "Eltern und Quran-Lehrer können die Raten von Kindern und Schülern verfolgen, indem sie für jeden ein Profil erstellen"
+    },
+    "fund": {
+        "title": "Entwicklung Unterstützen",
+        "vodafone": "Vodafone Cash:",
+        "usdt": "Über Digitale Geldbörse (USDT - Polygon):",
+        "trustWallet": "Bezahlen über Trust Wallet",
+        "paypal": "Über PayPal:",
+        "paypalLink": "Spenden über PayPal"
+    },
+    "cooperate": {
+        "title": "Zur Entwicklung Beitragen",
+        "github": "Zusammenarbeiten und PR auf Github erstellen"
+    },
+    "divider": {
+        "motto": "Lies, Erhebe dich und Rezitiere"
+    },
+    "contact": {
+        "title": "Kontaktieren Sie uns",
+        "facebook": "Quran Lichter Facebook-Seite",
+        "group": "Treten Sie der Quran Lichter Facebook-Gruppe bei",
+        "suggestions": "Wir freuen uns über Ihre Vorschläge in den Kommentaren zu diesem Beitrag"
+    },
+    "footer": {
+        "copyright": "Alle Rechte Vorbehalten - Quran Lichter ©",
+        "year": "2025",
+        "template": "Vorlage Von"
+    }
+}

@@ -1,0 +1,76 @@
+{
+    "meta": {
+        "title": "Luces del Corán - Lee, Elévate y Recita",
+        "description": "Luces del Corán - Rastrea tus tasas de recitación y revisión del Corán a través de gráficos interactivos. Lee, elévate y recita el Sagrado Corán",
+        "keywords": "Sagrado Corán, recitación del Corán, memorización del Corán, revisión del Corán, Luces del Corán, tasas coránicas, gráficos coránicos"
+    },
+    "nav": {
+        "brand": "Luces del Corán",
+        "signIn": "Iniciar Sesión",
+        "signUp": "Registrarse",
+        "signOut": "Cerrar Sesión",
+        "contact": "Contacto",
+        "age": "Reloj de Edad",
+        "fund": "Apoyar",
+        "cooperate": "Contribuir",
+        "feature": "Características",
+        "home": "Inicio",
+        "dashboard": "Panel",
+        "themeToggle": "Modo Nocturno",
+        "language": "Español"
+    },
+    "home": {
+        "title": "Gráficos y Paneles para tus Tasas Coránicas",
+        "description": "Luces del Corán te permite rastrear tus tasas de recitación y revisión periódica a través de gráficos visuales"
+    },
+    "feature": {
+        "title": "Cada Sura está Representada por una Célula Luminosa",
+        "point1": "El brillo de la célula se desvanece con el tiempo hasta que la Sura se recite nuevamente",
+        "point2": "El tiempo transcurrido desde la última recitación se muestra en la célula",
+        "point3": "El conteo de caracteres se muestra para calcular el balance diario y acumulativo",
+        "point4": "Puedes agregar marcadores para distinguir el estado de memorización de cada Sura",
+        "point5": "Simplemente recuerda iluminar la célula correspondiente después de terminar cualquier recitación de Sura",
+        "point6": "Puedes reordenar las Suras del Corán según el orden de revelación, número de versos, caracteres, palabras o conteo de recitación"
+    },
+    "feature1": {
+        "title": "Las células luminosas construirán un mapa de luz que muestra el estado de cada Sura en tu memoria a través del brillo variable con el tiempo, con marcadores de advertencia en las Suras que excedan el tiempo permitido"
+    },
+    "feature2": {
+        "title": "Se crean gráficos para mostrar el balance diario, mensual y anual"
+    },
+    "feature3": {
+        "title": "Tendrás un radar para monitorear las Suras que se están olvidando"
+    },
+    "feature4": {
+        "title": "Puedes calcular el porcentaje del Corán que has memorizado"
+    },
+    "feature5": {
+        "title": "Los padres y maestros del Corán pueden rastrear las tasas de los niños y estudiantes creando un perfil para cada uno"
+    },
+    "fund": {
+        "title": "Apoyar el Desarrollo",
+        "vodafone": "Vodafone Cash:",
+        "usdt": "Vía Billetera Digital (USDT - Polygon):",
+        "trustWallet": "Pagar vía Trust Wallet",
+        "paypal": "Vía PayPal:",
+        "paypalLink": "Donar vía PayPal"
+    },
+    "cooperate": {
+        "title": "Contribuir al Desarrollo",
+        "github": "Cooperar y crear PR en Github"
+    },
+    "divider": {
+        "motto": "Lee, Elévate y Recita"
+    },
+    "contact": {
+        "title": "Contáctanos",
+        "facebook": "Página de Facebook de Luces del Corán",
+        "group": "Únete al Grupo de Facebook de Luces del Corán",
+        "suggestions": "Agradecemos tus sugerencias en los comentarios de esta publicación"
+    },
+    "footer": {
+        "copyright": "Todos los Derechos Reservados - Luces del Corán ©",
+        "year": "2025",
+        "template": "Plantilla Por"
+    }
+}

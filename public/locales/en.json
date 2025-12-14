@@ -1,0 +1,76 @@
+{
+    "meta": {
+        "title": "Quran Lights - Read, Rise, and Recite",
+        "description": "Quran Lights - Track your Quran recitation and review rates through interactive charts. Read, rise, and recite the Holy Quran",
+        "keywords": "Holy Quran, Quran recitation, Quran memorization, Quran review, Quran Lights, Quranic rates, Quranic charts"
+    },
+    "nav": {
+        "brand": "Quran Lights",
+        "signIn": "Sign In",
+        "signUp": "Sign Up",
+        "signOut": "Sign Out",
+        "contact": "Contact",
+        "age": "Age Clock",
+        "fund": "Support",
+        "cooperate": "Contribute",
+        "feature": "Features",
+        "home": "Home",
+        "dashboard": "Dashboard",
+        "themeToggle": "Night Mode",
+        "language": "English"
+    },
+    "home": {
+        "title": "Charts and Dashboards for Your Quranic Rates",
+        "description": "Quran Lights enables you to track your recitation and periodic review rates through visual charts"
+    },
+    "feature": {
+        "title": "Each Surah is Represented by a Luminous Cell",
+        "point1": "The cell's brightness fades over time until the Surah is recited again",
+        "point2": "The time elapsed since last recitation is displayed on the cell",
+        "point3": "Character count is shown for calculating daily and cumulative balance",
+        "point4": "You can add markers to distinguish the memorization status of each Surah",
+        "point5": "Simply remember to illuminate the corresponding cell after finishing any Surah recitation",
+        "point6": "You can reorder the Quran's Surahs based on revelation order, number of verses, characters, words, or recitation count"
+    },
+    "feature1": {
+        "title": "The luminous cells will build a light map showing the status of each Surah in your memory through varying brightness over time, with warning markers on Surahs exceeding the allowed time"
+    },
+    "feature2": {
+        "title": "Charts are created to display daily, monthly, and yearly balance"
+    },
+    "feature3": {
+        "title": "You will have a radar to monitor slipping Surahs"
+    },
+    "feature4": {
+        "title": "You can calculate the percentage of Quran you have memorized"
+    },
+    "feature5": {
+        "title": "Parents and Quran teachers can track children's and students' rates by creating a profile for each"
+    },
+    "fund": {
+        "title": "Support Development",
+        "vodafone": "Vodafone Cash:",
+        "usdt": "Via Digital Wallet (USDT - Polygon):",
+        "trustWallet": "Pay via Trust Wallet",
+        "paypal": "Via PayPal:",
+        "paypalLink": "Donate via PayPal"
+    },
+    "cooperate": {
+        "title": "Contribute to Development",
+        "github": "Cooperate and create PR on Github"
+    },
+    "divider": {
+        "motto": "Read, Rise, and Recite"
+    },
+    "contact": {
+        "title": "Contact Us",
+        "facebook": "Quran Lights Facebook Page",
+        "group": "Join Quran Lights Facebook Group",
+        "suggestions": "We welcome your suggestions in the comments on this post"
+    },
+    "footer": {
+        "copyright": "All Rights Reserved - Quran Lights ©",
+        "year": "2025",
+        "template": "Template By"
+    }
+}
