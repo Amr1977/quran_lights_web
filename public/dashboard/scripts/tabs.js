@@ -1,7 +1,16 @@
 function openTab(id) {
   turn_all_tbs_off();
-  document.getElementById(id).style.display = "block";
-  document.getElementById(id + "_button").className += " active";
+  var viewElement = document.getElementById(id);
+  if (viewElement) {
+    viewElement.style.display = "block";
+  }
+
+  // Only try to activate button if it exists (backward compatibility)
+  var buttonElement = document.getElementById(id + "_button");
+  if (buttonElement) {
+    buttonElement.className += " active";
+  }
+
   switch (id) {
     case "light_radar":
       drawRadarChart("radar-chart");
