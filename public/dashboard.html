@@ -120,8 +120,6 @@
                     title="Toggle Theme">
                     🌙
                 </button>
-
-                <div id="current_user" style="color: white; font-size: 14px;"></div>
             </div>
         </nav>
 
@@ -221,6 +219,10 @@
 
                 <!-- Account Section -->
                 <div class="nav-section">
+                    <a href="#" class="nav-item" data-view="profile_tab" data-category="Account">
+                        <span class="icon">👤</span>
+                        <span data-i18n="dashboard.profile">الملف الشخصي</span>
+                    </a>
                     <a href="#" class="nav-item" onclick="window.location.href='index.html'; return false;">
                         <span class="icon">🏠</span>
                         <span data-i18n="dashboard.home">الرئيسية</span>
@@ -520,6 +522,13 @@
                         <br>
                         <br>
                     </div> <!-- settings tab/-->
+
+                    <!-- Profile Tab (Placeholder) -->
+                    <div id="profile_tab" class="view-content">
+                        <h2>Profile</h2>
+                        <p>Profile page coming soon...</p>
+                        <p id="user-email-display"></p>
+                    </div>
 
                     <div id="controls_tab" class="view-content">
                         الأوامر على الخلايا الضوئية: <br>

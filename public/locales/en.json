@@ -108,6 +108,7 @@
         "settingsConfig": "Settings",
         "controls": "Keyboard Controls",
         "account": "Account",
+        "profile": "Profile",
         "home": "Home",
         "signOut": "Sign Out"
     },
