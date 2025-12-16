@@ -5,19 +5,19 @@
         "keywords": "Holy Quran, Quran recitation, Quran memorization, Quran review, Quran Lights, Quranic rates, Quranic charts"
     },
     "nav": {
-        "brand": "Quran Lights",
+        "home": "Home",
+        "features": "Features",
+        "classes": "Quran Classes",
+        "contact": "Contact",
+        "dashboard": "Dashboard",
         "signIn": "Sign In",
         "signUp": "Sign Up",
         "signOut": "Sign Out",
-        "contact": "Contact",
         "age": "Age Clock",
         "fund": "Support",
         "cooperate": "Contribute",
-        "feature": "Features",
-        "home": "Home",
-        "dashboard": "Dashboard",
-        "themeToggle": "Night Mode",
-        "language": "English"
+        "feature": "Idea",
+        "brand": "Quran Lights"
     },
     "home": {
         "title": "Charts and Dashboards for Your Quranic Rates",
