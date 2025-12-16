@@ -116,5 +116,12 @@
     "copyright": "جميع الحقوق محفوظة لموقع أنوار القرآن ©",
     "year": "2025",
     "template": "Template By"
+  },
+  "legal": {
+    "privacyPolicy": "سياسة الخصوصية",
+    "termsOfService": "شروط الخدمة",
+    "about": "عن الموقع",
+    "lastUpdated": "آخر تحديث",
+    "contactUs": "اتصل بنا"
   }
 }

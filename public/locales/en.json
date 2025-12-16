@@ -116,5 +116,12 @@
         "copyright": "All Rights Reserved - Quran Lights ©",
         "year": "2025",
         "version": "Version"
+    },
+    "legal": {
+        "privacyPolicy": "Privacy Policy",
+        "termsOfService": "Terms of Service",
+        "about": "About",
+        "lastUpdated": "Last Updated",
+        "contactUs": "Contact Us"
     }
 }
