@@ -88,8 +88,14 @@ function openTab(id) {
 
 function click_light_cells_tab() {
   turn_all_tbs_off();
-  document.getElementById("light_cells").style.display = "block";
-  document.getElementById("light_cells_button").className += " active";
+  var cellsElement = document.getElementById("light_cells");
+  if (cellsElement) {
+    cellsElement.style.display = "block";
+  }
+  var buttonElement = document.getElementById("light_cells_button");
+  if (buttonElement) {
+    buttonElement.className += " active";
+  }
 }
 
 function turn_all_tbs_off() {
