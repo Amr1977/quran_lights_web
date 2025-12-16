@@ -1,3 +1,4 @@
+```json
 {
     "meta": {
         "title": "Quran Lights - Read, Rise, and Recite",
@@ -123,5 +124,28 @@
         "about": "About",
         "lastUpdated": "Last Updated",
         "contactUs": "Contact Us"
+    },
+    "classes": {
+        "title": "Online Quran Classes",
+        "subtitle": "Learn Quran Recitation & Memorization",
+        "description": "Join our personalized online Quran classes designed for students of all ages and levels. Whether you're a beginner or looking to improve your recitation and memorization, we provide structured one-on-one sessions tailored to your needs.",
+        "whatWeOffer": "What We Offer",
+        "recitation": "Quran Recitation with proper Tajweed",
+        "memorization": "Quran Memorization (Hifz)",
+        "tajweed": "Tajweed Rules & Application",
+        "review": "Weekly Review Sessions",
+        "forWhom": "Who Can Join?",
+        "kids": "Kids & Children",
+        "adults": "Adults",
+        "beginners": "Beginners Welcome",
+        "allLevels": "All Skill Levels",
+        "methodology": "Our Methodology",
+        "methodologyDesc": "Each 1-hour session is structured to maximize learning:",
+        "step1": "Recitation Practice: Learn to recite one page with proper Tajweed rules",
+        "step2": "Memorization: Memorize the page through repetition and practice",
+        "step3": "Review: Optional weekly review sessions to reinforce what you've memorized",
+        "pricing": "Pricing: Available Upon Request",
+        "platform": "Classes conducted via Google Meet",
+        "contactWhatsApp": "Contact via WhatsApp"
     }
 }
