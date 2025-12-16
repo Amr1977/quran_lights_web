@@ -368,8 +368,12 @@
         $(document).on('click', '.navbar-actions .dropdown-toggle', function (e) {
             e.preventDefault();
             e.stopPropagation();
+            var $dropdown = $('.navbar-actions .dropdown');
             console.log('Dropdown toggle clicked');
-            $('.navbar-actions .dropdown').toggleClass('open');
+            console.log('Dropdown element found:', $dropdown.length);
+            console.log('Has open class before toggle:', $dropdown.hasClass('open'));
+            $dropdown.toggleClass('open');
+            console.log('Has open class after toggle:', $dropdown.hasClass('open'));
         });
 
         $(document).on('click', '.language-dropdown a[data-lang]', function (e) {
