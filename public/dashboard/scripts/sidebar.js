@@ -362,60 +362,51 @@
         if (languageSwitcherInitialized) return;
         languageSwitcherInitialized = true;
 
-        // Use event delegation on document
-        document.addEventListener('click', function (e) {
-            const dropdown = document.querySelector('.navbar-actions .dropdown');
-            if (!dropdown) return;
+        console.log('Setting up language switcher...');
 
-            // Toggle dropdown if clicking on the button or its children
-            if (e.target.closest('.navbar-actions .dropdown-toggle')) {
-                e.preventDefault();
-                e.stopPropagation();
-                dropdown.classList.toggle('open');
-                return;
+        // Use jQuery since it's already loaded
+        $(document).on('click', '.navbar-actions .dropdown-toggle', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Dropdown toggle clicked');
+            $('.navbar-actions .dropdown').toggleClass('open');
+        });
+
+        $(document).on('click', '.language-dropdown a[data-lang]', function (e) {
+            e.preventDefault();
+            var lang = $(this).attr('data-lang');
+            console.log('Language selected:', lang);
+
+            // Change language
+            if (window.i18n && window.i18n.changeLanguage) {
+                window.i18n.changeLanguage(lang);
             }
 
-            // Handle language selection
-            const langLink = e.target.closest('.language-dropdown a[data-lang]');
-            if (langLink) {
-                e.preventDefault();
-                const lang = langLink.getAttribute('data-lang');
+            // Update display
+            $('#current-lang').text($(this).text().trim());
 
-                // Change language
-                if (window.i18n && window.i18n.changeLanguage) {
-                    window.i18n.changeLanguage(lang);
-                }
+            // Close dropdown and mark active
+            $('.navbar-actions .dropdown').removeClass('open');
+            $('.language-dropdown a[data-lang]').removeClass('active');
+            $(this).addClass('active');
+        });
 
-                // Update display
-                const currentLangSpan = document.getElementById('current-lang');
-                if (currentLangSpan) {
-                    currentLangSpan.textContent = langLink.textContent.trim();
-                }
-
-                // Close dropdown and mark active
-                dropdown.classList.remove('open');
-                document.querySelectorAll('.language-dropdown a[data-lang]').forEach(l => l.classList.remove('active'));
-                langLink.classList.add('active');
-                return;
-            }
-
-            // Close dropdown when clicking outside
-            if (!dropdown.contains(e.target)) {
-                dropdown.classList.remove('open');
+        // Close dropdown when clicking outside
+        $(document).on('click', function (e) {
+            if (!$(e.target).closest('.navbar-actions .dropdown').length) {
+                $('.navbar-actions .dropdown').removeClass('open');
             }
         });
 
         // Set initial language
         setTimeout(function () {
-            const currentLang = localStorage.getItem('preferredLanguage') || 'ar';
-            const activeLangLink = document.querySelector('.language-dropdown a[data-lang="' + currentLang + '"]');
-            if (activeLangLink) {
-                activeLangLink.classList.add('active');
-                const currentLangSpan = document.getElementById('current-lang');
-                if (currentLangSpan) {
-                    currentLangSpan.textContent = activeLangLink.textContent.trim();
-                }
+            var currentLang = localStorage.getItem('preferredLanguage') || 'ar';
+            var $activeLangLink = $('.language-dropdown a[data-lang="' + currentLang + '"]');
+            if ($activeLangLink.length) {
+                $activeLangLink.addClass('active');
+                $('#current-lang').text($activeLangLink.text().trim());
             }
+            console.log('Language switcher initialized');
         }, 100);
     }
 
