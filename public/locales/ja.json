@@ -88,5 +88,32 @@
         "copyright": "全著作権所有 - コーランライト ©",
         "year": "2025",
         "template": "テンプレート提供"
-    }
+    },
+    "dashboard": {
+        "main": "光のセル",
+        "analytics": "分析とチャート",
+        "scoreCharts": "スコアチャート",
+        "dailyScore": "日次スコア",
+        "monthlyScore": "月次スコア",
+        "yearlyScore": "年次スコア",
+        "suraContributions": "スーラの貢献",
+        "progressTracking": "進捗追跡",
+        "memorization": "暗記率",
+        "lightRatio": "光の比率",
+        "conquerRatio": "征服率",
+        "khatmaProgress": "現在のハトマ",
+        "dailyGoals": "日次目標",
+        "reviewGauge": "復習ゲージ",
+        "readGauge": "読書ゲージ",
+        "lightDays": "光の日",
+        "visualizations": "視覚化",
+        "treemap": "光のツリーマップ",
+        "radar": "スーラレーダー",
+        "settings": "設定とツール",
+        "settingsConfig": "設定",
+        "controls": "キーボード操作",
+        "account": "アカウント",
+        "home": "ホーム",
+        "signOut": "サインアウト"
+    },
 }

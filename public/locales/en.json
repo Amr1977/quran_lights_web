@@ -84,9 +84,36 @@
         "loginPageTitle": "Quran Lights - Sign In",
         "signupPageTitle": "Quran Lights - Create Account"
     },
+    "dashboard": {
+        "main": "Light Cells",
+        "analytics": "Analytics & Charts",
+        "scoreCharts": "Score Charts",
+        "dailyScore": "Daily Score",
+        "monthlyScore": "Monthly Score",
+        "yearlyScore": "Yearly Score",
+        "suraContributions": "Sura Contributions",
+        "progressTracking": "Progress Tracking",
+        "memorization": "Memorization %",
+        "lightRatio": "Light Ratio",
+        "conquerRatio": "Conquer Ratio",
+        "khatmaProgress": "Current Khatma",
+        "dailyGoals": "Daily Goals",
+        "reviewGauge": "Review Gauge",
+        "readGauge": "Read Gauge",
+        "lightDays": "Light Days",
+        "visualizations": "Visualizations",
+        "treemap": "Light Treemap",
+        "radar": "Slipping Surahs Radar",
+        "settings": "Settings & Tools",
+        "settingsConfig": "Settings",
+        "controls": "Keyboard Controls",
+        "account": "Account",
+        "home": "Home",
+        "signOut": "Sign Out"
+    },
     "footer": {
         "copyright": "All Rights Reserved - Quran Lights ©",
         "year": "2025",
-        "template": "Template By"
+        "version": "Version"
     }
 }

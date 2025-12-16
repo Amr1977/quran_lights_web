@@ -88,5 +88,32 @@
         "copyright": "تمام حقوق محفوظ ہیں - قرآن لائٹس ©",
         "year": "2025",
         "template": "ٹیمپلیٹ بذریعہ"
-    }
+    },
+    "dashboard": {
+        "main": "روشنی کے خانے",
+        "analytics": "تجزیات اور چارٹس",
+        "scoreCharts": "اسکور چارٹس",
+        "dailyScore": "یومیہ اسکور",
+        "monthlyScore": "ماہانہ اسکور",
+        "yearlyScore": "سالانہ اسکور",
+        "suraContributions": "سورتوں کا حصہ",
+        "progressTracking": "پیشرفت کی پیمائش",
+        "memorization": "حفظ کی شرح",
+        "lightRatio": "روشنی کا تناسب",
+        "conquerRatio": "فتح کا تناسب",
+        "khatmaProgress": "موجودہ ختم",
+        "dailyGoals": "یومیہ اہداف",
+        "reviewGauge": "مراجعہ کا ورد",
+        "readGauge": "تلاوت کا ورد",
+        "lightDays": "روشن دن",
+        "visualizations": "بصری نمائش",
+        "treemap": "روشنی کے میدان",
+        "radar": "سورتوں کا ریڈار",
+        "settings": "ترتیبات اور آلات",
+        "settingsConfig": "ترتیبات",
+        "controls": "کنٹرول کیز",
+        "account": "اکاؤنٹ",
+        "home": "ہوم",
+        "signOut": "لاگ آؤٹ"
+    },
 }

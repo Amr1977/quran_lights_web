@@ -88,5 +88,32 @@
         "copyright": "Todos los Derechos Reservados - Luces del Corán ©",
         "year": "2025",
         "template": "Plantilla Por"
-    }
+    },
+    "dashboard": {
+        "main": "Celdas de Luz",
+        "analytics": "Análisis y Gráficos",
+        "scoreCharts": "Gráficos de Puntuación",
+        "dailyScore": "Puntuación Diaria",
+        "monthlyScore": "Puntuación Mensual",
+        "yearlyScore": "Puntuación Anual",
+        "suraContributions": "Contribuciones de Suras",
+        "progressTracking": "Seguimiento del Progreso",
+        "memorization": "% de Memorización",
+        "lightRatio": "Ratio de Luz",
+        "conquerRatio": "Ratio de Conquista",
+        "khatmaProgress": "Khatma Actual",
+        "dailyGoals": "Objetivos Diarios",
+        "reviewGauge": "Medidor de Revisión",
+        "readGauge": "Medidor de Lectura",
+        "lightDays": "Días de Luz",
+        "visualizations": "Visualizaciones",
+        "treemap": "Mapa de Árbol de Luz",
+        "radar": "Radar de Suras",
+        "settings": "Configuración y Herramientas",
+        "settingsConfig": "Configuración",
+        "controls": "Controles de Teclado",
+        "account": "Cuenta",
+        "home": "Inicio",
+        "signOut": "Cerrar Sesión"
+    },
 }

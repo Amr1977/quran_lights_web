@@ -88,5 +88,32 @@
         "copyright": "版权所有 - 古兰经之光 ©",
         "year": "2025",
         "template": "模板由"
-    }
+    },
+    "dashboard": {
+        "main": "光明单元格",
+        "analytics": "分析和图表",
+        "scoreCharts": "分数图表",
+        "dailyScore": "每日分数",
+        "monthlyScore": "每月分数",
+        "yearlyScore": "每年分数",
+        "suraContributions": "章节贡献",
+        "progressTracking": "进度跟踪",
+        "memorization": "记忆百分比",
+        "lightRatio": "光明比率",
+        "conquerRatio": "征服比率",
+        "khatmaProgress": "当前完成",
+        "dailyGoals": "每日目标",
+        "reviewGauge": "复习仪表",
+        "readGauge": "阅读仪表",
+        "lightDays": "光明天数",
+        "visualizations": "可视化",
+        "treemap": "光明树图",
+        "radar": "章节雷达",
+        "settings": "设置和工具",
+        "settingsConfig": "设置",
+        "controls": "键盘控制",
+        "account": "账户",
+        "home": "主页",
+        "signOut": "登出"
+    },
 }

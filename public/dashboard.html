@@ -5,6 +5,7 @@
     <title>Quran Lights</title>
     <link rel="stylesheet" href="dashboard/css/styles.css?v=1673362936">
     <link rel="stylesheet" href="dashboard/css/sidebar.css">
+    <script src="js/i18n.js"></script>
 
     <link href="dashboard/css/context-menu.css" rel="stylesheet">
     <script src="dashboard/scripts/context-menu.js"></script>
@@ -91,87 +92,91 @@
                 <!-- Main Dashboard -->
                 <a href="#" class="nav-item active" data-view="light_cells" data-category="Dashboard">
                     <span class="icon">📊</span>
-                    <span>الخلايا الضوئية</span>
+                    <span data-i18n="dashboard.main">الخلايا الضوئية</span>
                 </a>
 
                 <!-- Analytics & Charts Group -->
                 <div class="nav-group expanded">
                     <button class="nav-group-header">
-                        <span><span class="icon">📈</span> التحليلات والرسوم</span>
+                        <span><span class="icon">📈</span> <span data-i18n="dashboard.analytics">التحليلات
+                                والرسوم</span></span>
                         <span class="chevron">▼</span>
                     </button>
                     <div class="nav-group-content">
                         <!-- Score Charts Subgroup -->
                         <div class="nav-subgroup">
-                            <div class="nav-subgroup-header">رسوم الرصيد</div>
+                            <div class="nav-subgroup-header" data-i18n="dashboard.scoreCharts">رسوم الرصيد</div>
                             <div class="nav-subgroup-content">
                                 <a href="#" class="nav-subitem" data-view="daily_score_chart_tab"
-                                    data-category="Analytics">الرصيد اليومي</a>
+                                    data-category="Analytics" data-i18n="dashboard.dailyScore">الرصيد اليومي</a>
                                 <a href="#" class="nav-subitem" data-view="monthly_score_chart_tab"
-                                    data-category="Analytics">الرصيد الشهري</a>
+                                    data-category="Analytics" data-i18n="dashboard.monthlyScore">الرصيد الشهري</a>
                                 <a href="#" class="nav-subitem" data-view="yearly_score_chart_tab"
-                                    data-category="Analytics">الرصيد السنوي</a>
+                                    data-category="Analytics" data-i18n="dashboard.yearlyScore">الرصيد السنوي</a>
                                 <a href="#" class="nav-subitem" data-view="sura_score_chart_tab"
-                                    data-category="Analytics">مساهمات السور</a>
+                                    data-category="Analytics" data-i18n="dashboard.suraContributions">مساهمات السور</a>
                             </div>
                         </div>
 
                         <!-- Progress Tracking Subgroup -->
                         <div class="nav-subgroup">
-                            <div class="nav-subgroup-header">تتبع التقدم</div>
+                            <div class="nav-subgroup-header" data-i18n="dashboard.progressTracking">تتبع التقدم</div>
                             <div class="nav-subgroup-content">
                                 <a href="#" class="nav-subitem" data-view="memorization_chart_tab"
-                                    data-category="Analytics">نسبة الحفظ</a>
+                                    data-category="Analytics" data-i18n="dashboard.memorization">نسبة الحفظ</a>
                                 <a href="#" class="nav-subitem" data-view="light_ratio_chart_tab"
-                                    data-category="Analytics">نسبة النور</a>
+                                    data-category="Analytics" data-i18n="dashboard.lightRatio">نسبة النور</a>
                                 <a href="#" class="nav-subitem" data-view="conquer_ratio_chart_tab"
-                                    data-category="Analytics">نسبة الاستحواذ</a>
+                                    data-category="Analytics" data-i18n="dashboard.conquerRatio">نسبة الاستحواذ</a>
                                 <a href="#" class="nav-subitem" data-view="khatma_progress_tab"
-                                    data-category="Analytics">الختمة الحالية</a>
+                                    data-category="Analytics" data-i18n="dashboard.khatmaProgress">الختمة الحالية</a>
                             </div>
                         </div>
 
                         <!-- Daily Goals Subgroup -->
                         <div class="nav-subgroup">
-                            <div class="nav-subgroup-header">الأهداف اليومية</div>
+                            <div class="nav-subgroup-header" data-i18n="dashboard.dailyGoals">الأهداف اليومية</div>
                             <div class="nav-subgroup-content">
-                                <a href="#" class="nav-subitem" data-view="review_guage" data-category="Analytics">ورد
-                                    المراجعة</a>
-                                <a href="#" class="nav-subitem" data-view="daily_read_guage"
-                                    data-category="Analytics">ورد التلاوة</a>
+                                <a href="#" class="nav-subitem" data-view="review_guage" data-category="Analytics"
+                                    data-i18n="dashboard.reviewGauge">ورد المراجعة</a>
+                                <a href="#" class="nav-subitem" data-view="daily_read_guage" data-category="Analytics"
+                                    data-i18n="dashboard.readGauge">ورد التلاوة</a>
                             </div>
                         </div>
 
                         <!-- Calendar Views -->
-                        <a href="#" class="nav-subitem" data-view="light_days_chart_tab"
-                            data-category="Analytics">الأيام المنيرة</a>
+                        <a href="#" class="nav-subitem" data-view="light_days_chart_tab" data-category="Analytics"
+                            data-i18n="dashboard.lightDays">الأيام المنيرة</a>
                     </div>
                 </div>
 
                 <!-- Visualizations Group -->
                 <div class="nav-group">
                     <button class="nav-group-header">
-                        <span><span class="icon">🗺️</span> التصورات البصرية</span>
+                        <span><span class="icon">🗺️</span> <span data-i18n="dashboard.visualizations">التصورات
+                                البصرية</span></span>
                         <span class="chevron">▼</span>
                     </button>
                     <div class="nav-group-content">
-                        <a href="#" class="nav-subitem" data-view="light_treemap" data-category="Visualizations">حقول
-                            الأنوار</a>
-                        <a href="#" class="nav-subitem" data-view="light_radar" data-category="Visualizations">رادار
-                            تفلت السور</a>
+                        <a href="#" class="nav-subitem" data-view="light_treemap" data-category="Visualizations"
+                            data-i18n="dashboard.treemap">حقول الأنوار</a>
+                        <a href="#" class="nav-subitem" data-view="light_radar" data-category="Visualizations"
+                            data-i18n="dashboard.radar">رادار تفلت السور</a>
                     </div>
                 </div>
 
                 <!-- Settings & Tools Group -->
                 <div class="nav-group">
                     <button class="nav-group-header">
-                        <span><span class="icon">⚙️</span> الإعدادات والأدوات</span>
+                        <span><span class="icon">⚙️</span> <span data-i18n="dashboard.settings">الإعدادات
+                                والأدوات</span></span>
                         <span class="chevron">▼</span>
                     </button>
                     <div class="nav-group-content">
-                        <a href="#" class="nav-subitem" data-view="settings_tab" data-category="Settings">الإعدادات</a>
-                        <a href="#" class="nav-subitem" data-view="controls_tab" data-category="Settings">مفاتيح
-                            التحكم</a>
+                        <a href="#" class="nav-subitem" data-view="settings_tab" data-category="Settings"
+                            data-i18n="dashboard.settingsConfig">الإعدادات</a>
+                        <a href="#" class="nav-subitem" data-view="controls_tab" data-category="Settings"
+                            data-i18n="dashboard.controls">مفاتيح التحكم</a>
                     </div>
                 </div>
 
@@ -179,11 +184,11 @@
                 <div class="nav-section">
                     <a href="#" class="nav-item" onclick="window.location.href='index.html'; return false;">
                         <span class="icon">🏠</span>
-                        <span>الرئيسية</span>
+                        <span data-i18n="dashboard.home">الرئيسية</span>
                     </a>
                     <a href="#" class="nav-item" onclick="sign_out(); return false;">
                         <span class="icon">🚪</span>
-                        <span>تسجيل الخروج</span>
+                        <span data-i18n="dashboard.signOut">تسجيل الخروج</span>
                     </a>
                 </div>
             </nav>

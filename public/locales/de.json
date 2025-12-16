@@ -88,5 +88,32 @@
         "copyright": "Alle Rechte Vorbehalten - Quran Lichter ©",
         "year": "2025",
         "template": "Vorlage Von"
-    }
+    },
+    "dashboard": {
+        "main": "Lichtzellen",
+        "analytics": "Analysen und Diagramme",
+        "scoreCharts": "Punktediagramme",
+        "dailyScore": "Tägliche Punkte",
+        "monthlyScore": "Monatliche Punkte",
+        "yearlyScore": "Jährliche Punkte",
+        "suraContributions": "Suren-Beiträge",
+        "progressTracking": "Fortschrittsverfolgung",
+        "memorization": "Auswendiglernen %",
+        "lightRatio": "Lichtverhältnis",
+        "conquerRatio": "Eroberungsverhältnis",
+        "khatmaProgress": "Aktuelle Khatma",
+        "dailyGoals": "Tägliche Ziele",
+        "reviewGauge": "Wiederholungsanzeige",
+        "readGauge": "Leseanzeige",
+        "lightDays": "Lichttage",
+        "visualizations": "Visualisierungen",
+        "treemap": "Licht-Baumkarte",
+        "radar": "Suren-Radar",
+        "settings": "Einstellungen und Tools",
+        "settingsConfig": "Einstellungen",
+        "controls": "Tastatursteuerung",
+        "account": "Konto",
+        "home": "Startseite",
+        "signOut": "Abmelden"
+    },
 }

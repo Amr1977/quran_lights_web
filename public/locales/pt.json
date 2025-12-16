@@ -88,5 +88,32 @@
         "copyright": "Todos os Direitos Reservados - Luzes do Alcorão ©",
         "year": "2025",
         "template": "Template Por"
-    }
+    },
+    "dashboard": {
+        "main": "Células de Luz",
+        "analytics": "Análises e Gráficos",
+        "scoreCharts": "Gráficos de Pontuação",
+        "dailyScore": "Pontuação Diária",
+        "monthlyScore": "Pontuação Mensal",
+        "yearlyScore": "Pontuação Anual",
+        "suraContributions": "Contribuições de Suras",
+        "progressTracking": "Acompanhamento de Progresso",
+        "memorization": "% de Memorização",
+        "lightRatio": "Proporção de Luz",
+        "conquerRatio": "Proporção de Conquista",
+        "khatmaProgress": "Khatma Atual",
+        "dailyGoals": "Objetivos Diários",
+        "reviewGauge": "Medidor de Revisão",
+        "readGauge": "Medidor de Leitura",
+        "lightDays": "Dias de Luz",
+        "visualizations": "Visualizações",
+        "treemap": "Mapa de Árvore de Luz",
+        "radar": "Radar de Suras",
+        "settings": "Configurações e Ferramentas",
+        "settingsConfig": "Configurações",
+        "controls": "Controles de Teclado",
+        "account": "Conta",
+        "home": "Início",
+        "signOut": "Sair"
+    },
 }
