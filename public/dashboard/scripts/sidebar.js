@@ -357,31 +357,25 @@
      * Setup language switcher dropdown
      */
     function setupLanguageSwitcher() {
-        const dropdown = document.querySelector('.navbar-actions .dropdown');
-        const dropdownToggle = document.querySelector('.navbar-actions .dropdown-toggle');
-        const languageLinks = document.querySelectorAll('.language-dropdown a[data-lang]');
-
-        if (!dropdown || !dropdownToggle) return;
-
-        // Toggle dropdown on click
-        dropdownToggle.addEventListener('click', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            dropdown.classList.toggle('open');
-        });
-
-        // Close dropdown when clicking outside
+        // Use event delegation on document to handle dynamically updated elements
         document.addEventListener('click', function (e) {
-            if (!dropdown.contains(e.target)) {
-                dropdown.classList.remove('open');
-            }
-        });
+            const dropdown = document.querySelector('.navbar-actions .dropdown');
+            if (!dropdown) return;
 
-        // Handle language selection
-        languageLinks.forEach(link => {
-            link.addEventListener('click', function (e) {
+            // Check if click is on dropdown toggle button
+            const toggleBtn = e.target.closest('.dropdown-toggle');
+            if (toggleBtn && dropdown.contains(toggleBtn)) {
                 e.preventDefault();
-                const lang = this.getAttribute('data-lang');
+                e.stopPropagation();
+                dropdown.classList.toggle('open');
+                return;
+            }
+
+            // Check if click is on a language link
+            const langLink = e.target.closest('.language-dropdown a[data-lang]');
+            if (langLink) {
+                e.preventDefault();
+                const lang = langLink.getAttribute('data-lang');
 
                 // Change language using i18n system
                 if (typeof window.i18n !== 'undefined' && typeof window.i18n.changeLanguage === 'function') {
@@ -391,28 +385,37 @@
                 // Update current language display
                 const currentLangSpan = document.getElementById('current-lang');
                 if (currentLangSpan) {
-                    currentLangSpan.textContent = this.textContent.trim();
+                    currentLangSpan.textContent = langLink.textContent.trim();
                 }
 
                 // Close dropdown
                 dropdown.classList.remove('open');
 
                 // Mark as active
-                languageLinks.forEach(l => l.classList.remove('active'));
-                this.classList.add('active');
-            });
+                const allLinks = document.querySelectorAll('.language-dropdown a[data-lang]');
+                allLinks.forEach(l => l.classList.remove('active'));
+                langLink.classList.add('active');
+                return;
+            }
+
+            // Close dropdown when clicking outside
+            if (!dropdown.contains(e.target)) {
+                dropdown.classList.remove('open');
+            }
         });
 
         // Set initial active language
-        const currentLang = localStorage.getItem('preferredLanguage') || 'ar';
-        const activeLangLink = document.querySelector(`.language-dropdown a[data-lang="${currentLang}"]`);
-        if (activeLangLink) {
-            activeLangLink.classList.add('active');
-            const currentLangSpan = document.getElementById('current-lang');
-            if (currentLangSpan) {
-                currentLangSpan.textContent = activeLangLink.textContent.trim();
+        setTimeout(function () {
+            const currentLang = localStorage.getItem('preferredLanguage') || 'ar';
+            const activeLangLink = document.querySelector(`.language-dropdown a[data-lang="${currentLang}"]`);
+            if (activeLangLink) {
+                activeLangLink.classList.add('active');
+                const currentLangSpan = document.getElementById('current-lang');
+                if (currentLangSpan) {
+                    currentLangSpan.textContent = activeLangLink.textContent.trim();
+                }
             }
-        }
+        }, 100);
     }
 
     /**
