@@ -415,6 +415,50 @@
     }
 
     /**
+     * Setup theme toggle
+     */
+    var themeToggleInitialized = false;
+    function setupThemeToggle() {
+        // Only initialize once
+        if (themeToggleInitialized) return;
+        themeToggleInitialized = true;
+
+        console.log('Setting up theme toggle...');
+
+        // Get current theme from localStorage or default to 'dark'
+        var currentTheme = localStorage.getItem('theme') || 'dark';
+
+        // Apply theme on load
+        applyTheme(currentTheme);
+
+        // Handle theme toggle click
+        $('#theme-toggle').on('click', function () {
+            currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            applyTheme(currentTheme);
+            localStorage.setItem('theme', currentTheme);
+            console.log('Theme switched to:', currentTheme);
+        });
+
+        console.log('Theme toggle initialized. Current theme:', currentTheme);
+    }
+
+    /**
+     * Apply theme to the page
+     */
+    function applyTheme(theme) {
+        var $body = $('body');
+        var $themeToggle = $('#theme-toggle');
+
+        if (theme === 'light') {
+            $body.addClass('light-theme').removeClass('dark-theme');
+            $themeToggle.text('🌙'); // Moon for light mode (click to go dark)
+        } else {
+            $body.addClass('dark-theme').removeClass('light-theme');
+            $themeToggle.text('☀️'); // Sun for dark mode (click to go light)
+        }
+    }
+
+    /**
      * Public API (for backward compatibility with existing code)
      */
     window.openTab = function (viewId) {
@@ -431,11 +475,13 @@
             initSidebar();
             setupKeyboardShortcuts();
             setupLanguageSwitcher();
+            setupThemeToggle();
         });
     } else {
         initSidebar();
         setupKeyboardShortcuts();
         setupLanguageSwitcher();
+        setupThemeToggle();
     }
 
 })();
