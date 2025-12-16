@@ -544,7 +544,7 @@
 }
 
 .navbar-actions .dropdown-menu {
-    display: none;
+    display: none !important;
     position: absolute;
     top: 100%;
     right: 0;
@@ -565,7 +565,7 @@
 }
 
 .navbar-actions .dropdown.open .dropdown-menu {
-    display: block;
+    display: block !important;
 }
 
 .navbar-actions .dropdown-menu li {
