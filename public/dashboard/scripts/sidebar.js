@@ -177,46 +177,116 @@
      * @param {string} viewId - ID of the view
      */
     function initializeView(viewId) {
-        // Call existing initialization functions based on view
+        // Call chart initialization functions based on view
+        // This matches the logic from the original tabs.js openTab function
         switch (viewId) {
-            case 'light_treemap':
-                if (typeof init_treemap === 'function') init_treemap();
-                break;
             case 'light_radar':
-                if (typeof init_radar === 'function') init_radar();
+                if (typeof drawRadarChart === 'function') {
+                    drawRadarChart("radar-chart");
+                }
                 break;
-            case 'daily_score_chart_tab':
-                if (typeof init_daily_score_chart === 'function') init_daily_score_chart();
+
+            case 'light_treemap':
+                if (typeof drawTreeMapChart === 'function') {
+                    drawTreeMapChart("treemap-chart");
+                }
                 break;
-            case 'monthly_score_chart_tab':
-                if (typeof init_monthly_score_chart === 'function') init_monthly_score_chart();
-                break;
-            case 'yearly_score_chart_tab':
-                if (typeof init_yearly_score_chart === 'function') init_yearly_score_chart();
-                break;
-            case 'review_guage':
-                if (typeof init_review_guage === 'function') init_review_guage();
-                break;
-            case 'daily_read_guage':
-                if (typeof init_daily_read_guage === 'function') init_daily_read_guage();
-                break;
+
             case 'memorization_chart_tab':
-                if (typeof init_memorization_chart === 'function') init_memorization_chart();
+                if (typeof drawMemorizationPieChart === 'function') {
+                    drawMemorizationPieChart();
+                }
+                // Also update gauges if scores are available
+                if (typeof scores !== 'undefined' && !isNaN(scores["today_review"])) {
+                    setTimeout(function () {
+                        if (typeof updateGuageChart === 'function') {
+                            if (typeof get_review_werd === 'function' && typeof format === 'function') {
+                                updateGuageChart("review_score_guage",
+                                    "Today Review Revenue [" + format(scores["today_review"]) + " of Target " + format(get_review_werd()) + "]",
+                                    100 * Number(scores["today_review"]) / get_review_werd());
+                            }
+                            if (typeof get_read_werd === 'function' && typeof get_today_read === 'function') {
+                                updateGuageChart("daily-read-guage",
+                                    "Today Read Revenue [" + format(scores["today_read"]) + " of Target " + format(get_read_werd()) + "]",
+                                    100 * get_today_read() / get_read_werd());
+                            }
+                        }
+                    }, 2000);
+                }
                 break;
+
+            case 'review_guage':
+                if (typeof updateGuageChart === 'function' && typeof scores !== 'undefined') {
+                    if (typeof get_review_werd === 'function' && typeof format === 'function') {
+                        updateGuageChart("review_score_guage",
+                            "Today Review Revenue [" + format(scores["today_review"]) + " of Target " + format(get_review_werd()) + "]",
+                            100 * Number(scores["today_review"]) / get_review_werd());
+                    }
+                }
+                break;
+
+            case 'daily_read_guage':
+                if (typeof updateGuageChart === 'function' && typeof scores !== 'undefined') {
+                    if (typeof get_read_werd === 'function' && typeof get_today_read === 'function' && typeof format === 'function') {
+                        updateGuageChart("daily-read-guage",
+                            "Today Read Revenue [" + format(scores["today_read"]) + " of Target " + format(get_read_werd()) + "]",
+                            100 * get_today_read() / get_read_werd());
+                    }
+                }
+                break;
+
             case 'light_ratio_chart_tab':
-                if (typeof init_light_ratio_chart === 'function') init_light_ratio_chart();
+                if (typeof updateGuageChart === 'function' && typeof lightRatio !== 'undefined') {
+                    updateGuageChart("light-ratio-chart-container", "Light Ratio", lightRatio);
+                }
                 break;
+
             case 'conquer_ratio_chart_tab':
-                if (typeof init_conquer_ratio_chart === 'function') init_conquer_ratio_chart();
+                if (typeof updateGuageChart === 'function' && typeof conquerRatio !== 'undefined') {
+                    updateGuageChart("conquer-ratio-chart-container", "Conquer Ratio", conquerRatio);
+                }
                 break;
+
             case 'khatma_progress_tab':
-                if (typeof init_khatma_progress === 'function') init_khatma_progress();
+                if (typeof drawKhatmaPieChart === 'function') {
+                    drawKhatmaPieChart();
+                }
                 break;
-            case 'sura_score_chart_tab':
-                if (typeof init_sura_score_chart === 'function') init_sura_score_chart();
+
+            case 'daily_score_chart_tab':
+                if (typeof drawTimeSeriesChart === 'function' && typeof DAILY_SCORE_MODE !== 'undefined') {
+                    drawTimeSeriesChart("daily-score-chart", DAILY_SCORE_MODE);
+                }
                 break;
+
+            case 'monthly_score_chart_tab':
+                if (typeof drawTimeSeriesChart === 'function' && typeof MONTHLY_SCORE_MODE !== 'undefined') {
+                    drawTimeSeriesChart("monthly-score-chart", MONTHLY_SCORE_MODE);
+                }
+                break;
+
+            case 'yearly_score_chart_tab':
+                if (typeof drawTimeSeriesChart === 'function' && typeof YEARLY_SCORE_MODE !== 'undefined') {
+                    drawTimeSeriesChart("yearly-score-chart", YEARLY_SCORE_MODE);
+                }
+                break;
+
             case 'light_days_chart_tab':
-                if (typeof init_light_days_chart === 'function') init_light_days_chart();
+                if (typeof drawTimeSeriesChart === 'function' && typeof LIGHT_DAYS_MODE !== 'undefined') {
+                    drawTimeSeriesChart("light_days_chart", LIGHT_DAYS_MODE);
+                }
+                break;
+
+            case 'dark_days_chart_tab':
+                if (typeof drawTimeSeriesChart === 'function' && typeof LIGHT_DAYS_MODE !== 'undefined') {
+                    drawTimeSeriesChart("dark_days_chart", LIGHT_DAYS_MODE);
+                }
+                break;
+
+            case 'sura_score_chart_tab':
+                if (typeof drawTimeSeriesChart === 'function' && typeof REFRESH_COUNT_TIME_SCORE_MODE !== 'undefined') {
+                    drawTimeSeriesChart("sura-score-chart", REFRESH_COUNT_TIME_SCORE_MODE);
+                }
                 break;
         }
     }
