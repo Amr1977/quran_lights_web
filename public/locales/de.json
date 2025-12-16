@@ -68,6 +68,22 @@
         "group": "Treten Sie der Quran Lichter Facebook-Gruppe bei",
         "suggestions": "Wir freuen uns über Ihre Vorschläge in den Kommentaren zu diesem Beitrag"
     },
+    "auth": {
+        "loginTitle": "Anmelden",
+        "signupTitle": "Konto Erstellen",
+        "email": "E-Mail",
+        "password": "Passwort",
+        "repeatPassword": "Passwort Wiederholen",
+        "signInButton": "Anmelden",
+        "signUpButton": "Konto Erstellen",
+        "backToHome": "Zurück zur Startseite",
+        "createAccountLink": "Konto Erstellen",
+        "signInLink": "Anmelden",
+        "orSignInWith": "Oder mit Google-Konto anmelden",
+        "passwordMismatch": "Passwörter stimmen nicht überein, geben Sie die Passwörter erneut ein",
+        "loginPageTitle": "Quran Lichter - Anmelden",
+        "signupPageTitle": "Quran Lichter - Konto Erstellen"
+    },
     "footer": {
         "copyright": "Alle Rechte Vorbehalten - Quran Lichter ©",
         "year": "2025",

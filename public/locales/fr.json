@@ -68,6 +68,22 @@
         "group": "Rejoignez le Groupe Facebook de Lumières du Coran",
         "suggestions": "Nous accueillons vos suggestions dans les commentaires de cette publication"
     },
+    "auth": {
+        "loginTitle": "Connexion",
+        "signupTitle": "Créer un Compte",
+        "email": "Email",
+        "password": "Mot de Passe",
+        "repeatPassword": "Répéter le Mot de Passe",
+        "signInButton": "Se Connecter",
+        "signUpButton": "Créer un Compte",
+        "backToHome": "Retour à l'Accueil",
+        "createAccountLink": "Créer un Compte",
+        "signInLink": "Se Connecter",
+        "orSignInWith": "Ou se connecter avec un compte Google",
+        "passwordMismatch": "Les mots de passe ne correspondent pas, retapez les mots de passe",
+        "loginPageTitle": "Lumières du Coran - Connexion",
+        "signupPageTitle": "Lumières du Coran - Créer un Compte"
+    },
     "footer": {
         "copyright": "Tous Droits Réservés - Lumières du Coran ©",
         "year": "2025",

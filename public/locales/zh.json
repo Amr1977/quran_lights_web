@@ -68,6 +68,22 @@
         "group": "加入古兰经之光 Facebook 群组",
         "suggestions": "欢迎在此帖子的评论中提出您的建议"
     },
+    "auth": {
+        "loginTitle": "登录",
+        "signupTitle": "创建账户",
+        "email": "电子邮件",
+        "password": "密码",
+        "repeatPassword": "重复密码",
+        "signInButton": "登录",
+        "signUpButton": "创建账户",
+        "backToHome": "返回首页",
+        "createAccountLink": "创建账户",
+        "signInLink": "登录",
+        "orSignInWith": "或使用 Google 账户登录",
+        "passwordMismatch": "密码不匹配，请重新输入密码",
+        "loginPageTitle": "古兰经之光 - 登录",
+        "signupPageTitle": "古兰经之光 - 创建账户"
+    },
     "footer": {
         "copyright": "版权所有 - 古兰经之光 ©",
         "year": "2025",

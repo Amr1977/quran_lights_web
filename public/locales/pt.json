@@ -68,6 +68,22 @@
         "group": "Junte-se ao Grupo do Facebook Luzes do Alcorão",
         "suggestions": "Agradecemos suas sugestões nos comentários desta publicação"
     },
+    "auth": {
+        "loginTitle": "Entrar",
+        "signupTitle": "Criar Conta",
+        "email": "E-mail",
+        "password": "Senha",
+        "repeatPassword": "Repetir Senha",
+        "signInButton": "Entrar",
+        "signUpButton": "Criar Conta",
+        "backToHome": "Voltar ao Início",
+        "createAccountLink": "Criar Conta",
+        "signInLink": "Entrar",
+        "orSignInWith": "Ou entrar com conta do Google",
+        "passwordMismatch": "As senhas não correspondem, digite as senhas novamente",
+        "loginPageTitle": "Luzes do Alcorão - Entrar",
+        "signupPageTitle": "Luzes do Alcorão - Criar Conta"
+    },
     "footer": {
         "copyright": "Todos os Direitos Reservados - Luzes do Alcorão ©",
         "year": "2025",

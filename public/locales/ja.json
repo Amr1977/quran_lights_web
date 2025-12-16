@@ -68,6 +68,22 @@
         "group": "コーランライト Facebookグループに参加",
         "suggestions": "この投稿のコメントでご提案をお待ちしています"
     },
+    "auth": {
+        "loginTitle": "サインイン",
+        "signupTitle": "アカウント作成",
+        "email": "メールアドレス",
+        "password": "パスワード",
+        "repeatPassword": "パスワードを再入力",
+        "signInButton": "サインイン",
+        "signUpButton": "アカウント作成",
+        "backToHome": "ホームに戻る",
+        "createAccountLink": "アカウント作成",
+        "signInLink": "サインイン",
+        "orSignInWith": "またはGoogleアカウントでサインイン",
+        "passwordMismatch": "パスワードが一致しません。パスワードを再入力してください",
+        "loginPageTitle": "コーランライト - サインイン",
+        "signupPageTitle": "コーランライト - アカウント作成"
+    },
     "footer": {
         "copyright": "全著作権所有 - コーランライト ©",
         "year": "2025",

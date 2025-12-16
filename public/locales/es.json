@@ -68,6 +68,22 @@
         "group": "Únete al Grupo de Facebook de Luces del Corán",
         "suggestions": "Agradecemos tus sugerencias en los comentarios de esta publicación"
     },
+    "auth": {
+        "loginTitle": "Iniciar Sesión",
+        "signupTitle": "Crear Cuenta",
+        "email": "Correo Electrónico",
+        "password": "Contraseña",
+        "repeatPassword": "Repetir Contraseña",
+        "signInButton": "Iniciar Sesión",
+        "signUpButton": "Crear Cuenta",
+        "backToHome": "Volver al Inicio",
+        "createAccountLink": "Crear Cuenta",
+        "signInLink": "Iniciar Sesión",
+        "orSignInWith": "O iniciar sesión con cuenta de Google",
+        "passwordMismatch": "Las contraseñas no coinciden, vuelve a escribirlas",
+        "loginPageTitle": "Luces del Corán - Iniciar Sesión",
+        "signupPageTitle": "Luces del Corán - Crear Cuenta"
+    },
     "footer": {
         "copyright": "Todos los Derechos Reservados - Luces del Corán ©",
         "year": "2025",

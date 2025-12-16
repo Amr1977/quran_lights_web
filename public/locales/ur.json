@@ -68,6 +68,22 @@
         "group": "قرآن لائٹس فیس بک گروپ میں شامل ہوں",
         "suggestions": "ہم اس پوسٹ پر تبصروں میں آپ کی تجاویز کا خیرمقدم کرتے ہیں"
     },
+    "auth": {
+        "loginTitle": "سائن ان کریں",
+        "signupTitle": "اکاؤنٹ بنائیں",
+        "email": "ای میل",
+        "password": "پاس ورڈ",
+        "repeatPassword": "پاس ورڈ دہرائیں",
+        "signInButton": "سائن ان کریں",
+        "signUpButton": "اکاؤنٹ بنائیں",
+        "backToHome": "ہوم پیج پر واپس جائیں",
+        "createAccountLink": "اکاؤنٹ بنائیں",
+        "signInLink": "سائن ان کریں",
+        "orSignInWith": "یا گوگل اکاؤنٹ سے سائن ان کریں",
+        "passwordMismatch": "پاس ورڈ مماثل نہیں ہیں، پاس ورڈ دوبارہ ٹائپ کریں",
+        "loginPageTitle": "قرآن لائٹس - سائن ان کریں",
+        "signupPageTitle": "قرآن لائٹس - اکاؤنٹ بنائیں"
+    },
     "footer": {
         "copyright": "تمام حقوق محفوظ ہیں - قرآن لائٹس ©",
         "year": "2025",

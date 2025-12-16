@@ -68,6 +68,22 @@
         "group": "कुरान लाइट्स Facebook समूह में शामिल हों",
         "suggestions": "हम इस पोस्ट पर टिप्पणियों में आपके सुझावों का स्वागत करते हैं"
     },
+    "auth": {
+        "loginTitle": "साइन इन करें",
+        "signupTitle": "खाता बनाएं",
+        "email": "ईमेल",
+        "password": "पासवर्ड",
+        "repeatPassword": "पासवर्ड दोहराएं",
+        "signInButton": "साइन इन करें",
+        "signUpButton": "खाता बनाएं",
+        "backToHome": "होम पर वापस जाएं",
+        "createAccountLink": "खाता बनाएं",
+        "signInLink": "साइन इन करें",
+        "orSignInWith": "या Google खाते से साइन इन करें",
+        "passwordMismatch": "पासवर्ड मेल नहीं खाते, पासवर्ड फिर से टाइप करें",
+        "loginPageTitle": "कुरान लाइट्स - साइन इन करें",
+        "signupPageTitle": "कुरान लाइट्स - खाता बनाएं"
+    },
     "footer": {
         "copyright": "सर्वाधिकार सुरक्षित - कुरान लाइट्स ©",
         "year": "2025",

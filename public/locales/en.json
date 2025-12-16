@@ -68,6 +68,22 @@
         "group": "Join Quran Lights Facebook Group",
         "suggestions": "We welcome your suggestions in the comments on this post"
     },
+    "auth": {
+        "loginTitle": "Sign In",
+        "signupTitle": "Create Account",
+        "email": "Email",
+        "password": "Password",
+        "repeatPassword": "Repeat Password",
+        "signInButton": "Sign In",
+        "signUpButton": "Create Account",
+        "backToHome": "Back to Home",
+        "createAccountLink": "Create Account",
+        "signInLink": "Sign In",
+        "orSignInWith": "Or sign in with Google account",
+        "passwordMismatch": "Passwords mismatch, retype passwords",
+        "loginPageTitle": "Quran Lights - Sign In",
+        "signupPageTitle": "Quran Lights - Create Account"
+    },
     "footer": {
         "copyright": "All Rights Reserved - Quran Lights ©",
         "year": "2025",

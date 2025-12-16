@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>موقع أنوار القرآن - إنشاء حساب</title>
+    <title data-i18n="auth.signupPageTitle">موقع أنوار القرآن - إنشاء حساب</title>
+    <meta name="description"
+        content="Create an account on Quran Lights to track your Quran recitation and review rates">
+    <meta name="keywords" content="Quran Lights, Sign Up, Register, Create Account">
 
     <!-- Font Icon -->
     <link rel="stylesheet" href="login/fonts/material-icon/css/material-design-iconic-font.min.css">
@@ -15,18 +19,94 @@
     <script src="js/constants.js?v=1734583520"></script>
     <script src="js/utils.js?v=1734583520"></script>
     <script src="login/js/login.js?v=1734583520"></script>
+
+    <style>
+        /* Language dropdown styling */
+        .language-dropdown {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            min-width: 200px;
+        }
+
+        .language-dropdown li a {
+            padding: 8px 15px;
+            display: block;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .language-dropdown li a:hover,
+        .language-dropdown li a.active {
+            background-color: #f0f0f0;
+            color: #6dabe4;
+        }
+
+        .lang-switcher {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        [dir="rtl"] .lang-switcher {
+            right: auto;
+            left: 20px;
+        }
+
+        .lang-btn {
+            background: #6dabe4;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .lang-btn:hover {
+            background: #5a9bd3;
+        }
+    </style>
 </head>
+
 <body>
 
+    <!-- Language Switcher -->
+    <div class="lang-switcher">
+        <div class="dropdown">
+            <button class="lang-btn dropdown-toggle" data-toggle="dropdown">
+                <i class="zmdi zmdi-globe"></i> <span id="current-lang">العربية</span>
+            </button>
+            <ul class="dropdown-menu language-dropdown">
+                <li><a href="#" data-lang="ar">🇸🇦 العربية</a></li>
+                <li><a href="#" data-lang="en">🇬🇧 English</a></li>
+                <li><a href="#" data-lang="es">🇪🇸 Español</a></li>
+                <li><a href="#" data-lang="fr">🇫🇷 Français</a></li>
+                <li><a href="#" data-lang="de">🇩🇪 Deutsch</a></li>
+                <li><a href="#" data-lang="zh">🇨🇳 中文</a></li>
+                <li><a href="#" data-lang="hi">🇮🇳 हिन्दी</a></li>
+                <li><a href="#" data-lang="pt">🇧🇷 Português</a></li>
+                <li><a href="#" data-lang="ur">🇵🇰 اردو</a></li>
+                <li><a href="#" data-lang="ja">🇯🇵 日本語</a></li>
+            </ul>
+        </div>
+    </div>
+
     <script>
-        function on_sign_up_button_pressed(){
+        function on_sign_up_button_pressed() {
 
             var email = document.getElementById("email").value;
             var password = document.getElementById("pass").value;
             var re_pass = document.getElementById("re_pass").value;
 
             if (password !== re_pass) {
-                alert("Passwords mismatch, retype passwords");
+                // Get localized error message
+                var errorMsg = window.i18n && window.i18n.getCurrentLanguage ?
+                    (window.i18n.getTranslation ? window.i18n.getTranslation('auth.passwordMismatch') :
+                        "Passwords mismatch, retype passwords") :
+                    "Passwords mismatch, retype passwords";
+                alert(errorMsg);
                 return;
             }
 
@@ -41,37 +121,37 @@
             <div class="container">
                 <div class="signup-content">
                     <div class="signup-form">
-                        <h2 class="form-title">إنشاء حساب</h2>
+                        <h2 class="form-title" data-i18n="auth.signupTitle">إنشاء حساب</h2>
                         <form method="POST" class="register-form" id="register-form">
-                            <!-- <div class="form-group">
-                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="name" id="name" placeholder="الاسم"/>
-                            </div> -->
                             <div class="form-group">
                                 <label for="email"><i class="zmdi zmdi-email"></i></label>
-                                <input type="email" name="email" id="email" placeholder="البريد الالكتروني"/>
+                                <input type="email" name="email" id="email" data-i18n-attr="placeholder"
+                                    data-i18n="auth.email" placeholder="البريد الالكتروني" />
                             </div>
                             <div class="form-group">
                                 <label for="pass"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="password" name="pass" id="pass" placeholder="كلمة المرور"/>
+                                <input type="password" name="pass" id="pass" data-i18n-attr="placeholder"
+                                    data-i18n="auth.password" placeholder="كلمة المرور" />
                             </div>
                             <div class="form-group">
                                 <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
-                                <input type="password" name="re_pass" id="re_pass" placeholder="تكرار كلمة المرور"/>
+                                <input type="password" name="re_pass" id="re_pass" data-i18n-attr="placeholder"
+                                    data-i18n="auth.repeatPassword" placeholder="تكرار كلمة المرور" />
                             </div>
-                            <!-- <div class="form-group">
-                                <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
-                                <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
-                            </div> -->
                             <div class="form-group form-button">
-                                <input type="button" name="signup" id="signup" class="form-submit" value="إنشاء الحساب" onclick="on_sign_up_button_pressed()"/>
-                                <input type="button" name="back" id="back" class="form-submit" value="الرجوع للصفحة الرئيسية" onclick="window.location.href='index.html'"/>
+                                <input type="button" name="signup" id="signup" class="form-submit"
+                                    data-i18n-attr="value" data-i18n="auth.signUpButton" value="إنشاء الحساب"
+                                    onclick="on_sign_up_button_pressed()" />
+                                <input type="button" name="back" id="back" class="form-submit" data-i18n-attr="value"
+                                    data-i18n="auth.backToHome" value="الرجوع للصفحة الرئيسية"
+                                    onclick="window.location.href='index.html'" />
                             </div>
                         </form>
                     </div>
                     <div class="signup-image">
-                        <figure><img src="login/images/sign-up.jpg" alt="sing up image" onclick="window.location.href='index.html'"></figure>
-                        <a href="login.html" class="signup-image-link">تسجيل الدخول</a>
+                        <figure><img src="login/images/sign-up.jpg" alt="sing up image"
+                                onclick="window.location.href='index.html'"></figure>
+                        <a href="login.html" class="signup-image-link" data-i18n="auth.signInLink">تسجيل الدخول</a>
                     </div>
                 </div>
             </div>
@@ -81,6 +161,10 @@
 
     <!-- JS -->
     <script src="login/vendor/jquery/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="login/js/main.js"></script>
+    <!-- i18n localization -->
+    <script src="js/i18n.js"></script>
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+
 </html>

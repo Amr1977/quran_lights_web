@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>موقع أنوار القرآن - تسجيل الدخول</title>
+    <title data-i18n="auth.loginPageTitle">موقع أنوار القرآن - تسجيل الدخول</title>
+    <meta name="description" content="Sign in to Quran Lights to track your Quran recitation and review rates">
+    <meta name="keywords" content="Quran Lights, Sign In, Login, Authentication">
 
     <!-- Font Icon -->
     <link rel="stylesheet" href="login/fonts/material-icon/css/material-design-iconic-font.min.css">
@@ -16,11 +19,82 @@
     <script src="js/utils.js?v=1734583520"></script>
     <script src="login/js/account.js?v=1734583520"></script>
     <script src="login/js/login.js?v=1734583520"></script>
+
+    <style>
+        /* Language dropdown styling */
+        .language-dropdown {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            min-width: 200px;
+        }
+
+        .language-dropdown li a {
+            padding: 8px 15px;
+            display: block;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .language-dropdown li a:hover,
+        .language-dropdown li a.active {
+            background-color: #f0f0f0;
+            color: #6dabe4;
+        }
+
+        .lang-switcher {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        [dir="rtl"] .lang-switcher {
+            right: auto;
+            left: 20px;
+        }
+
+        .lang-btn {
+            background: #6dabe4;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .lang-btn:hover {
+            background: #5a9bd3;
+        }
+    </style>
 </head>
+
 <body>
 
+    <!-- Language Switcher -->
+    <div class="lang-switcher">
+        <div class="dropdown">
+            <button class="lang-btn dropdown-toggle" data-toggle="dropdown">
+                <i class="zmdi zmdi-globe"></i> <span id="current-lang">العربية</span>
+            </button>
+            <ul class="dropdown-menu language-dropdown">
+                <li><a href="#" data-lang="ar">🇸🇦 العربية</a></li>
+                <li><a href="#" data-lang="en">🇬🇧 English</a></li>
+                <li><a href="#" data-lang="es">🇪🇸 Español</a></li>
+                <li><a href="#" data-lang="fr">🇫🇷 Français</a></li>
+                <li><a href="#" data-lang="de">🇩🇪 Deutsch</a></li>
+                <li><a href="#" data-lang="zh">🇨🇳 中文</a></li>
+                <li><a href="#" data-lang="hi">🇮🇳 हिन्दी</a></li>
+                <li><a href="#" data-lang="pt">🇧🇷 Português</a></li>
+                <li><a href="#" data-lang="ur">🇵🇰 اردو</a></li>
+                <li><a href="#" data-lang="ja">🇯🇵 日本語</a></li>
+            </ul>
+        </div>
+    </div>
+
     <script>
-        function on_sign_in_button_pressed(){
+        function on_sign_in_button_pressed() {
 
             var email = document.getElementById("your_name").value;
             var password = document.getElementById("your_pass").value;
@@ -30,44 +104,48 @@
     </script>
 
     <div class="main">
-        
+
         <!-- Sing in  Form -->
         <section class="sign-in">
             <div class="container">
                 <div class="signin-content">
                     <div class="signin-image">
-                        <figure><img src="login/images/login-image.jpg" alt="sing up image" onclick="window.location.href='index.html'"></figure>
-                        <a href="signup.html" class="signup-image-link">إنشاء حساب</a>
+                        <figure><img src="login/images/login-image.jpg" alt="sing up image"
+                                onclick="window.location.href='index.html'"></figure>
+                        <a href="signup.html" class="signup-image-link" data-i18n="auth.createAccountLink">إنشاء
+                            حساب</a>
                     </div>
 
                     <div class="signin-form">
-                        <h2 class="form-title">تسجيل الدخول</h2>
+                        <h2 class="form-title" data-i18n="auth.loginTitle">تسجيل الدخول</h2>
                         <form method="POST" class="register-form" id="login-form">
                             <div class="form-group">
                                 <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="your_name" id="your_name" placeholder="Email"/>
+                                <input type="text" name="your_name" id="your_name" data-i18n-attr="placeholder"
+                                    data-i18n="auth.email" placeholder="Email" />
                             </div>
                             <div class="form-group">
                                 <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="password" name="your_pass" id="your_pass" placeholder="Password"/>
+                                <input type="password" name="your_pass" id="your_pass" data-i18n-attr="placeholder"
+                                    data-i18n="auth.password" placeholder="Password" />
                             </div>
-                            <!-- <div class="form-group">
-                                <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
-                                <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
-                            </div> -->
                             <div class="form-group form-button">
-                                <input type="button" name="signin" id="signin" class="form-submit" value="تسجيل الدخول" onclick="on_sign_in_button_pressed()"/>
-                                <input type="button" name="back" id="back" class="form-submit" value="الرجوع للصفحة الرئيسية" onclick="window.location.href='index.html'"/>
+                                <input type="button" name="signin" id="signin" class="form-submit"
+                                    data-i18n-attr="value" data-i18n="auth.signInButton" value="تسجيل الدخول"
+                                    onclick="on_sign_in_button_pressed()" />
+                                <input type="button" name="back" id="back" class="form-submit" data-i18n-attr="value"
+                                    data-i18n="auth.backToHome" value="الرجوع للصفحة الرئيسية"
+                                    onclick="window.location.href='index.html'" />
 
                             </div>
-                            
+
                         </form>
                         <div class="social-login">
-                            <span class="social-label">أو تسجيل الدخول من خلال حساب جوجل</span>
+                            <span class="social-label" data-i18n="auth.orSignInWith">أو تسجيل الدخول من خلال حساب
+                                جوجل</span>
                             <ul class="socials">
-                                <!-- <li><a href="#" onclick="sign_in_with_facebook()"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li> -->
-                                <!-- <li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li> -->
-                                <li><a href="#" onclick="sign_in_with_google()"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
+                                <li><a href="#" onclick="sign_in_with_google()"><i
+                                            class="display-flex-center zmdi zmdi-google"></i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -79,6 +157,10 @@
 
     <!-- JS -->
     <script src="login/vendor/jquery/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="login/js/main.js"></script>
+    <!-- i18n localization -->
+    <script src="js/i18n.js"></script>
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+
 </html>

@@ -239,7 +239,8 @@
         switchLanguage: switchLanguage,
         getCurrentLanguage: getCurrentLanguage,
         getSupportedLanguages: getSupportedLanguages,
-        setupLanguageSwitcher: setupLanguageSwitcher
+        setupLanguageSwitcher: setupLanguageSwitcher,
+        getTranslation: getNestedTranslation
     };
 
     // Auto-initialize when DOM is ready
@@ -254,3 +255,4 @@
     }
 
 })();
+
