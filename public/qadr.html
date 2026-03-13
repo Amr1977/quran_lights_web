@@ -788,7 +788,7 @@ async function loadSunTimesForCoords(lat, lon, name) {
 }
 
 async function requestLocation() {
-  document.getElementById('locationName').innerHTML = '<span class="status-msg loading-dots">Seeking your place beneath the heavens</span>';
+  document.getElementById('locationName').innerHTML = '<span class="spinner"></span>Detecting your location...';
   document.getElementById('sunTimesRow').style.display = 'none';
   document.getElementById('nightLengthDisplay').style.display = 'none';
   document.getElementById('locationError').style.display = 'none';
@@ -798,6 +798,7 @@ async function requestLocation() {
   const savedLocation = localStorage.getItem('qadr_location');
   if (savedLocation) {
     try {
+      document.getElementById('locationName').innerHTML = '<span class="spinner"></span>Using saved location...';
       const locationData = JSON.parse(savedLocation);
       const { lat, lon, name } = locationData;
       await loadSunTimesForCoords(lat, lon, name);
@@ -815,16 +816,25 @@ async function requestLocation() {
 
   // Check permission state
   if ('permissions' in navigator) {
-    const permissionStatus = await navigator.permissions.query({name: 'geolocation'});
-    if (permissionStatus.state === 'denied') {
-      showError('Location access denied. Please enable location permissions in your browser settings and refresh the page.');
-      return;
+    try {
+      const permissionStatus = await navigator.permissions.query({name: 'geolocation'});
+      if (permissionStatus.state === 'denied') {
+        showError('Location access denied. Please enable location permissions in your browser settings and refresh the page.');
+        return;
+      }
+    } catch (e) {
+      console.warn('Could not check permission state:', e);
+      // Continue anyway, some browsers don't support permissions API
     }
   }
 
-  // Request location
+  // Request location with better timeout and options
+  document.getElementById('locationName').innerHTML = '<span class="spinner"></span>Requesting GPS location...';
+
   navigator.geolocation.getCurrentPosition(
     async (pos) => {
+      document.getElementById('locationName').innerHTML = '<span class="spinner"></span>Calculating sun times...';
+
       const lat = pos.coords.latitude;
       const lon = pos.coords.longitude;
       try {
@@ -860,18 +870,35 @@ async function requestLocation() {
         document.getElementById('multiplierBadge').style.display = 'block';
 
       } catch(e) {
-        showError('Could not retrieve sun times. Please check your connection.');
-        console.error(e);
+        console.error('Error processing location:', e);
+        showError('Could not retrieve sun times. Please check your internet connection.');
       }
     },
     (err) => {
-      if (err.code === 1) {
-        showError('Location access denied. Please enable location permissions in your browser and try again.');
-      } else {
-        showError('Unable to retrieve your location. Please check your settings.');
+      console.error('Geolocation error:', err);
+      let errorMsg = 'Unable to retrieve your location. ';
+
+      switch(err.code) {
+        case 1:
+          errorMsg += 'Please enable location permissions in your browser and try again.';
+          break;
+        case 2:
+          errorMsg += 'Location information is unavailable. Please check your device settings.';
+          break;
+        case 3:
+          errorMsg += 'Location request timed out. Please try again.';
+          break;
+        default:
+          errorMsg += 'Please check your settings and try again.';
       }
+
+      showError(errorMsg);
     },
-    { timeout: 10000 }
+    {
+      enableHighAccuracy: true,
+      timeout: 15000, // Increased timeout
+      maximumAge: 300000 // Accept cached position up to 5 minutes old
+    }
   );
 }
 
