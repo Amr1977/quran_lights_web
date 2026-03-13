@@ -27,7 +27,12 @@
 
 	<!-- custom css -->
 	<link rel="stylesheet" href="css/templatemo-style.css">
-
+	<!-- PWA -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#1a1a2e">
+    <link rel="apple-touch-icon" href="/icons/icon-192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 
 <body onload="adjust_nav_bar()">
@@ -123,6 +128,7 @@
 					<li><a href="#contact" data-i18n="nav.contact">التواصل</a></li>
 					<li><a href="#" onclick="window.location.href='age.html'; return false;" data-i18n="nav.age"> العمر
 							ساعة</a></li>
+					<li><a href="#" onclick="window.location.href='qadr.html'; return false;" data-i18n="nav.qadr">ليلة القدر</a></li>
 					<li><a href="#fund" data-i18n="nav.fund">دعم الموقع</a></li>
 					<li><a href="#cooperate" data-i18n="nav.cooperate">المشاركة في التطوير</a></li>
 					<!-- <li><a href="#download">تحميل</a></li> -->
@@ -569,6 +575,21 @@
 
 	<script src="js/jquery.js"></script>
 	<script src="js/bootstrap.min.js"></script>
+	<!-- ── ADD THESE ── -->
+    <script src="js/connectivity.js"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/sw.js').then(function(reg) {
+            console.log('[PWA] SW registered:', reg.scope);
+            setInterval(function() { reg.update(); }, 60000);
+          }).catch(function(err) {
+            console.error('[PWA] SW failed:', err);
+          });
+        });
+      }
+    </script>
+    <!-- ── END ── -->
 	<script src="js/wow.min.js"></script>
 	<script src="js/jquery.singlePageNav.min.js"></script>
 	<script src="js/custom.js"></script>

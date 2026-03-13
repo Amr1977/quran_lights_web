@@ -12,6 +12,9 @@
 
     <!-- <script async src="https://c6.patreon.com/becomePatronButton.bundle.js"></script> -->
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+    <!-- ── ADD THIS ── -->
+    <script src="js/connectivity.js"></script>
+    <!-- ── END ── -->    
     <script src="dashboard/scripts/suras_data.js?v=1673362936"></script>
     <script src="js/constants.js?v=1673362936"></script>
     <script src="js/utils.js?v=1673362936"></script>
@@ -73,7 +76,13 @@
     <script src="https://code.highcharts.com/8.0.0/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/8.0.0/modules/accessibility.js"></script>
     <script src="https://code.highcharts.com/8.0.0/themes/dark-unica.js"></script>
-
+    
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#1a1a2e">
+    <link rel="apple-touch-icon" href="/icons/icon-192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 
 <body dir="rtl" lang="ar">
@@ -567,6 +576,20 @@
 
         <!-- Sidebar Navigation Script -->
         <script src="dashboard/scripts/sidebar.js?v=2.3"></script>
+        <!-- ── ADD THIS ── -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/sw.js').then(function(reg) {
+            console.log('[PWA] SW registered:', reg.scope);
+            setInterval(function() { reg.update(); }, 60000);
+          }).catch(function(err) {
+            console.error('[PWA] SW failed:', err);
+          });
+        });
+      }
+    </script>
+    <!-- ── END ── -->
 </body>
 
 </html>

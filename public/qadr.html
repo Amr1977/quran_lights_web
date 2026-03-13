@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laylatul Qadr — Night of a Thousand Months</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Cinzel+Decorative:wght@400;700&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #c8a84b;
+    --gold-light: #e8c96d;
+    --gold-dim: #7a6128;
+    --deep: #04030d;
+    --midnight: #080618;
+    --indigo: #0d0b2b;
+    --violet: #1a1040;
+    --text: #e8dfc8;
+    --text-dim: #8a7d60;
+    --glow: rgba(200,168,75,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--deep);
+    color: var(--text);
+    font-family: 'IM Fell English', serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Starfield */
+  #stars-canvas {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* Radial nebula glow */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80vw;
+    height: 80vw;
+    background: radial-gradient(ellipse, rgba(100,60,200,0.08) 0%, rgba(30,10,80,0.05) 40%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px 60px;
+  }
+
+  /* Header */
+  .arabic-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.2rem, 4vw, 2rem);
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-align: center;
+    margin-bottom: 4px;
+    text-shadow: 0 0 40px rgba(200,168,75,0.5), 0 0 80px rgba(200,168,75,0.2);
+    animation: pulse-glow 4s ease-in-out infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { text-shadow: 0 0 40px rgba(200,168,75,0.5), 0 0 80px rgba(200,168,75,0.2); }
+    50% { text-shadow: 0 0 60px rgba(200,168,75,0.8), 0 0 120px rgba(200,168,75,0.35); }
+  }
+
+  .subtitle {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.65rem, 1.8vw, 0.85rem);
+    color: var(--text-dim);
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  /* Moon ornament */
+  .moon-ornament {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 48px;
+    position: relative;
+  }
+  .moon-ornament svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 0 16px rgba(200,168,75,0.6));
+    animation: moon-float 6s ease-in-out infinite;
+  }
+  @keyframes moon-float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+  }
+
+  /* Location Panel */
+  .location-panel {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(200,168,75,0.15);
+    border-radius: 2px;
+    padding: 24px 32px;
+    margin-bottom: 40px;
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    position: relative;
+  }
+  .location-panel::before, .location-panel::after {
+    content: '✦';
+    position: absolute;
+    color: var(--gold);
+    font-size: 10px;
+    opacity: 0.5;
+  }
+  .location-panel::before { top: 8px; left: 12px; }
+  .location-panel::after { bottom: 8px; right: 12px; }
+
+  .location-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .location-name {
+    font-size: 1.1rem;
+    color: var(--gold-light);
+    margin-bottom: 16px;
+  }
+
+  .sun-times {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    margin-bottom: 16px;
+  }
+
+  .sun-time-item {
+    text-align: center;
+  }
+
+  .sun-time-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .sun-time-value {
+    font-size: 1.3rem;
+    color: var(--gold);
+  }
+
+  .night-length {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--text-dim);
+  }
+
+  .night-length span {
+    color: var(--text);
+  }
+
+  .location-btn {
+    background: none;
+    border: 1px solid rgba(200,168,75,0.3);
+    color: var(--gold-dim);
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    padding: 8px 20px;
+    cursor: pointer;
+    margin-top: 16px;
+    transition: all 0.3s;
+  }
+  .location-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(200,168,75,0.05);
+  }
+
+  /* Status message */
+  .status-msg {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    font-style: italic;
+    text-align: center;
+  }
+
+  /* Night Phase Indicator */
+  .phase-indicator {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    padding: 6px 20px;
+    border: 1px solid;
+    margin-bottom: 32px;
+    transition: all 1s;
+  }
+  .phase-night {
+    color: var(--gold);
+    border-color: rgba(200,168,75,0.4);
+    background: rgba(200,168,75,0.06);
+    text-shadow: 0 0 20px rgba(200,168,75,0.5);
+  }
+  .phase-day {
+    color: var(--text-dim);
+    border-color: rgba(138,125,96,0.2);
+    background: transparent;
+  }
+
+  /* Main Timer Display */
+  .timer-display {
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 48px;
+    text-align: center;
+  }
+
+  .timer-cosmic-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.45em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .timer-row {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 0;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+
+  .time-unit {
+    text-align: center;
+    padding: 0 12px;
+    position: relative;
+  }
+
+  .time-unit + .time-unit::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 20%;
+    height: 60%;
+    width: 1px;
+    background: rgba(200,168,75,0.1);
+  }
+
+  .time-value {
+    font-family: 'Cinzel', serif;
+    font-weight: 900;
+    line-height: 1;
+    color: var(--gold-light);
+    display: block;
+    transition: all 0.3s;
+  }
+
+  .time-value.large { font-size: clamp(3rem, 8vw, 5.5rem); }
+  .time-value.medium { font-size: clamp(2rem, 5vw, 3.5rem); }
+  .time-value.small { font-size: clamp(1.5rem, 3.5vw, 2.5rem); }
+
+  .time-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.35em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    display: block;
+    margin-top: 6px;
+  }
+
+  /* Real time elapsed */
+  .real-time-section {
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 40px;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(200,168,75,0.2), transparent);
+  }
+  .divider-gem {
+    color: var(--gold);
+    font-size: 8px;
+    opacity: 0.6;
+  }
+
+  .real-time-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.35em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+
+  .real-time-display {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  .real-unit {
+    text-align: center;
+  }
+
+  .real-value {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    color: var(--text);
+    display: block;
+  }
+
+  .real-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.5rem;
+    letter-spacing: 0.3em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+  }
+
+  /* Progress bar */
+  .progress-section {
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 48px;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.25em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .progress-bar-outer {
+    width: 100%;
+    height: 3px;
+    background: rgba(255,255,255,0.05);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .progress-bar-inner {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold-dim), var(--gold-light));
+    transition: width 1s linear;
+    position: relative;
+  }
+
+  .progress-bar-inner::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: -2px;
+    width: 6px;
+    height: 6px;
+    background: var(--gold-light);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--gold-light);
+  }
+
+  /* Multiplier info */
+  .multiplier-badge {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--text-dim);
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  .multiplier-badge span {
+    color: var(--gold);
+    font-size: 0.85rem;
+  }
+
+  /* Verse */
+  .verse-block {
+    max-width: 480px;
+    text-align: center;
+    padding: 32px 24px;
+    border-top: 1px solid rgba(200,168,75,0.1);
+    border-bottom: 1px solid rgba(200,168,75,0.1);
+    margin-top: 16px;
+  }
+
+  .verse-arabic {
+    font-size: 1.6rem;
+    color: var(--gold);
+    margin-bottom: 16px;
+    line-height: 2;
+    text-shadow: 0 0 30px rgba(200,168,75,0.3);
+    direction: rtl;
+  }
+
+  .verse-translation {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    font-style: italic;
+    line-height: 1.8;
+  }
+
+  /* Error/loading states */
+  .error-msg {
+    color: #c86060;
+    font-size: 0.85rem;
+    font-style: italic;
+    text-align: center;
+    padding: 8px;
+  }
+
+  .loading-dots::after {
+    content: '';
+    animation: dots 1.5s infinite;
+  }
+  @keyframes dots {
+    0% { content: '.'; }
+    33% { content: '..'; }
+    66% { content: '...'; }
+  }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    .sun-times { gap: 28px; }
+    .time-unit { padding: 0 8px; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="stars-canvas"></canvas>
+
+<div class="container">
+
+  <div class="arabic-title" data-i18n="qadr.title">لَيْلَةُ الْقَدْرِ</div>
+  <div class="subtitle" data-i18n="qadr.subtitle">Laylatul Qadr &nbsp;·&nbsp; Night of a Thousand Months</div>
+
+  <div class="moon-ornament">
+    <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="40" cy="40" r="38" stroke="#c8a84b" stroke-width="0.5" opacity="0.3"/>
+      <path d="M40 8 C22 8 8 22 8 40 C8 58 22 72 40 72 C30 65 24 53 24 40 C24 27 30 15 40 8Z" fill="#c8a84b" opacity="0.8"/>
+      <circle cx="52" cy="24" r="2" fill="#e8c96d" opacity="0.6"/>
+      <circle cx="58" cy="36" r="1.5" fill="#e8c96d" opacity="0.4"/>
+      <circle cx="54" cy="50" r="1" fill="#e8c96d" opacity="0.5"/>
+      <!-- star sparkles -->
+      <path d="M64 18 L65.2 21.8 L69 23 L65.2 24.2 L64 28 L62.8 24.2 L59 23 L62.8 21.8Z" fill="#e8c96d" opacity="0.7"/>
+      <path d="M20 55 L20.8 57.5 L23 58.3 L20.8 59.1 L20 61.6 L19.2 59.1 L17 58.3 L19.2 57.5Z" fill="#e8c96d" opacity="0.5"/>
+    </svg>
+  </div>
+
+  <!-- Location Panel -->
+  <div class="location-panel" id="locationPanel">
+    <div class="location-label">Your Location</div>
+    <div class="location-name" id="locationName">
+      <span class="status-msg loading-dots">Seeking your place beneath the heavens</span>
+    </div>
+    <div class="sun-times" id="sunTimesRow" style="display:none">
+      <div class="sun-time-item">
+        <div class="sun-time-label" data-i18n="qadr.sunsetLabel">Sunset</div>
+        <div class="sun-time-value" id="sunsetTime">—</div>
+      </div>
+      <div class="sun-time-item">
+        <div class="sun-time-label" data-i18n="qadr.dawnLabel">Dawn (Fajr)</div>
+        <div class="sun-time-value" id="dawnTime">—</div>
+      </div>
+    </div>
+    <div class="night-length" id="nightLengthDisplay" style="display:none">
+      Night Length: <span id="nightLengthVal">—</span>
+    </div>
+    <div id="locationError" class="error-msg" style="display:none"></div>
+    <button class="location-btn" onclick="requestLocation()">⌖ Use My GPS</button>
+
+    <!-- Manual search -->
+    <div style="margin-top:14px; display:flex; gap:8px; justify-content:center; align-items:center; flex-wrap:wrap;">
+      <input id="cityInput" type="text" placeholder="Or type a city name…"
+        style="background:rgba(255,255,255,0.04); border:1px solid rgba(200,168,75,0.2);
+               color:var(--text); font-family:'Cinzel',serif; font-size:0.7rem;
+               letter-spacing:0.15em; padding:8px 14px; outline:none; width:200px;
+               transition:border-color 0.3s;"
+        onkeydown="if(event.key==='Enter') searchCity()"
+        onfocus="this.style.borderColor='rgba(200,168,75,0.5)'"
+        onblur="this.style.borderColor='rgba(200,168,75,0.2)'"
+      />
+      <button class="location-btn" style="margin-top:0" onclick="searchCity()">Search</button>
+    </div>
+  </div>
+
+  <div class="phase-indicator phase-day" id="phaseIndicator" data-i18n="qadr.phaseAwaiting">
+    ☽ &nbsp; Awaiting the Night &nbsp; ☽
+  </div>
+
+  <!-- Multiplier -->
+  <div class="multiplier-badge" id="multiplierBadge" style="display:none" data-i18n="qadr.multiplierText">
+    Each real second = <span id="multiplierVal">—</span> of cosmic time
+  </div>
+
+  <!-- Main Cosmic Timer -->
+  <div class="timer-display">
+    <div class="timer-cosmic-label" data-i18n="qadr.cosmicLabel">✦ &nbsp; Cosmic Duration Elapsed &nbsp; ✦</div>
+    <div class="timer-row" id="cosmicTimer">
+      <div class="time-unit">
+        <span class="time-value large" id="tYears">0</span>
+        <span class="time-label" data-i18n="qadr.years">Years</span>
+      </div>
+      <div class="time-unit">
+        <span class="time-value medium" id="tMonths">0</span>
+        <span class="time-label" data-i18n="qadr.months">Months</span>
+      </div>
+      <div class="time-unit">
+        <span class="time-value medium" id="tDays">0</span>
+        <span class="time-label" data-i18n="qadr.days">Days</span>
+      </div>
+      <div class="time-unit">
+        <span class="time-value small" id="tHours">0</span>
+        <span class="time-label" data-i18n="qadr.hours">Hours</span>
+      </div>
+      <div class="time-unit">
+        <span class="time-value small" id="tMinutes">00</span>
+        <span class="time-label" data-i18n="qadr.minutes">Minutes</span>
+      </div>
+      <div class="time-unit">
+        <span class="time-value small" id="tSeconds">00</span>
+        <span class="time-label" data-i18n="qadr.seconds">Seconds</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Real Time -->
+  <div class="real-time-section">
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div class="divider-gem">✦</div>
+      <div class="divider-line"></div>
+    </div>
+    <div class="real-time-label">Real Time Elapsed This Night</div>
+    <div class="real-time-display" id="realTimeRow">
+      <div class="real-unit">
+        <span class="real-value" id="rHours">0</span>
+        <span class="real-label">Hours</span>
+      </div>
+      <div class="real-unit">
+        <span class="real-value" id="rMinutes">00</span>
+        <span class="real-label">Minutes</span>
+      </div>
+      <div class="real-unit">
+        <span class="real-value" id="rSeconds">00</span>
+        <span class="real-label">Seconds</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Progress Bar -->
+  <div class="progress-section">
+    <div class="progress-label">
+      <span>Sunset</span>
+      <span id="progressPct">0%</span>
+      <span>Dawn</span>
+    </div>
+    <div class="progress-bar-outer">
+      <div class="progress-bar-inner" id="progressBar" style="width:0%"></div>
+    </div>
+  </div>
+
+  <!-- Quranic Verse -->
+  <div class="verse-block">
+    <div class="verse-arabic">إِنَّا أَنزَلْنَاهُ فِي لَيْلَةِ الْقَدْرِ ۝ وَمَا أَدْرَاكَ مَا لَيْلَةُ الْقَدْرِ ۝ لَيْلَةُ الْقَدْرِ خَيْرٌ مِّنْ أَلْفِ شَهْرٍ</div>
+    <div class="verse-translation">
+      "Indeed, We sent it down during the Night of Decree.<br>
+      And what can make you know what the Night of Decree is?<br>
+      The Night of Decree is better than a thousand months."<br>
+      <em style="opacity:0.6; font-size:0.8em;">— Surah Al-Qadr (97:1–3)</em>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ─── Stars ───────────────────────────────────────────────────────────────────
+const canvas = document.getElementById('stars-canvas');
+const ctx = canvas.getContext('2d');
+let stars = [];
+
+function initStars() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  stars = [];
+  const count = Math.floor((canvas.width * canvas.height) / 3500);
+  for (let i = 0; i < count; i++) {
+    stars.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.4 + 0.2,
+      alpha: Math.random(),
+      speed: Math.random() * 0.015 + 0.003,
+      phase: Math.random() * Math.PI * 2
+    });
+  }
+}
+
+function drawStars(ts) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  stars.forEach(s => {
+    s.phase += s.speed;
+    const a = (Math.sin(s.phase) + 1) / 2 * 0.7 + 0.1;
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(230, 220, 180, ${a})`;
+    ctx.fill();
+  });
+  requestAnimationFrame(drawStars);
+}
+
+initStars();
+requestAnimationFrame(drawStars);
+window.addEventListener('resize', initStars);
+
+
+// ─── Sun Times via Open-Meteo + Sunrise-Sunset ───────────────────────────────
+let sunsetMs = null;    // Unix ms — tonight's sunset
+let dawnMs = null;      // Unix ms — tomorrow's dawn
+let nightLengthSec = null;
+let multiplier = null;  // real seconds per 1 real second → mapped cosmic seconds
+let locationName = null;
+
+// 1000 months in seconds
+const THOUSAND_MONTHS_SEC = 1000 * 30.4375 * 24 * 3600; // ~2,629,800,000 s
+
+async function getSunTimes(lat, lon) {
+  // Fetch today's sunset and tomorrow's dawn
+  const today = formatDate(new Date());
+  const tomorrow = formatDate(new Date(Date.now() + 86400000));
+
+  const url = `https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lon}&date=${today}&formatted=0`;
+  const url2 = `https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lon}&date=${tomorrow}&formatted=0`;
+
+  const [r1, r2] = await Promise.all([fetch(url), fetch(url2)]);
+  const [d1, d2] = await Promise.all([r1.json(), r2.json()]);
+
+  // API returns UTC times
+  const sunsetUTC = new Date(d1.results.sunset).getTime();
+  // Use astronomical twilight end for last light, but civil dawn for prayer
+  const dawnUTC = new Date(d2.results.astronomical_twilight_begin).getTime();
+  // Fallback: use civil_twilight_begin if astronomical missing
+  const dawnFallback = new Date(d2.results.civil_twilight_begin).getTime();
+
+  return {
+    sunset: sunsetUTC,
+    dawn: isNaN(dawnUTC) ? dawnFallback : dawnUTC
+  };
+}
+
+function formatDate(d) {
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+
+async function reverseGeocode(lat, lon) {
+  try {
+    const r = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`);
+    const d = await r.json();
+    const city = d.address.city || d.address.town || d.address.village || d.address.county || '';
+    const country = d.address.country || '';
+    return city ? `${city}, ${country}` : country || `${lat.toFixed(2)}°, ${lon.toFixed(2)}°`;
+  } catch {
+    return `${lat.toFixed(3)}°N, ${lon.toFixed(3)}°E`;
+  }
+}
+
+async function searchCity() {
+  const query = document.getElementById('cityInput').value.trim();
+  if (!query) return;
+  document.getElementById('locationName').innerHTML = '<span class="status-msg loading-dots">Searching</span>';
+  document.getElementById('sunTimesRow').style.display = 'none';
+  document.getElementById('nightLengthDisplay').style.display = 'none';
+  document.getElementById('locationError').style.display = 'none';
+  document.getElementById('multiplierBadge').style.display = 'none';
+  try {
+    const r = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=1`);
+    const d = await r.json();
+    if (!d.length) { showError(`Could not find "${query}". Try a different city name.`); return; }
+    const lat = parseFloat(d[0].lat);
+    const lon = parseFloat(d[0].lon);
+    const name = d[0].display_name.split(',').slice(0,2).join(',').trim();
+    await loadSunTimesForCoords(lat, lon, name);
+  } catch(e) {
+    showError('Search failed. Please check your internet connection.');
+  }
+}
+
+async function loadSunTimesForCoords(lat, lon, name) {
+  try {
+    const times = await getSunTimes(lat, lon);
+    sunsetMs = times.sunset;
+    dawnMs = times.dawn;
+    nightLengthSec = (dawnMs - sunsetMs) / 1000;
+    multiplier = THOUSAND_MONTHS_SEC / nightLengthSec;
+    locationName = name;
+    document.getElementById('locationName').textContent = name;
+    document.getElementById('sunsetTime').textContent = formatTime(new Date(sunsetMs));
+    document.getElementById('dawnTime').textContent = formatTime(new Date(dawnMs));
+    document.getElementById('sunTimesRow').style.display = 'flex';
+    const h = Math.floor(nightLengthSec / 3600);
+    const m = Math.floor((nightLengthSec % 3600) / 60);
+    document.getElementById('nightLengthVal').textContent = `${h}h ${m}m`;
+    document.getElementById('nightLengthDisplay').style.display = 'block';
+    document.getElementById('multiplierVal').textContent = formatMultiplier(multiplier);
+    document.getElementById('multiplierBadge').style.display = 'block';
+    tick();
+  } catch(e) {
+    showError('Could not retrieve sun times. Please check your connection.');
+  }
+}
+
+async function requestLocation() {
+  document.getElementById('locationName').innerHTML = '<span class="status-msg loading-dots">Seeking your place beneath the heavens</span>';
+  document.getElementById('sunTimesRow').style.display = 'none';
+  document.getElementById('nightLengthDisplay').style.display = 'none';
+  document.getElementById('locationError').style.display = 'none';
+  document.getElementById('multiplierBadge').style.display = 'none';
+
+  if (!navigator.geolocation) {
+    showError('Geolocation is not supported by your browser. Please use a modern browser.');
+    return;
+  }
+
+  // Check permission state
+  if ('permissions' in navigator) {
+    const permissionStatus = await navigator.permissions.query({name: 'geolocation'});
+    if (permissionStatus.state === 'denied') {
+      showError('Location access denied. Please enable location permissions in your browser settings and refresh the page.');
+      return;
+    }
+  }
+
+  // Request location
+  navigator.geolocation.getCurrentPosition(
+    async (pos) => {
+      const lat = pos.coords.latitude;
+      const lon = pos.coords.longitude;
+      try {
+        const [times, name] = await Promise.all([
+          getSunTimes(lat, lon),
+          reverseGeocode(lat, lon)
+        ]);
+
+        sunsetMs = times.sunset;
+        dawnMs = times.dawn;
+        nightLengthSec = (dawnMs - sunsetMs) / 1000;
+        multiplier = THOUSAND_MONTHS_SEC / nightLengthSec;
+        locationName = name;
+
+        document.getElementById('locationName').textContent = name;
+        document.getElementById('sunsetTime').textContent = formatTime(new Date(sunsetMs));
+        document.getElementById('dawnTime').textContent = formatTime(new Date(dawnMs));
+        document.getElementById('sunTimesRow').style.display = 'flex';
+
+        const h = Math.floor(nightLengthSec / 3600);
+        const m = Math.floor((nightLengthSec % 3600) / 60);
+        document.getElementById('nightLengthVal').textContent = `${h}h ${m}m`;
+        document.getElementById('nightLengthDisplay').style.display = 'block';
+
+        // Show multiplier
+        const cosmicPerReal = multiplier; // cosmic seconds per real second
+        const cosmicMin = cosmicPerReal / 60;
+        const cosmicHr = cosmicMin / 60;
+        document.getElementById('multiplierVal').textContent = formatMultiplier(cosmicPerReal);
+        document.getElementById('multiplierBadge').style.display = 'block';
+
+      } catch(e) {
+        showError('Could not retrieve sun times. Please check your connection.');
+        console.error(e);
+      }
+    },
+    (err) => {
+      if (err.code === 1) {
+        showError('Location access denied. Please enable location permissions in your browser and try again.');
+      } else {
+        showError('Unable to retrieve your location. Please check your settings.');
+      }
+    },
+    { timeout: 10000 }
+  );
+}
+
+function formatMultiplier(sec) {
+  if (sec >= 3600) return `${(sec/3600).toFixed(1)} hours`;
+  if (sec >= 60) return `${(sec/60).toFixed(1)} minutes`;
+  return `${sec.toFixed(2)} seconds`;
+}
+
+function showError(msg) {
+  document.getElementById('locationName').innerHTML = '<span class="status-msg">Location unavailable</span>';
+  document.getElementById('locationError').textContent = msg;
+  document.getElementById('locationError').style.display = 'block';
+}
+
+function formatTime(date) {
+  return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+
+
+// ─── Timer Loop ───────────────────────────────────────────────────────────────
+function pad(n, len=2) { return String(Math.floor(n)).padStart(len, '0'); }
+
+function decomposeCosmic(totalSeconds) {
+  // Use precise month lengths: 1 month = 30.4375 days (365.25/12)
+  const SECS_PER_MINUTE = 60;
+  const SECS_PER_HOUR   = 3600;
+  const SECS_PER_DAY    = 86400;
+  const SECS_PER_MONTH  = 30.4375 * SECS_PER_DAY;
+  const SECS_PER_YEAR   = 365.25 * SECS_PER_DAY;
+
+  let rem = totalSeconds;
+  const years   = Math.floor(rem / SECS_PER_YEAR);   rem -= years   * SECS_PER_YEAR;
+  const months  = Math.floor(rem / SECS_PER_MONTH);  rem -= months  * SECS_PER_MONTH;
+  const days    = Math.floor(rem / SECS_PER_DAY);    rem -= days    * SECS_PER_DAY;
+  const hours   = Math.floor(rem / SECS_PER_HOUR);   rem -= hours   * SECS_PER_HOUR;
+  const minutes = Math.floor(rem / SECS_PER_MINUTE); rem -= minutes * SECS_PER_MINUTE;
+  const seconds = Math.floor(rem);
+
+  return { years, months, days, hours, minutes, seconds };
+}
+
+function tick() {
+  const now = Date.now();
+
+  if (!sunsetMs || !dawnMs || !multiplier) {
+    // No data yet
+    setCosmicDisplay(0);
+    setRealDisplay(0);
+    setProgress(0);
+    document.getElementById('phaseIndicator').className = 'phase-indicator phase-day';
+    document.getElementById('phaseIndicator').innerHTML = '◌ &nbsp; Awaiting Your Location &nbsp; ◌';
+    return;
+  }
+
+  const isNight = now >= sunsetMs && now < dawnMs;
+
+  if (isNight) {
+    const realElapsedSec = (now - sunsetMs) / 1000;
+    const cosmicSec = realElapsedSec * multiplier;
+    const progress = realElapsedSec / nightLengthSec;
+
+    document.getElementById('phaseIndicator').className = 'phase-indicator phase-night';
+    document.getElementById('phaseIndicator').innerHTML = '☽ &nbsp; The Sacred Night is Unfolding &nbsp; ☽';
+
+    setCosmicDisplay(cosmicSec);
+    setRealDisplay(realElapsedSec);
+    setProgress(Math.min(progress, 1));
+
+  } else if (now < sunsetMs) {
+    // Before sunset
+    const until = (sunsetMs - now) / 1000;
+    document.getElementById('phaseIndicator').className = 'phase-indicator phase-day';
+    const h = Math.floor(until/3600), m = Math.floor((until%3600)/60);
+    document.getElementById('phaseIndicator').innerHTML = `◌ &nbsp; Night begins in ${h}h ${m}m &nbsp; ◌`;
+    setCosmicDisplay(0);
+    setRealDisplay(0);
+    setProgress(0);
+
+  } else {
+    // After dawn — night is complete
+    document.getElementById('phaseIndicator').className = 'phase-indicator phase-day';
+    document.getElementById('phaseIndicator').innerHTML = '✦ &nbsp; The Night Has Passed &nbsp; ✦';
+    setCosmicDisplay(THOUSAND_MONTHS_SEC);
+    setRealDisplay(nightLengthSec);
+    setProgress(1);
+  }
+}
+
+function setCosmicDisplay(totalSec) {
+  const d = decomposeCosmic(totalSec);
+  document.getElementById('tYears').textContent   = d.years.toLocaleString();
+  document.getElementById('tMonths').textContent  = d.months;
+  document.getElementById('tDays').textContent    = d.days;
+  document.getElementById('tHours').textContent   = pad(d.hours);
+  document.getElementById('tMinutes').textContent = pad(d.minutes);
+  document.getElementById('tSeconds').textContent = pad(d.seconds);
+}
+
+function setRealDisplay(totalSec) {
+  const h = Math.floor(totalSec / 3600);
+  const m = Math.floor((totalSec % 3600) / 60);
+  const s = Math.floor(totalSec % 60);
+  document.getElementById('rHours').textContent   = h;
+  document.getElementById('rMinutes').textContent = pad(m);
+  document.getElementById('rSeconds').textContent = pad(s);
+}
+
+function setProgress(pct) {
+  const p = (pct * 100).toFixed(1);
+  document.getElementById('progressBar').style.width = p + '%';
+  document.getElementById('progressPct').textContent = p + '%';
+}
+
+// Init
+requestLocation();
+setInterval(tick, 1000);
+tick();
+</script>
+<script src="js/i18n.js"></script>
+</body>
+</html>

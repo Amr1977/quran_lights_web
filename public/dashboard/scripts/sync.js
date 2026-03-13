@@ -58,11 +58,23 @@ function dispatch_uploads() {
     return;
   }
 
+  // ── OFFLINE GUARD: don't even attempt if we know we're offline ──
+  // The queue is already saved in localStorage and will be retried
+  // automatically when the 'online' event fires (see connectivity.js).
+  if (!navigator.onLine) {
+    console.log("[Sync] Offline — upload deferred. Queue size:", get_upload_queue().length);
+    return;
+  }
+
   //TODO start handling upload transactions records here
   var updates = {};
   get_upload_queue().forEach((transacton_record) => {
     var transactionTimeStamp = get_time_stamp();
-    firebase.database().ref(`users/${firebase.auth().currentUser.uid}/Master/reviews/` + transactionTimeStamp).set({});
+    // REMOVED: the redundant .set({}) that was here before.
+    // It wrote an empty object to the same key that .update() below
+    // writes the full transaction_record to. It also threw errors
+    // when offline, breaking the upload flow. The .update() below
+    // handles everything correctly on its own.
     updates[`users/${firebase.auth().currentUser.uid}/Master/reviews/` + transactionTimeStamp] = transacton_record;
     lastTransactionTimeStamp = transactionTimeStamp;
     ownTimeStamps.push(lastTransactionTimeStamp);
@@ -70,9 +82,12 @@ function dispatch_uploads() {
 
   firebase.database().ref().update(updates, function (error) {
     if (error) {
-      alert("Data could not be saved, check your connection. " + error);
-      console.log("upload ERROR: " + updates);
-      //TODDO reschedule upload attempt!!
+      // ── CHANGED: removed alert() ──
+      // The old alert("Data could not be saved…") blocked the entire UI
+      // when offline. Now we just log and silently retry.
+      // The connectivity banner already tells the user they're offline.
+      console.log("[Sync] Upload failed (will retry):", error);
+      //reschedule upload attempt
       clearTimeout(reference_to_scheduled_upload_function);
       reference_to_scheduled_upload_function = setTimeout(dispatch_uploads, UPLOAD_DISPATCH_DAMPING_DELAY * 3);
       playSound(error_sound_spring);
