@@ -459,10 +459,29 @@
     66% { content: '...'; }
   }
 
-  /* Responsive */
-  @media (max-width: 480px) {
-    .sun-times { gap: 28px; }
-    .time-unit { padding: 0 8px; }
+  /* Language Switcher Dropdown */
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: rgba(0,0,0,0.8);
+    border: 1px solid rgba(200,168,75,0.3);
+    min-width: 120px;
+    padding: 0;
+    margin: 0;
+    z-index: 1001;
+  }
+  .dropdown-menu.show {
+    display: block;
+  }
+  .dropdown-item {
+    display: block;
+    color: #e8dfc8 !important;
+    padding: 8px 16px;
+    text-decoration: none;
+  }
+  .dropdown-item:hover {
+    background-color: rgba(200,168,75,0.1);
+    color: #c8a84b !important;
   }
 </style>
 </head>
@@ -470,7 +489,29 @@
 
 <canvas id="stars-canvas"></canvas>
 
-<div class="container">
+<div class="container">&nbsp;
+
+  <!-- Language Switcher -->
+  <div class="language-switcher" style="position:fixed; top:20px; right:20px; z-index:1000;">
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="langDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background:rgba(0,0,0,0.5); border:none; color:#e8dfc8; padding:8px 12px; font-size:0.9rem;">
+        <i class="fa fa-globe"></i> <span id="current-lang">العربية</span>
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="langDropdown" style="background:rgba(0,0,0,0.8); border:1px solid rgba(200,168,75,0.3); min-width:120px; padding:0; margin:0;">
+        <li><a class="dropdown-item" href="#" data-lang="ar" style="color:#e8dfc8; padding:8px 16px; display:block;">🇸🇦 العربية</a></li>
+        <li><a class="dropdown-item" href="#" data-lang="en" style="color:#e8dfc8; padding:8px 16px; display:block;">🇬🇧 English</a></li>
+        <li><a class="dropdown-item" href="#" data-lang="es" style="color:#e8dfc8; padding:8px 16px; display:block;">🇪🇸 Español</a></li>
+        <li><a class="dropdown-item" href="#" data-lang="fr" style="color:#e8dfc8; padding:8px 16px; display:block;">🇫🇷 Français</a></li>
+        <li><a class="dropdown-item" href="#" data-lang="de" style="color:#e8dfc8; padding:8px 16px; display:block;">🇩🇪 Deutsch</a></li>
+        <li><a class="dropdown-item" href="#" data-lang="zh" style="color:#e8dfc8; padding:8px 16px; display:block;">🇨🇳 中文</a></li>
+        <li><a class="dropdown-item" href="#" data-lang="hi" style="color:#e8dfc8; padding:8px 16px; display:block;">🇮🇳 हिन्दी</a></li>
+        <li><a class="dropdown-item" href="#" data-lang="pt" style="color:#e8dfc8; padding:8px 16px; display:block;">🇧🇷 Português</a></li>
+        <li><a class="dropdown-item" href="#" data-lang="ur" style="color:#e8dfc8; padding:8px 16px; display:block;">🇵🇰 اردو</a></li>
+        <li><a class="dropdown-item" href="#" data-lang="ja" style="color:#e8dfc8; padding:8px 16px; display:block;">🇯🇵 日本語</a></li>
+      </ul>
+    </div>
+  </div>
 
   <div class="arabic-title" data-i18n="qadr.title">لَيْلَةُ الْقَدْرِ</div>
   <div class="subtitle" data-i18n="qadr.subtitle">Laylatul Qadr &nbsp;·&nbsp; Night of a Thousand Months</div>
@@ -554,14 +595,6 @@
         <span class="time-value small" id="tHours">0</span>
         <span class="time-label" data-i18n="qadr.hours">Hours</span>
       </div>
-      <div class="time-unit">
-        <span class="time-value small" id="tMinutes">00</span>
-        <span class="time-label" data-i18n="qadr.minutes">Minutes</span>
-      </div>
-      <div class="time-unit">
-        <span class="time-value small" id="tSeconds">00</span>
-        <span class="time-label" data-i18n="qadr.seconds">Seconds</span>
-      </div>
     </div>
   </div>
 
@@ -585,6 +618,10 @@
       <div class="real-unit">
         <span class="real-value" id="rSeconds">00</span>
         <span class="real-label">Seconds</span>
+      </div>
+      <div class="real-unit">
+        <span class="real-value" id="rMs">000</span>
+        <span class="real-label">ms</span>
       </div>
     </div>
   </div>
@@ -757,6 +794,20 @@ async function requestLocation() {
   document.getElementById('locationError').style.display = 'none';
   document.getElementById('multiplierBadge').style.display = 'none';
 
+  // Check for saved location in localStorage
+  const savedLocation = localStorage.getItem('qadr_location');
+  if (savedLocation) {
+    try {
+      const locationData = JSON.parse(savedLocation);
+      const { lat, lon, name } = locationData;
+      await loadSunTimesForCoords(lat, lon, name);
+      return; // Use saved location, skip GPS request
+    } catch (e) {
+      console.warn('Invalid saved location data, requesting new location');
+      localStorage.removeItem('qadr_location');
+    }
+  }
+
   if (!navigator.geolocation) {
     showError('Geolocation is not supported by your browser. Please use a modern browser.');
     return;
@@ -787,6 +838,9 @@ async function requestLocation() {
         nightLengthSec = (dawnMs - sunsetMs) / 1000;
         multiplier = THOUSAND_MONTHS_SEC / nightLengthSec;
         locationName = name;
+
+        // Save location to localStorage
+        localStorage.setItem('qadr_location', JSON.stringify({ lat, lon, name }));
 
         document.getElementById('locationName').textContent = name;
         document.getElementById('sunsetTime').textContent = formatTime(new Date(sunsetMs));
@@ -921,9 +975,11 @@ function setRealDisplay(totalSec) {
   const h = Math.floor(totalSec / 3600);
   const m = Math.floor((totalSec % 3600) / 60);
   const s = Math.floor(totalSec % 60);
+  const ms = Math.floor((totalSec % 1) * 1000); // Get milliseconds from fractional part
   document.getElementById('rHours').textContent   = h;
   document.getElementById('rMinutes').textContent = pad(m);
   document.getElementById('rSeconds').textContent = pad(s);
+  document.getElementById('rMs').textContent = pad(ms, 3);
 }
 
 function setProgress(pct) {
@@ -934,9 +990,11 @@ function setProgress(pct) {
 
 // Init
 requestLocation();
-setInterval(tick, 1000);
+setInterval(tick, 100);
 tick();
 </script>
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
 <script src="js/i18n.js"></script>
 </body>
 </html>
