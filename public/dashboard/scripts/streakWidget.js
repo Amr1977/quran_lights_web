@@ -98,6 +98,13 @@ function renderStreakWidget() {
         widgetHTML += '</div>';
     }
     
+    widgetHTML += '<div style="text-align: center; margin-top: 15px;">';
+    widgetHTML += '<button id="open-streak-history" style="'
+        + 'background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2); '
+        + 'padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 13px;">';
+    widgetHTML += '📊 View Full History</button>';
+    widgetHTML += '</div>';
+    
     widgetHTML += '</div>';
     
     widgetHTML += '<style>'
@@ -125,6 +132,17 @@ function renderStreakWidget() {
     }
     
     checkAndCelebrateMilestone(currentStreak);
+    
+    setTimeout(function() {
+        var historyBtn = document.getElementById('open-streak-history');
+        if (historyBtn) {
+            historyBtn.addEventListener('click', function() {
+                if (typeof renderStreakHistoryModal === 'function') {
+                    renderStreakHistoryModal();
+                }
+            });
+        }
+    }, 100);
 }
 
 function getStreakColor(streak) {

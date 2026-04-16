@@ -288,9 +288,165 @@ function cleanupOldFirebaseEntries(callback) {
                 console.error("[Streak] Firebase cleanup error:", error);
                 if (callback) callback(false);
             });
-        } else {
+            } else {
             console.log("[Streak] No old entries in Firebase to clean");
             if (callback) callback(0);
         }
     });
+}
+
+function getAllStreakSegments(surasHistory) {
+    var dates = getUniqueReviewDates(surasHistory);
+    if (dates.length === 0) return [];
+    
+    var dateSet = new Set(dates);
+    var segments = [];
+    
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+    var firstDate = new Date(dates[0]);
+    
+    var currentType = dateSet.has(timestampToLocalDateString(today.getTime() / 1000)) ? 'white' : 'black';
+    var currentStart = new Date(today);
+    var currentDays = 0;
+    
+    for (var d = new Date(firstDate); d <= today; d.setDate(d.getDate() + 1)) {
+        var dateStr = timestampToLocalDateString(d.getTime() / 1000);
+        var isWhite = dateSet.has(dateStr);
+        var thisType = isWhite ? 'white' : 'black';
+        
+        if (thisType === currentType) {
+            currentDays++;
+        } else {
+            segments.push({
+                type: currentType,
+                days: currentDays,
+                startDate: formatDate(currentStart),
+                endDate: formatDate(new Date(d.getTime() - 86400000))
+            });
+            currentType = thisType;
+            currentStart = new Date(d);
+            currentDays = 1;
+        }
+    }
+    
+    if (currentDays > 0) {
+        segments.push({
+            type: currentType,
+            days: currentDays,
+            startDate: formatDate(currentStart),
+            endDate: formatDate(today)
+        });
+    }
+    
+    return segments;
+}
+
+function calculateLongestBlackStreak(surasHistory) {
+    var dates = getUniqueReviewDates(surasHistory);
+    if (dates.length === 0) return 0;
+    
+    var dateSet = new Set(dates);
+    var longestStreak = 0;
+    var currentStreak = 0;
+    
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+    var firstDate = new Date(dates[0]);
+    
+    for (var d = new Date(firstDate); d <= today; d.setDate(d.getDate() + 1)) {
+        var dateStr = timestampToLocalDateString(d.getTime() / 1000);
+        if (!dateSet.has(dateStr)) {
+            currentStreak++;
+            if (currentStreak > longestStreak) {
+                longestStreak = currentStreak;
+            }
+        } else {
+            currentStreak = 0;
+        }
+    }
+    
+    return longestStreak;
+}
+
+function calculateCurrentBlackStreak(surasHistory) {
+    var dates = getUniqueReviewDates(surasHistory);
+    if (dates.length === 0) return 0;
+    
+    var dateSet = new Set(dates);
+    var now = new Date();
+    var today = timestampToLocalDateString(now.getTime() / 1000);
+    var yesterday = new Date(now);
+    yesterday.setDate(yesterday.getDate() - 1);
+    var yesterdayStr = timestampToLocalDateString(yesterday.getTime() / 1000);
+    
+    if (dateSet.has(today)) {
+        return 0;
+    }
+    
+    var streak = 0;
+    var currentDate = new Date(yesterday);
+    
+    while (true) {
+        var dateStr = timestampToLocalDateString(currentDate.getTime() / 1000);
+        if (!dateSet.has(dateStr)) {
+            streak++;
+            currentDate.setDate(currentDate.getDate() - 1);
+        } else {
+            break;
+        }
+        
+        if (currentDate < new Date(dates[0])) {
+            break;
+        }
+    }
+    
+    return streak;
+}
+
+function getDailyEntryCounts(surasHistory) {
+    var counts = {};
+    for (var suraIndex in surasHistory) {
+        var history = surasHistory[suraIndex].history || [];
+        for (var i = 0; i < history.length; i++) {
+            var dateStr = timestampToLocalDateString(history[i]);
+            counts[dateStr] = (counts[dateStr] || 0) + 1;
+        }
+    }
+    return counts;
+}
+
+function getStreakSummary(surasHistory) {
+    var dates = getUniqueReviewDates(surasHistory);
+    var firstDate = dates.length > 0 ? dates[0] : null;
+    
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+    var totalDays = 0;
+    
+    if (firstDate) {
+        var first = new Date(firstDate);
+        totalDays = Math.floor((today - first) / (1000 * 60 * 60 * 24)) + 1;
+    }
+    
+    return {
+        currentWhite: calculateCurrentStreak(surasHistory),
+        longestWhite: calculateLongestStreak(surasHistory),
+        currentBlack: calculateCurrentBlackStreak(surasHistory),
+        longestBlack: calculateLongestBlackStreak(surasHistory),
+        totalActiveDays: dates.length,
+        totalDays: totalDays,
+        trackingSince: firstDate || null
+    };
+}
+
+function formatDate(date) {
+    var year = date.getFullYear();
+    var month = String(date.getMonth() + 1).padStart(2, '0');
+    var day = String(date.getDate()).padStart(2, '0');
+    return year + "-" + month + "-" + day;
+}
+
+function getTodayDateString() {
+    return formatDate(new Date());
 }

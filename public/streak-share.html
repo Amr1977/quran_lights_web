@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#" dir="rtl" lang="ar">
+
+<head>
+    <title>Quran Lights - Shared Streak History</title>
+    <link rel="stylesheet" href="dashboard/css/styles.css">
+    <link rel="stylesheet" href="dashboard/css/sidebar.css">
+    <script src="js/i18n.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+    <script src="js/constants.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/streakUtils.js"></script>
+    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0" />
+    <meta charset="utf-8" />
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            min-height: 100vh;
+            color: white;
+            font-family: Cairo, Tahoma, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            margin: 0 0 10px;
+        }
+        .header p {
+            opacity: 0.7;
+            margin: 0;
+        }
+        .banner {
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.5);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .cta {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background: #3b82f6;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+        .expired {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.5);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        #streak-history-container {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Quran Review History</h1>
+            <p>Shared streak view</p>
+        </div>
+        
+        <div id="share-banner" class="banner" style="display: none;">
+            <span id="share-info"></span>
+            <a href="dashboard.html" class="cta">Track your own →</a>
+        </div>
+        
+        <div id="error-container" style="display: none;">
+            <div class="expired">
+                <h2>🔗 Link Expired</h2>
+                <p>This shared streak history link has expired.</p>
+                <a href="dashboard.html" class="cta">Go to Quran Lights</a>
+            </div>
+        </div>
+        
+        <div id="loading" style="text-align: center; padding: 50px;">
+            Loading streak data...
+        </div>
+        
+        <div id="streak-content" style="display: none;">
+            <div id="streak-history-container"></div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Firebase config from the app
+        var config = {
+            apiKey: "AIzaSyDEMOyLxuLLSxIVqTMvXj西部"
+        };
+        
+        // Parse URL params
+        var urlParams = new URLSearchParams(window.location.search);
+        var snapshotId = urlParams.get('id');
+        
+        if (!snapshotId) {
+            showError('No snapshot ID provided');
+        } else {
+            loadSnapshot(snapshotId);
+        }
+        
+        function showError(message) {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('error-container').style.display = 'block';
+            document.getElementById('error-container').innerHTML = '<div class="expired"><h2>⚠️ Error</h2><p>' + message + '</p><a href="dashboard.html" class="cta">Go to Quran Lights</a></div>';
+        }
+        
+        function loadSnapshot(snapshotId) {
+            firebase.database().ref('streakSnapshots/' + snapshotId).once('value').then(function(snapshot) {
+                var data = snapshot.val();
+                
+                if (!data) {
+                    showError('Snapshot not found');
+                    return;
+                }
+                
+                // Check expiration
+                if (data.expiresAt && Date.now() > data.expiresAt) {
+                    showError('This link expired on ' + new Date(data.expiresAt).toLocaleDateString());
+                    return;
+                }
+                
+                // Show content
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('streak-content').style.display = 'block';
+                
+                // Show banner
+                var banner = document.getElementById('share-banner');
+                banner.style.display = 'block';
+                var createdDate = data.createdAt ? new Date(data.createdAt).toLocaleDateString() : 'recently';
+                document.getElementById('share-info').textContent = '📊 Shared by ' + (data.displayName || 'Anonymous') + ' on ' + createdDate;
+                
+                // Render the view (reuse functions from streakHistoryView.js)
+                document.getElementById('streak-history-container').innerHTML = 
+                    renderSharedStreakView(data.summary, data.dailyCounts, data.segments);
+                    
+            }).catch(function(error) {
+                showError('Failed to load: ' + error.message);
+            });
+        }
+        
+        function renderSharedStreakView(summary, dailyCounts, segments) {
+            var html = '<div style="text-align: center; margin-bottom: 20px;">';
+            html += '<h2 style="margin: 0 0 10px;">📊 Quran Review History</h2>';
+            html += '<p style="margin: 0; opacity: 0.7;">Review behavioral patterns</p>';
+            html += '</div>';
+            
+            html += renderSummaryStats(summary);
+            html += renderHeatmap(dailyCounts);
+            html += renderStreakTimeline(segments);
+            
+            return html;
+        }
+        
+        function renderSummaryStats(summary) {
+            var html = '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 25px;">';
+            
+            html += '<div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; text-align: center;">';
+            html += '<div style="font-size: 24px;">🔥</div>';
+            html += '<div style="font-size: 20px; font-weight: bold;">' + summary.currentWhite + '</div>';
+            html += '<div style="font-size: 11px; opacity: 0.7;">Current Streak</div>';
+            html += '</div>';
+            
+            html += '<div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; text-align: center;">';
+            html += '<div style="font-size: 24px;">⬛</div>';
+            html += '<div style="font-size: 20px; font-weight: bold;">' + summary.currentBlack + '</div>';
+            html += '<div style="font-size: 11px; opacity: 0.7;">Current Gap</div>';
+            html += '</div>';
+            
+            html += '<div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; text-align: center;">';
+            html += '<div style="font-size: 24px;">🏆</div>';
+            html += '<div style="font-size: 20px; font-weight: bold;">' + summary.longestWhite + '</div>';
+            html += '<div style="font-size: 11px; opacity: 0.7;">Best Streak</div>';
+            html += '</div>';
+            
+            html += '<div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; text-align: center;">';
+            html += '<div style="font-size: 24px;">💀</div>';
+            html += '<div style="font-size: 20px; font-weight: bold;">' + summary.longestBlack + '</div>';
+            html += '<div style="font-size: 11px; opacity: 0.7;">Longest Gap</div>';
+            html += '</div>';
+            
+            html += '</div>';
+            return html;
+        }
+        
+        function renderHeatmap(dailyCounts) {
+            var html = '<div style="margin-bottom: 25px; overflow-x: auto;">';
+            html += '<h3 style="margin: 0 0 15px;">Yearly Activity</h3>';
+            
+            var today = new Date();
+            var startDate = new Date(today);
+            startDate.setDate(startDate.getDate() - 364);
+            
+            while (startDate.getDay() !== 6) {
+                startDate.setDate(startDate.getDate() - 1);
+            }
+            
+            var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            var monthLabels = {};
+            var currentMonth = -1;
+            
+            html += '<div style="display: flex; gap: 3px;">';
+            html += '<div style="display: flex; flex-direction: column; gap: 3px; margin-right: 5px; font-size: 10px; color: #9ca3af; height: 120px;">';
+            html += '<div style="flex: 1;"></div>';
+            html += '<div>Sat</div><div style="height: 12px;"></div>';
+            html += '<div>Mon</div><div style="height: 12px;"></div>';
+            html += '<div>Wed</div><div style="height: 12px;"></div>';
+            html += '<div>Fri</div>';
+            html += '</div>';
+            
+            html += '<div style="flex: 1; min-width: 500px;">';
+            
+            var weeks = [];
+            var currentWeek = [];
+            var currentDate = new Date(startDate);
+            
+            while (currentDate <= today) {
+                var dayOfWeek = currentDate.getDay();
+                var dateStr = formatDate(currentDate);
+                var count = dailyCounts[dateStr] || 0;
+                
+                if (dayOfWeek === 0 && currentWeek.length > 0) {
+                    weeks.push(currentWeek);
+                    currentWeek = [];
+                }
+                
+                var month = currentDate.getMonth();
+                if (month !== currentMonth) {
+                    currentMonth = month;
+                    monthLabels[weeks.length] = months[month];
+                }
+                
+                currentWeek.push({ date: dateStr, count: count });
+                currentDate.setDate(currentDate.getDate() + 1);
+            }
+            
+            if (currentWeek.length > 0) {
+                weeks.push(currentWeek);
+            }
+            
+            html += '<div style="display: flex; gap: 3px; margin-bottom: 5px;">';
+            for (var w = 0; w < weeks.length; w++) {
+                if (monthLabels[w]) {
+                    html += '<div style="font-size: 10px; color: #9ca3af; width: 14px;">' + monthLabels[w] + '</div>';
+                }
+            }
+            html += '</div>';
+            
+            html += '<div style="display: flex; gap: 3px;">';
+            for (var w = 0; w < weeks.length; w++) {
+                html += '<div style="display: flex; flex-direction: column; gap: 3px;">';
+                for (var d = 0; d < 7; d++) {
+                    var dayData = weeks[w][d];
+                    if (dayData) {
+                        var color = getHeatmapColor(dayData.count);
+                        html += '<div style="width: 12px; height: 12px; background: ' + color + '; border-radius: 2px;" title="' + dayData.date + ' - ' + (dayData.count > 0 ? dayData.count + ' Surah(s)' : 'No entries') + '"></div>';
+                    } else {
+                        html += '<div style="width: 12px; height: 12px;"></div>';
+                    }
+                }
+                html += '</div>';
+            }
+            html += '</div>';
+            
+            html += '</div></div>';
+            
+            html += '<div style="display: flex; align-items: center; gap: 10px; margin-top: 10px; font-size: 12px; color: #9ca3af;">';
+            html += '<span>Less</span>';
+            html += '<div style="width: 12px; height: 12px; background: #1f2937; border-radius: 2px;"></div>';
+            html += '<div style="width: 12px; height: 12px; background: #bbf7d0; border-radius: 2px;"></div>';
+            html += '<div style="width: 12px; height: 12px; background: #4ade80; border-radius: 2px;"></div>';
+            html += '<div style="width: 12px; height: 12px; background: #16a34a; border-radius: 2px;"></div>';
+            html += '<div style="width: 12px; height: 12px; background: #14532d; border-radius: 2px;"></div>';
+            html += '<span>More</span>';
+            html += '</div>';
+            
+            html += '</div>';
+            return html;
+        }
+        
+        function getHeatmapColor(count) {
+            if (count === 0) return '#1f2937';
+            if (count === 1) return '#bbf7d0';
+            if (count <= 3) return '#4ade80';
+            if (count <= 6) return '#16a34a';
+            return '#14532d';
+        }
+        
+        function renderStreakTimeline(segments) {
+            if (!segments || segments.length === 0) return '';
+            
+            var html = '<div style="margin-bottom: 25px;">';
+            html += '<h3 style="margin: 0 0 15px;">Streak Timeline</h3>';
+            html += '<div style="display: flex; height: 30px; border-radius: 4px; overflow: hidden;">';
+            
+            var totalDays = 0;
+            for (var i = 0; i < segments.length; i++) {
+                totalDays += segments[i].days;
+            }
+            
+            for (var i = 0; i < segments.length; i++) {
+                var seg = segments[i];
+                var width = (seg.days / totalDays) * 100;
+                var color = seg.type === 'white' ? '#4ade80' : '#1f2937';
+                html += '<div style="width: ' + width + '%; background: ' + color + '; min-width: 2px;" title="' + seg.type + ' streak: ' + seg.days + ' days (' + seg.startDate + ' → ' + seg.endDate + ')"></div>';
+            }
+            
+            html += '</div>';
+            html += '<div style="display: flex; justify-content: space-between; font-size: 12px; color: #9ca3af; margin-top: 5px;">';
+            html += '<span>🟢 White = Review days</span>';
+            html += '<span>⬛ Black = No entries</span>';
+            html += '</div>';
+            html += '</div>';
+            
+            return html;
+        }
+        
+        function formatDate(date) {
+            var year = date.getFullYear();
+            var month = String(date.getMonth() + 1).padStart(2, '0');
+            var day = String(date.getDate()).padStart(2, '0');
+            return year + "-" + month + "-" + day;
+        }
+    </script>
+</body>
+
+</html>
