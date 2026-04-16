@@ -1,33 +1,17 @@
 function drawStreakHistoryChart() {
-    console.log('[StreakChart] drawStreakHistoryChart called');
-    
-    // Debug: Find ALL chart elements
-    var allCharts = document.querySelectorAll('[id*="chart"]');
-    console.log('[StreakChart] All chart elements:', allCharts);
-    
     var divID = "streak-history-chart";
     var container = document.getElementById(divID);
     
-    console.log('[StreakChart] Container element:', container);
-    console.log('[StreakChart] Highcharts:', typeof Highcharts);
-    
     if (!container) {
-        console.error('[StreakChart] Container NOT FOUND:', divID);
-        // Check if parent tab exists
-        var parentTab = document.getElementById('streak_history_tab');
-        console.log('[StreakChart] Parent tab:', parentTab);
-        console.log('[StreakChart] Parent tab innerHTML:', parentTab ? parentTab.innerHTML.substring(0, 200) : 'N/A');
         return;
     }
     
     if (typeof Highcharts === 'undefined') {
-        console.warn('[StreakChart] Highcharts not loaded yet');
         container.innerHTML = '<p style="text-align:center;color:#666;">Loading chart library...</p>';
         return;
     }
     
     var surasHistory = get_local_storage_object("surasHistory") || {};
-    console.log('[StreakChart] surasHistory keys:', Object.keys(surasHistory).length);
 
     if (!surasHistory || Object.keys(surasHistory).length === 0) {
         container.innerHTML = '<p style="text-align:center;color:#666;">No data yet</p>';
@@ -35,7 +19,6 @@ function drawStreakHistoryChart() {
     }
     
     var periods = getStreakPeriods(surasHistory);
-    console.log('[StreakChart] periods:', periods);
 
     if (!periods || periods.length === 0) {
         container.innerHTML = '<p style="text-align:center;color:#666;">No streak data yet</p>';
@@ -52,39 +35,57 @@ function drawStreakHistoryChart() {
         }
     }
 
-    console.log('[StreakChart] chartData:', chartData);
-
     if (chartData.length === 0) {
         container.innerHTML = '<p style="text-align:center;color:#666;">No streak data</p>';
         return;
     }
 
     try {
-        console.log('[StreakChart] Creating chart...');
         Highcharts.chart(divID, {
             chart: {
-                type: 'column'
+                type: 'column',
+                zoomType: 'x'
             },
             title: {
                 text: 'Streak History'
             },
+            subtitle: {
+                text: document.ontouchstart === undefined
+                    ? "Click and drag in the plot area to zoom in"
+                    : "Pinch the chart to zoom in"
+            },
             xAxis: {
-                type: 'datetime'
+                type: 'datetime',
+                title: {
+                    text: 'Streak Start Date'
+                }
             },
             yAxis: {
                 min: 0,
                 title: {
-                    text: 'Days'
+                    text: 'Streak Duration (days)'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                column: {
+                    colorByPoint: false,
+                    colors: ['#f97316', '#ea580c', '#eab308', '#ca8a04'],
+                    dataLabels: {
+                        enabled: true,
+                        format: '{y} days'
+                    }
                 }
             },
             series: [{
-                name: 'Streak',
+                name: 'Streak Duration',
                 data: chartData,
                 color: '#f97316'
             }]
         });
-        console.log('[StreakChart] Chart created successfully');
     } catch (e) {
-        console.error('[StreakChart] Error:', e);
+        console.error('Streak chart error:', e);
     }
 }
