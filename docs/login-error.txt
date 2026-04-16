@@ -1,0 +1,73 @@
+Unknown property ‘-moz-box-shadow’.  Declaration dropped. minxi.scss:81:17
+Unknown property ‘-moz-box-shadow’.  Declaration dropped. minxi.scss:39:17
+Unknown property ‘-moz-border-radius’.  Declaration dropped. minxi.scss:4:23
+Unknown property ‘-moz-justify-content’.  Declaration dropped. minxi.scss:111:22
+Unknown property ‘-moz-align-items’.  Declaration dropped. minxi.scss:118:18
+Unknown property ‘-moz-justify-content’.  Declaration dropped. minxi.scss:111:22
+Unknown property ‘-moz-align-items’.  Declaration dropped. minxi.scss:118:18
+Unknown property ‘-moz-border-radius’.  Declaration dropped. minxi.scss:4:23
+Unknown pseudo-class or pseudo-element ‘-ms-input-placeholder’.  Ruleset ignored due to bad selector. minxi.scss:146:2
+Unknown pseudo-class or pseudo-element ‘-ms-input-placeholder’.  Ruleset ignored due to bad selector. minxi.scss:146:2
+Unknown property ‘-moz-border-radius’.  Declaration dropped. minxi.scss:4:23
+Unknown property ‘-moz-align-items’.  Declaration dropped. minxi.scss:118:18
+Unknown property ‘-moz-border-radius’.  Declaration dropped. minxi.scss:4:23
+Unknown property ‘-moz-flex-direction’.  Declaration dropped. minxi.scss:97:21
+Unknown property ‘-moz-justify-content’.  Declaration dropped. minxi.scss:111:22
+Unknown property ‘-moz-order’.  Declaration dropped. minxi.scss:125:12
+Unknown property ‘-moz-justify-content’.  Declaration dropped. minxi.scss:111:22
+Unknown property ‘-moz-order’.  Declaration dropped. minxi.scss:125:12
+Unknown property ‘-moz-flex-direction’.  Declaration dropped. minxi.scss:97:21
+GET
+https://www.gstatic.com/firebasejs/4.2.0/firebase.js
+[HTTP/1.1 200  0ms]
+
+Unknown property ‘-moz-osx-font-smoothing’.  Declaration dropped. material-design-iconic-font.min.css:1:458
+GET
+https://quranlights.et3am.com/js/constants.js?v=1734583520
+[HTTP/1.1 200  0ms]
+
+GET
+https://quranlights.et3am.com/js/utils.js?v=1734583520
+[HTTP/1.1 200  0ms]
+
+GET
+https://quranlights.et3am.com/login/js/account.js?v=1734583520
+[HTTP/1.1 200  0ms]
+
+GET
+https://quranlights.et3am.com/login/js/login.js?v=1734583520
+[HTTP/1.1 200  0ms]
+
+GET
+https://quranlights.et3am.com/login/vendor/jquery/jquery.min.js
+[HTTP/1.1 200  0ms]
+
+GET
+https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js
+[HTTP/1.1 200  0ms]
+
+GET
+https://quranlights.et3am.com/login/js/main.js
+[HTTP/1.1 200  0ms]
+
+GET
+https://quranlights.et3am.com/js/i18n.js
+[HTTP/1.1 200  0ms]
+
+GET
+https://quranlights.et3am.com/login/images/login-image.jpg
+[HTTP/1.1 200  0ms]
+
+GET
+https://quranlights.et3am.com/login/fonts/material-icon/fonts/Material-Design-Iconic-Font.woff2?v=2.2.0
+[HTTP/1.1 200  0ms]
+
+GET
+https://quranlights.et3am.com/login/fonts/poppins/poppins-v5-latin-regular.woff2
+[HTTP/1.1 200  0ms]
+
+GET
+https://quranlights.et3am.com/login/fonts/poppins/poppins-v5-latin-700.woff2
+[HTTP/1.1 200  0ms]
+
+downloadable font: Glyph bbox was incorrect (glyph ids 28 85 138 200 239 435 469 485 573 575 576 579 583 591 597 601 603 611 716 719 721 722 731 749 752 754 760 763 767 768 770 774 779) (font-family: "Material-Design-Iconic-Font" style:normal weight:400 stretch:100 src index:0) source: https://quranlights.et3am.com/login/fonts/material-icon/fonts/Material-Design-Iconic-Font.woff2?v=2.2.0 

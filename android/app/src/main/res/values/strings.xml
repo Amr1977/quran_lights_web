@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Quran Lights</string>
+    <string name="title_activity_main">Quran Lights</string>
+    <string name="package_name">com.quranlights.app</string>
+    <string name="custom_url_scheme">com.quranlights.app</string>
+</resources>

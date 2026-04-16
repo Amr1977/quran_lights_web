@@ -67,6 +67,30 @@
         .lang-btn:hover {
             background: #5a9bd3;
         }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            list-style: none;
+            padding: 0;
+            margin: 5px 0 0;
+            min-width: 200px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.175);
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        [dir="rtl"] .dropdown-menu {
+            right: auto;
+            left: 0;
+        }
     </style>
 </head>
 
@@ -75,10 +99,10 @@
     <!-- Language Switcher -->
     <div class="lang-switcher">
         <div class="dropdown">
-            <button class="lang-btn dropdown-toggle" data-toggle="dropdown">
+            <button class="lang-btn dropdown-toggle" id="langDropdown">
                 <i class="zmdi zmdi-globe"></i> <span id="current-lang">العربية</span>
             </button>
-            <ul class="dropdown-menu language-dropdown">
+            <ul class="dropdown-menu language-dropdown" id="langMenu">
                 <li><a href="#" data-lang="ar">🇸🇦 العربية</a></li>
                 <li><a href="#" data-lang="en">🇬🇧 English</a></li>
                 <li><a href="#" data-lang="es">🇪🇸 Español</a></li>
@@ -94,6 +118,35 @@
     </div>
 
     <script>
+        (function() {
+            var dropdown = document.getElementById('langDropdown');
+            var menu = document.getElementById('langMenu');
+            
+            dropdown.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                menu.classList.toggle('show');
+            });
+            
+            document.addEventListener('click', function(e) {
+                if (!menu.contains(e.target) && !dropdown.contains(e.target)) {
+                    menu.classList.remove('show');
+                }
+            });
+            
+            menu.addEventListener('click', function(e) {
+                var link = e.target.closest('a');
+                if (link) {
+                    e.preventDefault();
+                    var lang = link.dataset.lang;
+                    if (lang && window.changeLanguage) {
+                        changeLanguage(lang);
+                    }
+                    menu.classList.remove('show');
+                }
+            });
+        })();
+
         function on_sign_in_button_pressed() {
 
             var email = document.getElementById("your_name").value;
