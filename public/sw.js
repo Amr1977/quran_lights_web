@@ -5,7 +5,7 @@
 // Bump CACHE_NAME on every deploy to bust old cache.
 // =====================================================
 
-var CACHE_NAME = 'quran-lights-v4';  // ← change to v2, v3… on each deploy
+var CACHE_NAME = 'quran-lights-v5';  // ← change to v2, v3… on each deploy
 var IS_CAPACITOR = typeof window.Capacitor !== 'undefined';
 
 // ── Pages ──
