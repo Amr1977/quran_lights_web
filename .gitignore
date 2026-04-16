@@ -45,3 +45,24 @@ build/
 # System files
 .system_generated/
 .firebase/hosting.cHVibGlj.cache
+
+# Android build outputs
+android/app/build/
+android/build/
+*.apk
+*.aab
+
+# Capacitor
+ios/App/Pods/
+ios/App/build/
+android/.gradle/
+
+# Firebase emulators
+.firebase/
+firebase-debug.log
+firestore-debug.log
+database-debug.log
+ui-debug.log
+
+# Windows
+nul

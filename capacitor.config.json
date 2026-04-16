@@ -1,0 +1,23 @@
+{
+  "appId": "com.quranlights.app",
+  "appName": "Quran Lights",
+  "webDir": "public",
+  "bundledWebDir": "dist",
+  "npmClient": "npm",
+  "android": {
+    "allowMixed": true,
+    "minSdkVersion": 22,
+    "targetSdkVersion": 34,
+    "compileSdkVersion": 34,
+    "buildToolsVersion": "34.0.0"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 2000,
+      "launchFadeOutDuration": 1000,
+      "backgroundColor": "#0f0f1a",
+      "androidSplashResourceName": "splash",
+      "androidScaleType": "CENTER_CROP"
+    }
+  }
+}
