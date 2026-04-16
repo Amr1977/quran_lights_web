@@ -36,112 +36,151 @@ function t(key) {
 
 function drawStreakHistoryChart() {
     var divID = "streak-history-chart";
+    var container = document.getElementById(divID);
+    
+    if (!container) {
+        console.warn('Streak chart container not found');
+        return;
+    }
+    
     var surasHistory = get_local_storage_object("surasHistory") || {};
+    
+    if (!surasHistory || Object.keys(surasHistory).length === 0) {
+        container.innerHTML = '<p style="text-align:center;color:#666;">' + t('noStreakData') + '</p>';
+        return;
+    }
+    
     var periods = getStreakPeriods(surasHistory);
 
-    if (periods.length === 0) {
-        document.getElementById(divID).innerHTML = '<p style="text-align:center;color:#666;">' + t('noStreakData') + '</p>';
+    if (!periods || periods.length === 0) {
+        container.innerHTML = '<p style="text-align:center;color:#666;">' + t('noStreakData') + '</p>';
         return;
     }
 
     var chartData = [];
     for (var i = 0; i < periods.length; i++) {
         var p = periods[i];
-        var startDate = new Date(p.startDate);
-        var startTimestamp = startDate.getTime();
-        chartData.push([startTimestamp, p.length]);
+        if (p && p.startDate && p.length) {
+            var startDate = new Date(p.startDate);
+            var startTimestamp = startDate.getTime();
+            chartData.push([startTimestamp, p.length]);
+        }
+    }
+    
+    if (chartData.length === 0) {
+        container.innerHTML = '<p style="text-align:center;color:#666;">' + t('noStreakData') + '</p>';
+        return;
     }
 
     if (streakChartInstance) {
-        streakChartInstance.destroy();
+        try {
+            streakChartInstance.destroy();
+        } catch (e) {
+            console.warn('Error destroying chart:', e);
+        }
+        streakChartInstance = null;
     }
 
-    streakChartInstance = Highcharts.chart(divID, {
-        chart: {
-            type: 'column',
-            style: {
-                fontFamily: 'Cairo, Tahoma, sans-serif'
-            }
-        },
-        title: {
-            text: t('streakHistory')
-        },
-        subtitle: {
-            text: t('streakHistorySubtitle')
-        },
-        xAxis: {
-            type: 'datetime',
-            title: {
-                text: t('streakStartDate')
-            },
-            labels: {
-                format: '{value:%Y-%m-%d}'
-            }
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: t('streakDuration')
-            }
-        },
-        tooltip: {
-            formatter: function() {
-                var startDate = new Date(this.x);
-                var endDate = new Date(this.point.endDate);
-                return '<b>' + t('streak') + '</b><br/>' +
-                       t('start') + ': ' + Highcharts.dateFormat('%Y-%m-%d', this.x) + '<br/>' +
-                       t('duration') + ': <b>' + this.y + '</b> ' + t('days') + '<br/>' +
-                       t('end') + ': ' + endDate.toISOString().split('T')[0];
-            }
-        },
-        plotOptions: {
-            column: {
-                colorByPoint: false,
-                colors: ['#f97316', '#ea580c', '#eab308', '#ca8a04'],
-                dataLabels: {
-                    enabled: true,
-                    format: '{y} ' + t('days')
+    try {
+        streakChartInstance = Highcharts.chart(divID, {
+            chart: {
+                type: 'column',
+                style: {
+                    fontFamily: 'Cairo, Tahoma, sans-serif'
                 }
-            }
-        },
-        series: [{
-            name: t('streakDuration'),
-            data: chartData,
-            color: '#f97316'
-        }]
-    });
+            },
+            title: {
+                text: t('streakHistory')
+            },
+            subtitle: {
+                text: t('streakHistorySubtitle')
+            },
+            xAxis: {
+                type: 'datetime',
+                title: {
+                    text: t('streakStartDate')
+                },
+                labels: {
+                    format: '{value:%Y-%m-%d}'
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: t('streakDuration')
+                }
+            },
+            tooltip: {
+                formatter: function() {
+                    return '<b>' + t('streak') + '</b><br/>' +
+                           t('start') + ': ' + Highcharts.dateFormat('%Y-%m-%d', this.x) + '<br/>' +
+                           t('duration') + ': <b>' + this.y + '</b> ' + t('days');
+                }
+            },
+            plotOptions: {
+                column: {
+                    colorByPoint: false,
+                    colors: ['#f97316', '#ea580c', '#eab308', '#ca8a04'],
+                    dataLabels: {
+                        enabled: true,
+                        format: '{y} ' + t('days')
+                    }
+                }
+            },
+            series: [{
+                name: t('streakDuration'),
+                data: chartData,
+                color: '#f97316'
+            }]
+        });
+    } catch (e) {
+        console.error('Error creating streak chart:', e);
+        container.innerHTML = '<p style="text-align:center;color:#666;">Error rendering chart</p>';
+    }
 }
 
 function initStreakChart() {
     if (typeof Highcharts === 'undefined') {
         console.warn('Highcharts not loaded yet');
+        setTimeout(initStreakChart, 1000);
         return;
     }
     
     var tab = document.getElementById('streak_history_tab');
-    if (tab) {
-        var observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
-                if (mutation.target.style.display !== 'none' && !mutation.target.classList.contains('streak-loaded')) {
-                    mutation.target.classList.add('streak-loaded');
-                    drawStreakHistoryChart();
-                }
-            });
-        });
-        observer.observe(tab, { attributes: true, attributeFilter: ['style'] });
+    if (!tab) {
+        console.warn('Streak history tab not found');
+        return;
     }
     
-    if (document.getElementById('streak_history_tab').style.display !== 'none') {
-        drawStreakHistoryChart();
+    function checkAndDraw() {
+        var tabStyle = tab.style;
+        var isVisible = tabStyle.display === 'block' || tabStyle.display !== 'none';
+        
+        if (isVisible && !tab.classList.contains('streak-loaded')) {
+            tab.classList.add('streak-loaded');
+            setTimeout(drawStreakHistoryChart, 100);
+        }
     }
+    
+    var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+                checkAndDraw();
+            }
+        });
+    });
+    
+    observer.observe(tab, { attributes: true, attributeFilter: ['style'] });
+    
+    checkAndDraw();
 }
 
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() {
-        setTimeout(initStreakChart, 500);
+        setTimeout(initStreakChart, 1000);
     });
 } else {
-    setTimeout(initStreakChart, 500);
+    setTimeout(initStreakChart, 1000);
 }
 
 if (window.i18n && window.i18n.translations) {
