@@ -1,0 +1,83 @@
+{
+  "rules": {
+    "users": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        ".write": "$uid === auth.uid"
+      }
+    },
+    "reviews": {
+      ".read": true,
+      ".write": "newData.hasChildren(['name', 'role', 'rating', 'text', 'date', 'approved']) && newData.child('name').isString() && newData.child('name').val().length > 0 && newData.child('name').val().length <= 100 && newData.child('role').isString() && newData.child('role').val().length > 0 && newData.child('role').val().length <= 100 && newData.child('rating').isNumber() && newData.child('rating').val() >= 1 && newData.child('rating').val() <= 5 && newData.child('text').isString() && newData.child('text').val().length > 0 && newData.child('text').val().length <= 1000 && newData.child('date').isString() && newData.child('approved').isBoolean() && newData.child('approved').val() == false",
+      ".indexOn": [
+        "approved"
+      ],
+      "$reviewId": {
+        ".validate": "newData.hasChildren(['name', 'role', 'rating', 'text', 'date', 'approved'])",
+        "name": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+        },
+        "role": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+        },
+        "rating": {
+          ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 5"
+        },
+        "text": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 1000"
+        },
+        "date": {
+          ".validate": "newData.isString()"
+        },
+        "approved": {
+          ".validate": "newData.isBoolean()"
+        },
+        "userAgent": {
+          ".validate": "newData.isString()"
+        },
+        "ipAddress": {
+          ".validate": "newData.isString()"
+        },
+        "timestamp": {
+          ".validate": "newData.val() == now"
+        }
+      }
+    },
+    "admin": {
+      ".read": "auth != null && root.child('users').child(auth.uid).child('role').val() == 'admin'",
+      ".write": "auth != null && root.child('users').child(auth.uid).child('role').val() == 'admin'"
+    },
+    "analytics": {
+      ".read": false,
+      ".write": true,
+      "$eventId": {
+        ".validate": "newData.hasChildren(['category', 'action', 'timestamp'])",
+        "category": {
+          ".validate": "newData.isString() && newData.val().length > 0"
+        },
+        "action": {
+          ".validate": "newData.isString() && newData.val().length > 0"
+        },
+        "timestamp": {
+          ".validate": "newData.isNumber()"
+        },
+        "sessionId": {
+          ".validate": "newData.isString()"
+        },
+        "url": {
+          ".validate": "newData.isString()"
+        },
+        "userAgent": {
+          ".validate": "newData.isString()"
+        }
+      }
+    },
+    "streakSnapshots": {
+      ".read": true,
+      "$snapshotId": {
+        ".write": "auth != null",
+        ".validate": "newData.hasChildren(['createdAt', 'summary', 'dailyCounts'])"
+      }
+    }
+  }
+}
