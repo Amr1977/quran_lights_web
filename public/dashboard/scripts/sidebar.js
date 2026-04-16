@@ -14,6 +14,9 @@
      * Initialize sidebar functionality
      */
     function initSidebar() {
+        // Set initial sidebar state immediately to prevent flash
+        applySidebarState();
+        
         setupSidebarToggle();
         setupAccordions();
         setupViewSwitching();
@@ -22,6 +25,26 @@
 
         // Set initial view
         switchView('light_cells', 'Dashboard', 'Light Cells');
+    }
+
+    /**
+     * Apply sidebar state based on screen size
+     */
+    function applySidebarState() {
+        const sidebar = document.getElementById('sidebar');
+        const isDesktop = window.innerWidth >= 1024;
+        
+        if (sidebar) {
+            if (isDesktop) {
+                // Desktop: sidebar always visible
+                sidebar.classList.remove('collapsed');
+                sidebar.classList.add('open');
+            } else {
+                // Mobile/Tablet: sidebar hidden by default
+                sidebar.classList.add('collapsed');
+                sidebar.classList.remove('open');
+            }
+        }
     }
 
     /**
