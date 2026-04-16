@@ -18,9 +18,11 @@
     <script src="dashboard/scripts/suras_data.js?v=1673362936"></script>
     <script src="js/constants.js?v=1673362936"></script>
     <script src="js/utils.js?v=1673362936"></script>
+    <script src="js/streakUtils.js"></script>
     <script src="login/js/login.js?v=1673362936"></script>
     <script src="dashboard/scripts/state.js?v=1673362936"></script>
     <script src="dashboard/scripts/sync.js?v=1673362936"></script>
+    <script src="dashboard/scripts/streakWidget.js"></script>
     <script src="dashboard/scripts/main.js?v=1673362936"></script>
     <script src="dashboard/scripts/tabs.js?v=1673362936"></script>
     <script src="dashboard/scripts/init_app.js?v=1673362936"></script>
@@ -40,6 +42,7 @@
     <script src="dashboard/scripts/cells.js?v=1673586486"></script>
     <script src="dashboard/scripts/charts.js?v=1673362936"></script>
     <script src="dashboard/scripts/radar.js?v=1673362936"></script>
+    <script src="dashboard/scripts/streakChart.js"></script>
 
     <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0" />
     <meta property="og:image" content="http://quranlights.net/images/app_icon.png" />
@@ -193,6 +196,8 @@
                         <!-- Calendar Views -->
                         <a href="#" class="nav-subitem" data-view="light_days_chart_tab" data-category="Analytics"
                             data-i18n="dashboard.lightDays">الأيام المنيرة</a>
+                        <a href="#" class="nav-subitem" data-view="streak_history_tab" data-category="Analytics"
+                            data-i18n="dashboard.streakHistory">السجل المتتالي</a>
                     </div>
                 </div>
 
@@ -425,6 +430,12 @@
                     <div id="dark_days_chart_tab" class="view-content">
                         <h4 class="text">Dark days per month: days with zero balance
                             <div id="dark_days_chart" style="height: 400px; margin: 20px"></div>
+                        </h4>
+                    </div>
+
+                    <div id="streak_history_tab" class="view-content">
+                        <h4 class="text" data-i18n="dashboard.streakHistory">Streak History
+                            <div id="streak-history-chart" style="height: 400px; margin: 20px"></div>
                         </h4>
                     </div>
                     <!-- 
