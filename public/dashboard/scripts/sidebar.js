@@ -288,6 +288,12 @@
                     drawTimeSeriesChart("sura-score-chart", REFRESH_COUNT_TIME_SCORE_MODE);
                 }
                 break;
+
+            case 'streak_history_tab':
+                if (typeof drawStreakHistoryChart === 'function') {
+                    drawStreakHistoryChart();
+                }
+                break;
         }
     }
 
