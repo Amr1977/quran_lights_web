@@ -82,6 +82,10 @@ function openTab(id) {
       drawTimeSeriesChart("sura-score-chart", REFRESH_COUNT_TIME_SCORE_MODE);
       break;
 
+    case "streak_history_tab":
+      drawStreakHistoryChart();
+      break;
+
     default: ;
   }
 }

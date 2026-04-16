@@ -38,13 +38,12 @@ function drawStreakHistoryChart() {
     var divID = "streak-history-chart";
     var container = document.getElementById(divID);
     
-    if (!container) {
-        console.warn('Streak chart container not found');
+    if (!container || typeof Highcharts === 'undefined') {
         return;
     }
     
     var surasHistory = get_local_storage_object("surasHistory") || {};
-    
+
     if (!surasHistory || Object.keys(surasHistory).length === 0) {
         container.innerHTML = '<p style="text-align:center;color:#666;">' + t('noStreakData') + '</p>';
         return;
@@ -66,7 +65,7 @@ function drawStreakHistoryChart() {
             chartData.push([startTimestamp, p.length]);
         }
     }
-    
+
     if (chartData.length === 0) {
         container.innerHTML = '<p style="text-align:center;color:#666;">' + t('noStreakData') + '</p>';
         return;
@@ -75,9 +74,7 @@ function drawStreakHistoryChart() {
     if (streakChartInstance) {
         try {
             streakChartInstance.destroy();
-        } catch (e) {
-            console.warn('Error destroying chart:', e);
-        }
+        } catch (e) {}
         streakChartInstance = null;
     }
 
@@ -135,56 +132,5 @@ function drawStreakHistoryChart() {
         });
     } catch (e) {
         console.error('Error creating streak chart:', e);
-        container.innerHTML = '<p style="text-align:center;color:#666;">Error rendering chart</p>';
     }
-}
-
-function initStreakChart() {
-    if (typeof Highcharts === 'undefined') {
-        console.warn('Highcharts not loaded yet');
-        setTimeout(initStreakChart, 1000);
-        return;
-    }
-    
-    var tab = document.getElementById('streak_history_tab');
-    if (!tab) {
-        console.warn('Streak history tab not found');
-        return;
-    }
-    
-    function checkAndDraw() {
-        var tabStyle = tab.style;
-        var isVisible = tabStyle.display === 'block' || tabStyle.display !== 'none';
-        
-        if (isVisible && !tab.classList.contains('streak-loaded')) {
-            tab.classList.add('streak-loaded');
-            setTimeout(drawStreakHistoryChart, 100);
-        }
-    }
-    
-    var observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-            if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
-                checkAndDraw();
-            }
-        });
-    });
-    
-    observer.observe(tab, { attributes: true, attributeFilter: ['style'] });
-    
-    checkAndDraw();
-}
-
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
-        setTimeout(initStreakChart, 1000);
-    });
-} else {
-    setTimeout(initStreakChart, 1000);
-}
-
-if (window.i18n && window.i18n.translations) {
-    window.addEventListener('languageChanged', function() {
-        drawStreakHistoryChart();
-    });
 }
