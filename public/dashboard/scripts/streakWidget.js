@@ -140,32 +140,37 @@ function initStreakWidget() {
     if (streakWidgetInitialized) return;
     
     var checkAndRender = function() {
-        if (typeof cleanupOldEntries === 'function') {
+        // Debug: check what data we have
+        var surasHistory = get_local_storage_object("surasHistory");
+        console.log('[StreakWidget] Checking data, surasHistory keys:', surasHistory ? Object.keys(surasHistory).length : 0);
+        
+        // Clean localStorage
+        if (typeof cleanupOldEntries === 'function' && surasHistory) {
             var cleaned = cleanupOldEntries();
             if (cleaned > 0) {
-                console.log('[Streak] Cleaned ' + cleaned + ' old entries before 2014 from localStorage');
+                console.log('[StreakWidget] Cleaned ' + cleaned + ' old entries from localStorage');
+                surasHistory = get_local_storage_object("surasHistory"); // Reload after cleaning
             }
         }
         
+        // Clean Firebase
         if (typeof cleanupOldFirebaseEntries === 'function') {
             cleanupOldFirebaseEntries(function(fbCleaned) {
                 if (fbCleaned > 0) {
-                    console.log('[Streak] Cleaned ' + fbCleaned + ' old entries before 2014 from Firebase');
+                    console.log('[StreakWidget] Cleaned ' + fbCleaned + ' old entries from Firebase');
                 }
             });
         }
         
-        var surasHistory = get_local_storage_object("surasHistory");
+        // Always render widget if functions are available
         if (surasHistory && typeof calculateCurrentStreak === 'function') {
-            streakWidgetInitialized = true;
+            renderStreakWidget();
+        } else if (typeof calculateCurrentStreak === 'function') {
+            // Render even with empty data
             renderStreakWidget();
         }
-    };
-    
-    if (typeof get_local_storage_object === 'function') {
-            streakWidgetInitialized = true;
-            renderStreakWidget();
-        }
+        
+        streakWidgetInitialized = true;
     };
     
     if (typeof get_local_storage_object === 'function') {

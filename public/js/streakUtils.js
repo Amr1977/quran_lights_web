@@ -229,6 +229,15 @@ function getInvalidEntryCount(surasHistory, minTimestamp) {
     return count;
 }
 
+function hasValidEntries(surasHistory) {
+    if (!surasHistory) return false;
+    for (var suraIndex in surasHistory) {
+        var history = surasHistory[suraIndex].history || [];
+        if (history.length > 0) return true;
+    }
+    return false;
+}
+
 function cleanupOldEntries() {
     var surasHistory = get_local_storage_object("surasHistory") || {};
     var invalidCount = getInvalidEntryCount(surasHistory);
