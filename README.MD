@@ -1,4 +1,4 @@
-# Quran Lights (نور القرآن)
+# Quran Lights (أنوار القرآن)
 
 <p align="center">
   <img src="https://img.shields.io/badge/version-2.0.0-blue" alt="Version">
