@@ -50,3 +50,12 @@ APKs are copied to the `output/` folder:
 The release APK is signed and ready for upload to Google Play Store.
 
 **Note:** Keep `android/app/quran-lights-release.keystore` safe - you'll need it for future updates!
+
+## Creating a GitHub Release
+
+To publish a GitHub release:
+1. Go to the repo on GitHub → Releases → Draft a new release
+2. Tag: `v2.0.0` (or current version from package.json)
+3. Title: `Quran Lights v2.0.0`
+4. Copy the latest changelog or feature list from README as the description
+5. Publish release

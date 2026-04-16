@@ -1,18 +1,13 @@
 # Quran Lights (نور القرآن)
 
 <p align="center">
-  <img src="public/images/app_icon.png" alt="Quran Lights Logo" width="200">
-</p>
-
-**English:** Track your Quran memorization and review progress with daily reminders and visual analytics.  
-**العربية:** تتبع حفظ ومراجعة القرآن الكريم مع تذكيرات يومية وتحليلات بصرية.
-
-<p align="center">
   <img src="https://img.shields.io/badge/version-2.0.0-blue" alt="Version">
   <img src="https://img.shields.io/badge/license-MIT-green" alt="License">
   <img src="https://img.shields.io/badge/PRs-welcome-brightgreen" alt="PRs Welcome">
-  <a href="https://quran-lights.web.app"><img src="https://img.shields.io/badge/Live Demo-quran-lights.web.app-blue" alt="Live Demo"></a>
-  <a href="https://itunes.apple.com/us/app/quran-lights/id1218872513"><img src="https://img.shields.io/badge/iOS App-App Store-blue" alt="iOS App"></a>
+  <a href="https://quranlights.et3am.com"><img src="https://img.shields.io/badge/Live Demo-quranlights.et3am.com-blue" alt="Live Demo"></a>
+  <!-- Suggested GitHub Topics to add via repo Settings > Topics:
+       quran, islamic, pwa, memorization, arabic, hafiz, quran-tracker -->
+  <img src="https://img.shields.io/badge/topics-quran%20%7C%20islamic%20%7C%20pwa%20%7C%20memorization%20%7C%20arabic-green" alt="Topics">
 </p>
 
 ---
@@ -23,9 +18,21 @@
 - **🔥 Streak Tracking** - Track consecutive days of review with visual heatmaps
 - **📊 Visual Analytics** - Charts showing progress, light/dark days, and memorization patterns
 - **🔔 Reminders** - Daily notifications to keep you consistent
-- **📱 Cross-Platform** - Works on web, iOS, and Android
+- **📱 Cross-Platform** - Works on web and Android (PWA)
 - **🌐 Multi-language** - Arabic, English, and 8 other languages
 - **🔒 Privacy-First** - Your data stored locally with optional cloud sync
+
+---
+
+## 📸 Screenshots
+
+> Add screenshots here to showcase the dashboard, heatmaps, and analytics.
+> Recommended: drag and drop images into this section via GitHub's editor,
+> or place them in `public/images/screenshots/` and reference them below.
+
+| Dashboard | Heatmap | Analytics |
+|-----------|---------|-----------|
+| _screenshot coming soon_ | _screenshot coming soon_ | _screenshot coming soon_ |
 
 ---
 
@@ -119,9 +126,8 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ## 📞 Contact
 
-- **Email:** amr@example.com
-- **Website:** https://quran-lights.web.app
-- **iOS App:** https://itunes.apple.com/us/app/quran-lights/id1218872513
+- **Email:** amr.lotfy.othman@gmail.com
+- **Website:** https://quranlights.et3am.com
 
 ---
 
