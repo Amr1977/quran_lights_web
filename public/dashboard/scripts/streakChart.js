@@ -74,8 +74,7 @@ function drawStreakHistoryChart() {
                     colorByPoint: false,
                     colors: ['#f97316', '#ea580c', '#eab308', '#ca8a04'],
                     dataLabels: {
-                        enabled: true,
-                        format: '{y} days'
+                        enabled: false
                     }
                 }
             },
