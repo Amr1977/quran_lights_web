@@ -189,3 +189,55 @@ function checkAndCelebrateMilestone(currentStreak) {
     }
     return false;
 }
+
+var MIN_VALID_TIMESTAMP = 1388534400; // Jan 1, 2014 00:00:00 UTC
+
+function filterOldEntries(surasHistory, minTimestamp) {
+    minTimestamp = minTimestamp || MIN_VALID_TIMESTAMP;
+    var filtered = {};
+    for (var suraIndex in surasHistory) {
+        var history = surasHistory[suraIndex].history || [];
+        var validHistory = [];
+        for (var i = 0; i < history.length; i++) {
+            if (history[i] >= minTimestamp) {
+                validHistory.push(history[i]);
+            }
+        }
+        if (validHistory.length > 0 || surasHistory[suraIndex].memorization) {
+            filtered[suraIndex] = {
+                suraIndex: surasHistory[suraIndex].suraIndex,
+                history: validHistory,
+                memorization: surasHistory[suraIndex].memorization,
+                memorization_date: surasHistory[suraIndex].memorization_date
+            };
+        }
+    }
+    return filtered;
+}
+
+function getInvalidEntryCount(surasHistory, minTimestamp) {
+    minTimestamp = minTimestamp || MIN_VALID_TIMESTAMP;
+    var count = 0;
+    for (var suraIndex in surasHistory) {
+        var history = surasHistory[suraIndex].history || [];
+        for (var i = 0; i < history.length; i++) {
+            if (history[i] < minTimestamp) {
+                count++;
+            }
+        }
+    }
+    return count;
+}
+
+function cleanupOldEntries() {
+    var surasHistory = get_local_storage_object("surasHistory") || {};
+    var invalidCount = getInvalidEntryCount(surasHistory);
+    
+    if (invalidCount > 0) {
+        var cleaned = filterOldEntries(surasHistory);
+        set_local_storage_object("surasHistory", cleaned);
+        console.log("[Streak] Cleaned " + invalidCount + " entries before 2014");
+        return invalidCount;
+    }
+    return 0;
+}

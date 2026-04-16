@@ -140,6 +140,13 @@ function initStreakWidget() {
     if (streakWidgetInitialized) return;
     
     var checkAndRender = function() {
+        if (typeof cleanupOldEntries === 'function') {
+            var cleaned = cleanupOldEntries();
+            if (cleaned > 0) {
+                console.log('[Streak] Cleaned ' + cleaned + ' old entries before 2014');
+            }
+        }
+        
         var surasHistory = get_local_storage_object("surasHistory");
         if (surasHistory && typeof calculateCurrentStreak === 'function') {
             streakWidgetInitialized = true;
