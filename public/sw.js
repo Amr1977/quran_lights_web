@@ -1,11 +1,12 @@
 // =====================================================
-// sw.js — Service Worker for Quran Lights PWA
+// sw.js — Service Worker for Quran Lights PWA/Capacitor
 // =====================================================
 // Place in project root (same level as index.html).
 // Bump CACHE_NAME on every deploy to bust old cache.
 // =====================================================
 
-var CACHE_NAME = 'quran-lights-v1';  // ← change to v2, v3… on each deploy
+var CACHE_NAME = 'quran-lights-v3';  // ← change to v2, v3… on each deploy
+var IS_CAPACITOR = typeof window.Capacitor !== 'undefined';
 
 // ── Pages ──
 var PAGES = [
@@ -74,6 +75,9 @@ var SCRIPTS_DASHBOARD = [
   '/dashboard/scripts/charts.js',
   '/dashboard/scripts/radar.js',
   '/dashboard/scripts/sidebar.js',
+  '/js/streakUtils.js',
+  '/dashboard/scripts/streakWidget.js',
+  '/dashboard/scripts/streakChart.js',
 ];
 
 // ── Firebase SDK (v4.2.0 monolithic bundle) ──
@@ -104,6 +108,16 @@ var CDN_STYLES = [
   'https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css',
 ];
 
+// ── Local JS Libraries (offline-capable) ──
+var LOCAL_LIBS = [
+  '/js/lib/jquery.min.js',
+  '/js/lib/bootstrap.min.js',
+  '/js/lib/highcharts.min.js',
+  '/js/lib/highcharts-more.js',
+  '/js/lib/solid-gauge.js',
+  '/js/lib/bundle.js',
+];
+
 // ── Images ──
 var IMAGES = [
   '/landing/images/cells.png',
@@ -126,6 +140,7 @@ var ALL_CACHED = [].concat(
   STYLES_INDEX, STYLES_DASHBOARD, CDN_STYLES,
   SCRIPTS_INDEX, SCRIPTS_DASHBOARD,
   FIREBASE_SDK, CDN_SCRIPTS,
+  LOCAL_LIBS,
   IMAGES
 );
 
@@ -194,6 +209,16 @@ self.addEventListener('fetch', function (event) {
 
   // ── NEVER intercept Cloudflare internals ──
   if (url.pathname.indexOf('/cdn-cgi/') === 0) {
+    return;
+  }
+
+  // ── NEVER intercept Capacitor file:// URLs ──
+  if (url.protocol === 'file:') {
+    return;
+  }
+
+  // ── Cache First for app assets ( Capacitor) ──
+  if (url.protocol !== 'https:' && url.protocol !== 'http:') {
     return;
   }
 
