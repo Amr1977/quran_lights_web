@@ -236,8 +236,52 @@ function cleanupOldEntries() {
     if (invalidCount > 0) {
         var cleaned = filterOldEntries(surasHistory);
         set_local_storage_object("surasHistory", cleaned);
-        console.log("[Streak] Cleaned " + invalidCount + " entries before 2014");
+        console.log("[Streak] Cleaned " + invalidCount + " entries before 2014 from localStorage");
         return invalidCount;
     }
     return 0;
+}
+
+function cleanupOldFirebaseEntries(callback) {
+    if (typeof firebase === 'undefined' || !firebase.auth().currentUser) {
+        console.warn("[Streak] Firebase not available for cleanup");
+        if (callback) callback(false);
+        return;
+    }
+    
+    var userId = firebase.auth().currentUser.uid;
+    var reviewsRef = firebase.database().ref("users/" + userId + "/Master/reviews");
+    
+    reviewsRef.once('value', function(snapshot) {
+        var data = snapshot.val();
+        if (!data) {
+            console.log("[Streak] No Firebase data to clean");
+            if (callback) callback(0);
+            return;
+        }
+        
+        var updates = {};
+        var deleteCount = 0;
+        
+        for (var key in data) {
+            var entry = data[key];
+            if (entry && entry.time && entry.time < MIN_VALID_TIMESTAMP) {
+                updates[key] = null;
+                deleteCount++;
+            }
+        }
+        
+        if (deleteCount > 0) {
+            reviewsRef.update(updates).then(function() {
+                console.log("[Streak] Cleaned " + deleteCount + " old entries from Firebase");
+                if (callback) callback(deleteCount);
+            }).catch(function(error) {
+                console.error("[Streak] Firebase cleanup error:", error);
+                if (callback) callback(false);
+            });
+        } else {
+            console.log("[Streak] No old entries in Firebase to clean");
+            if (callback) callback(0);
+        }
+    });
 }

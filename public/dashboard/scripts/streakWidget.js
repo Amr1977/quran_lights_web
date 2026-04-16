@@ -143,12 +143,26 @@ function initStreakWidget() {
         if (typeof cleanupOldEntries === 'function') {
             var cleaned = cleanupOldEntries();
             if (cleaned > 0) {
-                console.log('[Streak] Cleaned ' + cleaned + ' old entries before 2014');
+                console.log('[Streak] Cleaned ' + cleaned + ' old entries before 2014 from localStorage');
             }
+        }
+        
+        if (typeof cleanupOldFirebaseEntries === 'function') {
+            cleanupOldFirebaseEntries(function(fbCleaned) {
+                if (fbCleaned > 0) {
+                    console.log('[Streak] Cleaned ' + fbCleaned + ' old entries before 2014 from Firebase');
+                }
+            });
         }
         
         var surasHistory = get_local_storage_object("surasHistory");
         if (surasHistory && typeof calculateCurrentStreak === 'function') {
+            streakWidgetInitialized = true;
+            renderStreakWidget();
+        }
+    };
+    
+    if (typeof get_local_storage_object === 'function') {
             streakWidgetInitialized = true;
             renderStreakWidget();
         }
