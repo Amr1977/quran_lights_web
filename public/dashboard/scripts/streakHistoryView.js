@@ -11,22 +11,26 @@ function renderStreakHistoryModal() {
     
     var modalHTML = '<div id="streak-history-modal" style="'
         + 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; '
-        + 'background: rgba(0,0,0,0.8); z-index: 10000; '
+        + 'background: rgba(0,0,0,0.85); z-index: 10000; '
         + 'display: flex; align-items: center; justify-content: center; '
-        + 'padding: 20px; overflow-y: auto;">';
+        + 'padding: 10px; overflow-y: auto;">';
     
     modalHTML += '<div id="streak-history-container" style="'
         + 'background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); '
-        + 'border-radius: 16px; padding: 30px; max-width: 900px; width: 100%; '
-        + 'color: white; font-family: Cairo, Tahoma, sans-serif; position: relative;">';
+        + 'border-radius: 16px; padding: 20px; max-width: 900px; width: 100%; '
+        + 'color: white; font-family: Cairo, Tahoma, sans-serif; position: relative; '
+        + 'max-height: 90vh; overflow-y: auto;">';
     
     modalHTML += '<button id="close-streak-history" style="'
-        + 'position: absolute; top: 15px; right: 15px; '
-        + 'background: none; border: none; color: white; font-size: 24px; cursor: pointer;">&times;</button>';
+        + 'position: absolute; top: 10px; right: 10px; '
+        + 'background: rgba(255,255,255,0.1); border: none; color: white; '
+        + 'font-size: 24px; width: 40px; height: 40px; border-radius: 50%; '
+        + 'cursor: pointer; display: flex; align-items: center; justify-content: center; '
+        + 'z-index: 10;">&times;</button>';
     
-    modalHTML += '<div style="text-align: center; margin-bottom: 20px;">';
-    modalHTML += '<h2 style="margin: 0 0 10px;">📊 Quran Review History</h2>';
-    modalHTML += '<p style="margin: 0; opacity: 0.7;">Review your behavioral patterns</p>';
+    modalHTML += '<div style="text-align: center; margin-bottom: 15px; padding-right: 30px;">';
+    modalHTML += '<h2 style="margin: 0 0 8px; font-size: 20px;">📊 Quran Review History</h2>';
+    modalHTML += '<p style="margin: 0; opacity: 0.7; font-size: 13px;">Review your behavioral patterns</p>';
     modalHTML += '</div>';
     
     modalHTML += renderSummaryStats(summary);
@@ -37,8 +41,18 @@ function renderStreakHistoryModal() {
     modalHTML += '</div></div>';
     
     modalHTML += '<style>'
-        + '@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }'
+        + '@keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }'
         + '#streak-history-container { animation: fadeIn 0.3s ease-out; }'
+        + '@media (max-width: 480px) {'
+        + '  #streak-history-container { padding: 15px; border-radius: 12px; }'
+        + '  #streak-history-container h2 { font-size: 18px !important; }'
+        + '  .stat-card { padding: 10px !important; }'
+        + '  .stat-card .stat-value { font-size: 20px !important; }'
+        + '  .stat-card .stat-label { font-size: 10px !important; }'
+        + '  .heatmap-day { width: 10px !important; height: 10px !important; }'
+        + '  .export-btn { padding: 10px 16px !important; font-size: 12px !important; }'
+        + '  .export-btns { gap: 8px !important; }'
+        + '}'
         + '</style>';
     
     document.body.insertAdjacentHTML('beforeend', modalHTML);
@@ -66,51 +80,30 @@ function closeStreakHistoryModal() {
 }
 
 function renderSummaryStats(summary) {
-    var html = '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 25px;">';
+    var html = '<div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 20px;">';
     
-    html += '<div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; text-align: center;">';
-    html += '<div style="font-size: 28px;">🔥</div>';
-    html += '<div style="font-size: 24px; font-weight: bold;">' + summary.currentWhite + '</div>';
-    html += '<div style="font-size: 12px; opacity: 0.7;">Current White Streak</div>';
-    html += '</div>';
-    
-    html += '<div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; text-align: center;">';
-    html += '<div style="font-size: 28px;">⬛</div>';
-    html += '<div style="font-size: 24px; font-weight: bold;">' + summary.currentBlack + '</div>';
-    html += '<div style="font-size: 12px; opacity: 0.7;">Current Black Streak</div>';
-    html += '</div>';
-    
-    html += '<div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; text-align: center;">';
-    html += '<div style="font-size: 28px;">🏆</div>';
-    html += '<div style="font-size: 24px; font-weight: bold;">' + summary.longestWhite + '</div>';
-    html += '<div style="font-size: 12px; opacity: 0.7;">Longest White Streak</div>';
-    html += '</div>';
-    
-    html += '<div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; text-align: center;">';
-    html += '<div style="font-size: 28px;">💀</div>';
-    html += '<div style="font-size: 24px; font-weight: bold;">' + summary.longestBlack + '</div>';
-    html += '<div style="font-size: 12px; opacity: 0.7;">Longest Black Streak</div>';
-    html += '</div>';
-    
-    html += '<div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; text-align: center;">';
-    html += '<div style="font-size: 28px;">📊</div>';
-    html += '<div style="font-size: 24px; font-weight: bold;">' + summary.totalActiveDays + ' / ' + summary.totalDays + '</div>';
-    html += '<div style="font-size: 12px; opacity: 0.7;">Active Days (' + (summary.totalDays > 0 ? Math.round(summary.totalActiveDays / summary.totalDays * 100) : 0) + '%)</div>';
-    html += '</div>';
-    
-    html += '<div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; text-align: center;">';
-    html += '<div style="font-size: 28px;">📅</div>';
-    html += '<div style="font-size: 16px; font-weight: bold;">' + (summary.trackingSince || 'N/A') + '</div>';
-    html += '<div style="font-size: 12px; opacity: 0.7;">Tracking Since</div>';
-    html += '</div>';
+    html += renderStatCard('🔥', summary.currentWhite, 'Current Streak', 'stat-card');
+    html += renderStatCard('⬛', summary.currentBlack, 'Current Gap', 'stat-card');
+    html += renderStatCard('🏆', summary.longestWhite, 'Best Streak', 'stat-card');
+    html += renderStatCard('💀', summary.longestBlack, 'Longest Gap', 'stat-card');
+    html += renderStatCard('📊', summary.totalActiveDays + ' / ' + summary.totalDays, 'Active Days', 'stat-card');
+    html += renderStatCard('📅', summary.trackingSince || 'N/A', 'Tracking Since', 'stat-card');
     
     html += '</div>';
     return html;
 }
 
+function renderStatCard(icon, value, label, className) {
+    return '<div class="' + className + '" style="background: rgba(255,255,255,0.1); padding: 12px; border-radius: 10px; text-align: center;">'
+        + '<div style="font-size: 22px;">' + icon + '</div>'
+        + '<div class="stat-value" style="font-size: 22px; font-weight: bold;">' + value + '</div>'
+        + '<div class="stat-label" style="font-size: 11px; opacity: 0.7; word-wrap: break-word;">' + label + '</div>'
+        + '</div>';
+}
+
 function renderHeatmap(dailyCounts) {
-    var html = '<div style="margin-bottom: 25px; overflow-x: auto;">';
-    html += '<h3 style="margin: 0 0 15px;">Yearly Activity</h3>';
+    var html = '<div style="margin-bottom: 20px; overflow-x: auto; -webkit-overflow-scrolling: touch;">';
+    html += '<h3 style="margin: 0 0 12px; font-size: 16px;">Yearly Activity</h3>';
     
     var today = new Date();
     var startDate = new Date(today);
@@ -124,16 +117,16 @@ function renderHeatmap(dailyCounts) {
     var monthLabels = {};
     var currentMonth = -1;
     
-    html += '<div style="display: flex; gap: 3px;">';
-    html += '<div style="display: flex; flex-direction: column; gap: 3px; margin-right: 5px; font-size: 10px; color: #9ca3af;">';
-    html += '<div style="height: 14px;"></div>';
-    html += '<div>Sat</div><div style="height: 12px;"></div>';
-    html += '<div>Mon</div><div style="height: 12px;"></div>';
-    html += '<div>Wed</div><div style="height: 12px;"></div>';
+    html += '<div style="display: flex; gap: 2px;">';
+    html += '<div style="display: flex; flex-direction: column; gap: 2px; margin-right: 4px; font-size: 9px; color: #9ca3af; line-height: 1.2;">';
+    html += '<div style="height: 10px;"></div>';
+    html += '<div>Sat</div><div style="height: 8px;"></div>';
+    html += '<div>Mon</div><div style="height: 8px;"></div>';
+    html += '<div>Wed</div><div style="height: 8px;"></div>';
     html += '<div>Fri</div>';
     html += '</div>';
     
-    html += '<div style="flex: 1; min-width: 600px;">';
+    html += '<div style="flex: 1; min-width: 500px;">';
     
     var weeks = [];
     var currentWeek = [];
@@ -164,17 +157,17 @@ function renderHeatmap(dailyCounts) {
         weeks.push(currentWeek);
     }
     
-    html += '<div style="display: flex; gap: 3px; margin-bottom: 5px;">';
+    html += '<div style="display: flex; gap: 2px; margin-bottom: 5px;">';
     for (var w = 0; w < weeks.length; w++) {
         if (monthLabels[w]) {
-            html += '<div style="font-size: 10px; color: #9ca3af; width: ' + (14 + 3) + 'px;">' + monthLabels[w] + '</div>';
+            html += '<div style="font-size: 9px; color: #9ca3af; width: 12px;">' + monthLabels[w] + '</div>';
         }
     }
     html += '</div>';
     
-    html += '<div style="display: flex; gap: 3px;">';
+    html += '<div style="display: flex; gap: 2px;">';
     for (var w = 0; w < weeks.length; w++) {
-        html += '<div style="display: flex; flex-direction: column; gap: 3px;">';
+        html += '<div style="display: flex; flex-direction: column; gap: 2px;">';
         for (var d = 0; d < 7; d++) {
             var dayData = weeks[w][d];
             if (dayData) {
@@ -182,10 +175,10 @@ function renderHeatmap(dailyCounts) {
                 var isToday = dayData.date === formatDate(new Date());
                 var border = isToday ? '2px solid #f97316' : 'none';
                 html += '<div class="heatmap-day" data-date="' + dayData.date + '" data-count="' + dayData.count + '" '
-                    + 'style="width: 14px; height: 14px; background: ' + color + '; border-radius: 2px; border: ' + border + '; cursor: pointer;" '
+                    + 'style="width: 12px; height: 12px; background: ' + color + '; border-radius: 2px; border: ' + border + '; cursor: pointer; min-width: 12px; min-height: 12px;" '
                     + 'title="' + dayData.date + ' - ' + (dayData.count > 0 ? dayData.count + ' Surah(s)' : 'No entries') + '"></div>';
             } else {
-                html += '<div style="width: 14px; height: 14px;"></div>';
+                html += '<div style="width: 12px; height: 12px; min-width: 12px; min-height: 12px;"></div>';
             }
         }
         html += '</div>';
@@ -194,13 +187,13 @@ function renderHeatmap(dailyCounts) {
     
     html += '</div></div>';
     
-    html += '<div style="display: flex; align-items: center; gap: 10px; margin-top: 10px; font-size: 12px; color: #9ca3af;">';
+    html += '<div style="display: flex; align-items: center; gap: 8px; margin-top: 8px; font-size: 11px; color: #9ca3af; justify-content: center; flex-wrap: wrap;">';
     html += '<span>Less</span>';
-    html += '<div style="width: 12px; height: 12px; background: #1f2937; border-radius: 2px;"></div>';
-    html += '<div style="width: 12px; height: 12px; background: #bbf7d0; border-radius: 2px;"></div>';
-    html += '<div style="width: 12px; height: 12px; background: #4ade80; border-radius: 2px;"></div>';
-    html += '<div style="width: 12px; height: 12px; background: #16a34a; border-radius: 2px;"></div>';
-    html += '<div style="width: 12px; height: 12px; background: #14532d; border-radius: 2px;"></div>';
+    html += '<div style="width: 10px; height: 10px; background: #1f2937; border-radius: 2px;"></div>';
+    html += '<div style="width: 10px; height: 10px; background: #bbf7d0; border-radius: 2px;"></div>';
+    html += '<div style="width: 10px; height: 10px; background: #4ade80; border-radius: 2px;"></div>';
+    html += '<div style="width: 10px; height: 10px; background: #16a34a; border-radius: 2px;"></div>';
+    html += '<div style="width: 10px; height: 10px; background: #14532d; border-radius: 2px;"></div>';
     html += '<span>More</span>';
     html += '</div>';
     
@@ -219,9 +212,9 @@ function getHeatmapColor(count) {
 function renderStreakTimeline(segments) {
     if (!segments || segments.length === 0) return '';
     
-    var html = '<div style="margin-bottom: 25px;">';
-    html += '<h3 style="margin: 0 0 15px;">Streak Timeline</h3>';
-    html += '<div style="display: flex; height: 30px; border-radius: 4px; overflow: hidden;">';
+    var html = '<div style="margin-bottom: 20px;">';
+    html += '<h3 style="margin: 0 0 12px; font-size: 16px;">Streak Timeline</h3>';
+    html += '<div style="display: flex; height: 24px; border-radius: 4px; overflow: hidden;">';
     
     var totalDays = 0;
     for (var i = 0; i < segments.length; i++) {
@@ -238,7 +231,7 @@ function renderStreakTimeline(segments) {
     }
     
     html += '</div>';
-    html += '<div style="display: flex; justify-content: space-between; font-size: 12px; color: #9ca3af; margin-top: 5px;">';
+    html += '<div style="display: flex; justify-content: space-between; font-size: 11px; color: #9ca3af; margin-top: 5px; flex-wrap: wrap; gap: 5px;">';
     html += '<span>🟢 White = Review days</span>';
     html += '<span>⬛ Black = No entries</span>';
     html += '</div>';
@@ -248,23 +241,26 @@ function renderStreakTimeline(segments) {
 }
 
 function renderExportButtons() {
-    var html = '<div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">';
+    var html = '<div class="export-btns" style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">';
     
-    html += '<button onclick="exportStreakImage()" style="'
-        + 'background: #3b82f6; color: white; border: none; padding: 12px 24px; '
-        + 'border-radius: 8px; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 8px;">';
-    html += '📷 Export as Image';
+    html += '<button class="export-btn" onclick="exportStreakImage()" style="'
+        + 'background: #3b82f6; color: white; border: none; padding: 12px 20px; '
+        + 'border-radius: 8px; cursor: pointer; font-size: 13px; display: flex; align-items: center; gap: 8px; '
+        + 'min-height: 44px;">';
+    html += '📷 Export Image';
     html += '</button>';
     
-    html += '<button onclick="exportStreakPDF()" style="'
-        + 'background: #ef4444; color: white; border: none; padding: 12px 24px; '
-        + 'border-radius: 8px; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 8px;">';
-    html += '📄 Export as PDF';
+    html += '<button class="export-btn" onclick="exportStreakPDF()" style="'
+        + 'background: #ef4444; color: white; border: none; padding: 12px 20px; '
+        + 'border-radius: 8px; cursor: pointer; font-size: 13px; display: flex; align-items: center; gap: 8px; '
+        + 'min-height: 44px;">';
+    html += '📄 Export PDF';
     html += '</button>';
     
-    html += '<button onclick="generateShareableLink()" style="'
-        + 'background: #8b5cf6; color: white; border: none; padding: 12px 24px; '
-        + 'border-radius: 8px; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 8px;">';
+    html += '<button class="export-btn" onclick="generateShareableLink()" style="'
+        + 'background: #8b5cf6; color: white; border: none; padding: 12px 20px; '
+        + 'border-radius: 8px; cursor: pointer; font-size: 13px; display: flex; align-items: center; gap: 8px; '
+        + 'min-height: 44px;">';
     html += '🔗 Share Link';
     html += '</button>';
     
@@ -363,28 +359,28 @@ function generateShareableLink() {
 function promptShareLink(url) {
     var html = '<div id="share-link-modal" style="'
         + 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; '
-        + 'background: rgba(0,0,0,0.8); z-index: 10001; '
+        + 'background: rgba(0,0,0,0.9); z-index: 10001; '
         + 'display: flex; align-items: center; justify-content: center; padding: 20px;">';
     
     html += '<div style="'
-        + 'background: #1e293b; border-radius: 16px; padding: 30px; max-width: 500px; width: 100%; '
+        + 'background: #1e293b; border-radius: 16px; padding: 25px; max-width: 400px; width: 100%; '
         + 'color: white; font-family: Cairo, Tahoma, sans-serif; text-align: center;">';
     
-    html += '<h3 style="margin: 0 0 20px;">🔗 Share Link Created!</h3>';
-    html += '<p style="opacity: 0.7; margin-bottom: 20px;">Link expires in 30 days</p>';
+    html += '<h3 style="margin: 0 0 15px; font-size: 18px;">🔗 Share Link Created!</h3>';
+    html += '<p style="opacity: 0.7; margin-bottom: 15px; font-size: 13px;">Link expires in 30 days</p>';
     
     html += '<input type="text" id="share-url-input" value="' + url + '" readonly style="'
         + 'width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #374151; '
-        + 'background: #0f172a; color: white; margin-bottom: 15px; box-sizing: border-box;">';
+        + 'background: #0f172a; color: white; margin-bottom: 15px; box-sizing: border-box; font-size: 12px;">';
     
-    html += '<div style="display: flex; gap: 10px; justify-content: center;">';
+    html += '<div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">';
     html += '<button onclick="copyShareLink()" style="'
-        + 'background: #3b82f6; color: white; border: none; padding: 12px 24px; '
-        + 'border-radius: 8px; cursor: pointer;">📋 Copy Link</button>';
+        + 'background: #3b82f6; color: white; border: none; padding: 12px 20px; '
+        + 'border-radius: 8px; cursor: pointer; min-height: 44px;">📋 Copy Link</button>';
     
     html += '<button onclick="document.getElementById(\'share-link-modal\').remove()" style="'
-        + 'background: #374151; color: white; border: none; padding: 12px 24px; '
-        + 'border-radius: 8px; cursor: pointer;">Close</button>';
+        + 'background: #374151; color: white; border: none; padding: 12px 20px; '
+        + 'border-radius: 8px; cursor: pointer; min-height: 44px;">Close</button>';
     html += '</div></div></div>';
     
     document.body.insertAdjacentHTML('beforeend', html);
