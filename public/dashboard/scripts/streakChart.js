@@ -1,6 +1,10 @@
 function drawStreakHistoryChart() {
     console.log('[StreakChart] drawStreakHistoryChart called');
     
+    // Debug: Find ALL chart elements
+    var allCharts = document.querySelectorAll('[id*="chart"]');
+    console.log('[StreakChart] All chart elements:', allCharts);
+    
     var divID = "streak-history-chart";
     var container = document.getElementById(divID);
     
@@ -9,9 +13,10 @@ function drawStreakHistoryChart() {
     
     if (!container) {
         console.error('[StreakChart] Container NOT FOUND:', divID);
-        // Try to find all elements with streak in ID
-        var allDivs = document.querySelectorAll('[id*="streak"]');
-        console.log('[StreakChart] Elements with streak in ID:', allDivs);
+        // Check if parent tab exists
+        var parentTab = document.getElementById('streak_history_tab');
+        console.log('[StreakChart] Parent tab:', parentTab);
+        console.log('[StreakChart] Parent tab innerHTML:', parentTab ? parentTab.innerHTML.substring(0, 200) : 'N/A');
         return;
     }
     
@@ -83,6 +88,3 @@ function drawStreakHistoryChart() {
         console.error('[StreakChart] Error:', e);
     }
 }
-
-// Auto-run for debugging when script loads
-console.log('[StreakChart] Script loaded, function defined');
