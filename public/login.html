@@ -9,98 +9,24 @@
     <meta name="description" content="Sign in to Quran Lights to track your Quran recitation and review rates">
     <meta name="keywords" content="Quran Lights, Sign In, Login, Authentication">
 
-    <!-- Font Icon -->
     <link rel="stylesheet" href="login/fonts/material-icon/css/material-design-iconic-font.min.css?v=1776364145">
-
-    <!-- Main css -->
     <link rel="stylesheet" href="login/css/style.css?v=1776364145">
+    <link rel="stylesheet" href="login/css/auth.css?v=1776364145">
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
     <script src="js/constants.js?v=1776364145"></script>
     <script src="js/utils.js?v=1776364145"></script>
-    <script src="login/js/account.js?v=1776364145"></script>
     <script src="login/js/login.js?v=1776364145"></script>
-
-    <style>
-        /* Language dropdown styling */
-        .language-dropdown {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            min-width: 200px;
-        }
-
-        .language-dropdown li a {
-            padding: 8px 15px;
-            display: block;
-            color: #333;
-            text-decoration: none;
-        }
-
-        .language-dropdown li a:hover,
-        .language-dropdown li a.active {
-            background-color: #f0f0f0;
-            color: #6dabe4;
-        }
-
-        .lang-switcher {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-
-        [dir="rtl"] .lang-switcher {
-            right: auto;
-            left: 20px;
-        }
-
-        .lang-btn {
-            background: #6dabe4;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .lang-btn:hover {
-            background: #5a9bd3;
-        }
-
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            list-style: none;
-            padding: 0;
-            margin: 5px 0 0;
-            min-width: 200px;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.175);
-        }
-
-        .dropdown-menu.show {
-            display: block;
-        }
-
-        [dir="rtl"] .dropdown-menu {
-            right: auto;
-            left: 0;
-        }
-    </style>
 </head>
 
 <body>
 
     <!-- Language Switcher -->
-    <div class="lang-switcher">
+    <div class="lang-switcher" data-custom-lang-switcher>
         <div class="dropdown">
             <button class="lang-btn dropdown-toggle" id="langDropdown">
-                <i class="zmdi zmdi-globe"></i> <span id="current-lang">العربية</span>
+                <i class="zmdi zmdi-globe"></i>
+                <span id="current-lang">العربية</span>
+                <span class="arrow">&#9660;</span>
             </button>
             <ul class="dropdown-menu language-dropdown" id="langMenu">
                 <li><a href="#" data-lang="ar">🇸🇦 العربية</a></li>
@@ -117,58 +43,17 @@
         </div>
     </div>
 
-    <script>
-        (function() {
-            var dropdown = document.getElementById('langDropdown');
-            var menu = document.getElementById('langMenu');
-            
-            dropdown.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                menu.classList.toggle('show');
-            });
-            
-            document.addEventListener('click', function(e) {
-                if (!menu.contains(e.target) && !dropdown.contains(e.target)) {
-                    menu.classList.remove('show');
-                }
-            });
-            
-            menu.addEventListener('click', function(e) {
-                var link = e.target.closest('a');
-                if (link) {
-                    e.preventDefault();
-                    var lang = link.dataset.lang;
-                    if (lang && window.changeLanguage) {
-                        changeLanguage(lang);
-                    }
-                    menu.classList.remove('show');
-                }
-            });
-        })();
-
-        function on_sign_in_button_pressed() {
-
-            var email = document.getElementById("your_name").value;
-            var password = document.getElementById("your_pass").value;
-
-            sign_in(email, password);
-        }
-    </script>
-
     <div class="main">
-
-        <!-- Sing in  Form -->
         <section class="sign-in">
             <div class="container">
                 <div class="signin-content">
                     <div class="signin-image">
-                        <figure><img src="login/images/login-image.jpg" alt="sing up image"
-                                onclick="window.location.href='index.html'"></figure>
-                        <a href="signup.html" class="signup-image-link" data-i18n="auth.createAccountLink">إنشاء
-                            حساب</a>
+                        <figure>
+                            <img src="login/images/login-image.jpg" alt="sing up image"
+                                onclick="window.location.href='index.html'">
+                        </figure>
+                        <a href="signup.html" class="signup-image-link" data-i18n="auth.createAccountLink">إنشاء حساب</a>
                     </div>
-
                     <div class="signin-form">
                         <h2 class="form-title" data-i18n="auth.loginTitle">تسجيل الدخول</h2>
                         <form method="POST" class="register-form" id="login-form">
@@ -186,16 +71,13 @@
                                 <input type="button" name="signin" id="signin" class="form-submit"
                                     data-i18n-attr="value" data-i18n="auth.signInButton" value="تسجيل الدخول"
                                     onclick="on_sign_in_button_pressed()" />
-                                <input type="button" name="back" id="back" class="form-submit" data-i18n-attr="value"
-                                    data-i18n="auth.backToHome" value="الرجوع للصفحة الرئيسية"
+                                <input type="button" name="back" id="back" class="form-submit secondary"
+                                    data-i18n-attr="value" data-i18n="auth.backToHome" value="الرجوع للصفحة الرئيسية"
                                     onclick="window.location.href='index.html'" />
-
                             </div>
-
                         </form>
                         <div class="social-login">
-                            <span class="social-label" data-i18n="auth.orSignInWith">أو تسجيل الدخول من خلال حساب
-                                جوجل</span>
+                            <span class="social-label" data-i18n="auth.orSignInWith">أو تسجيل الدخول من خلال حساب جوجل</span>
                             <ul class="socials">
                                 <li><a href="#" onclick="sign_in_with_google()"><i
                                             class="display-flex-center zmdi zmdi-google"></i></a></li>
@@ -205,15 +87,52 @@
                 </div>
             </div>
         </section>
-
     </div>
 
-    <!-- JS -->
     <script src="login/vendor/jquery/jquery.min.js?v=1776364145"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="login/js/main.js?v=1776364145"></script>
-    <!-- i18n localization -->
     <script src="js/i18n.js?v=1776364145"></script>
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+    <script>
+        (function() {
+            var dropdown = document.getElementById('langDropdown');
+            var menu = document.getElementById('langMenu');
+            var arrow = dropdown.querySelector('.arrow');
+
+            dropdown.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                menu.classList.toggle('show');
+                if (arrow) arrow.classList.toggle('open');
+            });
+
+            document.addEventListener('click', function(e) {
+                if (!menu.contains(e.target) && !dropdown.contains(e.target)) {
+                    menu.classList.remove('show');
+                    if (arrow) arrow.classList.remove('open');
+                }
+            });
+
+            menu.addEventListener('click', function(e) {
+                var link = e.target.closest('a');
+                if (link) {
+                    e.preventDefault();
+                    var lang = link.dataset.lang;
+                    if (lang && window.i18n && window.i18n.switchLanguage) {
+                        window.i18n.switchLanguage(lang);
+                    }
+                    menu.classList.remove('show');
+                    if (arrow) arrow.classList.remove('open');
+                }
+            });
+        })();
+
+        function on_sign_in_button_pressed() {
+            var email = document.getElementById("your_name").value;
+            var password = document.getElementById("your_pass").value;
+            sign_in(email, password);
+        }
+    </script>
+</body>
 
 </html>

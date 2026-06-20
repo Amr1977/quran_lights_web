@@ -211,11 +211,15 @@
 
     /**
      * Setup language switcher event listeners
+     * Skips links inside containers with data-custom-lang-switcher attribute
      */
     function setupLanguageSwitcher() {
         const langLinks = document.querySelectorAll('[data-lang]');
 
         langLinks.forEach(link => {
+            // Skip if inside a custom-handled lang switcher
+            if (link.closest('[data-custom-lang-switcher]')) return;
+
             link.addEventListener('click', function (e) {
                 e.preventDefault();
                 const lang = this.getAttribute('data-lang');

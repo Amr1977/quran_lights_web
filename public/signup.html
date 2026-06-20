@@ -6,79 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title data-i18n="auth.signupPageTitle">موقع أنوار القرآن - إنشاء حساب</title>
-    <meta name="description"
-        content="Create an account on Quran Lights to track your Quran recitation and review rates">
+    <meta name="description" content="Create an account on Quran Lights to track your Quran recitation and review rates">
     <meta name="keywords" content="Quran Lights, Sign Up, Register, Create Account">
 
-    <!-- Font Icon -->
     <link rel="stylesheet" href="login/fonts/material-icon/css/material-design-iconic-font.min.css?v=1776364145">
-
-    <!-- Main css -->
     <link rel="stylesheet" href="login/css/style.css?v=1776364145">
+    <link rel="stylesheet" href="login/css/auth.css?v=1776364145">
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
     <script src="js/constants.js?v=1776364145"></script>
     <script src="js/utils.js?v=1776364145"></script>
     <script src="login/js/login.js?v=1776364145"></script>
-
-    <style>
-        /* Language dropdown styling */
-        .language-dropdown {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            min-width: 200px;
-        }
-
-        .language-dropdown li a {
-            padding: 8px 15px;
-            display: block;
-            color: #333;
-            text-decoration: none;
-        }
-
-        .language-dropdown li a:hover,
-        .language-dropdown li a.active {
-            background-color: #f0f0f0;
-            color: #6dabe4;
-        }
-
-        .lang-switcher {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-
-        [dir="rtl"] .lang-switcher {
-            right: auto;
-            left: 20px;
-        }
-
-        .lang-btn {
-            background: #6dabe4;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .lang-btn:hover {
-            background: #5a9bd3;
-        }
-    </style>
 </head>
 
 <body>
 
     <!-- Language Switcher -->
-    <div class="lang-switcher">
+    <div class="lang-switcher" data-custom-lang-switcher>
         <div class="dropdown">
-            <button class="lang-btn dropdown-toggle" data-toggle="dropdown">
-                <i class="zmdi zmdi-globe"></i> <span id="current-lang">العربية</span>
+            <button class="lang-btn dropdown-toggle" id="langDropdown">
+                <i class="zmdi zmdi-globe"></i>
+                <span id="current-lang">العربية</span>
+                <span class="arrow">&#9660;</span>
             </button>
-            <ul class="dropdown-menu language-dropdown">
+            <ul class="dropdown-menu language-dropdown" id="langMenu">
                 <li><a href="#" data-lang="ar">🇸🇦 العربية</a></li>
                 <li><a href="#" data-lang="en">🇬🇧 English</a></li>
                 <li><a href="#" data-lang="es">🇪🇸 Español</a></li>
@@ -93,30 +43,7 @@
         </div>
     </div>
 
-    <script>
-        function on_sign_up_button_pressed() {
-
-            var email = document.getElementById("email").value;
-            var password = document.getElementById("pass").value;
-            var re_pass = document.getElementById("re_pass").value;
-
-            if (password !== re_pass) {
-                // Get localized error message
-                var errorMsg = window.i18n && window.i18n.getCurrentLanguage ?
-                    (window.i18n.getTranslation ? window.i18n.getTranslation('auth.passwordMismatch') :
-                        "Passwords mismatch, retype passwords") :
-                    "Passwords mismatch, retype passwords";
-                alert(errorMsg);
-                return;
-            }
-
-            sign_up(email, password);
-        }
-    </script>
-
     <div class="main">
-
-        <!-- Sign up form -->
         <section class="signup">
             <div class="container">
                 <div class="signup-content">
@@ -142,8 +69,8 @@
                                 <input type="button" name="signup" id="signup" class="form-submit"
                                     data-i18n-attr="value" data-i18n="auth.signUpButton" value="إنشاء الحساب"
                                     onclick="on_sign_up_button_pressed()" />
-                                <input type="button" name="back" id="back" class="form-submit" data-i18n-attr="value"
-                                    data-i18n="auth.backToHome" value="الرجوع للصفحة الرئيسية"
+                                <input type="button" name="back" id="back" class="form-submit secondary"
+                                    data-i18n-attr="value" data-i18n="auth.backToHome" value="الرجوع للصفحة الرئيسية"
                                     onclick="window.location.href='index.html'" />
                             </div>
                         </form>
@@ -156,22 +83,72 @@
                         </div>
                     </div>
                     <div class="signup-image">
-                        <figure><img src="login/images/sign-up.jpg" alt="sing up image"
-                                onclick="window.location.href='index.html'"></figure>
+                        <figure>
+                            <img src="login/images/sign-up.jpg" alt="sing up image"
+                                onclick="window.location.href='index.html'">
+                        </figure>
                         <a href="login.html" class="signup-image-link" data-i18n="auth.signInLink">تسجيل الدخول</a>
                     </div>
                 </div>
             </div>
         </section>
-
     </div>
 
-    <!-- JS -->
     <script src="login/vendor/jquery/jquery.min.js?v=1776364145"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="login/js/main.js?v=1776364145"></script>
-    <!-- i18n localization -->
     <script src="js/i18n.js?v=1776364145"></script>
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+    <script>
+        (function() {
+            var dropdown = document.getElementById('langDropdown');
+            var menu = document.getElementById('langMenu');
+            var arrow = dropdown.querySelector('.arrow');
+
+            dropdown.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                menu.classList.toggle('show');
+                if (arrow) arrow.classList.toggle('open');
+            });
+
+            document.addEventListener('click', function(e) {
+                if (!menu.contains(e.target) && !dropdown.contains(e.target)) {
+                    menu.classList.remove('show');
+                    if (arrow) arrow.classList.remove('open');
+                }
+            });
+
+            menu.addEventListener('click', function(e) {
+                var link = e.target.closest('a');
+                if (link) {
+                    e.preventDefault();
+                    var lang = link.dataset.lang;
+                    if (lang && window.i18n && window.i18n.switchLanguage) {
+                        window.i18n.switchLanguage(lang);
+                    }
+                    menu.classList.remove('show');
+                    if (arrow) arrow.classList.remove('open');
+                }
+            });
+        })();
+
+        function on_sign_up_button_pressed() {
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("pass").value;
+            var re_pass = document.getElementById("re_pass").value;
+
+            if (password !== re_pass) {
+                var errorMsg = window.i18n && window.i18n.getCurrentLanguage ?
+                    (window.i18n.getTranslation ? window.i18n.getTranslation('auth.passwordMismatch') :
+                        "Passwords mismatch, retype passwords") :
+                    "Passwords mismatch, retype passwords";
+                alert(errorMsg);
+                return;
+            }
+
+            sign_up(email, password);
+        }
+    </script>
+</body>
 
 </html>
