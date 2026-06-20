@@ -18,6 +18,7 @@ body {
     justify-content: center;
     padding: 60px 20px 80px;
     box-sizing: border-box;
+    background: transparent;
 }
 
 .container {
