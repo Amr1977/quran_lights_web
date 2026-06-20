@@ -16,7 +16,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 40px 20px;
+    padding: 60px 20px 80px;
     box-sizing: border-box;
 }
 
@@ -232,14 +232,14 @@ body {
 /* Language Switcher */
 .lang-switcher {
     position: fixed;
-    top: 20px;
-    left: 20px;
+    bottom: 24px;
+    left: 24px;
     z-index: 1000;
 }
 
 [dir="rtl"] .lang-switcher {
     left: auto;
-    right: 20px;
+    right: 24px;
 }
 
 .lang-btn {
@@ -283,7 +283,7 @@ body {
 .dropdown-menu {
     display: none;
     position: absolute;
-    top: calc(100% + 8px);
+    bottom: calc(100% + 8px);
     left: 0;
     background: rgba(20, 20, 45, 0.95);
     backdrop-filter: blur(20px);
@@ -294,6 +294,8 @@ body {
     margin: 0;
     padding: 6px;
     min-width: 220px;
+    max-height: 60vh;
+    overflow-y: auto;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
 }
 
@@ -324,6 +326,41 @@ body {
     color: #f0c040;
 }
 
+/* Footer */
+.auth-footer {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.3);
+    font-family: 'Poppins', 'Tahoma', sans-serif;
+    pointer-events: none;
+}
+
+[dir="rtl"] .auth-footer {
+    right: auto;
+    left: 24px;
+}
+
+.auth-footer a {
+    color: rgba(255, 255, 255, 0.4);
+    text-decoration: none;
+    pointer-events: auto;
+    transition: color 0.2s;
+}
+
+.auth-footer a:hover {
+    color: #f0c040;
+}
+
+.auth-footer .sep {
+    opacity: 0.3;
+}
+
 /* Language transition */
 .lang-transition,
 .lang-transition * {
@@ -345,7 +382,7 @@ body {
 /* Responsive */
 @media screen and (max-width: 768px) {
     .main {
-        padding: 16px;
+        padding: 60px 16px 80px;
     }
 
     .signin-content,
@@ -393,16 +430,23 @@ body {
     }
 
     .lang-switcher {
-        top: 12px;
-        left: 12px;
+        bottom: 16px;
+        left: 16px;
     }
 
     [dir="rtl"] .lang-switcher {
-        right: 12px;
+        left: auto;
+        right: 16px;
     }
 
     .dropdown-menu {
         min-width: 200px;
+    }
+
+    .auth-footer {
+        flex-direction: column;
+        gap: 4px;
+        text-align: center;
     }
 }
 
