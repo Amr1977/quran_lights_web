@@ -26,22 +26,27 @@
 
     window.__bugReportLogs = logs;
 
-    var btn = document.createElement('button');
-    btn.id = 'bugReportBtn';
-    btn.title = 'Report a bug';
-    btn.innerHTML = '🐞';
-    var isRtl = document.documentElement.getAttribute('dir') === 'rtl';
-    btn.style.cssText = 'position:fixed;top:12px;' + (isRtl ? 'right' : 'left') + ':8px;z-index:9999;width:36px;height:36px;border-radius:50%;border:2px solid rgba(220,50,50,0.4);background:rgba(220,50,50,0.15);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;opacity:0.5;transition:opacity 0.2s,background 0.2s,border-color 0.2s;color:white;padding:0;line-height:1;';
-
-    btn.onmouseenter = function () { btn.style.opacity = '1'; btn.style.background = 'rgba(220,50,50,0.3)'; btn.style.borderColor = 'rgba(220,50,50,0.7)'; };
-    btn.onmouseleave = function () { btn.style.opacity = '0.5'; btn.style.background = 'rgba(220,50,50,0.15)'; btn.style.borderColor = 'rgba(220,50,50,0.4)'; };
-
-    btn.onclick = function () { openBugReport(); };
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function () { document.body.appendChild(btn); });
+    var existingBtn = document.getElementById('bugReportBtn');
+    if (existingBtn) {
+        existingBtn.onclick = function (e) { e.preventDefault(); openBugReport(); };
     } else {
-        document.body.appendChild(btn);
+        var btn = document.createElement('button');
+        btn.id = 'bugReportBtn';
+        btn.title = 'Report a bug';
+        btn.innerHTML = '🐞';
+        var isRtl = document.documentElement.getAttribute('dir') === 'rtl';
+        btn.style.cssText = 'position:fixed;top:12px;' + (isRtl ? 'right' : 'left') + ':8px;z-index:9999;width:36px;height:36px;border-radius:50%;border:2px solid rgba(220,50,50,0.4);background:rgba(220,50,50,0.15);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;opacity:0.5;transition:opacity 0.2s,background 0.2s,border-color 0.2s;color:white;padding:0;line-height:1;';
+
+        btn.onmouseenter = function () { btn.style.opacity = '1'; btn.style.background = 'rgba(220,50,50,0.3)'; btn.style.borderColor = 'rgba(220,50,50,0.7)'; };
+        btn.onmouseleave = function () { btn.style.opacity = '0.5'; btn.style.background = 'rgba(220,50,50,0.15)'; btn.style.borderColor = 'rgba(220,50,50,0.4)'; };
+
+        btn.onclick = function () { openBugReport(); };
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function () { document.body.appendChild(btn); });
+        } else {
+            document.body.appendChild(btn);
+        }
     }
 
     function openBugReport() {
