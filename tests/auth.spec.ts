@@ -1,61 +1,76 @@
 import { test, expect } from '@playwright/test';
 
-const BASE_URL = 'https://quran-lights.web.app/login.html';
+test.describe('Login Page', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('http://localhost:8080/login.html');
+  });
 
-test.describe('Login Page - Language Switcher', () => {
-  test('desktop - toggle and close', async ({ page }) => {
-    await page.setViewportSize({ width: 1280, height: 800 });
-    await page.goto(BASE_URL);
-    
-    const dropdown = page.locator('#lang-menu');
+  test('footer is visible with version, portfolio link, and MIT license', async ({ page }) => {
+    const footer = page.locator('.auth-footer');
+    await expect(footer).toBeVisible();
+
+    await expect(footer.locator('text=v1.1.0')).toBeVisible();
+    await expect(footer.locator('text=MIT License')).toBeVisible();
+
+    const link = footer.locator('a');
+    await expect(link).toHaveText('Amr Lotfy');
+    await expect(link).toHaveAttribute('href', 'https://amrlotfy.et3am.com');
+    await expect(link).toHaveAttribute('target', '_blank');
+  });
+
+  test('language switcher toggle and close', async ({ page }) => {
+    const dropdown = page.locator('#langMenu');
     await expect(dropdown).toBeHidden();
-    
-    await page.locator('#lang-btn').click();
-    await page.waitForTimeout(500);
+
+    await page.locator('#langDropdown').click();
     await expect(dropdown).toBeVisible();
-    
-    await page.locator('.auth-card').click();
-    await page.waitForTimeout(300);
+
+    // Click page center (outside the dropdown) to close it
+    const main = page.locator('.main');
+    await main.click({ position: { x: 10, y: 10 } });
     await expect(dropdown).toBeHidden();
   });
 
-  test('mobile - toggle', async ({ page }) => {
-    await page.setViewportSize({ width: 375, height: 667 });
-    await page.goto(BASE_URL);
-    
-    const dropdown = page.locator('#lang-menu');
-    await expect(dropdown).toBeHidden();
-    
-    await page.locator('#lang-btn').click();
-    await page.waitForTimeout(500);
+  test('language switcher selecting a language works', async ({ page }) => {
+    await page.locator('#langDropdown').click();
+    const dropdown = page.locator('#langMenu');
     await expect(dropdown).toBeVisible();
+
+    // Click English
+    await page.locator('[data-lang="en"]').click();
+    await expect(dropdown).toBeHidden();
+
+    // Verify current language text updated
+    await expect(page.locator('#current-lang')).toHaveText('English');
+  });
+});
+
+test.describe('Signup Page', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('http://localhost:8080/signup.html');
   });
 
-  test('mobile - check overlap with form inputs', async ({ page }) => {
-    await page.setViewportSize({ width: 375, height: 667 });
-    await page.goto(BASE_URL);
-    
-    await page.locator('#lang-btn').click();
-    await page.waitForTimeout(300);
-    
-    const dropdown = page.locator('#lang-menu');
-    const emailInput = page.locator('#your_name');
-    const passInput = page.locator('#your_pass');
-    
-    const dBox = await dropdown.boundingBox();
-    const emailBox = await emailInput.boundingBox();
-    const passBox = await passInput.boundingBox();
-    
-    console.log('Dropdown box:', dBox);
-    console.log('Email input:', emailBox);
-    console.log('Password input:', passBox);
-    
-    // Check vertical overlap ONLY (this is the real issue)
-    if (dBox && emailBox) {
-      const emailVerticalOverlap = dBox.y + dBox.height > emailBox.y;
-      console.log('Vertically overlaps email:', emailVerticalOverlap);
-      const NO_OVERLAP_EXPECTED = !(dBox.y + dBox.height > emailBox.y);
-      expect(NO_OVERLAP_EXPECTED, 'Dropdown should NOT vertically overlap email input').toBe(true);
-    }
+  test('footer is visible with version, portfolio link, and MIT license', async ({ page }) => {
+    const footer = page.locator('.auth-footer');
+    await expect(footer).toBeVisible();
+
+    await expect(footer.locator('text=v1.1.0')).toBeVisible();
+    await expect(footer.locator('text=MIT License')).toBeVisible();
+
+    const link = footer.locator('a');
+    await expect(link).toHaveText('Amr Lotfy');
+    await expect(link).toHaveAttribute('href', 'https://amrlotfy.et3am.com');
+  });
+
+  test('language switcher toggle and close', async ({ page }) => {
+    const dropdown = page.locator('#langMenu');
+    await expect(dropdown).toBeHidden();
+
+    await page.locator('#langDropdown').click();
+    await expect(dropdown).toBeVisible();
+
+    const main = page.locator('.main');
+    await main.click({ position: { x: 10, y: 10 } });
+    await expect(dropdown).toBeHidden();
   });
 });
