@@ -31,12 +31,12 @@
     var btn = document.createElement('button');
     btn.id = 'bugReportBtn';
     btn.title = 'Report a bug';
-    btn.innerHTML = '🐛';
+    btn.innerHTML = '🐞';
     var isRtl = document.documentElement.getAttribute('dir') === 'rtl';
-    btn.style.cssText = 'position:fixed;top:56px;' + (isRtl ? 'right' : 'left') + ':8px;z-index:9999;width:32px;height:32px;border-radius:50%;border:none;background:rgba(255,255,255,0.1);backdrop-filter:blur(6px);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;opacity:0.4;transition:opacity 0.2s,background 0.2s;color:white;padding:0;';
+    btn.style.cssText = 'position:fixed;top:56px;' + (isRtl ? 'right' : 'left') + ':8px;z-index:9999;width:36px;height:36px;border-radius:50%;border:2px solid rgba(220,50,50,0.4);background:rgba(220,50,50,0.15);backdrop-filter:blur(6px);cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;opacity:0.5;transition:opacity 0.2s,background 0.2s,border-color 0.2s;color:white;padding:0;';
 
-    btn.onmouseenter = function () { btn.style.opacity = '1'; btn.style.background = 'rgba(255,255,255,0.2)'; };
-    btn.onmouseleave = function () { btn.style.opacity = '0.4'; btn.style.background = 'rgba(255,255,255,0.1)'; };
+    btn.onmouseenter = function () { btn.style.opacity = '1'; btn.style.background = 'rgba(220,50,50,0.3)'; btn.style.borderColor = 'rgba(220,50,50,0.7)'; };
+    btn.onmouseleave = function () { btn.style.opacity = '0.5'; btn.style.background = 'rgba(220,50,50,0.15)'; btn.style.borderColor = 'rgba(220,50,50,0.4)'; };
 
     btn.onclick = function () { openBugReport(); };
 
@@ -51,7 +51,7 @@
 
         overlay.innerHTML =
             '<div style="background:#1e1e2e;border-radius:16px;padding:28px 32px;max-width:500px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.08);color:#e0e0e0;">' +
-            '  <h2 style="margin:0 0 8px;font-size:20px;color:#f0c040;">🐛 Report a Bug</h2>' +
+            '  <h2 style="margin:0 0 8px;font-size:20px;color:#dc3232;">🐞 Report a Bug</h2>' +
             '  <p style="margin:0 0 20px;font-size:13px;color:rgba(255,255,255,0.5);">Describe what happened. A screenshot and console logs will be attached automatically.</p>' +
             '  <textarea id="bugReportDesc" placeholder="Describe the bug..." style="width:100%;box-sizing:border-box;min-height:100px;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:12px;color:#e0e0e0;font-size:14px;font-family:inherit;resize:vertical;outline:none;margin-bottom:16px;"></textarea>' +
             '  <div style="display:flex;gap:12px;justify-content:flex-end;">' +
