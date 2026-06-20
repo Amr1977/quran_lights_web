@@ -316,6 +316,9 @@
                 if (typeof drawStreakHistoryChart === 'function') {
                     drawStreakHistoryChart();
                 }
+                if (typeof drawStreakLineChart === 'function') {
+                    drawStreakLineChart();
+                }
                 break;
         }
     }

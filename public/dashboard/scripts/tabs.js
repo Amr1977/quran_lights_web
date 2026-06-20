@@ -84,6 +84,7 @@ function openTab(id) {
 
     case "streak_history_tab":
       drawStreakHistoryChart();
+      drawStreakLineChart();
       break;
 
     default: ;
