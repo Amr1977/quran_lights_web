@@ -80,6 +80,7 @@
         "createAccountLink": "アカウント作成",
         "signInLink": "サインイン",
         "orSignInWith": "またはGoogleアカウントでサインイン",
+        "orSignUpWith": "またはGoogleアカウントでサインアップ",
         "passwordMismatch": "パスワードが一致しません。パスワードを再入力してください",
         "loginPageTitle": "コーランライト - サインイン",
         "signupPageTitle": "コーランライト - アカウント作成"

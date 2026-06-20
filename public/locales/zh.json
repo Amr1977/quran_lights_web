@@ -80,6 +80,7 @@
         "createAccountLink": "创建账户",
         "signInLink": "登录",
         "orSignInWith": "或使用 Google 账户登录",
+        "orSignUpWith": "或使用 Google 账户注册",
         "passwordMismatch": "密码不匹配，请重新输入密码",
         "loginPageTitle": "古兰经之光 - 登录",
         "signupPageTitle": "古兰经之光 - 创建账户"

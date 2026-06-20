@@ -80,6 +80,7 @@
         "createAccountLink": "Créer un Compte",
         "signInLink": "Se Connecter",
         "orSignInWith": "Ou se connecter avec un compte Google",
+        "orSignUpWith": "Ou s'inscrire avec un compte Google",
         "passwordMismatch": "Les mots de passe ne correspondent pas, retapez les mots de passe",
         "loginPageTitle": "Lumières du Coran - Connexion",
         "signupPageTitle": "Lumières du Coran - Créer un Compte"

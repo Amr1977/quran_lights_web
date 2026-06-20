@@ -81,6 +81,7 @@
     "createAccountLink": "إنشاء حساب",
     "signInLink": "تسجيل الدخول",
     "orSignInWith": "أو تسجيل الدخول من خلال حساب جوجل",
+    "orSignUpWith": "أو إنشاء حساب من خلال حساب جوجل",
     "passwordMismatch": "كلمات المرور غير متطابقة، أعد كتابة كلمات المرور",
     "loginPageTitle": "موقع أنوار القرآن - تسجيل الدخول",
     "signupPageTitle": "موقع أنوار القرآن - إنشاء حساب"

@@ -80,6 +80,7 @@
         "createAccountLink": "Konto Erstellen",
         "signInLink": "Anmelden",
         "orSignInWith": "Oder mit Google-Konto anmelden",
+        "orSignUpWith": "Oder mit Google-Konto registrieren",
         "passwordMismatch": "Passwörter stimmen nicht überein, geben Sie die Passwörter erneut ein",
         "loginPageTitle": "Quran Lichter - Anmelden",
         "signupPageTitle": "Quran Lichter - Konto Erstellen"

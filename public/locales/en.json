@@ -81,6 +81,7 @@
         "createAccountLink": "Create Account",
         "signInLink": "Sign In",
         "orSignInWith": "Or sign in with Google account",
+        "orSignUpWith": "Or sign up with Google account",
         "passwordMismatch": "Passwords mismatch, retype passwords",
         "loginPageTitle": "Quran Lights - Sign In",
         "signupPageTitle": "Quran Lights - Create Account"
