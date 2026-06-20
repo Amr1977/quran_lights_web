@@ -42,10 +42,17 @@ body {
     align-items: center;
 }
 
+.signup {
+    margin-bottom: 0;
+}
+
 .signin-image,
 .signup-image {
     flex: 1;
     text-align: center;
+    width: auto;
+    overflow: visible;
+    margin: 0;
 }
 
 .signin-image figure,
@@ -85,6 +92,10 @@ body {
 .signin-form,
 .signup-form {
     flex: 1;
+    width: auto;
+    overflow: visible;
+    margin: 0;
+    padding: 0;
 }
 
 .form-title {
@@ -99,6 +110,7 @@ body {
 .form-group {
     position: relative;
     margin-bottom: 24px;
+    overflow: visible;
 }
 
 .form-group label {
