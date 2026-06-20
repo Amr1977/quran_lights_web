@@ -1,0 +1,7 @@
+#!/bin/bash
+# post-commit hook — auto-bump version after every commit
+# VERSION + package.json changes are staged for the next commit
+# Skip with: git commit --no-verify
+
+scripts/version-bump.sh
+git add VERSION package.json 2>/dev/null || true
