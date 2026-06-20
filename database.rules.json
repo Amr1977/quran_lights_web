@@ -72,6 +72,20 @@
         }
       }
     },
+    "bugReports": {
+      ".read": "auth != null && root.child('users').child(auth.uid).child('role').val() == 'admin'",
+      ".write": "auth != null",
+      "$reportId": {
+        ".validate": "newData.hasChildren(['description', 'timestamp'])",
+        "description": { ".validate": "newData.isString() && newData.val().length > 0" },
+        "screenshot": { ".validate": "newData.isString()" },
+        "logs": { ".validate": "newData.isArray()" },
+        "url": { ".validate": "newData.isString()" },
+        "userAgent": { ".validate": "newData.isString()" },
+        "uid": { ".validate": "newData.isString()" },
+        "timestamp": { ".validate": "newData.isNumber()" }
+      }
+    },
     "streakSnapshots": {
       ".read": true,
       "$snapshotId": {
