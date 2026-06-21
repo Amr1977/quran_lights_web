@@ -3,6 +3,7 @@
 
     var MAX_LOG_ENTRIES = 200;
     var logs = [];
+    var STORAGE_KEY = 'bugBtnPos';
 
     function captureConsole(method) {
         var original = console[method].bind(console);
@@ -26,29 +27,127 @@
 
     window.__bugReportLogs = logs;
 
-    var existingBtn = document.getElementById('bugReportBtn');
-    if (existingBtn) {
-        existingBtn.onclick = function (e) { e.preventDefault(); openBugReport(); };
-    } else {
-        var btn = document.createElement('button');
-        btn.id = 'bugReportBtn';
-        btn.title = 'Report a bug';
-        btn.innerHTML = '🐞';
-        var isRtl = document.documentElement.getAttribute('dir') === 'rtl';
-        btn.style.cssText = 'position:fixed;top:12px;' + (isRtl ? 'right' : 'left') + ':8px;z-index:9999;width:36px;height:36px;border-radius:50%;border:2px solid rgba(220,50,50,0.4);background:rgba(220,50,50,0.15);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;opacity:0.5;transition:opacity 0.2s,background 0.2s,border-color 0.2s;color:white;padding:0;line-height:1;';
+    var btn = document.createElement('button');
+    btn.id = 'bugReportBtn';
+    btn.title = 'Report a bug';
+    btn.innerHTML = '🐞';
+    btn.style.cssText = 'position:fixed;top:12px;left:8px;z-index:9999;width:40px;height:40px;border-radius:50%;border:2px solid rgba(220,50,50,0.4);background:rgba(220,50,50,0.15);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);cursor:grab;font-size:22px;display:flex;align-items:center;justify-content:center;opacity:0.5;transition:opacity 0.2s,background 0.2s,border-color 0.2s;color:white;padding:0;line-height:1;user-select:none;-webkit-user-select:none;touch-action:none;';
 
-        btn.onmouseenter = function () { btn.style.opacity = '1'; btn.style.background = 'rgba(220,50,50,0.3)'; btn.style.borderColor = 'rgba(220,50,50,0.7)'; };
-        btn.onmouseleave = function () { btn.style.opacity = '0.5'; btn.style.background = 'rgba(220,50,50,0.15)'; btn.style.borderColor = 'rgba(220,50,50,0.4)'; };
+    var isRtl = document.documentElement.getAttribute('dir') === 'rtl';
+    var saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+        try {
+            var pos = JSON.parse(saved);
+            btn.style.left = '';
+            btn.style.right = '';
+            btn.style.top = pos.top + 'px';
+            if (isRtl) {
+                btn.style.right = pos.left + 'px';
+            } else {
+                btn.style.left = pos.left + 'px';
+            }
+        } catch (e) {}
+    } else if (isRtl) {
+        btn.style.left = 'auto';
+        btn.style.right = '8px';
+    }
 
-        btn.onclick = function () { openBugReport(); };
+    btn.onmouseenter = function () { btn.style.opacity = '1'; btn.style.background = 'rgba(220,50,50,0.3)'; btn.style.borderColor = 'rgba(220,50,50,0.7)'; };
+    btn.onmouseleave = function () {
+        if (!btn.dragging) {
+            btn.style.opacity = '0.5';
+            btn.style.background = 'rgba(220,50,50,0.15)';
+            btn.style.borderColor = 'rgba(220,50,50,0.4)';
+        }
+    };
 
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', function () { document.body.appendChild(btn); });
-        } else {
-            document.body.appendChild(btn);
+    btn.onclick = function (e) {
+        if (btn.dragging) return;
+        openBugReport();
+    };
+
+    // ── Drag logic ──
+    var dragState = null;
+
+    function startDrag(clientX, clientY) {
+        var rect = btn.getBoundingClientRect();
+        dragState = {
+            offsetX: clientX - rect.left,
+            offsetY: clientY - rect.top,
+            startX: rect.left,
+            startY: rect.top
+        };
+        btn.dragging = true;
+        btn.style.cursor = 'grabbing';
+        btn.style.opacity = '1';
+        btn.style.background = 'rgba(220,50,50,0.3)';
+        btn.style.borderColor = 'rgba(220,50,50,0.7)';
+        btn.style.transition = 'none';
+    }
+
+    function moveDrag(clientX, clientY) {
+        if (!dragState) return;
+        var x = clientX - dragState.offsetX;
+        var y = clientY - dragState.offsetY;
+        var maxX = window.innerWidth - 44;
+        var maxY = window.innerHeight - 44;
+        x = Math.max(0, Math.min(x, maxX));
+        y = Math.max(0, Math.min(y, maxY));
+        btn.style.left = x + 'px';
+        btn.style.top = y + 'px';
+        btn.style.right = 'auto';
+    }
+
+    function endDrag() {
+        if (!dragState) return;
+        dragState = null;
+        btn.dragging = false;
+        btn.style.cursor = 'grab';
+        btn.style.transition = 'opacity 0.2s,background 0.2s,border-color 0.2s';
+        btn.style.opacity = '0.5';
+        btn.style.background = 'rgba(220,50,50,0.15)';
+        btn.style.borderColor = 'rgba(220,50,50,0.4)';
+        var left = parseInt(btn.style.left, 10);
+        var top = parseInt(btn.style.top, 10);
+        if (!isNaN(left) && !isNaN(top)) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify({ left: left, top: top }));
         }
     }
 
+    btn.addEventListener('mousedown', function (e) {
+        e.preventDefault();
+        startDrag(e.clientX, e.clientY);
+    });
+
+    document.addEventListener('mousemove', function (e) {
+        moveDrag(e.clientX, e.clientY);
+    });
+
+    document.addEventListener('mouseup', function () {
+        endDrag();
+    });
+
+    btn.addEventListener('touchstart', function (e) {
+        var t = e.touches[0];
+        startDrag(t.clientX, t.clientY);
+    }, { passive: true });
+
+    document.addEventListener('touchmove', function (e) {
+        var t = e.touches[0];
+        moveDrag(t.clientX, t.clientY);
+    }, { passive: true });
+
+    document.addEventListener('touchend', function () {
+        endDrag();
+    });
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () { document.body.appendChild(btn); });
+    } else {
+        document.body.appendChild(btn);
+    }
+
+    // ── Bug report modal ──
     function openBugReport() {
         var overlay = document.createElement('div');
         overlay.id = 'bugReportOverlay';
@@ -156,7 +255,6 @@
         var ref = firebase.database().ref('bugReports').push();
         ref.set(report, function (error) {
             if (error) {
-                // Permission denied or offline — fallback to download
                 downloadReport(desc, screenshot, statusEl, submitBtn, overlay);
             } else {
                 statusEl.textContent = '✓ Report submitted. Thank you!';
