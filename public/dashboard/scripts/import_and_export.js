@@ -1,18 +1,13 @@
 
-//TODO fix it, memorization date info is dropped!!
-
 function exportJSON() {
-  var filename = "quran_lights_history.json";
+  var filename = "quran_lights_history_" + new Date().toISOString().slice(0, 10) + ".json";
 
-  var blob = new Blob([export_history_to_json()], { type: "text/csv;charset=utf-8;" });
+  var blob = new Blob([export_history_to_json()], { type: "application/json;charset=utf-8;" });
   if (navigator.msSaveBlob) {
-    // IE 10+
     navigator.msSaveBlob(blob, filename);
   } else {
     var link = document.createElement("a");
     if (link.download !== undefined) {
-      // feature detection
-      // Browsers that support HTML5 download attribute
       var url = URL.createObjectURL(blob);
       link.setAttribute("href", url);
       link.setAttribute("download", filename);
@@ -24,12 +19,14 @@ function exportJSON() {
   }
 }
 
-//TODO export and import using json format
 function export_history_to_json() {
   return JSON.stringify(surasHistory, null, 2);
 }
 
-//TODO implement import from json
+function selectImportFile() {
+  document.getElementById('selectFiles').click();
+}
+
 function importJSON() {
   showToast("Import Started...");
   var files = document.getElementById('selectFiles').files;
@@ -47,6 +44,7 @@ function importJSON() {
       merge_imported_suras_history(history);
       add_sura_cells();
       hideToast();
+      document.getElementById('selectFiles').value = '';
       alert("IMPORT SUCCESS!");
     } else {
       hideToast();
@@ -91,16 +89,15 @@ function create_refresh_transaction_batch(sura_index, timestamps) {
 function merge_imported_suras_history(history){
   var new_transactions = [];
   for (var suraIndex in history) {
-    // Merge/update local refresh histories
+    if (!history[suraIndex]) continue;
+
     if (
-      //both local and imported histories got entries
       surasHistory[suraIndex] && 
       surasHistory[suraIndex].history && 
       surasHistory[suraIndex].history.length > 0 && 
       history[suraIndex].history &&
       history[suraIndex].history.length > 0
       ) {
-      //merge both histories
       var new_records = history[suraIndex].history.filter( x => !surasHistory[suraIndex].history.includes(x));
       new_records.sort(sortNumber);
       new_transactions = new_transactions.concat(create_refresh_transaction_batch(suraIndex, new_records));
@@ -109,25 +106,31 @@ function merge_imported_suras_history(history){
       surasHistory[suraIndex].history.sort(sortNumber);
     } else {
       if (!surasHistory[suraIndex] || !surasHistory[suraIndex].history || surasHistory[suraIndex].history.length == 0) {
-        surasHistory[suraIndex] = history[suraIndex];
-        if (history[suraIndex] && history[suraIndex].history &&  history[suraIndex].history.length) {
+        surasHistory[suraIndex] = {
+          history: history[suraIndex].history || []
+        };
+        if (history[suraIndex].history && history[suraIndex].history.length) {
           new_transactions = new_transactions.concat(create_refresh_transaction_batch(suraIndex, history[suraIndex].history));
         }
       }
     }
 
-    if (history[suraIndex] !== null && history[suraIndex].memorization !== null) {
+    if (history[suraIndex].memorization != null) {
       if (!surasHistory[suraIndex]) {
-        surasHistory[suraIndex] = {};
+        surasHistory[suraIndex] = { history: [] };
       }
       surasHistory[suraIndex].memorization = history[suraIndex].memorization;
-      //TODO fix this tragendy: no memorization data in surasHistory
+      if (history[suraIndex].memorization_date) {
+        surasHistory[suraIndex].memorization_date = history[suraIndex].memorization_date;
+      }
       new_transactions.push(create_memorization_transaction_record(suraIndex, get_time_stamp(), history[suraIndex].memorization));
     }
   }
 
-  for (var suraIndex in surasHistory.keys) {
-    surasHistory[suraIndex].history.sort(sortNumber);
+  for (var suraIndex in surasHistory) {
+    if (surasHistory[suraIndex] && surasHistory[suraIndex].history) {
+      surasHistory[suraIndex].history.sort(sortNumber);
+    }
   }
 
   set_local_storage_object("surasHistory", surasHistory);
