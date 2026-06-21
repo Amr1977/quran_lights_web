@@ -34,7 +34,8 @@ const config = {
   };
 
   firebase.initializeApp(config);
-  
+  // Enable offline persistence (Firebase RTDB caches data automatically)
+  // The app also queues writes in localStorage via sync.js
 
   const SIGN_IN_ONLY_ELEMENTS = [
     "sort_order",
