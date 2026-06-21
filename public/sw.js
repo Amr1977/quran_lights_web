@@ -47,6 +47,7 @@ var SCRIPTS_INDEX = [
 // ── Your JS (dashboard.html) — exact paths from <head> ──
 var SCRIPTS_DASHBOARD = [
   '/js/i18n.js',
+  '/js/version.js',
   '/js/constants.js',
   '/js/utils.js',
   '/js/connectivity.js',

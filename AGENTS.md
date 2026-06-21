@@ -105,12 +105,19 @@ npx cucumber-js
 
 ## Deployment
 ```bash
-# Deploy to Firebase
-firebase deploy --only hosting --project quran-lights
+# Auto-bump version and deploy (recommended)
+./deploy.sh
 
-# Or deploy everything (including database rules)
-firebase deploy
+# Or deploy without version bump
+firebase deploy --project quran-lights
 ```
+
+## Version Management
+- Version stored in `public/VERSION` (semver: `MAJOR.MINOR.PATCH`)
+- Auto-bumped by `./deploy.sh` (increments PATCH, updates `version.js`, cache-busts all HTML)
+- `public/js/version.js` exports `window.APP_VERSION`
+- Every HTML page loads `version.js` after `i18n.js`
+- Footer on all pages reads `APP_VERSION` dynamically
 
 ## Shared Knowledge Base
 Located at `shared-knowledge-base/` (git submodule). Always consult before starting work:
