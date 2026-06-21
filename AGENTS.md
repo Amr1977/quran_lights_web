@@ -133,10 +133,26 @@ cd android && ./gradlew assembleRelease
 # Output: android/app/build/outputs/apk/release/app-release.apk
 ```
 
+## Electron Desktop Build
+```bash
+# Run in development
+npm run electron:start
+
+# Build for current platform
+npm run electron:build
+
+# Build for specific platform
+npm run electron:build:win
+npm run electron:build:mac
+npm run electron:build:linux
+# Output: dist-electron/
+```
+
 ## GitHub Actions
 - On every push to master/main, a workflow builds the release APK automatically
 - APK artifact available in the GitHub Actions run summary
 - Manual trigger via `workflow_dispatch` in GitHub Actions UI
+- Electron builds for Windows, macOS, and Linux are also generated
 
 ## Play Store Release Checklist
 - [ ] Bump `versionCode` + 1 and `versionName` in `android/app/build.gradle`
