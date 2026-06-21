@@ -118,6 +118,31 @@ firebase deploy --project quran-lights
 - `public/js/version.js` exports `window.APP_VERSION`
 - Every HTML page loads `version.js` after `i18n.js`
 - Footer on all pages reads `APP_VERSION` dynamically
+- Android version in `android/app/build.gradle` → `versionCode` (int) and `versionName` (string)
+
+## Android Build (Capacitor)
+```bash
+# Install dependencies
+npm install
+
+# Sync web assets to Android
+npx cap sync android
+
+# Build release APK locally
+cd android && ./gradlew assembleRelease
+# Output: android/app/build/outputs/apk/release/app-release.apk
+```
+
+## GitHub Actions
+- On every push to master/main, a workflow builds the release APK automatically
+- APK artifact available in the GitHub Actions run summary
+- Manual trigger via `workflow_dispatch` in GitHub Actions UI
+
+## Play Store Release Checklist
+- [ ] Bump `versionCode` + 1 and `versionName` in `android/app/build.gradle`
+- [ ] Run `npx cap sync android`
+- [ ] Build release APK (`./gradlew assembleRelease`)
+- [ ] Upload to Play Console
 
 ## Shared Knowledge Base
 Located at `shared-knowledge-base/` (git submodule). Always consult before starting work:
