@@ -24,18 +24,19 @@ body {
 }
 
 .clock {
-  width: 60rem;
-  height:60rem;
+  width: min(90vw, 60rem);
+  height: min(90vw, 60rem);
+  aspect-ratio: 1;
   border: 7px solid #282828;
   box-shadow: -4px -4px 10px rgba(67,67,67,0.5),
                 inset 4px 4px 10px rgba(0,0,0,0.5),
                 inset -4px -4px 10px rgba(67,67,67,0.5),
                 4px 4px 10px rgba(0,0,0,0.3);
   border-radius: 50%;
-  margin: 50px auto;
+  margin: 10px auto;
   position: relative;
   padding: 2rem;
- 
+  box-sizing: border-box;
 }
 
 .outer-clock-face {
@@ -151,6 +152,21 @@ body {
   background: #ee791a;
   width: 45%;
   height: 2px;
+}
+
+@media screen and (max-width: 480px) {
+  html { font-size: 9px; }
+  .clock { margin: 5px auto; padding: 1rem; }
+  form input[type=date] {
+    font-size: 16px;
+    max-width: 90vw;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #555;
+    background: #333;
+    color: #fff;
+  }
+  p { font-size: 14px; padding: 0 10px; }
 }
     </style>
 </head>
