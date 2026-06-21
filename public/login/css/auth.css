@@ -4,6 +4,7 @@ body {
     font-family: 'Poppins', 'Tahoma', sans-serif;
     background: linear-gradient(135deg, #0a0e27 0%, #1a1040 40%, #0d1b3e 100%);
     min-height: 100vh;
+    min-height: -webkit-fill-available;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -33,6 +34,12 @@ body {
     box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
     margin: 0 auto;
     position: relative;
+    box-sizing: border-box;
+}
+
+.sign-in,
+.signup {
+    width: 100%;
 }
 
 .signin-content,
