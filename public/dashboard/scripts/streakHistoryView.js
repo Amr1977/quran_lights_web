@@ -126,7 +126,7 @@ function renderHeatmap(dailyCounts) {
     html += '<div>Fri</div>';
     html += '</div>';
     
-    html += '<div style="flex: 1; min-width: 500px;">';
+    html += '<div style="flex: 1; min-width: auto;">';
     
     var weeks = [];
     var currentWeek = [];

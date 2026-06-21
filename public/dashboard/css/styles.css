@@ -554,3 +554,68 @@ button:focus {
     animation: beat .3s infinite alternate;
 	  transform-origin: center;
   }
+
+/* ============================================
+   MOBILE RESPONSIVENESS — Dashboard Content
+   ============================================ */
+
+@media screen and (max-width: 480px) {
+    .content-wrapper {
+        padding: 10px;
+    }
+
+    #daily-score-container {
+        margin: 5px !important;
+    }
+
+    .wrapper {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        padding: 6px;
+    }
+
+    #treemap-chart {
+        height: 500px !important;
+        margin: 10px !important;
+    }
+    #radar-chart {
+        height: 400px !important;
+        margin: 10px !important;
+    }
+    #memorization-chart,
+    #khatma-progress-chart {
+        height: 350px !important;
+        margin: 10px !important;
+    }
+    #sura-score-chart,
+    #daily-score-chart,
+    #monthly-score-chart,
+    #yearly-score-chart,
+    #light_days_chart,
+    #dark_days_chart,
+    #streak-history-chart,
+    #streak-line-chart {
+        height: 300px !important;
+        margin: 10px !important;
+    }
+
+    #prayers {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .tooltip .tooltiptext {
+        width: auto;
+        max-width: 90vw;
+    }
+
+    .tooltiptext {
+        max-width: 90vw;
+    }
+
+    #review_score_guage,
+    #daily-read-guage,
+    #light-ratio-chart-container,
+    #conquer-ratio-chart-container {
+        margin: 10px !important;
+    }
+}
