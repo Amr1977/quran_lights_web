@@ -15,11 +15,13 @@
         "cooperate": "تعاون",
         "feature": "خصوصیات",
         "home": "ہوم",
+        "download": "Download App",
         "dashboard": "ڈیش بورڈ",
         "themeToggle": "رات کا موڈ",
         "language": "اردو"
     },
     "home": {
+        "download": "Download App",
         "title": "آپ کی قرآنی شرحوں کے لیے چارٹس اور ڈیش بورڈز",
         "description": "قرآن لائٹس آپ کو بصری چارٹس کے ذریعے اپنی تلاوت اور باقاعدہ نظرثانی کی شرح کو ٹریک کرنے کی اجازت دیتا ہے"
     },
@@ -130,6 +132,13 @@
         "importTitle": "Import History",
         "account": "اکاؤنٹ",
         "home": "ہوم",
+        "download": "Download App",
         "signOut": "لاگ آؤٹ"
     }
+,"downloads": {
+    "subtitle": "Choose your platform to get the latest release",
+    "download": "Download",
+    "note": "Releases are auto-built via",
+    "back": "Back to Home"
+}
 }

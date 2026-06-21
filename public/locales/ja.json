@@ -15,11 +15,13 @@
         "cooperate": "貢献",
         "feature": "機能",
         "home": "ホーム",
+        "download": "Download App",
         "dashboard": "ダッシュボード",
         "themeToggle": "ナイトモード",
         "language": "日本語"
     },
     "home": {
+        "download": "Download App",
         "title": "コーラン率のためのチャートとダッシュボード",
         "description": "コーランライトは、視覚的なチャートを通じて朗読と定期的な復習率を追跡できます"
     },
@@ -130,6 +132,13 @@
         "importTitle": "Import History",
         "account": "アカウント",
         "home": "ホーム",
+        "download": "Download App",
         "signOut": "サインアウト"
     }
+,"downloads": {
+    "subtitle": "Choose your platform to get the latest release",
+    "download": "Download",
+    "note": "Releases are auto-built via",
+    "back": "Back to Home"
+}
 }

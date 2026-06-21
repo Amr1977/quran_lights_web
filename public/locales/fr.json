@@ -15,11 +15,13 @@
         "cooperate": "Contribuer",
         "feature": "Fonctionnalités",
         "home": "Accueil",
+        "download": "Download App",
         "dashboard": "Tableau de Bord",
         "themeToggle": "Mode Nuit",
         "language": "Français"
     },
     "home": {
+        "download": "Download App",
         "title": "Graphiques et Tableaux de Bord pour vos Taux Coraniques",
         "description": "Lumières du Coran vous permet de suivre vos taux de récitation et de révision périodique grâce à des graphiques visuels"
     },
@@ -130,6 +132,13 @@
         "importTitle": "Import History",
         "account": "Compte",
         "home": "Accueil",
+        "download": "Download App",
         "signOut": "Déconnexion"
     }
+,"downloads": {
+    "subtitle": "Choose your platform to get the latest release",
+    "download": "Download",
+    "note": "Releases are auto-built via",
+    "back": "Back to Home"
+}
 }

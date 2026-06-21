@@ -15,11 +15,13 @@
         "cooperate": "Contribuir",
         "feature": "Recursos",
         "home": "Início",
+        "download": "Download App",
         "dashboard": "Painel",
         "themeToggle": "Modo Noturno",
         "language": "Português"
     },
     "home": {
+        "download": "Download App",
         "title": "Gráficos e Painéis para suas Taxas Alcorânicas",
         "description": "Luzes do Alcorão permite que você acompanhe suas taxas de recitação e revisão periódica através de gráficos visuais"
     },
@@ -130,6 +132,13 @@
         "importTitle": "Import History",
         "account": "Conta",
         "home": "Início",
+        "download": "Download App",
         "signOut": "Sair"
     }
+,"downloads": {
+    "subtitle": "Choose your platform to get the latest release",
+    "download": "Download",
+    "note": "Releases are auto-built via",
+    "back": "Back to Home"
+}
 }

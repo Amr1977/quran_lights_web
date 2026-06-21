@@ -6,6 +6,7 @@
     },
     "nav": {
         "home": "Home",
+        "download": "Download App",
         "features": "Features",
         "classes": "Quran Classes",
         "contact": "Contact",
@@ -15,12 +16,14 @@
         "signOut": "Sign Out",
         "age": "Age Clock",
         "qadr": "Laylatul Qadr",
+        "download": "Download",
         "fund": "Support",
         "cooperate": "Contribute",
         "feature": "Idea",
         "brand": "Quran Lights"
     },
     "home": {
+        "download": "Download App",
         "title": "Charts and Dashboards for Your Quranic Rates",
         "description": "Quran Lights enables you to track your recitation and periodic review rates through visual charts"
     },
@@ -127,6 +130,7 @@
         "account": "Account",
         "profile": "Profile",
         "home": "Home",
+        "download": "Download App",
         "signOut": "Sign Out"
     },
     "footer": {
@@ -164,4 +168,10 @@
         "platform": "Classes conducted via Google Meet",
         "contactWhatsApp": "Contact via WhatsApp"
     }
+,"downloads": {
+    "subtitle": "Choose your platform to get the latest release",
+    "download": "Download",
+    "note": "Releases are auto-built via",
+    "back": "Back to Home"
+}
 }

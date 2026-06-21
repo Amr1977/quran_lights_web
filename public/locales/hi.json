@@ -15,11 +15,13 @@
         "cooperate": "योगदान",
         "feature": "विशेषताएं",
         "home": "होम",
+        "download": "Download App",
         "dashboard": "डैशबोर्ड",
         "themeToggle": "रात्रि मोड",
         "language": "हिन्दी"
     },
     "home": {
+        "download": "Download App",
         "title": "आपकी कुरानी दरों के लिए चार्ट और डैशबोर्ड",
         "description": "कुरान लाइट्स आपको दृश्य चार्ट के माध्यम से अपनी पाठ और आवधिक समीक्षा दरों को ट्रैक करने में सक्षम बनाता है"
     },
@@ -130,6 +132,13 @@
         "importTitle": "Import History",
         "account": "खाता",
         "home": "होम",
+        "download": "Download App",
         "signOut": "साइन आउट"
     }
+,"downloads": {
+    "subtitle": "Choose your platform to get the latest release",
+    "download": "Download",
+    "note": "Releases are auto-built via",
+    "back": "Back to Home"
+}
 }

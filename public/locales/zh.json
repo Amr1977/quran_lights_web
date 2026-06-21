@@ -15,11 +15,13 @@
         "cooperate": "贡献",
         "feature": "特点",
         "home": "首页",
+        "download": "Download App",
         "dashboard": "仪表板",
         "themeToggle": "夜间模式",
         "language": "中文"
     },
     "home": {
+        "download": "Download App",
         "title": "您的古兰经率图表和仪表板",
         "description": "古兰经之光使您能够通过可视化图表跟踪您的诵读和定期复习率"
     },
@@ -130,6 +132,13 @@
         "importTitle": "Import History",
         "account": "账户",
         "home": "主页",
+        "download": "Download App",
         "signOut": "登出"
     }
+,"downloads": {
+    "subtitle": "Choose your platform to get the latest release",
+    "download": "Download",
+    "note": "Releases are auto-built via",
+    "back": "Back to Home"
+}
 }

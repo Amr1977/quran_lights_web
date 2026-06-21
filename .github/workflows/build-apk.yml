@@ -120,3 +120,54 @@ jobs:
           name: quran-lights-electron-${{ matrix.os }}
           path: dist-electron/*
           if-no-files-found: warn
+
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    needs: [android, electron]
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+
+      - name: Rename artifacts for release
+        run: |
+          mkdir -p release-files
+          cp quran-lights-android/app-release.apk release-files/quran-lights-android.apk
+          find quran-lights-electron-ubuntu-latest -name '*.AppImage' -exec cp {} release-files/quran-lights-electron-linux.AppImage \;
+          find quran-lights-electron-windows-latest -name '*.exe' -exec cp {} release-files/quran-lights-electron-windows.exe \;
+          find quran-lights-electron-macos-latest -name '*.dmg' -exec cp {} release-files/quran-lights-electron-macos.dmg \;
+
+      - name: Read version
+        id: version
+        run: echo "tag=v$(cat public/VERSION 2>/dev/null || echo '1.1.6')" >> $GITHUB_OUTPUT
+
+      - name: Create/Update Release
+        uses: ncipollo/release-action@v1
+        with:
+          allowUpdates: true
+          removeArtifacts: true
+          tag: latest
+          name: Quran Lights ${{ steps.version.outputs.tag }}
+          body: |
+            ## Quran Lights ${{ steps.version.outputs.tag }}
+
+            ### 📱 Android
+            - `quran-lights-android.apk` — Capacitor APK (offline-capable)
+
+            ### 🪟 Windows
+            - `quran-lights-electron-windows.exe` — Electron NSIS installer
+
+            ### 🍎 macOS
+            - `quran-lights-electron-macos.dmg` — Electron DMG
+
+            ### 🐧 Linux
+            - `quran-lights-electron-linux.AppImage` — Electron AppImage
+
+            > Built automatically via GitHub Actions
+          artifacts: release-files/*
+          token: ${{ secrets.GITHUB_TOKEN }}

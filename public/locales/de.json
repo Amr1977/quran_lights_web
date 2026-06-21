@@ -15,11 +15,13 @@
         "cooperate": "Beitragen",
         "feature": "Funktionen",
         "home": "Startseite",
+        "download": "Download App",
         "dashboard": "Dashboard",
         "themeToggle": "Nachtmodus",
         "language": "Deutsch"
     },
     "home": {
+        "download": "Download App",
         "title": "Diagramme und Dashboards für Ihre Quranischen Raten",
         "description": "Quran Lichter ermöglicht es Ihnen, Ihre Rezitations- und periodischen Überprüfungsraten durch visuelle Diagramme zu verfolgen"
     },
@@ -130,6 +132,13 @@
         "importTitle": "Import History",
         "account": "Konto",
         "home": "Startseite",
+        "download": "Download App",
         "signOut": "Abmelden"
     }
+,"downloads": {
+    "subtitle": "Choose your platform to get the latest release",
+    "download": "Download",
+    "note": "Releases are auto-built via",
+    "back": "Back to Home"
+}
 }

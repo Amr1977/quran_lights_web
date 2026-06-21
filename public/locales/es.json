@@ -15,11 +15,13 @@
         "cooperate": "Contribuir",
         "feature": "Características",
         "home": "Inicio",
+        "download": "Download App",
         "dashboard": "Panel",
         "themeToggle": "Modo Nocturno",
         "language": "Español"
     },
     "home": {
+        "download": "Download App",
         "title": "Gráficos y Paneles para tus Tasas Coránicas",
         "description": "Luces del Corán te permite rastrear tus tasas de recitación y revisión periódica a través de gráficos visuales"
     },
@@ -130,6 +132,13 @@
         "importTitle": "Import History",
         "account": "Cuenta",
         "home": "Inicio",
+        "download": "Download App",
         "signOut": "Cerrar Sesión"
     }
+,"downloads": {
+    "subtitle": "Choose your platform to get the latest release",
+    "download": "Download",
+    "note": "Releases are auto-built via",
+    "back": "Back to Home"
+}
 }
