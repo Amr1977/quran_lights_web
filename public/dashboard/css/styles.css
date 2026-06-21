@@ -29,7 +29,135 @@
     opacity: 0.4;
 }
 
+/* ── Import/Export Cards ── */
+#import_export_tab {
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 24px 20px;
+}
+
+.ie-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 16px;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.ie-card:hover {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(255, 255, 255, 0.18);
+}
+
+.ie-icon {
+    font-size: 28px;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.ie-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.ie-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #e2e8f0;
+    margin-bottom: 4px;
+}
+
+.ie-desc {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.45);
+    line-height: 1.5;
+    margin-bottom: 14px;
+}
+
+.ie-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    font-family: inherit;
+}
+
+.ie-btn:active {
+    transform: scale(0.97);
+}
+
+.ie-btn-export {
+    background: #2563eb;
+    color: #fff;
+}
+
+.ie-btn-export:hover {
+    background: #1d4ed8;
+}
+
+.ie-btn-import {
+    background: #7c3aed;
+    color: #fff;
+}
+
+.ie-btn-import:hover {
+    background: #6d28d9;
+}
+
+.ie-file-label {
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+    vertical-align: middle;
+}
+
+[dir="rtl"] .ie-file-label {
+    margin-left: 0;
+    margin-right: 10px;
+}
+
 @media screen and (max-width: 480px) {
+    #import_export_tab {
+        padding: 16px 12px;
+    }
+
+    .ie-card {
+        padding: 16px;
+        gap: 12px;
+    }
+
+    .ie-icon {
+        font-size: 22px;
+    }
+
+    .ie-title {
+        font-size: 14px;
+    }
+
+    .ie-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .ie-file-label {
+        display: block;
+        margin: 8px 0 0;
+        text-align: center;
+    }
+}
+
 .site-footer {
     background: rgba(0, 0, 0, 0.35);
     padding: 0;
@@ -64,14 +192,6 @@
 
 @media screen and (max-width: 480px) {
     .footer-content {
-        font-size: 11px;
-        gap: 8px;
-        padding: 10px 12px;
-        flex-wrap: wrap;
-    }
-}
-
-.dashboard-footer {
         font-size: 11px;
         gap: 8px;
         padding: 10px 12px;

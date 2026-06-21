@@ -124,6 +124,10 @@
         "settingsConfig": "設定",
         "controls": "キーボード操作",
         "importExport": "Import/Export",
+        "exportDesc": "Download all recitation & memorization data as JSON backup",
+        "exportTitle": "Export History",
+        "importDesc": "Restore from a previous JSON file — merged with current data",
+        "importTitle": "Import History",
         "account": "アカウント",
         "home": "ホーム",
         "signOut": "サインアウト"

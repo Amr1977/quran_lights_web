@@ -124,6 +124,10 @@
         "settingsConfig": "Configurações",
         "controls": "Controles de Teclado",
         "importExport": "Import/Export",
+        "exportDesc": "Download all recitation & memorization data as JSON backup",
+        "exportTitle": "Export History",
+        "importDesc": "Restore from a previous JSON file — merged with current data",
+        "importTitle": "Import History",
         "account": "Conta",
         "home": "Início",
         "signOut": "Sair"

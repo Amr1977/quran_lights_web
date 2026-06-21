@@ -1,5 +1,6 @@
 
 function exportJSON() {
+  showToast("جاري تصدير البيانات...");
   var filename = "quran_lights_history_" + new Date().toISOString().slice(0, 10) + ".json";
 
   var blob = new Blob([export_history_to_json()], { type: "application/json;charset=utf-8;" });
@@ -17,6 +18,8 @@ function exportJSON() {
       document.body.removeChild(link);
     }
   }
+  hideToast();
+  showToast("تم التصدير بنجاح ✅", 2500);
 }
 
 function export_history_to_json() {
@@ -27,12 +30,23 @@ function selectImportFile() {
   document.getElementById('selectFiles').click();
 }
 
+function onImportFileSelected() {
+  var label = document.getElementById('importFileLabel');
+  var files = document.getElementById('selectFiles').files;
+  if (files.length > 0) {
+    label.textContent = files[0].name;
+    showToast("جاري استيراد البيانات...");
+    importJSON();
+  } else {
+    label.textContent = '';
+  }
+}
+
 function importJSON() {
-  showToast("Import Started...");
   var files = document.getElementById('selectFiles').files;
   if (files.length <= 0) {
     hideToast();
-    alert("Choose Quran Lights history file to import!");
+    showToast("لم يتم اختيار ملف!", 2000);
     return false;
   }
 
@@ -43,12 +57,13 @@ function importJSON() {
       var history = result[1];
       merge_imported_suras_history(history);
       add_sura_cells();
-      hideToast();
       document.getElementById('selectFiles').value = '';
-      alert("IMPORT SUCCESS!");
+      document.getElementById('importFileLabel').textContent = '';
+      hideToast();
+      showToast("تم الاستيراد بنجاح ✅", 3000);
     } else {
       hideToast();
-      alert("INVALID JSON!!")
+      showToast("الملف غير صالح ❌", 3000);
     }
   }
 
