@@ -242,6 +242,12 @@ body {
     background: transparent !important;
 }
 
+.display-flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 /* Language Switcher */
 .lang-switcher {
     position: fixed;
