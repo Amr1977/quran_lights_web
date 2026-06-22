@@ -40,6 +40,11 @@ function initCells() {
       selected_suras = []; 
     }
 
+    // Render immediately from localStorage cache (if available)
+    // so user sees data instantly while Firebase syncs in background
+    add_sura_cells();
+    click_light_cells_tab();
+
     var reviewsRef = firebase
       .database()
       .ref("users/" + myUserId + "/Master/reviews")
@@ -83,7 +88,7 @@ function initCells() {
               }
           }
         });
-        for (var suraIndex in surasHistory.keys) {
+        for (var suraIndex in surasHistory) {
           surasHistory[suraIndex].history.sort(sortNumber);
         }
         set_local_storage_object("surasHistory", surasHistory);
