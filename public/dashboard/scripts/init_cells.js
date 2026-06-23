@@ -8,7 +8,7 @@ var eta = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59,
 function initCells() {
   if (user) {
     // User is signed in.
-    myUserId = firebase.auth().currentUser.uid;
+    myUserId = user.uid || firebase.auth().currentUser.uid;
 
     var lastTimeStamp = get_local_storage_object("lastTransactionTimeStamp");
 
@@ -54,7 +54,6 @@ function initCells() {
     showToast("Fetching history...");
     reviewsRef.once("value", function (snapshot) {
       hideToast();
-      //surasHistory = {};
       var bounceList = [];
       if (snapshot != null) {
         snapshot.forEach(function (childSnapshot) {
@@ -64,7 +63,6 @@ function initCells() {
           }
           if (Number(transactionTimeStamp) > Number(lastTransactionTimeStamp)) {
             lastTransactionTimeStamp = transactionTimeStamp;
-            // set_local_storage_object("lastTransactionTimeStamp", lastTransactionTimeStamp);
           }
           var transactionRecord = childSnapshot.val();
           var suraIndex = transactionRecord.sura;
@@ -106,6 +104,9 @@ function initCells() {
       if(bounceList.length) {
         playSuraRefreshSound();
       }
+    }, function (error) {
+      hideToast();
+      console.log("Firebase fetch error (cells rendered from cache):", error);
     });
   }
 }

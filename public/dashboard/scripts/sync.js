@@ -67,6 +67,9 @@ function dispatch_uploads() {
   }
 
   //TODO start handling upload transactions records here
+  var uid = firebase.auth().currentUser && firebase.auth().currentUser.uid;
+  if (!uid) { console.log("[Sync] Auth not ready, deferring upload"); return; }
+
   var updates = {};
   get_upload_queue().forEach((transacton_record) => {
     var transactionTimeStamp = get_time_stamp();
@@ -75,7 +78,7 @@ function dispatch_uploads() {
     // writes the full transaction_record to. It also threw errors
     // when offline, breaking the upload flow. The .update() below
     // handles everything correctly on its own.
-    updates[`users/${firebase.auth().currentUser.uid}/Master/reviews/` + transactionTimeStamp] = transacton_record;
+    updates[`users/${uid}/Master/reviews/` + transactionTimeStamp] = transacton_record;
     lastTransactionTimeStamp = transactionTimeStamp;
     ownTimeStamps.push(lastTransactionTimeStamp);
   });
@@ -94,6 +97,7 @@ function dispatch_uploads() {
     } else {
       console.log("upload success: " + updates);
       //trigger update on other devices
+      if (!firebase.auth().currentUser) return;
       firebase
         .database()
         .ref(
@@ -108,15 +112,18 @@ function dispatch_uploads() {
 }
 
 function get_firebase_reviews_node() {
-  return firebase.database().ref(`users/${firebase.auth().currentUser.uid}/Master/reviews`);
+  var uid = firebase.auth().currentUser && firebase.auth().currentUser.uid;
+  return uid ? firebase.database().ref("users/" + uid + "/Master/reviews") : null;
 }
 
 function get_firebase_update_stamp_node() {
-  return firebase.database().ref("users/" + firebase.auth().currentUser.uid + "/Master/update_stamp");
+  var uid = firebase.auth().currentUser && firebase.auth().currentUser.uid;
+  return uid ? firebase.database().ref("users/" + uid + "/Master/update_stamp") : null;
 }
 
 function get_firebase_settings_node() {
-  return firebase.database().ref("users/" + firebase.auth().currentUser.uid + "/Master/settings");
+  var uid = firebase.auth().currentUser && firebase.auth().currentUser.uid;
+  return uid ? firebase.database().ref("users/" + uid + "/Master/settings") : null;
 }
 
 function remove_from_queue(transactions_records_to_be_removed) {
@@ -159,6 +166,7 @@ function fetch_full_history_once() {
     return;
   }
 
+  if (!firebase.auth().currentUser) return;
   myUserId = firebase.auth().currentUser.uid;
   firebase
       .database()

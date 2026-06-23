@@ -113,6 +113,9 @@ function createSortedTimeStampSuraArray() {
   sortedTimestampSuraArray = [];
 
   for (suraIndex = 1; suraIndex <= 114; suraIndex++) {
+    if (surasHistory[suraIndex] == null) {
+      surasHistory[suraIndex] = { history: [], suraIndex: suraIndex, memorization: MEMORIZATION_STATE_NOT_MEMORIZED };
+    }
     var timeStampsArray =
       surasHistory[suraIndex].history != null
         ? surasHistory[suraIndex].history
@@ -140,6 +143,9 @@ var refreshCountSortedSuraArray = [];
 function createSortedRefreshCountSuraArray() {
   refreshCountSortedSuraArray = [];
   for (suraIndex = 1; suraIndex <= 114; suraIndex++) {
+    if (surasHistory[suraIndex] == null) {
+      surasHistory[suraIndex] = { history: [], suraIndex: suraIndex, memorization: MEMORIZATION_STATE_NOT_MEMORIZED };
+    }
     var timeStampsArray =
       surasHistory[suraIndex] != null && surasHistory[suraIndex].history != null
         ? surasHistory[suraIndex].history

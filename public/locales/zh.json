@@ -22,6 +22,7 @@
     },
     "home": {
         "download": "Download App",
+        "goToDashboard": "控制面板",
         "title": "您的古兰经率图表和仪表板",
         "description": "古兰经之光使您能够通过可视化图表跟踪您的诵读和定期复习率"
     },
@@ -69,6 +70,12 @@
         "facebook": "古兰经之光 Facebook 页面",
         "group": "加入古兰经之光 Facebook 群组",
         "suggestions": "欢迎在此帖子的评论中提出您的建议"
+    },
+    "age": {
+        "title": "你在地球上多大了？",
+        "label": "输入您的出生日期：",
+        "backToHome": "返回首页",
+        "goToDashboard": "控制面板"
     },
     "auth": {
         "loginTitle": "登录",
@@ -136,7 +143,8 @@
         "signOut": "登出"
     }
 ,"downloads": {
-    "subtitle": "Choose your platform to get the latest release",
+    "title": "下载应用程序",
+    "subtitle": "选择您的平台以获取最新版本",
     "download": "Download",
     "note": "Releases are auto-built via",
     "back": "Back to Home"

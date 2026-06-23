@@ -22,6 +22,7 @@
     },
     "home": {
         "download": "Download App",
+        "goToDashboard": "Dashboard",
         "title": "Diagramme und Dashboards für Ihre Quranischen Raten",
         "description": "Quran Lichter ermöglicht es Ihnen, Ihre Rezitations- und periodischen Überprüfungsraten durch visuelle Diagramme zu verfolgen"
     },
@@ -69,6 +70,12 @@
         "facebook": "Quran Lichter Facebook-Seite",
         "group": "Treten Sie der Quran Lichter Facebook-Gruppe bei",
         "suggestions": "Wir freuen uns über Ihre Vorschläge in den Kommentaren zu diesem Beitrag"
+    },
+    "age": {
+        "title": "Wie alt bist du auf der Erde?",
+        "label": "Geben Sie Ihr Geburtsdatum ein:",
+        "backToHome": "Zurück zur Startseite",
+        "goToDashboard": "Dashboard"
     },
     "auth": {
         "loginTitle": "Anmelden",
@@ -136,7 +143,8 @@
         "signOut": "Abmelden"
     }
 ,"downloads": {
-    "subtitle": "Choose your platform to get the latest release",
+    "title": "App herunterladen",
+    "subtitle": "Wählen Sie Ihre Plattform für die neueste Version",
     "download": "Download",
     "note": "Releases are auto-built via",
     "back": "Back to Home"

@@ -78,6 +78,12 @@
 
 		// Load saved theme on page load
 		window.addEventListener('DOMContentLoaded', function () {
+			// Auto-redirect signed-in users to dashboard
+			if (localStorage.getItem("user")) {
+				window.location.href = "dashboard.html";
+				return;
+			}
+
 			const savedTheme = localStorage.getItem('theme') || 'dark';
 			document.documentElement.setAttribute('data-theme', savedTheme);
 
@@ -182,6 +188,20 @@
 						<p class="tm-white" data-i18n="home.description">
 							موقع أنوار القرآن يمكنك من متابعة معدلات التلاوة و المراجعة الدورية من خلال الرسوم البيانية
 						</p>
+						<div class="hero-ctas" style="margin-top: 30px;">
+							<a id="hero_dashboard_btn" href="#" onclick="window.location.href='dashboard.html'; return false;" class="btn btn-success btn-lg" style="background: #28a7e9; border: none; font-weight: bold; padding: 14px 40px; margin: 6px;" data-i18n="home.goToDashboard">لوحة التحكم</a>
+							<a href="downloads.html" class="btn btn-default btn-lg" style="font-weight: bold; padding: 14px 40px; margin: 6px; background: rgba(255,255,255,0.15); color: #fff; border: 2px solid rgba(255,255,255,0.3);">
+								⬇ <span data-i18n="nav.download">تحميل التطبيق</span>
+							</a>
+						</div>
+						<script>
+							(function() {
+								var btn = document.getElementById("hero_dashboard_btn");
+								if (btn && !localStorage.getItem("user")) {
+									btn.style.display = "none";
+								}
+							})();
+						</script>
 					</div>
 					<div class="col-md-1"></div>
 				</div>
@@ -221,8 +241,8 @@
 	</section>
 	<!-- end feature -->
 
-	<!-- start feature1 -->
-	<section id="feature1">
+	<!-- start feature-2 -->
+	<section id="feature-2">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
@@ -237,10 +257,10 @@
 			</div>
 		</div>
 	</section>
-	<!-- end feature1 -->
+	<!-- end feature-2 -->
 
-	<!-- start feature1 -->
-	<section id="feature1">
+	<!-- start feature-3 -->
+	<section id="feature-3">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
@@ -254,10 +274,10 @@
 			</div>
 		</div>
 	</section>
-	<!-- end feature1 -->
+	<!-- end feature-3 -->
 
-	<!-- start feature1 -->
-	<section id="feature1">
+	<!-- start feature-4 -->
+	<section id="feature-4">
 		<div class="container">
 			<div class="row">
 
@@ -271,10 +291,10 @@
 			</div>
 		</div>
 	</section>
-	<!-- end feature1 -->
+	<!-- end feature-4 -->
 
-	<!-- start feature1 -->
-	<section id="feature1">
+	<!-- start feature-5 -->
+	<section id="feature-5">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
@@ -287,10 +307,10 @@
 			</div>
 		</div>
 	</section>
-	<!-- end feature1 -->
+	<!-- end feature-5 -->
 
-	<!-- start feature1 -->
-	<section id="feature1">
+	<!-- start feature-6 -->
+	<section id="feature-6">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
@@ -304,9 +324,8 @@
 			</div>
 		</div>
 	</section>
-	<!-- end feature1 -->
+	<!-- end feature-6 -->
 
-	<!-- start feature1 -->
 	<!-- <section id="marriage">
 			<div class="container">
 				<div class="row">
@@ -325,23 +344,44 @@
 		</section> -->
 	<!-- end feature1 -->
 
-	<!-- start feature1 -->
-	<!-- <section id="download">
-					<div class="container">
-						<div class="row">
-							<div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-								<a href="https://apps.apple.com/us/app/quran-lights/id1218872513" target="_blank"><img src="images/app-store.png" class="img-responsive" alt="feature img"></a>
-								
-							</div>
-							<div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-								<h2 class="text-uppercase">يمكن تحميل التطبيق من متجر أبل للتطبيقات</h2>
-								<p dir="rtl"><i class="fa fa-code"></i> <a href="https://apps.apple.com/us/app/quran-lights/id1218872513" target="_blank">التطبيق على أبل آب ستور</a></p>
-							</div>
-
-						</div>
+	<!-- start download -->
+	<section id="download">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 wow fadeInUp" data-wow-delay="0.3s" style="text-align: center;">
+					<h2 class="text-uppercase" data-i18n="downloads.title">نزل التطبيق الآن</h2>
+					<p class="dl-sub" data-i18n="downloads.subtitle">اختر منصتك للحصول على أحدث إصدار</p>
+					<div class="dl-grid" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-top: 30px;">
+						<a class="dl-item" href="https://github.com/Amr1977/quran_lights_web/releases/latest/download/quran-lights-android.apk" target="_blank" rel="noopener" style="background: rgba(40,167,233,0.1); border: 1px solid rgba(40,167,233,0.2); border-radius: 14px; padding: 24px 20px; text-decoration: none; color: #fff; min-width: 140px; flex: 1; max-width: 180px; transition: background 0.2s, transform 0.15s;">
+							<div style="font-size: 32px; margin-bottom: 8px;">📱</div>
+							<div style="font-weight: 600; font-size: 15px;">Android</div>
+							<div style="font-size: 11px; opacity: 0.5; margin-top: 4px;">APK</div>
+						</a>
+						<a class="dl-item" href="https://github.com/Amr1977/quran_lights_web/releases/latest/download/quran-lights-electron-windows.exe" target="_blank" rel="noopener" style="background: rgba(40,167,233,0.1); border: 1px solid rgba(40,167,233,0.2); border-radius: 14px; padding: 24px 20px; text-decoration: none; color: #fff; min-width: 140px; flex: 1; max-width: 180px; transition: background 0.2s, transform 0.15s;">
+							<div style="font-size: 32px; margin-bottom: 8px;">🪟</div>
+							<div style="font-weight: 600; font-size: 15px;">Windows</div>
+							<div style="font-size: 11px; opacity: 0.5; margin-top: 4px;">EXE</div>
+						</a>
+						<a class="dl-item" href="https://github.com/Amr1977/quran_lights_web/releases/latest/download/quran-lights-electron-macos.dmg" target="_blank" rel="noopener" style="background: rgba(40,167,233,0.1); border: 1px solid rgba(40,167,233,0.2); border-radius: 14px; padding: 24px 20px; text-decoration: none; color: #fff; min-width: 140px; flex: 1; max-width: 180px; transition: background 0.2s, transform 0.15s;">
+							<div style="font-size: 32px; margin-bottom: 8px;">🍎</div>
+							<div style="font-weight: 600; font-size: 15px;">macOS</div>
+							<div style="font-size: 11px; opacity: 0.5; margin-top: 4px;">DMG</div>
+						</a>
+						<a class="dl-item" href="https://github.com/Amr1977/quran_lights_web/releases/latest/download/quran-lights-electron-linux.AppImage" target="_blank" rel="noopener" style="background: rgba(40,167,233,0.1); border: 1px solid rgba(40,167,233,0.2); border-radius: 14px; padding: 24px 20px; text-decoration: none; color: #fff; min-width: 140px; flex: 1; max-width: 180px; transition: background 0.2s, transform 0.15s;">
+							<div style="font-size: 32px; margin-bottom: 8px;">🐧</div>
+							<div style="font-weight: 600; font-size: 15px;">Linux</div>
+							<div style="font-size: 11px; opacity: 0.5; margin-top: 4px;">AppImage</div>
+						</a>
 					</div>
-				</section> -->
-	<!-- end feature1 -->
+					<p style="font-size: 12px; opacity: 0.4; margin-top: 16px;">
+						<span data-i18n="downloads.note">تصدر الإصدارات تلقائياً عبر</span>
+						<a href="https://github.com/Amr1977/quran_lights_web/actions" target="_blank" rel="noopener" style="color: #28a7e9;">GitHub Actions</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- end download -->
 
 	<!-- feature2  FUND-->
 	<section id="fund">

@@ -22,6 +22,7 @@
     },
     "home": {
         "download": "Download App",
+        "goToDashboard": "डैशबोर्ड",
         "title": "आपकी कुरानी दरों के लिए चार्ट और डैशबोर्ड",
         "description": "कुरान लाइट्स आपको दृश्य चार्ट के माध्यम से अपनी पाठ और आवधिक समीक्षा दरों को ट्रैक करने में सक्षम बनाता है"
     },
@@ -69,6 +70,12 @@
         "facebook": "कुरान लाइट्स Facebook पेज",
         "group": "कुरान लाइट्स Facebook समूह में शामिल हों",
         "suggestions": "हम इस पोस्ट पर टिप्पणियों में आपके सुझावों का स्वागत करते हैं"
+    },
+    "age": {
+        "title": "आप पृथ्वी पर कितने साल के हैं?",
+        "label": "अपनी जन्म तिथि दर्ज करें:",
+        "backToHome": "होम पर वापस जाएं",
+        "goToDashboard": "डैशबोर्ड"
     },
     "auth": {
         "loginTitle": "साइन इन करें",
@@ -136,7 +143,8 @@
         "signOut": "साइन आउट"
     }
 ,"downloads": {
-    "subtitle": "Choose your platform to get the latest release",
+    "title": "एप्लिकेशन डाउनलोड करें",
+    "subtitle": "नवीनतम संस्करण के लिए अपना प्लेटफ़ॉर्म चुनें",
     "download": "Download",
     "note": "Releases are auto-built via",
     "back": "Back to Home"

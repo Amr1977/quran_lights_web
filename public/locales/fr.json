@@ -22,6 +22,7 @@
     },
     "home": {
         "download": "Download App",
+        "goToDashboard": "Tableau de bord",
         "title": "Graphiques et Tableaux de Bord pour vos Taux Coraniques",
         "description": "Lumières du Coran vous permet de suivre vos taux de récitation et de révision périodique grâce à des graphiques visuels"
     },
@@ -69,6 +70,12 @@
         "facebook": "Page Facebook de Lumières du Coran",
         "group": "Rejoignez le Groupe Facebook de Lumières du Coran",
         "suggestions": "Nous accueillons vos suggestions dans les commentaires de cette publication"
+    },
+    "age": {
+        "title": "Quel âge avez-vous sur Terre ?",
+        "label": "Entrez votre date de naissance :",
+        "backToHome": "Retour à l'accueil",
+        "goToDashboard": "Tableau de bord"
     },
     "auth": {
         "loginTitle": "Connexion",
@@ -136,7 +143,8 @@
         "signOut": "Déconnexion"
     }
 ,"downloads": {
-    "subtitle": "Choose your platform to get the latest release",
+    "title": "Téléchargez l'App",
+    "subtitle": "Choisissez votre plateforme pour la dernière version",
     "download": "Download",
     "note": "Releases are auto-built via",
     "back": "Back to Home"

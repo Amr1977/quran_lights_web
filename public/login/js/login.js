@@ -64,6 +64,18 @@ function add_auth_handler() {
   });
 }
 
+// Handle OAuth redirect result (used on mobile where popups don't work)
+function handleRedirectResult() {
+  firebase.auth().getRedirectResult().then(function(result) {
+    if (result && result.user) {
+      localStorage.setItem("user", JSON.stringify(result.user));
+      window.location.href = "dashboard.html";
+    }
+  }).catch(function(error) {
+    console.log("Redirect result error (expected if no redirect happened):", error.code);
+  });
+}
+
 function sign_up(email, password) {
   firebase.auth().signOut();
   localStorage.removeItem("user");
@@ -99,6 +111,11 @@ function sign_in_with_google() {
   signInWithOAuth("google");
 }
 
+function isMobileWebView() {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+    && !/(Windows|Macintosh|Linux x86_64|Linux i686)/i.test(navigator.userAgent);
+}
+
 function signInWithOAuth(signInProvider) {
 
   add_auth_handler();
@@ -114,6 +131,13 @@ function signInWithOAuth(signInProvider) {
     case "twitter":
       provider = new firebase.auth.TwitterAuthProvider();
       break;
+  }
+
+  // On mobile WebView (e.g. Capacitor Android), popups don't work.
+  // Use redirect-based sign-in instead.
+  if (isMobileWebView()) {
+    firebase.auth().signInWithRedirect(provider);
+    return;
   }
 
   firebase

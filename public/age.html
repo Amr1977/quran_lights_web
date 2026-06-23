@@ -1,335 +1,439 @@
-<!DOCTYPE html> 
-<html lang="en">
-  <title>العمر ساعة - موقع أنوار القرآن</title>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>العمر ساعة - موقع أنوار القرآن</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css?v=1782120768">
+    <link rel="stylesheet" href="css/animate.min.css?v=1782120768">
+    <link rel="stylesheet" href="css/templatemo-style.css?v=1782120768">
+    <link rel="stylesheet" href="dashboard/css/styles.css?v=1782120768">
     <script src="dashboard/scripts/bugReport.js?v=1782120768"></script>
+    <script src="js/i18n.js?v=1782120768"></script>
+    <script src="js/version.js?v=1782120768"></script>
 
     <style>
- html {
-  background: #282828;
-  text-align: center;
-  font-size: 10px;
-}
+        :root {
+            --bg-color: #1a1a1a;
+            --text-color: #e0e0e0;
+            --card-bg: #2d2d2d;
+            --accent: #28a7e9;
+            --accent-green: #1df52f;
+        }
 
-body {
-  margin: 0;
-  font-size: 2rem;
-  display: flex;
-  flex: 1;
-  min-height: 100vh;
-  align-items: center;
-}
+        * { box-sizing: border-box; }
 
-.clock {
-  width: min(90vw, 60rem);
-  height: min(90vw, 60rem);
-  aspect-ratio: 1;
-  border: 7px solid #282828;
-  box-shadow: -4px -4px 10px rgba(67,67,67,0.5),
-                inset 4px 4px 10px rgba(0,0,0,0.5),
-                inset -4px -4px 10px rgba(67,67,67,0.5),
-                4px 4px 10px rgba(0,0,0,0.3);
-  border-radius: 50%;
-  margin: 10px auto;
-  position: relative;
-  padding: 2rem;
-  box-sizing: border-box;
-}
+        html {
+            background: var(--bg-color);
+            text-align: center;
+            font-size: 10px;
+        }
 
-.outer-clock-face {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: 100%;
-  background: #282828;
-  
- 
-  overflow: hidden;
-}
+        body {
+            margin: 0;
+            font-size: 2rem;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Open Sans', sans-serif;
+        }
 
-.outer-clock-face::after {
-  -webkit-transform: rotate(90deg);
-  -moz-transform: rotate(90deg);
-  transform: rotate(90deg)
-}
+        .age-main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
 
-.outer-clock-face::before,
-.outer-clock-face::after,
-.outer-clock-face .marking{
-  content: '';
-  position: absolute;
-  width: 5px;
-  height: 100%;
-  background: #1df52f;
-  z-index: 0;
-  left: 49%;
-}
+        .age-container {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+        }
 
-.outer-clock-face .marking {
-  background: #bdbdcb;
-  width: 3px;
-}
+        .age-title {
+            color: var(--accent);
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
 
-.outer-clock-face .marking.marking-one {
-  -webkit-transform: rotate(30deg);
-  -moz-transform: rotate(30deg);
-  transform: rotate(30deg)
-}
+        .clock {
+            width: min(85vw, 50rem);
+            height: min(85vw, 50rem);
+            aspect-ratio: 1;
+            border: 6px solid #333;
+            box-shadow: -4px -4px 10px rgba(67,67,67,0.5),
+                        inset 4px 4px 10px rgba(0,0,0,0.5),
+                        inset -4px -4px 10px rgba(67,67,67,0.5),
+                        4px 4px 10px rgba(0,0,0,0.3);
+            border-radius: 50%;
+            margin: 10px auto;
+            position: relative;
+            padding: 2rem;
+            box-sizing: border-box;
+        }
 
-.outer-clock-face .marking.marking-two {
-  -webkit-transform: rotate(60deg);
-  -moz-transform: rotate(60deg);
-  transform: rotate(60deg)
-}
+        .outer-clock-face {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 100%;
+            background: var(--bg-color);
+            overflow: hidden;
+        }
 
-.outer-clock-face .marking.marking-three {
-  -webkit-transform: rotate(120deg);
-  -moz-transform: rotate(120deg);
-  transform: rotate(120deg)
-}
+        .outer-clock-face::after {
+            -webkit-transform: rotate(90deg);
+            -moz-transform: rotate(90deg);
+            transform: rotate(90deg);
+        }
 
-.outer-clock-face .marking.marking-four {
-  -webkit-transform: rotate(150deg);
-  -moz-transform: rotate(150deg);
-  transform: rotate(150deg)
-}
+        .outer-clock-face::before,
+        .outer-clock-face::after,
+        .outer-clock-face .marking {
+            content: '';
+            position: absolute;
+            width: 5px;
+            height: 100%;
+            background: var(--accent-green);
+            z-index: 0;
+            left: 49%;
+        }
 
-.inner-clock-face {
-  position: absolute;
-  top: 10%;
-  left: 10%;
-  width: 80%;
-  height: 80%;
-  background: #282828;
-  -webkit-border-radius: 100%;
-  -moz-border-radius: 100%;
-  border-radius: 100%;
-  z-index: 1;
-}
+        .outer-clock-face .marking {
+            background: #555;
+            width: 3px;
+        }
 
-.inner-clock-face::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 16px;
-  height: 16px;
-  border-radius: 18px;
-  margin-left: -9px;
-  margin-top: -6px;
-  background: #4d4b63;
-  z-index: 11;
-}
+        .outer-clock-face .marking.marking-one { transform: rotate(30deg); }
+        .outer-clock-face .marking.marking-two { transform: rotate(60deg); }
+        .outer-clock-face .marking.marking-three { transform: rotate(120deg); }
+        .outer-clock-face .marking.marking-four { transform: rotate(150deg); }
 
-.hand {
-  width: 50%;
-  right: 50%;
-  height: 6px;
-  background: #61afff;
-  position: absolute;
-  top: 50%;
-  border-radius: 6px;
-  transform-origin: 100%;
-  transform: rotate(90deg);
-  transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
-}
+        .inner-clock-face {
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            width: 80%;
+            height: 80%;
+            background: var(--bg-color);
+            border-radius: 100%;
+            z-index: 1;
+        }
 
-.hand.hour-hand {
-  width: 30%;
-  z-index: 3;
-}
+        .inner-clock-face::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            margin-left: -7px;
+            margin-top: -7px;
+            background: #4d4b63;
+            z-index: 11;
+        }
 
-.hand.min-hand {
-  height: 3px;
-  z-index: 10;
-  width: 40%;
-}
+        .hand {
+            width: 50%;
+            right: 50%;
+            height: 6px;
+            background: #61afff;
+            position: absolute;
+            top: 50%;
+            border-radius: 6px;
+            transform-origin: 100%;
+            transform: rotate(90deg);
+            transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+        }
 
-.hand.second-hand {
-  background: #ee791a;
-  width: 45%;
-  height: 2px;
-}
+        .hand.hour-hand { width: 30%; z-index: 3; }
+        .hand.min-hand { height: 3px; z-index: 10; width: 40%; }
+        .hand.second-hand { background: #ee791a; width: 45%; height: 2px; }
 
-@media screen and (max-width: 480px) {
-  html { font-size: 9px; }
-  .clock { margin: 5px auto; padding: 1rem; }
-  form input[type=date] {
-    font-size: 16px;
-    max-width: 90vw;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #555;
-    background: #333;
-    color: #fff;
-  }
-  p { font-size: 14px; padding: 0 10px; }
-}
+        .age-form {
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        .age-form label {
+            color: var(--accent-green);
+            font-size: 16px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .age-form input[type=date] {
+            font-size: 16px;
+            padding: 12px 20px;
+            border-radius: 10px;
+            border: 1px solid #444;
+            background: #2a2a2a;
+            color: #fff;
+            max-width: 100%;
+            width: 260px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .age-form input[type=date]:focus {
+            border-color: var(--accent);
+        }
+
+        .age-text {
+            color: var(--accent-green);
+            font-size: 18px;
+            font-weight: 600;
+            margin: 20px 0;
+            min-height: 28px;
+            direction: auto;
+            unicode-bidi: plaintext;
+        }
+
+        .age-footer-links {
+            margin-top: 24px;
+        }
+
+        .age-footer-links a {
+            color: var(--accent);
+            font-size: 14px;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: opacity 0.2s;
+        }
+
+        .age-footer-links a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        @media screen and (max-width: 480px) {
+            html { font-size: 9px; }
+            .clock { padding: 1rem; }
+            .age-form input[type=date] { font-size: 14px; padding: 10px 16px; width: 220px; }
+            .age-text { font-size: 15px; }
+            .age-title { font-size: 15px; }
+        }
     </style>
 </head>
 <body onload="init_birth()">
-  <div style="width: 100%; height:100%">
-    
-  
-      <div class="clock">
-          <div class="outer-clock-face">
-            <div class="marking marking-one"></div>
-            <div class="marking marking-two"></div>
-            <div class="marking marking-three"></div>
-            <div class="marking marking-four"></div>
-            <div class="inner-clock-face">
-              <div class="hand second-hand"></div>
+
+    <!-- Nav -->
+    <nav class="navbar navbar-default navbar-fixed-top templatemo-nav" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon icon-bar"></span>
+                    <span class="icon icon-bar"></span>
+                    <span class="icon icon-bar"></span>
+                </button>
+                <a href="index.html" class="navbar-brand" data-i18n="nav.brand">موقع أنوار القرآن</a>
             </div>
-          </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right text-uppercase">
+                    <li><a href="index.html" data-i18n="nav.home">البداية</a></li>
+                    <li><a href="index.html#feature" data-i18n="nav.feature">الفكرة</a></li>
+                    <li><a href="downloads.html">⬇ <span data-i18n="nav.download">تحميل</span></a></li>
+                    <li><a href="index.html#contact" data-i18n="nav.contact">التواصل</a></li>
+                </ul>
+            </div>
         </div>
-        <div>
-          <form action="/action_page.php">
-            <label for="birthday" id = "label_text" style="color:#1df52f">أدخل تاريخ ميلادك: </label>
-            <input type="date" id="birthday" name="birthday" onchange="set_birth()">
-          </form>
+    </nav>
+
+    <!-- Main -->
+    <div class="age-main" style="padding-top: 90px;">
+        <div class="age-container">
+            <div class="age-title" data-i18n="age.title">كم عمرك على وجه الأرض؟</div>
+
+            <div class="clock">
+                <div class="outer-clock-face">
+                    <div class="marking marking-one"></div>
+                    <div class="marking marking-two"></div>
+                    <div class="marking marking-three"></div>
+                    <div class="marking marking-four"></div>
+                    <div class="inner-clock-face">
+                        <div class="hand second-hand"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="age-form">
+                <label for="birthday" id="label_text" data-i18n="age.label">أدخل تاريخ ميلادك:</label>
+                <input type="date" id="birthday" name="birthday" onchange="set_birth()">
+            </div>
+
+            <div class="age-text" id="age_text"></div>
+
+            <div class="age-footer-links">
+                <a href="index.html">← <span data-i18n="age.backToHome">العودة للرئيسية</span></a>
+                <a href="dashboard.html" data-i18n="age.goToDashboard">لوحة التحكم</a>
+            </div>
         </div>
+    </div>
 
-        <div>
-          <p id="age_text"  style="color:#1df52f"> </p>
-          <a href="index.html" style="color:#1df52f"> موقع أنوار القرآن</a>
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <span id="appVersion">v1.1.10</span>
+            <span class="sep">|</span>
+            <a href="https://amrlotfy.et3am.com" target="_blank" rel="noopener">Amr Lotfy</a>
+            <span class="sep">|</span>
+            <span>MIT License</span>
         </div>
-  </div>
-  
-  <script>
-    var birth_date;
-    function init_birth(){
-      birth_date = JSON.parse(localStorage.getItem("birth_date"));
-      if (!birth_date) {
-        birth_date = Date.now();
-      } else {
-        document.getElementById("birthday").value = birth_date;
-      }
-      
-      console.log("birth: " + birth_date);
-    }
+    </footer>
 
-    function set_birth(){
-      birth_date = document.getElementById("birthday").value;
-      localStorage.setItem("birth_date", JSON.stringify(birth_date));
-      console.log("saved in localStorage: " + JSON.stringify(birth_date));
-      setAge();
-    }
- 
- const secondHand = document.querySelector('.second-hand');
+    <script src="js/jquery.js?v=1782120768"></script>
+    <script src="js/bootstrap.min.js?v=1782120768"></script>
 
-function getAge(dateString) {
-  if (!dateString) {
-    return null;
-  }
-  var now = new Date();
-  var today = new Date(now.getYear(),now.getMonth(),now.getDate());
+    <script>
+        var birth_date;
 
-  var yearNow = now.getYear();
-  var monthNow = now.getMonth();
-  var dateNow = now.getDate();
+        function init_birth() {
+            birth_date = JSON.parse(localStorage.getItem("birth_date"));
+            if (!birth_date) {
+                birth_date = Date.now();
+            } else {
+                document.getElementById("birthday").value = birth_date;
+            }
+            translateAgeUi();
+            setAge();
+        }
 
-  var dob = new Date(dateString.substring(0,4),//year, month, date  YYYY/MM/DD                
-                     dateString.substring(5,7),
-                     dateString.substring(8,10)             
-                     );
+        function set_birth() {
+            birth_date = document.getElementById("birthday").value;
+            localStorage.setItem("birth_date", JSON.stringify(birth_date));
+            setAge();
+        }
 
-  var yearDob = dob.getYear();
-  var monthDob = dob.getMonth();
-  var dateDob = dob.getDate();
-  var age = {};
-  var ageString = "";
-  var yearString = "";
-  var monthString = "";
-  var dayString = "";
+        var secondHand = document.querySelector('.second-hand');
 
+        function getAge(dateString) {
+            if (!dateString) return null;
+            var now = new Date();
+            var today = new Date(now.getYear(), now.getMonth(), now.getDate());
 
-  yearAge = yearNow - yearDob;
+            var yearNow = now.getYear();
+            var monthNow = now.getMonth();
+            var dateNow = now.getDate();
 
-  var monthAge;
-  if (monthNow >= monthDob)
-     monthAge = monthNow - monthDob + 1;
-  else {
-    yearAge--;
-     monthAge = 12 + monthNow -monthDob;
-  }
+            var dob = new Date(
+                dateString.substring(0, 4),
+                dateString.substring(5, 7),
+                dateString.substring(8, 10)
+            );
 
-  if (dateNow >= dateDob)
-    var dateAge = dateNow - dateDob;
-  else {
-    monthAge--;
-    var dateAge = 31 + dateNow - dateDob;
+            var yearDob = dob.getYear();
+            var monthDob = dob.getMonth();
+            var dateDob = dob.getDate();
 
-    if (monthAge < 0) {
-      monthAge = 11;
-      yearAge--;
-    }
-  }
+            var yearAge = yearNow - yearDob;
+            var monthAge;
 
-  age = {
-      years: yearAge,
-      months: monthAge,
-      days: dateAge
-      };
+            if (monthNow >= monthDob)
+                monthAge = monthNow - monthDob + 1;
+            else {
+                yearAge--;
+                monthAge = 12 + monthNow - monthDob;
+            }
 
-  if ( age.years > 1 ) yearString = " years";
-  else yearString = " year";
-  if ( age.months> 1 ) monthString = " months";
-  else monthString = " month";
-  if ( age.days > 1 ) dayString = " days";
-  else dayString = " day";
+            var dateAge;
+            if (dateNow >= dateDob)
+                dateAge = dateNow - dateDob;
+            else {
+                monthAge--;
+                dateAge = 31 + dateNow - dateDob;
+                if (monthAge < 0) {
+                    monthAge = 11;
+                    yearAge--;
+                }
+            }
 
+            return { years: yearAge, months: monthAge, days: dateAge };
+        }
 
-  if ( (age.years > 0) && (age.months > 0) && (age.days > 0) )
-    ageString = age.years + yearString + ", " + age.months + monthString + ", and " + age.days + dayString + " old.";
-  else if ( (age.years == 0) && (age.months == 0) && (age.days > 0) )
-    ageString = "Only " + age.days + dayString + " old!";
-  else if ( (age.years > 0) && (age.months == 0) && (age.days == 0) )
-    ageString = age.years + yearString + " old. Happy Birthday!!";
-  else if ( (age.years > 0) && (age.months > 0) && (age.days == 0) )
-    ageString = age.years + yearString + " and " + age.months + monthString + " old.";
-  else if ( (age.years == 0) && (age.months > 0) && (age.days > 0) )
-    ageString = age.months + monthString + " and " + age.days + dayString + " old.";
-  else if ( (age.years > 0) && (age.months == 0) && (age.days > 0) )
-    ageString = age.years + yearString + " and " + age.days + dayString + " old.";
-  else if ( (age.years == 0) && (age.months > 0) && (age.days == 0) )
-    ageString = age.months + monthString + " old.";
-  else ageString = "Oops! Could not calculate age!";
-  
-  console.log(ageString);
-  document.getElementById("age_text").innerHTML = ageString;
-  return {"age": age, age_string: ageString};
-}
-var delayed_exec;
-function setAge() {
+        function getAgeString(age) {
+            if (!age) return "";
 
-  if (!birth_date) {
-    delayed_exec = setInterval(setAge, 100);
-   return;
-  } else {
-    clearTimeout(delayed_exec);
-  }
-  const age = getAge(birth_date)["age"];
+            var y = age.years, m = age.months, d = age.days;
+            var lang = (window.i18n && window.i18n.currentLang) || 'ar';
 
-  const seconds = (age["months"] * 30 + age["days"]) / 6;
+            // Arabic
+            if (lang === 'ar') {
+                var parts = [];
+                if (y > 0) parts.push(y + " سنة" + (y > 1 ? "" : ""));
+                if (m > 0) parts.push(m + " شهر" + (m > 1 ? "" : ""));
+                if (d > 0) parts.push(d + " يوم" + (d > 1 ? "" : ""));
+                if (parts.length === 0) return "لم يتم حساب العمر!";
+                if (parts.length === 1) return parts[0];
+                return parts.slice(0, -1).join(", ") + " و " + parts.slice(-1);
+            }
 
-  const mins = age["years"] % 60;
-  const minsDegrees = ((mins / 60) * 360) + ((seconds/60)*6) + 90;
-  secondHand.style.transform = `rotate(${minsDegrees}deg)`;
+            // English / others
+            var yS = y === 1 ? "year" : "years";
+            var mS = m === 1 ? "month" : "months";
+            var dS = d === 1 ? "day" : "days";
 
-  if (mins > 1) {
-    document.getElementById("label_text").innerHTML = "";
-  }
-  console.log(mins)
-}
+            if (y > 0 && m > 0 && d > 0) return y + " " + yS + ", " + m + " " + mS + ", and " + d + " " + dS + " old.";
+            if (y === 0 && m === 0 && d > 0) return "Only " + d + " " + dS + " old!";
+            if (y > 0 && m === 0 && d === 0) return y + " " + yS + " old. Happy Birthday!!";
+            if (y > 0 && m > 0 && d === 0) return y + " " + yS + " and " + m + " " + mS + " old.";
+            if (y === 0 && m > 0 && d > 0) return m + " " + mS + " and " + d + " " + dS + " old.";
+            if (y > 0 && m === 0 && d > 0) return y + " " + yS + " and " + d + " " + dS + " old.";
+            if (y === 0 && m > 0 && d === 0) return m + " " + mS + " old.";
+            return "Oops! Could not calculate age!";
+        }
 
-setInterval(setAge, 1000 * 60 * 60 * 24);
+        function translateAgeUi() {
+            if (window.i18n && window.i18n.translate) {
+                var t = window.i18n.translate;
+                var label = document.getElementById("label_text");
+                if (label && t('age.label')) label.textContent = t('age.label');
+                var title = document.querySelector('.age-title');
+                if (title && t('age.title')) title.textContent = t('age.title');
+            }
+        }
 
-setAge();
-  </script>
+        var delayed_exec;
+
+        function setAge() {
+            if (!birth_date) {
+                delayed_exec = setInterval(setAge, 100);
+                return;
+            } else {
+                if (delayed_exec) clearTimeout(delayed_exec);
+            }
+            var age = getAge(birth_date);
+            if (!age) return;
+
+            var seconds = (age.months * 30 + age.days) / 6;
+            var mins = age.years % 60;
+            var minsDegrees = ((mins / 60) * 360) + ((seconds / 60) * 6) + 90;
+            secondHand.style.transform = 'rotate(' + minsDegrees + 'deg)';
+
+            if (age.years > 1) {
+                var label = document.getElementById("label_text");
+                if (label) label.textContent = "";
+            }
+
+            document.getElementById("age_text").textContent = getAgeString(age);
+        }
+
+        setInterval(setAge, 1000 * 60 * 60 * 24);
+
+        // Re-translate when i18n language changes
+        document.addEventListener('i18nLanguageChanged', function () {
+            translateAgeUi();
+            setAge();
+        });
+    </script>
+
+    <script>
+        document.getElementById('appVersion').textContent = 'v' + window.APP_VERSION;
+    </script>
 </body>
 </html>
-
-

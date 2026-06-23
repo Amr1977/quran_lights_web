@@ -22,6 +22,7 @@
     },
     "home": {
         "download": "Download App",
+        "goToDashboard": "ڈیش بورڈ",
         "title": "آپ کی قرآنی شرحوں کے لیے چارٹس اور ڈیش بورڈز",
         "description": "قرآن لائٹس آپ کو بصری چارٹس کے ذریعے اپنی تلاوت اور باقاعدہ نظرثانی کی شرح کو ٹریک کرنے کی اجازت دیتا ہے"
     },
@@ -69,6 +70,12 @@
         "facebook": "قرآن لائٹس فیس بک پیج",
         "group": "قرآن لائٹس فیس بک گروپ میں شامل ہوں",
         "suggestions": "ہم اس پوسٹ پر تبصروں میں آپ کی تجاویز کا خیرمقدم کرتے ہیں"
+    },
+    "age": {
+        "title": "آپ زمین پر کتنے سال کے ہیں؟",
+        "label": "اپنی تاریخ پیدائش درج کریں:",
+        "backToHome": "ہوم پر واپس جائیں",
+        "goToDashboard": "ڈیش بورڈ"
     },
     "auth": {
         "loginTitle": "سائن ان کریں",
@@ -136,7 +143,8 @@
         "signOut": "لاگ آؤٹ"
     }
 ,"downloads": {
-    "subtitle": "Choose your platform to get the latest release",
+    "title": "ایپ ڈاؤن لوڈ کریں",
+    "subtitle": "تازہ ترین ریلیز کے لیے اپنا پلیٹ فارم منتخب کریں",
     "download": "Download",
     "note": "Releases are auto-built via",
     "back": "Back to Home"

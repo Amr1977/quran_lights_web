@@ -22,6 +22,7 @@
     },
     "home": {
         "download": "Download App",
+        "goToDashboard": "Painel de controle",
         "title": "Gráficos e Painéis para suas Taxas Alcorânicas",
         "description": "Luzes do Alcorão permite que você acompanhe suas taxas de recitação e revisão periódica através de gráficos visuais"
     },
@@ -69,6 +70,12 @@
         "facebook": "Página do Facebook Luzes do Alcorão",
         "group": "Junte-se ao Grupo do Facebook Luzes do Alcorão",
         "suggestions": "Agradecemos suas sugestões nos comentários desta publicação"
+    },
+    "age": {
+        "title": "Quantos anos você tem na Terra?",
+        "label": "Digite sua data de nascimento:",
+        "backToHome": "Voltar ao início",
+        "goToDashboard": "Painel de controle"
     },
     "auth": {
         "loginTitle": "Entrar",
@@ -136,7 +143,8 @@
         "signOut": "Sair"
     }
 ,"downloads": {
-    "subtitle": "Choose your platform to get the latest release",
+    "title": "Baixe o Aplicativo",
+    "subtitle": "Escolha sua plataforma para a versão mais recente",
     "download": "Download",
     "note": "Releases are auto-built via",
     "back": "Back to Home"

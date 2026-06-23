@@ -24,6 +24,7 @@
     },
     "home": {
         "download": "Download App",
+        "goToDashboard": "Dashboard",
         "title": "Charts and Dashboards for Your Quranic Rates",
         "description": "Quran Lights enables you to track your recitation and periodic review rates through visual charts"
     },
@@ -71,6 +72,12 @@
         "facebook": "Quran Lights Facebook Page",
         "group": "Join Quran Lights Facebook Group",
         "suggestions": "We welcome your suggestions in the comments on this post"
+    },
+    "age": {
+        "title": "How old are you on Earth?",
+        "label": "Enter your birth date:",
+        "backToHome": "Back to Home",
+        "goToDashboard": "Dashboard"
     },
     "auth": {
         "loginTitle": "Sign In",
@@ -169,7 +176,8 @@
         "contactWhatsApp": "Contact via WhatsApp"
     }
 ,"downloads": {
-    "subtitle": "Choose your platform to get the latest release",
+    "title": "Download the App",
+    "subtitle": "Choose your platform for the latest release",
     "download": "Download",
     "note": "Releases are auto-built via",
     "back": "Back to Home"

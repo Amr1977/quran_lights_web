@@ -49,12 +49,19 @@ function initApp() {
 
   install_update_hook();
 
+  // Safety net: render cells from localStorage immediately even if
+  // the update_stamp listener never fires (e.g. RTDB offline on Android)
+  if (typeof initCells === "function") {
+    initCells();
+  }
 }
 
 function install_update_hook() {
   //install hook for update reference
+  var uid = (user && user.uid) || (firebase.auth().currentUser && firebase.auth().currentUser.uid);
+  if (!uid) return;
   var update_timestamp_ref = firebase.database()
-    .ref("users/" + user.uid + "/Master/update_stamp");
+    .ref("users/" + uid + "/Master/update_stamp");
   update_timestamp_ref.on("value", function (snapshot) {
     var updatedValue = snapshot.val();
     var indexOfTimeStamp = ownTimeStamps.indexOf(updatedValue);
@@ -70,5 +77,7 @@ function install_update_hook() {
     }
     timeStampTriggerTimerRef = setTimeout(onTimeStampUpdated, isFirstLoad == 1 ? 0 : 5000);
     isFirstLoad = 0;
+  }, function (error) {
+    console.log("update_stamp listener error (cells may still render from cache):", error);
   });
 }

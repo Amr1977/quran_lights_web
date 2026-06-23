@@ -22,6 +22,7 @@
     },
     "home": {
         "download": "Download App",
+        "goToDashboard": "Panel de control",
         "title": "Gráficos y Paneles para tus Tasas Coránicas",
         "description": "Luces del Corán te permite rastrear tus tasas de recitación y revisión periódica a través de gráficos visuales"
     },
@@ -69,6 +70,12 @@
         "facebook": "Página de Facebook de Luces del Corán",
         "group": "Únete al Grupo de Facebook de Luces del Corán",
         "suggestions": "Agradecemos tus sugerencias en los comentarios de esta publicación"
+    },
+    "age": {
+        "title": "¿Cuántos años tienes en la Tierra?",
+        "label": "Introduce tu fecha de nacimiento:",
+        "backToHome": "Volver al inicio",
+        "goToDashboard": "Panel de control"
     },
     "auth": {
         "loginTitle": "Iniciar Sesión",
@@ -136,7 +143,8 @@
         "signOut": "Cerrar Sesión"
     }
 ,"downloads": {
-    "subtitle": "Choose your platform to get the latest release",
+    "title": "Descarga la App",
+    "subtitle": "Elige tu plataforma para la última versión",
     "download": "Download",
     "note": "Releases are auto-built via",
     "back": "Back to Home"
