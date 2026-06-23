@@ -96,10 +96,26 @@ function click_light_cells_tab() {
   var cellsElement = document.getElementById("light_cells");
   if (cellsElement) {
     cellsElement.style.display = "block";
+    cellsElement.classList.add("active");
   }
   var buttonElement = document.getElementById("light_cells_button");
   if (buttonElement) {
     buttonElement.className += " active";
+  }
+
+  toggleCellsPadding();
+}
+
+function toggleCellsPadding() {
+  var isCells = document.getElementById("light_cells") &&
+    document.getElementById("light_cells").style.display !== "none";
+  var contentWrapper = document.querySelector(".content-wrapper");
+  if (contentWrapper) {
+    contentWrapper.classList.toggle("content-wrapper--no-pad", isCells);
+  }
+  var mainContent = document.querySelector(".main-content");
+  if (mainContent) {
+    mainContent.classList.toggle("main-content--no-pad", isCells);
   }
 }
 
