@@ -146,6 +146,17 @@
             view.style.display = 'none';
         });
 
+        // Toggle padding-free mode for light cells view
+        var isCells = viewId === 'light_cells';
+        var contentWrapper = document.querySelector('.content-wrapper');
+        if (contentWrapper) {
+            contentWrapper.classList.toggle('content-wrapper--no-pad', isCells);
+        }
+        var mainContent = document.querySelector('.main-content');
+        if (mainContent) {
+            mainContent.classList.toggle('main-content--no-pad', isCells);
+        }
+
         // Show selected view
         const targetView = document.getElementById(viewId);
         if (targetView) {

@@ -378,6 +378,14 @@
     box-sizing: border-box;
 }
 
+/* Padding-free mode for full-width views like light cells */
+.main-content--no-pad {
+    padding: 0 !important;
+}
+.content-wrapper--no-pad {
+    padding: 0 !important;
+}
+
 /* View Content (replaces tabcontent) */
 .view-content {
     display: none;
