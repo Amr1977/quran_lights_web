@@ -34,13 +34,17 @@ function initApp() {
     }
   });
 
-  Highcharts.setOptions({
-    chart: {
-      style: {
-        fontFamily: 'tahoma'
+  try {
+    Highcharts.setOptions({
+      chart: {
+        style: {
+          fontFamily: 'tahoma'
+        }
       }
-    }
-  });
+    });
+  } catch (e) {
+    console.log("Highcharts not available (cells will still render):", e);
+  }
 
   skew();
   dispatch_uploads();

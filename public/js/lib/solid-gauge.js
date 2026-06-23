@@ -1,90 +1,17 @@
-<!DOCTYPE html>
-<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en-US"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en-US"> <!--<![endif]-->
-<head>
-<title>Attention Required! | Cloudflare</title>
-<meta charset="UTF-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<meta name="robots" content="noindex, nofollow" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="stylesheet" id="cf_styles-css" href="/cdn-cgi/styles/cf.errors.css" />
-<!--[if lt IE 9]><link rel="stylesheet" id='cf_styles-ie-css' href="/cdn-cgi/styles/cf.errors.ie.css" /><![endif]-->
-<style>body{margin:0;padding:0}</style>
+/*
+ Highcharts JS v8.0.0 (2019-12-10)
 
+ Solid angular gauge module
 
-<!--[if gte IE 10]><!-->
-<script>
-  if (!navigator.cookieEnabled) {
-    window.addEventListener('DOMContentLoaded', function () {
-      var cookieEl = document.getElementById('cookie-alert');
-      cookieEl.style.display = 'block';
-    })
-  }
-</script>
-<!--<![endif]-->
+ (c) 2010-2019 Torstein Honsi
 
-</head>
-<body>
-  <div id="cf-wrapper">
-    <div class="cf-alert cf-alert-error cf-cookie-error" id="cookie-alert" data-translate="enable_cookies">Please enable cookies.</div>
-    <div id="cf-error-details" class="cf-error-details-wrapper">
-      <div class="cf-wrapper cf-header cf-error-overview">
-        <h1 data-translate="block_headline">Sorry, you have been blocked</h1>
-        <h2 class="cf-subheadline"><span data-translate="unable_to_access">You are unable to access</span> highcharts.com</h2>
-      </div><!-- /.header -->
-
-      <div class="cf-section cf-highlight">
-        <div class="cf-wrapper">
-          <div class="cf-screenshot-container cf-screenshot-full">
-            
-              <span class="cf-no-screenshot error"></span>
-            
-          </div>
-        </div>
-      </div><!-- /.captcha-container -->
-
-      <div class="cf-section cf-wrapper">
-        <div class="cf-columns two">
-          <div class="cf-column">
-            <h2 data-translate="blocked_why_headline">Why have I been blocked?</h2>
-
-            <p data-translate="blocked_why_detail">This website is using a security service to protect itself from online attacks. The action you just performed triggered the security solution. There are several actions that could trigger this block including submitting a certain word or phrase, a SQL command or malformed data.</p>
-          </div>
-
-          <div class="cf-column">
-            <h2 data-translate="blocked_resolve_headline">What can I do to resolve this?</h2>
-
-            <p data-translate="blocked_resolve_detail">You can email the site owner to let them know you were blocked. Please include what you were doing when this page came up and the Cloudflare Ray ID found at the bottom of this page.</p>
-          </div>
-        </div>
-      </div><!-- /.section -->
-
-      <div class="cf-error-footer cf-wrapper w-240 lg:w-full py-10 sm:py-4 sm:px-8 mx-auto text-center sm:text-left border-solid border-0 border-t border-gray-300">
-    <p class="text-13">
-      <span class="cf-footer-item sm:block sm:mb-1">Cloudflare Ray ID: <strong class="font-semibold">9ebd3daabdcedf81</strong></span>
-      <span class="cf-footer-separator sm:hidden">&bull;</span>
-      <span id="cf-footer-item-ip" class="cf-footer-item hidden sm:block sm:mb-1">
-        Your IP:
-        <button type="button" id="cf-footer-ip-reveal" class="cf-footer-ip-reveal-btn">Click to reveal</button>
-        <span class="hidden" id="cf-footer-ip">41.42.236.135</span>
-        <span class="cf-footer-separator sm:hidden">&bull;</span>
-      </span>
-      <span class="cf-footer-item sm:block sm:mb-1"><span>Performance &amp; security by</span> <a rel="noopener noreferrer" href="https://www.cloudflare.com/5xx-error-landing" id="brand_link" target="_blank">Cloudflare</a></span>
-      
-    </p>
-    <script>(function(){function d(){var b=a.getElementById("cf-footer-item-ip"),c=a.getElementById("cf-footer-ip-reveal");b&&"classList"in b&&(b.classList.remove("hidden"),c.addEventListener("click",function(){c.classList.add("hidden");a.getElementById("cf-footer-ip").classList.remove("hidden")}))}var a=document;document.addEventListener&&a.addEventListener("DOMContentLoaded",d)})();</script>
-  </div><!-- /.error-footer -->
-
-    </div><!-- /#cf-error-details -->
-  </div><!-- /#cf-wrapper -->
-
-  <script>
-    window._cf_translation = {};
-    
-    
-  </script>
-</body>
-</html>
+ License: www.highcharts.com/license
+*/
+(function(b){"object"===typeof module&&module.exports?(b["default"]=b,module.exports=b):"function"===typeof define&&define.amd?define("highcharts/modules/solid-gauge",["highcharts","highcharts/highcharts-more"],function(k){b(k);b.Highcharts=k;return b}):b("undefined"!==typeof Highcharts?Highcharts:void 0)})(function(b){function k(b,e,k,t){b.hasOwnProperty(e)||(b[e]=t.apply(null,k))}b=b?b._modules:{};k(b,"modules/solid-gauge.src.js",[b["parts/Globals.js"],b["parts/Utilities.js"]],function(b,e){var k=
+e.clamp,t=e.extend,v=e.isNumber,u=e.pick,w=e.pInt;e=e.wrap;e(b.Renderer.prototype.symbols,"arc",function(a,b,f,d,g,c){a=a(b,f,d,g,c);c.rounded&&(d=((c.r||d)-c.innerR)/2,c=["A",d,d,0,1,1,a[12],a[13]],a.splice.apply(a,[a.length-1,0].concat(["A",d,d,0,1,1,a[1],a[2]])),a.splice.apply(a,[11,3].concat(c)));return a});var x={initDataClasses:function(a){var m=this.chart,f,d=0,g=this.options;this.dataClasses=f=[];a.dataClasses.forEach(function(c,h){c=b.merge(c);f.push(c);c.color||("category"===g.dataClassColor?
+(h=m.options.colors,c.color=h[d++],d===h.length&&(d=0)):c.color=b.color(g.minColor).tweenTo(b.color(g.maxColor),h/(a.dataClasses.length-1)))})},initStops:function(a){this.stops=a.stops||[[0,this.options.minColor],[1,this.options.maxColor]];this.stops.forEach(function(a){a.color=b.color(a[1])})},toColor:function(a,b){var f=this.stops,d=this.dataClasses,g;if(d)for(g=d.length;g--;){var c=d[g];var h=c.from;f=c.to;if(("undefined"===typeof h||a>=h)&&("undefined"===typeof f||a<=f)){var m=c.color;b&&(b.dataClass=
+g);break}}else{this.isLog&&(a=this.val2lin(a));a=1-(this.max-a)/(this.max-this.min);for(g=f.length;g--&&!(a>f[g][0]););h=f[g]||f[g+1];f=f[g+1]||h;a=1-(f[0]-a)/(f[0]-h[0]||1);m=h.color.tweenTo(f.color,a)}return m}};b.seriesType("solidgauge","gauge",{colorByPoint:!0,dataLabels:{y:0}},{drawLegendSymbol:b.LegendSymbolMixin.drawRectangle,translate:function(){var a=this.yAxis;t(a,x);!a.dataClasses&&a.options.dataClasses&&a.initDataClasses(a.options);a.initStops(a.options);b.seriesTypes.gauge.prototype.translate.call(this)},
+drawPoints:function(){var a=this,b=a.yAxis,f=b.center,d=a.options,g=a.chart.renderer,c=d.overshoot,h=v(c)?c/180*Math.PI:0,e;v(d.threshold)&&(e=b.startAngleRad+b.translate(d.threshold,null,null,null,!0));this.thresholdAngleRad=u(e,b.startAngleRad);a.points.forEach(function(c){if(!c.isNull){var e=c.graphic,l=b.startAngleRad+b.translate(c.y,null,null,null,!0),r=w(u(c.options.radius,d.radius,100))*f[2]/200,n=w(u(c.options.innerRadius,d.innerRadius,60))*f[2]/200,p=b.toColor(c.y,c),q=Math.min(b.startAngleRad,
+b.endAngleRad),m=Math.max(b.startAngleRad,b.endAngleRad);"none"===p&&(p=c.color||a.color||"none");"none"!==p&&(c.color=p);l=k(l,q-h,m+h);!1===d.wrap&&(l=k(l,q,m));q=Math.min(l,a.thresholdAngleRad);l=Math.max(l,a.thresholdAngleRad);l-q>2*Math.PI&&(l=q+2*Math.PI);c.shapeArgs=n={x:f[0],y:f[1],r:r,innerR:n,start:q,end:l,rounded:d.rounded};c.startR=r;e?(r=n.d,e.animate(t({fill:p},n)),r&&(n.d=r)):c.graphic=e=g.arc(n).attr({fill:p,"sweep-flag":0}).add(a.group);a.chart.styledMode||("square"!==d.linecap&&
+e.attr({"stroke-linecap":"round","stroke-linejoin":"round"}),e.attr({stroke:d.borderColor||"none","stroke-width":d.borderWidth||0}));e&&e.addClass(c.getClassName(),!0)}})},animate:function(a){a||(this.startAngleRad=this.thresholdAngleRad,b.seriesTypes.pie.prototype.animate.call(this,a))}});""});k(b,"masters/modules/solid-gauge.src.js",[],function(){})});
+//# sourceMappingURL=solid-gauge.js.map
