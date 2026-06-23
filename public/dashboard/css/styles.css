@@ -560,10 +560,6 @@ button:focus {
    ============================================ */
 
 @media screen and (max-width: 480px) {
-    .content-wrapper {
-        padding: 10px;
-    }
-
     #daily-score-container {
         margin: 5px !important;
     }

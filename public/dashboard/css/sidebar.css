@@ -317,7 +317,7 @@
     flex: 1;
     margin-left: 280px;
     margin-top: 60px;
-    padding: 20px;
+    padding: 0;
     transition: margin-left 0.3s ease;
     background: url('../images/background.jpg');
     background-size: cover;
@@ -371,19 +371,11 @@
 .content-wrapper {
     background: rgba(50, 50, 52, 0.95);
     border-radius: 8px;
-    padding: 20px;
+    padding: 0;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     min-height: calc(100vh - 140px);
     width: 100%;
     box-sizing: border-box;
-}
-
-/* Padding-free mode for full-width views like light cells */
-.main-content--no-pad {
-    padding: 0 !important;
-}
-.content-wrapper--no-pad {
-    padding: 0 !important;
 }
 
 /* View Content (replaces tabcontent) */
