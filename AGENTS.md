@@ -108,7 +108,7 @@ npx cucumber-js
 A systemd-triggered watchdog monitors server health every 5 minutes at `/usr/local/bin/vps-watchdog`:
 - **System resources**: alerts if memory >90%, disk >85%
 - **Services**: checks nginx is active, PM2 processes aren't errored/stopped
-- **API endpoints**: pings `https://api.et3am.com/api/health`, `https://api.matrix-delivery.com/api/health`, `https://market-api.et3am.com/api/health`, `http://localhost:3001/health` (hafsa)
+- **API endpoints**: pings `https://api.et3am.com/api/health`, `https://api.matrix-delivery.com/api/health`, `https://market-api.et3am.com/api/health`, `https://commerce-api.et3am.com/api/health`, `http://localhost:3001/health` (hafsa)
 - **Network**: pings 8.8.8.8 for external connectivity
 - **Auto-recovery**: restarts nginx and PM2 processes if down
 - **Alerts**: sent via Telegram bot to configured chat ID

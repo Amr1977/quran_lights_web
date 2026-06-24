@@ -118,6 +118,7 @@ fi
 check "et3am API" "curl -sf --max-time 10 https://api.et3am.com/api/health" || recover "et3am API" "systemctl restart nginx; pm2 restart et3am-backend"
 check "matrix-delivery API" "curl -sf --max-time 10 https://api.matrix-delivery.com/api/health" || recover "matrix-delivery API" "systemctl restart nginx; pm2 restart matrix-delivery-backend"
 check "market API" "curl -sf --max-time 10 https://market-api.et3am.com/api/health" || recover "market API" "systemctl restart nginx; pm2 restart smartmart-backend"
+check "commerce API" "curl -sf --max-time 10 https://commerce-api.et3am.com/api/health" || recover "commerce API" "systemctl restart nginx; pm2 restart commerce-backend"
 check "hafsa API" "curl -sf --max-time 5 http://localhost:3001/health" || recover "hafsa API" "pm2 restart hafsa-backend"
 
 # 5. Frontend health checks
