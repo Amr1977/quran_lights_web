@@ -103,6 +103,29 @@ npx playwright test --config tests/playwright.config.ts
 npx cucumber-js
 ```
 
+## VPS Watchdog
+
+A systemd-triggered watchdog monitors server health every 5 minutes at `/usr/local/bin/vps-watchdog`:
+- **System resources**: alerts if memory >90%, disk >85%
+- **Services**: checks nginx is active, PM2 processes aren't errored/stopped
+- **API endpoints**: pings `https://api.et3am.com/api/health`
+- **Network**: pings 8.8.8.8 for external connectivity
+- **Auto-recovery**: restarts nginx and PM2 processes if down
+- **Alerts**: sent via Telegram bot to configured chat ID
+
+Restart the timer if needed:
+```bash
+sudo systemctl restart vps-watchdog.timer
+```
+
+View logs:
+```bash
+tail -f /var/log/watchdog.log
+```
+
+### Config
+`/etc/watchdog/config` — Telegram bot token, chat ID, reboot toggle.
+
 ## Deployment
 ```bash
 # Auto-bump version and deploy (recommended)
