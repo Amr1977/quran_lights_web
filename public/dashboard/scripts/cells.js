@@ -227,8 +227,12 @@ async function add_sura_cells() {
       element.appendChild(daysElapsedElement);
     }
 
-    Array.from(element.children).forEach((child)=> {
-      $(child).addClass("noselect");
+    Array.from(element.children).forEach(function (child) {
+      if (typeof jQuery !== "undefined") {
+        $(child).addClass("noselect");
+      } else {
+        child.classList.add("noselect");
+      }
     })
   
     element.onclick = function(event) {
@@ -323,7 +327,14 @@ async function add_sura_cells() {
     document.getElementById("reviews").appendChild(element);
   }
   buildingSurasFlag = false;
-  $("#reviews").addClass("animated bounce");
+  var reviewsEl = document.getElementById("reviews");
+  if (reviewsEl) {
+    if (typeof jQuery !== "undefined") {
+      $(reviewsEl).addClass("animated bounce");
+    } else {
+      reviewsEl.classList.add("animated", "bounce");
+    }
+  }
   setup_reverse_sort_order_checkbox();
   setup_light_days_options();
   setup_memorized_light_days_options();
@@ -353,7 +364,14 @@ function do_double_click(index){
   }
   
   var timeStamp = Math.floor(Date.now() / 1000);
-  $(".sura-" + index).addClass("animated bounceIn");
+  var el = document.querySelector(".sura-" + index);
+  if (el) {
+    if (typeof jQuery !== "undefined") {
+      $(el).addClass("animated bounceIn");
+    } else {
+      el.classList.add("animated", "bounceIn");
+    }
+  }
   refreshSura(index, timeStamp);
 }
 
@@ -367,7 +385,14 @@ function do_click() {
   }
 
   if (event.alt_pressed) {
-    $(".sura-" + event.index).addClass("animated bounceIn");
+    var el = document.querySelector(".sura-" + event.index);
+    if (el) {
+      if (typeof jQuery !== "undefined") {
+        $(el).addClass("animated bounceIn");
+      } else {
+        el.classList.add("animated", "bounceIn");
+      }
+    }
     toggle_memorization(event.index);
   } else if(event.shift_pressed) {
     open_ayat_for_sura(event.index);

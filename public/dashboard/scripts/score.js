@@ -72,8 +72,13 @@ function getScore() {
   }
 
   async function animate_score() {
-    document.getElementById("today_score").className = "score";
-    //TODO test it!
-    //document.getElementById("today_score").className = "score animated bounceIn";
-    $("#today_score").addClass("animated bounceIn");
+    var el = document.getElementById("today_score");
+    if (el) {
+      el.className = "score";
+      if (typeof jQuery !== "undefined") {
+        $(el).addClass("animated bounceIn");
+      } else {
+        el.classList.add("animated", "bounceIn");
+      }
+    }
   }

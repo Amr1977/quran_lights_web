@@ -204,11 +204,16 @@ function clear_local_storage(){
 }
 
 function add_tooltip(element, tooltip) {
-  $(element).hover(function () {
-    $(this).css('cursor', 'pointer').attr('title', tooltip);
-  }, function () {
-    $(this).css('cursor', 'auto');
-  });
+  if (typeof jQuery !== "undefined") {
+    $(element).hover(function () {
+      $(this).css('cursor', 'pointer').attr('title', tooltip);
+    }, function () {
+      $(this).css('cursor', 'auto');
+    });
+  } else {
+    element.title = tooltip;
+    element.style.cursor = 'pointer';
+  }
 }
 
 function format_readable_number(some_number){

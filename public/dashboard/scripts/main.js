@@ -40,7 +40,14 @@ function unrefresh(sura_index){
 
 //TODO animate ony after score change
 function animate_score_elements(){
-  $(".score").addClass("animated bounceIn");
+  if (typeof jQuery !== "undefined") {
+    $(".score").addClass("animated bounceIn");
+  } else {
+    var els = document.querySelectorAll(".score");
+    for (var i = 0; i < els.length; i++) {
+      els[i].classList.add("animated", "bounceIn");
+    }
+  }
 }
 
 function refreshByName(suraName) {
