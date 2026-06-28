@@ -75,6 +75,7 @@ var SCRIPTS_DASHBOARD = [
   '/dashboard/scripts/cells.js',
   '/dashboard/scripts/charts.js',
   '/dashboard/scripts/radar.js',
+  '/dashboard/scripts/profile.js',
   '/dashboard/scripts/sidebar.js',
   '/js/streakUtils.js',
   '/dashboard/scripts/streakWidget.js',

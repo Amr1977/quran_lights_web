@@ -588,11 +588,67 @@
                         <br>
                     </div> <!-- settings tab/-->
 
-                    <!-- Profile Tab (Placeholder) -->
+                    <!-- Profile Tab -->
                     <div id="profile_tab" class="view-content">
-                        <h2>Profile</h2>
-                        <p>Profile page coming soon...</p>
-                        <p id="user-email-display"></p>
+                        <div id="profile-container">
+                            <!-- Avatar Section -->
+                            <div class="profile-card">
+                                <div class="profile-card-header">
+                                    <span class="profile-card-icon">👤</span>
+                                    <span data-i18n="profile.avatar">الصورة الشخصية</span>
+                                </div>
+                                <div class="profile-avatar-section">
+                                    <div class="profile-avatar-wrapper">
+                                        <img id="profile-avatar-img" src="" alt="Avatar" class="profile-avatar">
+                                        <div id="profile-avatar-initials" class="profile-avatar-initials"></div>
+                                    </div>
+                                    <div class="profile-avatar-actions">
+                                        <input type="file" id="profile-avatar-input" accept="image/*" style="display:none">
+                                        <button id="profile-upload-btn" class="ie-btn ie-btn-export">
+                                            <span>📤</span>
+                                            <span data-i18n="profile.uploadAvatar">رفع صورة</span>
+                                        </button>
+                                        <button id="profile-remove-btn" class="ie-btn ie-btn-import" style="display:none">
+                                            <span>🗑️</span>
+                                            <span data-i18n="profile.removeAvatar">حذف الصورة</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Account Info Section -->
+                            <div class="profile-card">
+                                <div class="profile-card-header">
+                                    <span class="profile-card-icon">ℹ️</span>
+                                    <span data-i18n="profile.info">معلومات الحساب</span>
+                                </div>
+                                <div class="profile-info-section">
+                                    <div class="profile-field">
+                                        <label data-i18n="profile.displayName">الاسم</label>
+                                        <input type="text" id="profile-display-name" class="profile-input"
+                                            data-i18n-attr="placeholder"
+                                            placeholder="profile.displayNamePlaceholder">
+                                    </div>
+                                    <div class="profile-field">
+                                        <label data-i18n="profile.email">البريد الإلكتروني</label>
+                                        <div class="profile-email-row">
+                                            <span id="profile-email" class="profile-email-text"></span>
+                                            <span id="profile-email-badge" class="profile-badge profile-badge-verified"></span>
+                                        </div>
+                                    </div>
+                                    <div class="profile-field">
+                                        <label data-i18n="profile.memberSince">عضو منذ</label>
+                                        <span id="profile-member-since" class="profile-field-value"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Save Button -->
+                            <button id="profile-save-btn" class="ie-btn ie-btn-export profile-save-btn">
+                                <span>💾</span>
+                                <span data-i18n="profile.save">حفظ التغييرات</span>
+                            </button>
+                        </div>
                     </div>
 
                     <div id="controls_tab" class="view-content">
@@ -631,6 +687,8 @@
     </div>
     <div id="snackbar"></div>
 
+        <!-- Profile Script -->
+        <script src="dashboard/scripts/profile.js?v=1782678788"></script>
         <!-- Sidebar Navigation Script -->
         <script src="dashboard/scripts/sidebar.js?v=1782678788"></script>
         <!-- ── ADD THIS ── -->

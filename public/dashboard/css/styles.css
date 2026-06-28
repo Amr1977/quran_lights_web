@@ -559,6 +559,199 @@ button:focus {
    MOBILE RESPONSIVENESS — Dashboard Content
    ============================================ */
 
+/* ── Profile Page ── */
+#profile_tab {
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 24px 20px;
+}
+
+#profile-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.profile-card {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    padding: 20px;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.profile-card:hover {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(255, 255, 255, 0.18);
+}
+
+.profile-card-header {
+    font-size: 15px;
+    font-weight: 600;
+    color: #e2e8f0;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.profile-card-icon {
+    font-size: 20px;
+}
+
+.profile-avatar-section {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.profile-avatar-wrapper {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.profile-avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(255, 255, 255, 0.15);
+    display: none;
+}
+
+.profile-avatar-initials {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    font-weight: 700;
+    color: #fff;
+    border: 3px solid rgba(255, 255, 255, 0.15);
+}
+
+.profile-avatar-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.profile-info-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.profile-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.profile-field label {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.profile-input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #e2e8f0;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+
+.profile-input:focus {
+    border-color: #667eea;
+}
+
+.profile-email-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-email-text {
+    font-size: 14px;
+    color: #e2e8f0;
+}
+
+.profile-badge {
+    font-size: 11px;
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+.profile-badge-verified {
+    background: rgba(22, 163, 74, 0.2);
+    color: #4ade80;
+    border: 1px solid rgba(22, 163, 74, 0.3);
+}
+
+.profile-badge-unverified {
+    background: rgba(234, 179, 8, 0.15);
+    color: #facc15;
+    border: 1px solid rgba(234, 179, 8, 0.3);
+}
+
+.profile-field-value {
+    font-size: 14px;
+    color: #e2e8f0;
+}
+
+.profile-save-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 20px;
+    font-size: 15px;
+}
+
+[dir="rtl"] .profile-avatar-section {
+    flex-direction: row;
+}
+
+[dir="rtl"] .profile-email-row {
+    flex-direction: row;
+}
+
+@media screen and (max-width: 480px) {
+    #profile_tab {
+        padding: 16px 12px;
+    }
+
+    .profile-card {
+        padding: 16px;
+    }
+
+    .profile-avatar-section {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .profile-avatar-actions {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .profile-save-btn {
+        width: 100%;
+    }
+}
+
 @media screen and (max-width: 480px) {
     #daily-score-container {
         margin: 5px !important;

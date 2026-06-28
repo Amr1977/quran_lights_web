@@ -320,6 +320,12 @@
                     drawStreakLineChart();
                 }
                 break;
+
+            case 'profile_tab':
+                if (typeof initProfile === 'function') {
+                    initProfile();
+                }
+                break;
         }
     }
 
