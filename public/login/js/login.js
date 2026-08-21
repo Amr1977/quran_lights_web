@@ -144,21 +144,32 @@ function signInWithOAuth(signInProvider) {
     .auth()
     .signInWithPopup(provider)
     .then(function(result) {
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      var token = result.credential.accessToken;
       // The signed-in user info.
-      user = result.user;
-      // ...
+      var user = result && result.user;
+      if (user) {
+        localStorage.setItem("user", JSON.stringify(user));
+        window.location.href = "dashboard.html";
+      }
     })
     .catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // The email of the user's account used.
-      var email = error.email;
-      // The firebase.auth.AuthCredential type that was used.
-      var credential = error.credential;
-      // ...
+      // Surface the failure so it isn't silently swallowed.
+      console.error("OAuth sign-in failed:", error);
+      var errorCode = error && error.code;
+
+      // User dismissed the popup - not a real error.
+      if (errorCode === "auth/popup-closed-by-user" ||
+          errorCode === "auth/cancelled-popup-request") {
+        return;
+      }
+
+      // Popup couldn't open (blocked) or unsupported environment -> fall back to redirect.
+      if (errorCode === "auth/popup-blocked" ||
+          errorCode === "auth/operation-not-supported-in-this-environment") {
+        firebase.auth().signInWithRedirect(provider);
+        return;
+      }
+
+      alert((error && error.message) ? error.message : "Sign-in failed. Please try again.");
     });
 }
 

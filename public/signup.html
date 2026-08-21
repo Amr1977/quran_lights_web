@@ -111,6 +111,12 @@
     <script src="js/version.js?v=1787312648"></script>
     <script>
         document.getElementById('appVersion').textContent = 'v' + window.APP_VERSION;
+
+        // Handle OAuth redirect result (e.g. Google Sign-In on mobile WebView)
+        if (typeof handleRedirectResult === "function") {
+            handleRedirectResult();
+        }
+
         (function() {
             var dropdown = document.getElementById('langDropdown');
             var menu = document.getElementById('langMenu');
