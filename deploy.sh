@@ -22,6 +22,14 @@ find public -name '*.html' -exec sed -i "s/v[0-9]\+\.[0-9]\+\.[0-9]\+/v$NEW_VERS
 TS=$(date +%s)
 find public -name '*.html' -exec sed -i "s/v=[0-9]\+/v=$TS/g" {} +
 
+# Bump the service worker cache so old cached HTML pages are invalidated.
+# Without this, the SW keeps serving stale pages cache-first forever.
+SW_OLD=$(grep -o "quran-lights-v[0-9]\+" public/sw.js | head -1)
+SW_NUM=$(echo "$SW_OLD" | grep -o "[0-9]\+$")
+SW_NEW="quran-lights-$((SW_NUM + 1))"
+sed -i "s/$SW_OLD/$SW_NEW/g" public/sw.js
+echo "Bumped service worker cache: $SW_OLD -> $SW_NEW"
+
 # Commit
 git add -A
 git commit -m "chore: bump version to $NEW_VERSION"
