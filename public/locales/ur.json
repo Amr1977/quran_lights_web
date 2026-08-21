@@ -148,5 +148,12 @@
     "download": "Download",
     "note": "Releases are auto-built via",
     "back": "Back to Home"
-}
+  },
+  "update": {
+    "title": "اپڈیٹ دستیاب ہے",
+    "message": "ورژن {0} ڈاؤن لوڈ کے لیے دستیاب ہے",
+    "download": "ڈاؤن لوڈ",
+    "later": "بعد میں",
+    "installing": "ڈاؤن لوڈ ہو رہا ہے..."
+  }
 }

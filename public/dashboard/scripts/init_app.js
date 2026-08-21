@@ -50,6 +50,10 @@ function initApp() {
   document.title = "Quran Lights";
   show_sign_in_only_elements();
 
+  if (typeof checkForAppUpdate === 'function') {
+    checkForAppUpdate();
+  }
+
   // Periodic retry for upload queue (handles cases where online event
   // doesn't fire reliably, e.g. Android WebView / Capacitor)
   setInterval(function () {

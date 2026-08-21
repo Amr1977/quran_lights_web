@@ -37,6 +37,14 @@ jobs:
       - name: Sync web assets to Android
         run: npx cap sync android
 
+      - name: Update Android version from VERSION file
+        run: |
+          VERSION=$(cat public/VERSION 2>/dev/null || echo '1.1.6')
+          VERSION_CODE=$(echo "$VERSION" | awk -F. '{print $3}')
+          sed -i "s/versionCode [0-9]*/versionCode $VERSION_CODE/" android/app/build.gradle
+          sed -i "s/versionName \".*\"/versionName \"$VERSION\"/" android/app/build.gradle
+          echo "Updated build.gradle to versionCode=$VERSION_CODE versionName=$VERSION"
+
       - name: Replace CDN URLs with local paths for offline
         run: |
           ASSETS=android/app/src/main/assets/public

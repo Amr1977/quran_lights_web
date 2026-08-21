@@ -148,5 +148,12 @@
     "download": "Download",
     "note": "Releases are auto-built via",
     "back": "Back to Home"
-}
+  },
+  "update": {
+    "title": "Atualização Disponível",
+    "message": "A versão {0} está disponível para download",
+    "download": "Baixar",
+    "later": "Mais tarde",
+    "installing": "Baixando..."
+  }
 }

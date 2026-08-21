@@ -148,5 +148,12 @@
     "download": "Download",
     "note": "Releases are auto-built via",
     "back": "Back to Home"
-}
+  },
+  "update": {
+    "title": "アップデートが利用可能",
+    "message": "バージョン {0} をダウンロードできます",
+    "download": "ダウンロード",
+    "later": "後で",
+    "installing": "ダウンロード中..."
+  }
 }

@@ -1,6 +1,6 @@
 {
   "name": "quran-lights",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Quran Lights - Track your Quran recitation and memorization progress",
   "main": "electron/main.js",
   "scripts": {

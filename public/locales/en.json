@@ -198,11 +198,18 @@
         "platform": "Classes conducted via Google Meet",
         "contactWhatsApp": "Contact via WhatsApp"
     }
-,"downloads": {
+"downloads": {
     "title": "Download the App",
     "subtitle": "Choose your platform for the latest release",
     "download": "Download",
     "note": "Releases are auto-built via",
     "back": "Back to Home"
-}
+  },
+  "update": {
+    "title": "Update Available",
+    "message": "Version {0} is available for download",
+    "download": "Download",
+    "later": "Later",
+    "installing": "Downloading..."
+  }
 }
