@@ -65,6 +65,22 @@
     injectPulseKeyframes();
     createIndicator();
     update();
+
+    // Capacitor Network plugin (more reliable on Android than browser events)
+    if (window.Capacitor && Capacitor.Plugins && Capacitor.Plugins.Network) {
+      Capacitor.Plugins.Network.addListener('networkStatusChange', function (status) {
+        update();
+        if (status.connected && typeof dispatch_uploads === 'function') {
+          console.log('[Connectivity] Network connected (Capacitor) — flushing upload queue.');
+          dispatch_uploads();
+        }
+      });
+      // Get initial status
+      Capacitor.Plugins.Network.getStatus().then(function (status) {
+        update();
+      });
+    }
+
     window.addEventListener('online',  onOnline);
     window.addEventListener('offline', update);
   }

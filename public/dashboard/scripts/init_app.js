@@ -15,19 +15,18 @@ function initApp() {
   console.log("initApp invoked...");
 
   user = JSON.parse(localStorage.getItem("user"));
+  myUserId = (user && user.uid) || (firebase.auth().currentUser && firebase.auth().currentUser.uid);
 
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
-      // User is signed in.
       console.log("current logged in user uid: " + user.uid);
+      myUserId = user.uid;
       var currentUserElement = document.getElementById("current_user");
       if (currentUserElement) {
         currentUserElement.innerHTML = user.email;
       }
-      // Display user email in profile page if element exists
-      var userEmailDisplay = document.getElementById("user-email-display");
-      if (userEmailDisplay) {
-        userEmailDisplay.innerHTML = "Logged in as: " + user.email;
+      if (typeof dispatch_uploads === 'function') {
+        dispatch_uploads();
       }
     } else {
       window.location.href = "index.html";
@@ -50,6 +49,14 @@ function initApp() {
   dispatch_uploads();
   document.title = "Quran Lights";
   show_sign_in_only_elements();
+
+  // Periodic retry for upload queue (handles cases where online event
+  // doesn't fire reliably, e.g. Android WebView / Capacitor)
+  setInterval(function () {
+    if (typeof dispatch_uploads === 'function' && navigator.onLine) {
+      dispatch_uploads();
+    }
+  }, 30000);
 
   install_update_hook();
 
