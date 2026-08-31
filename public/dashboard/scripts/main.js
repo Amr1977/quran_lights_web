@@ -17,6 +17,7 @@ function refreshSura(suraIndex, refreshTimeStamp) {
 
   enqueue_for_upload(transaction_record);
   surasHistory[suraIndex].history.push(transaction_record.time);
+  set_local_storage_onject("surasHistory", surasHistory);
   sortedTimestampSuraArray = [];
   refreshCountSortedSuraArray = [];
   playSuraRefreshSound();
