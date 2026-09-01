@@ -13,6 +13,7 @@ function set_memorization(suraIndex, state) {
   enqueue_for_upload(transaction_record);
   // memorization should be array?
   surasHistory[suraIndex].memorization = state;
+  set_local_storage_object("surasHistory", surasHistory);
   sortedTimestampSuraArray = [];
   refreshCountSortedSuraArray = [];
   if (state == MEMORIZATION_STATE_MEMORIZED) {

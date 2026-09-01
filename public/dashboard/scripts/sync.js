@@ -188,22 +188,36 @@ function fetch_full_history_once() {
 
 //WIP
 function refresh_range(start_sura_index, start_verse, end_sura_index, end_verse, refresh_count, refresh_time_stamp){
-  var transaction_record = {
+  var range_transaction_record = {
     op: "refresh_range",
     start_sura: start_sura_index,
     start_verse: start_verse,
     end_sura: end_sura_index,
     end_verse: end_verse,
     count: refresh_count,
-    time: refreshTimeStamp
+    time: refresh_time_stamp
   };
 
-  var transactions_records = [];
-  transactions_records.push(transaction_record);
-  add_to_transactions_history(transactions_records);
+  var range_transactions_records = [];
+  range_transactions_records.push(range_transaction_record);
+  add_to_transactions_history(range_transactions_records);
 
-  enqueue_for_upload(transaction_record);
-  surasHistory[suraIndex].history.push(transaction_record.time);
+  for (var suraIndex = start_sura_index; suraIndex <= end_sura_index; suraIndex++) {
+    var per_sura_record = {
+      op: "refresh",
+      sura: suraIndex,
+      time: refresh_time_stamp
+    };
+
+    var per_sura_records = [];
+    per_sura_records.push(per_sura_record);
+    add_to_transactions_history(per_sura_records);
+
+    enqueue_for_upload(per_sura_record);
+    surasHistory[suraIndex].history.push(per_sura_record.time);
+  }
+
+  set_local_storage_object("surasHistory", surasHistory);
   sortedTimestampSuraArray = [];
   refreshCountSortedSuraArray = [];
   playSuraRefreshSound();
