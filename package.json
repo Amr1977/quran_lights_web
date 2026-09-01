@@ -1,12 +1,13 @@
 {
   "name": "quran-lights",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Quran Lights - Track your Quran recitation and memorization progress",
   "main": "electron/main.js",
   "scripts": {
     "test": "cucumber-js tests/features",
     "test:localization": "cucumber-js tests/features/localization.feature",
     "test:report": "cucumber-js tests/features --format html:tests/reports/cucumber-report.html",
+    "prepare": "git config core.hooksPath .githooks",
     "electron:start": "electron .",
     "electron:build": "electron-builder",
     "electron:build:win": "electron-builder --win",

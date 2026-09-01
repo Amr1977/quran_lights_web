@@ -1,22 +1,19 @@
 #!/bin/bash
-# Auto-increment patch version and deploy
+# Deploy script.
+# Versioning is owned by .githooks/post-commit -> scripts/version-bump.sh,
+# which writes public/VERSION, public/js/version.js (APP_VERSION), and
+# package.json. This script only handles cache-busting + SW bump + push + deploy.
 
 set -e
 
-# Read current version
 VERSION=$(cat public/VERSION | tr -d ' \n')
-IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
-NEW_PATCH=$((PATCH + 1))
-NEW_VERSION="${MAJOR}.${MINOR}.${NEW_PATCH}"
+echo "Deploying v$VERSION"
 
-echo "Bumping: $VERSION -> $NEW_VERSION"
-
-# Write new version
-echo -n "$NEW_VERSION" > public/VERSION
-echo "var APP_VERSION = \"$NEW_VERSION\";" > public/js/version.js
+# Ensure public/js/version.js mirrors public/VERSION (in case it was edited manually).
+echo "var APP_VERSION = \"$VERSION\";" > public/js/version.js
 
 # Update HTML files that have hardcoded version placeholders
-find public -name '*.html' -exec sed -i "s/v[0-9]\+\.[0-9]\+\.[0-9]\+/v$NEW_VERSION/g" {} +
+find public -name '*.html' -exec sed -i "s/v[0-9]\+\.[0-9]\+\.[0-9]\+/v$VERSION/g" {} +
 
 # Cache bust all static resources
 TS=$(date +%s)
@@ -30,12 +27,14 @@ SW_NEW="quran-lights-$((SW_NUM + 1))"
 sed -i "s/$SW_OLD/$SW_NEW/g" public/sw.js
 echo "Bumped service worker cache: $SW_OLD -> $SW_NEW"
 
-# Commit
+# Commit any of the above that changed
 git add -A
-git commit -m "chore: bump version to $NEW_VERSION"
+if ! git diff --cached --quiet; then
+  git commit -m "chore: deploy v$VERSION"
+fi
 
 # Push and deploy
 git push
 firebase deploy --project quran-lights
 
-echo "✔ Deployed v$NEW_VERSION"
+echo "✔ Deployed v$VERSION"

@@ -1,9 +1,10 @@
 #!/bin/bash
 # Auto-increment version based on conventional commit message
-# Reads VERSION file, parses last commit message, bumps accordingly
+# Reads public/VERSION (canonical), parses last commit message, bumps accordingly.
+# Also keeps package.json in sync.
 # Usage: scripts/version-bump.sh
 
-VERSION_FILE="VERSION"
+VERSION_FILE="public/VERSION"
 PACKAGE_JSON="package.json"
 
 if [ ! -f "$VERSION_FILE" ]; then
@@ -11,7 +12,8 @@ if [ ! -f "$VERSION_FILE" ]; then
   exit 1
 fi
 
-source "$VERSION_FILE"
+VERSION=$(cat "$VERSION_FILE" | tr -d ' \n')
+IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
 
 LAST_COMMIT=$(git log -1 --pretty=%B)
 
@@ -36,12 +38,10 @@ esac
 
 NEW_VERSION="$MAJOR.$MINOR.$PATCH"
 
-cat > "$VERSION_FILE" << EOF
-MAJOR=$MAJOR
-MINOR=$MINOR
-PATCH=$PATCH
-BUILD_DATE=$(date +%Y-%m-%d)
-EOF
+echo -n "$NEW_VERSION" > "$VERSION_FILE"
+
+# Mirror to public/js/version.js (APP_VERSION consumed by HTML/JS at runtime)
+echo "var APP_VERSION = \"$NEW_VERSION\";" > public/js/version.js
 
 if [ -f "$PACKAGE_JSON" ]; then
   if command -v jq &> /dev/null; then
