@@ -1,0 +1,71 @@
+Repo: quran_lights_web (Amr1977/quran_lights_web). Fix two confirmed bugs.
+
+## Bug 1 — Sura refresh not persisted offline
+
+File: public/dashboard/scripts/main.js, function refreshSura(suraIndex, refreshTimeStamp).
+
+Currently it updates the in-memory `surasHistory` object and calls
+`enqueue_for_upload(transaction_record)`, but never writes `surasHistory`
+back to localStorage. `set_local_storage_object("surasHistory", ...)` is
+only ever called from import_and_export.js and init_cells.js — never from
+the refresh path. Offline, `enqueue_for_upload` only queues the transaction
+for later cloud sync; it does not persist `surasHistory` itself. So after
+an offline refresh + app reload, init_cells.js loads the stale local
+snapshot from localStorage and the refresh appears lost.
+
+Fix: immediately after the line
+  surasHistory[suraIndex].history.push(transaction_record.time);
+add:
+  set_local_storage_object("surasHistory", surasHistory);
+
+Check whether any other mutation of `surasHistory` elsewhere in the
+dashboard scripts (cells.js, memorization.js, score.js, etc.) has the same
+gap — i.e. mutates the object but doesn't call set_local_storage_object
+right after — and apply the same fix pattern if found. Report any such
+spots before changing them.
+
+## Bug 2 — Two disconnected version files/mechanisms
+
+There are two separate versioning systems that have drifted apart:
+
+- Root /VERSION (MAJOR/MINOR/PATCH format) + package.json "version":
+  bumped by .githooks/post-commit -> scripts/version-bump.sh, based on
+  conventional-commit prefixes in the last commit message (feat=minor,
+  fix/docs/style/refactor/test/build/ci/revert=patch,
+  BREAKING CHANGE/!:=major). NOTE: nothing in the repo actually runs
+  `git config core.hooksPath .githooks`, so confirm whether this hook is
+  even active; if not, decide whether to wire it up or remove it.
+
+- public/VERSION (plain "X.Y.Z" string, no breakdown): bumped by
+  deploy.sh, always patch-only, on every deploy. This file also drives
+  public/js/version.js (APP_VERSION), cache-busts HTML asset query
+  params, bumps the service worker cache name in public/sw.js, and is
+  read by .github/workflows/build-apk.yml to set Android versionCode/
+  versionName and the GitHub release tag.
+
+  Currently: root VERSION = 1.3.2, public/VERSION = 1.1.17 — badly out of
+  sync, meaning the Android APK/release version has no relationship to
+  the semantic version implied by commit history.
+
+Fix: consolidate into a single source of truth.
+  1. Make public/VERSION the single canonical file (it's the one that
+     actually reaches the shipped app, service worker, and Android build).
+  2. Change scripts/version-bump.sh to read/write public/VERSION instead
+     of (or in addition to, if package.json's semver field is still
+     wanted for npm tooling) the root VERSION file, preserving its
+     conventional-commit-based major/minor/patch logic.
+  3. Change deploy.sh's bump step to reuse the same MAJOR.MINOR.PATCH
+     parsing/bump logic as version-bump.sh (or just drop deploy.sh's own
+     patch-only bump and rely on the post-commit hook's version, deploying
+     whatever public/VERSION currently holds).
+  4. Delete or repurpose the root VERSION file once public/VERSION is
+     canonical — don't leave two files that can drift again. Update
+     package.json's "version" field from the same canonical value.
+  5. Confirm the .githooks/post-commit hook is actually installed
+     (core.hooksPath) so this doesn't silently stop working again; if
+     it's not currently wired up, add a one-time setup step (e.g. in
+     package.json's "prepare" script) that runs
+     `git config core.hooksPath .githooks`.
+
+For both bugs: make minimal, targeted diffs. Don't refactor unrelated
+code. After each fix, show me the diff before committing.
