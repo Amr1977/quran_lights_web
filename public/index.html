@@ -78,11 +78,14 @@
 
 		// Load saved theme on page load
 		window.addEventListener('DOMContentLoaded', function () {
-			// Auto-redirect signed-in users to dashboard
-			if (localStorage.getItem("user")) {
-				window.location.href = "dashboard.html";
-				return;
-			}
+			// NOTE: we deliberately do NOT auto-redirect to dashboard.html here.
+			// localStorage.user is only a last-known-state hint for the nav bar
+			// (see adjust_nav_bar()); it is not an authoritative session check.
+			// dashboard.html's initApp() decides on Firebase's live
+			// onAuthStateChanged signal and will bounce a truly signed-out
+			// visitor back here — so letting the user click "dashboard" like
+			// any other nav link keeps the two pages on one signal and avoids
+			// the old index<->dashboard redirect loop.
 
 			const savedTheme = localStorage.getItem('theme') || 'dark';
 			document.documentElement.setAttribute('data-theme', savedTheme);

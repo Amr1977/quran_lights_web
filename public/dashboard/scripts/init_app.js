@@ -3,6 +3,48 @@
  *  - firebase.auth().onAuthStateChanged: This listener is called when the user is signed in or
  *    out, and that is where we update the UI.
  */
+// Defense-in-depth loop guard: if two auto-redirects between index.html and
+// dashboard.html happen within a few seconds of each other, stop and let the
+// page render normally instead of bouncing forever.
+var REDIRECT_GUARD_KEY = 'quran_lights_redirect_guard';
+var REDIRECT_GUARD_WINDOW_MS = 5000;
+
+function isRedirectLoop() {
+  try {
+    var raw = sessionStorage.getItem(REDIRECT_GUARD_KEY);
+    if (!raw) return false;
+    var hits = JSON.parse(raw);
+    var now = Date.now();
+    hits = hits.filter(function (h) { return now - h.t < REDIRECT_GUARD_WINDOW_MS; });
+    if (hits.length >= 2) {
+      // Loop detected: clear the stale flag and bail out.
+      sessionStorage.removeItem(REDIRECT_GUARD_KEY);
+      localStorage.removeItem("user");
+      return true;
+    }
+    return false;
+  } catch (e) {
+    return false;
+  }
+}
+
+function recordRedirect() {
+  try {
+    var raw = sessionStorage.getItem(REDIRECT_GUARD_KEY);
+    var hits = raw ? JSON.parse(raw) : [];
+    var now = Date.now();
+    hits = hits.filter(function (h) { return now - h.t < REDIRECT_GUARD_WINDOW_MS; });
+    hits.push({ t: now, to: window.location.href });
+    sessionStorage.setItem(REDIRECT_GUARD_KEY, JSON.stringify(hits));
+  } catch (e) { /* ignore */ }
+}
+
+function safeRedirect(url) {
+  if (isRedirectLoop()) return;
+  recordRedirect();
+  window.location.href = url;
+}
+
 function initApp() {
   // Listening for auth state changes.
   // [START authstatelistener]
@@ -29,7 +71,10 @@ function initApp() {
         dispatch_uploads();
       }
     } else {
-      window.location.href = "index.html";
+      // Clear the stale localStorage flag before redirecting so index.html
+      // won't see a phantom session and bounce us back here again.
+      localStorage.removeItem("user");
+      safeRedirect("index.html");
     }
   });
 
