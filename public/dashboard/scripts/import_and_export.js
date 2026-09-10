@@ -150,4 +150,5 @@ function merge_imported_suras_history(history){
 
   set_local_storage_object("surasHistory", surasHistory);
   enqueue_batch_for_upload(new_transactions);
+  if (typeof notifySuraRefreshed === 'function') notifySuraRefreshed();
 }

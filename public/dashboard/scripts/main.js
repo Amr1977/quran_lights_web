@@ -23,6 +23,7 @@ function refreshSura(suraIndex, refreshTimeStamp) {
   playSuraRefreshSound();
   add_sura_cells();
   animate_score_elements();
+  if (typeof notifySuraRefreshed === 'function') notifySuraRefreshed();
 }
 
 function unrefresh(sura_index){

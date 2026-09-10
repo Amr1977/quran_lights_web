@@ -20,8 +20,9 @@ function set_memorization(suraIndex, state) {
     playSuraRefreshSound();
     animate_sura_cell(suraIndex);
   }
-  
+
   add_sura_cells();
+  if (typeof notifySuraRefreshed === 'function') notifySuraRefreshed();
 }
 
 function animate_sura_cell(index) {

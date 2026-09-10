@@ -1,5 +1,24 @@
 var streakWidgetInitialized = false;
 
+// Notify listeners (e.g. the streak widget) that surasHistory changed. This is
+// the single event-driven update path; there is no recurring poll to fall
+// back on, so every mutator must fire it.
+function notifySuraRefreshed() {
+    try {
+        document.dispatchEvent(new CustomEvent('suraRefreshed', { bubbles: true }));
+    } catch (e) {
+        // Fallback for environments without CustomEvent (very old browsers)
+        var ev;
+        if (document.createEvent) {
+            ev = document.createEvent('Event');
+            ev.initEvent('suraRefreshed', true, true);
+        } else {
+            return;
+        }
+        document.dispatchEvent(ev);
+    }
+}
+
 function t(key) {
     if (window.i18n && window.i18n.translations && window.i18n.translations.dashboard) {
         return window.i18n.translations.dashboard[key] || key;
@@ -159,39 +178,32 @@ function getStreakColor(streak) {
 
 function initStreakWidget() {
     if (streakWidgetInitialized) return;
-    
-    var checkAndRender = function() {
-        if (typeof cleanupOldEntries === 'function') {
-            var cleaned = cleanupOldEntries();
-            if (cleaned > 0) {
-                console.log('[StreakWidget] Cleaned ' + cleaned + ' old entries from localStorage');
-            }
+    streakWidgetInitialized = true;
+
+    // One-time data-migration cleanup per app session. This used to run on
+    // a 5-second poll forever, doing a full read of the entire Firebase
+    // reviews node each tick purely to find stale entries — a one-time
+    // migration concern, not something that needs re-checking every 5s.
+    if (typeof cleanupOldEntries === 'function') {
+        var cleaned = cleanupOldEntries();
+        if (cleaned > 0) {
+            console.log('[StreakWidget] Cleaned ' + cleaned + ' old entries from localStorage');
         }
-        
-        if (typeof cleanupOldFirebaseEntries === 'function') {
-            cleanupOldFirebaseEntries(function(fbCleaned) {
-                if (fbCleaned > 0) {
-                    console.log('[StreakWidget] Cleaned ' + fbCleaned + ' old entries from Firebase');
-                }
-            });
-        }
-        
-        var surasHistory = get_local_storage_object("surasHistory");
-        
-        if (surasHistory && typeof calculateCurrentStreak === 'function') {
-            renderStreakWidget();
-        } else if (typeof calculateCurrentStreak === 'function') {
-            renderStreakWidget();
-        }
-        
-        streakWidgetInitialized = true;
-    };
-    
-    if (typeof get_local_storage_object === 'function') {
-        checkAndRender();
     }
-    
-    setInterval(checkAndRender, 5000);
+    if (typeof cleanupOldFirebaseEntries === 'function') {
+        cleanupOldFirebaseEntries(function(fbCleaned) {
+            if (fbCleaned > 0) {
+                console.log('[StreakWidget] Cleaned ' + fbCleaned + ' old entries from Firebase');
+            }
+        });
+    }
+
+    // Initial render. After this, the widget re-renders only on real
+    // state changes via the 'suraRefreshed'/'languageChanged' listeners —
+    // no recurring timer, no redundant Firebase reads.
+    if (typeof get_local_storage_object === 'function') {
+        renderStreakWidget();
+    }
 }
 
 if (document.readyState === 'loading') {
