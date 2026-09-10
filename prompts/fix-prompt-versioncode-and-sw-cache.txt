@@ -1,0 +1,110 @@
+Repo: quran_lights_web (Amr1977/quran_lights_web). Fix two confirmed bugs.
+Investigate and confirm each root cause yourself before changing anything —
+the analysis below is a starting point, not gospel. Make minimal, targeted
+diffs. Don't refactor unrelated code. Show me the diff before committing,
+for each bug separately.
+
+## Bug 1 — Invalid/rejected APK: versionCode derived from patch digit only
+
+File: .github/workflows/build-apk.yml, "Update Android version from VERSION
+file" step.
+
+Currently:
+  VERSION=$(cat public/VERSION 2>/dev/null || echo '1.1.6')
+  VERSION_CODE=$(echo "$VERSION" | awk -F. '{print $3}')
+
+This takes ONLY the patch component of MAJOR.MINOR.PATCH as the Android
+versionCode. Android requires versionCode to strictly increase on every
+release, or the install/upload is rejected as an invalid downgrade.
+
+This is already broken today: public/VERSION is "1.3.3" -> versionCode 3,
+but android/app/build.gradle's last committed value is versionCode 16 (from
+when public/VERSION was "1.1.16"). Going from 16 to 3 is exactly the kind
+of regression Android rejects. It's not a one-off: any x.y.0 release will
+produce versionCode 0 again in the future, since only the patch digit is
+used and it resets on every minor/major bump.
+
+Fix: replace the patch-only extraction with a monotonic encoding of the
+full MAJOR.MINOR.PATCH version, e.g.:
+
+  VERSION=$(cat public/VERSION 2>/dev/null || echo '1.1.6')
+  MAJOR=$(echo "$VERSION" | cut -d. -f1)
+  MINOR=$(echo "$VERSION" | cut -d. -f2)
+  PATCH=$(echo "$VERSION" | cut -d. -f3)
+  VERSION_CODE=$((MAJOR * 1000000 + MINOR * 1000 + PATCH))
+
+This guarantees versionCode increases whenever public/VERSION increases
+(under the existing bump logic in scripts/version-bump.sh, which only ever
+increases major/minor/patch), with plenty of headroom under Android's
+versionCode ceiling (2,100,000,000).
+
+Also add a safety check right after computing VERSION_CODE, before the sed
+that writes it into build.gradle: read the CURRENT versionCode already in
+android/app/build.gradle, and if the new computed value is not strictly
+greater, fail the workflow step with a clear error instead of silently
+producing a build that will be rejected downstream. This catches any future
+versioning mistake at CI time instead of at install/upload time.
+
+Apply the same VERSION_CODE computation consistently anywhere else in the
+repo that derives an Android/Play versionCode from public/VERSION (check
+build.ps1, build.bat, deploy.sh) so there's one formula, not several.
+
+## Bug 2 — Excessive internet usage: service worker + JS still hit CDNs
+
+Files: public/sw.js, public/dashboard/scripts/bugReport.js,
+public/dashboard/scripts/streakHistoryView.js, and
+.github/workflows/build-apk.yml.
+
+Root cause has several parts, please verify each independently:
+
+1. public/sw.js declares `var IS_CAPACITOR = typeof window.Capacitor !==
+   'undefined';` but never actually uses it. The install handler's
+   ALL_CACHED list unconditionally includes BOTH the CDN sets
+   (FIREBASE_SDK, CDN_SCRIPTS, CDN_STYLES — jQuery, Bootstrap, 10 Highcharts
+   files, the Firebase SDK, MDL/animate CSS, well over 1MB) AND the local
+   LOCAL_LIBS set. Since CACHE_NAME is meant to be bumped "on every deploy"
+   (per the file's own comment), this means the app re-downloads all of
+   that CDN weight on every cache-bust, duplicating what local files
+   already provide.
+
+2. LOCAL_LIBS references '/js/lib/highcharts.min.js', which does not exist
+   in public/js/lib — the actual committed file is 'highcharts.js'. Verify
+   the exact filenames on disk in public/js/lib and fix LOCAL_LIBS to match
+   exactly (bad path = cache.add() silently fails via the .catch() in the
+   install handler, so this bug produces no visible error, just a permanent
+   CDN fallback for that file).
+
+3. LOCAL_LIBS is missing most of what public/js/lib actually contains
+   (check the directory — as of now it includes exporting.js, data.js,
+   drilldown.js, heatmap.js, treemap.js, export-data.js, accessibility.js,
+   dark-unica.js, jspdf.umd.min.js, html2canvas.min.js,
+   material.orange-indigo.min.css, animate.min.css, solid-gauge.js,
+   bundle.js). Make LOCAL_LIBS a complete, accurate list of everything in
+   public/js/lib so nothing falls back to CDN for missing entries.
+
+4. bugReport.js and streakHistoryView.js dynamically inject
+   html2canvas.min.js from cdnjs.cloudflare.com at runtime (search each
+   file for the cdnjs URL) instead of using the already-bundled
+   js/lib/html2canvas.min.js. Change both to load the local copy first,
+   falling back to CDN only if the local file is genuinely unavailable
+   (e.g. on the plain web build where CDN was never swapped to local).
+
+5. Once IS_CAPACITOR is actually wired up: when true, sw.js's install step
+   should cache PAGES + STYLES_* + SCRIPTS_* + the corrected/complete
+   LOCAL_LIBS + IMAGES only — skip FIREBASE_SDK, CDN_SCRIPTS, and
+   CDN_STYLES entirely, since the packaged app never needs the CDN copies.
+   When false (web/PWA), keep current behavior.
+
+6. .github/workflows/build-apk.yml's "Replace CDN URLs with local paths for
+   offline" step only runs `find "$ASSETS" -name '*.html' -exec sed ...`.
+   Extend it (or add a parallel step) so the same CDN->local substitutions
+   also apply to *.js files under $ASSETS — specifically sw.js's
+   CDN_SCRIPTS/CDN_STYLES/FIREBASE_SDK arrays and the hardcoded cdnjs URL
+   in bugReport.js/streakHistoryView.js — so the shipped Android APK never
+   contains a live CDN reference anywhere, not just in HTML.
+
+For both bugs: after each fix, tell me exactly which files changed and
+show the diff before committing. If you find the same pattern (patch-only
+version extraction, or another spot loading a CDN asset that already has a
+local copy) elsewhere in the repo, report it before changing it rather than
+fixing it silently.

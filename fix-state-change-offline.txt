@@ -1,0 +1,63 @@
+Repo: quran_lights_web (Amr1977/quran_lights_web). Two follow-ups from the
+previous surasHistory persistence fix.
+
+## 1 — set_memorization() has the same persistence gap (live bug)
+
+File: public/dashboard/scripts/memorization.js, function set_memorization(suraIndex, state).
+
+It mutates surasHistory[suraIndex].memorization = state and calls
+enqueue_for_upload(), but never calls set_local_storage_object("surasHistory", surasHistory)
+afterward — same root cause as the refresh bug already fixed in main.js's
+refreshSura(). Offline, toggling a sura's memorized/not-memorized state
+will appear to revert after the app reloads, since init_cells.js reads
+the stale localStorage snapshot.
+
+Fix: add set_local_storage_object("surasHistory", surasHistory); right
+after the line
+  surasHistory[suraIndex].memorization = state;
+matching the pattern already used in refreshSura().
+
+While in this file, double check toggle_memorization() and any other
+function that reads/writes surasHistory[...].memorization for the same
+gap, and apply the same fix if found.
+
+## 2 — refresh_range() in sync.js: broken + same persistence gap (dead code, lower priority)
+
+File: public/dashboard/scripts/sync.js, function refresh_range(start_sura_index,
+start_verse, end_sura_index, end_verse, refresh_count, refresh_time_stamp).
+Marked //WIP above the function. Confirmed via repo-wide grep: this
+function is not called anywhere currently, so it's not a live user-facing
+bug, but it should either be fixed properly or removed rather than left
+half-broken.
+
+Bugs in the current implementation:
+- transaction_record.time is set to `refreshTimeStamp`, but the actual
+  parameter is named `refresh_time_stamp` — this is an undefined variable
+  reference (would throw ReferenceError, or silently read a stray global,
+  if ever called).
+- surasHistory[suraIndex].history.push(transaction_record.time) references
+  `suraIndex`, which is not a parameter of this function at all — the
+  function takes a *range* (start_sura_index..end_sura_index, and
+  presumably start_verse..end_verse within each sura), so this line as
+  written can't be correct for a range refresh. It should be looping over
+  every sura index (and likely verse) in the range and pushing/updating
+  each one's history, not touching a single undefined `suraIndex`.
+- Same persistence gap as bug 1: whatever the corrected per-sura update
+  ends up being, it needs set_local_storage_object("surasHistory", surasHistory)
+  called after all mutations in the loop, not per-iteration if avoidable
+  (batch it once at the end for efficiency).
+
+Ask: either (a) properly implement the range loop — update
+surasHistory[i].history for every sura index i from start_sura_index to
+end_sura_index (clarify with the history-push pattern used in refreshSura
+for a single sura, and check add_to_transactions_history /
+enqueue_for_upload to see if they should be called once per sura in the
+range or once for the whole batch — enqueue_batch_for_upload in sync.js
+looks like it may be the intended batch counterpart), and persist once at
+the end — or (b) if this feature isn't actually needed yet, leave a
+clearer TODO explaining what it's for and why it's unfinished, rather than
+shipping code that would throw if called. Ask before picking (a) vs (b)
+if it's not obvious from surrounding code/commit history.
+
+For both: minimal targeted diffs, show me the diff before committing,
+don't touch unrelated code.
