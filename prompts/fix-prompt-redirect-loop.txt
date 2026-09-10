@@ -1,0 +1,93 @@
+Repo: quran_lights_web (Amr1977/quran_lights_web). Fix one confirmed bug.
+Verify the mechanism yourself before changing anything — the analysis below
+is a starting point, not gospel. Make a minimal, targeted diff. Don't
+refactor unrelated code. Show me the diff before committing.
+
+## Bug — Infinite redirect loop between index.html and dashboard.html after deploy
+
+Files: public/index.html, public/dashboard/scripts/init_app.js,
+public/login/js/login.js.
+
+Two different, unreconciled signals decide "is the user signed in":
+
+1. public/index.html (DOMContentLoaded handler, near the top of the file):
+   if (localStorage.getItem("user")) { window.location.href = "dashboard.html"; }
+   This is a synchronous, unverified check — it trusts that a localStorage
+   flag written at some earlier sign-in is still valid right now.
+
+2. public/dashboard/scripts/init_app.js, initApp():
+   firebase.auth().onAuthStateChanged(function (user) {
+     if (user) { ... }
+     else { window.location.href = "index.html"; }
+   });
+   This is the live, authoritative check. When Firebase's actual session
+   comes back null, it redirects to index.html — but never clears
+   localStorage.removeItem("user").
+
+localStorage.user is only ever cleared in login.js's sign_out(). Nothing
+else touches it. So whenever these two signals disagree — localStorage.user
+is still set, but Firebase's real onAuthStateChanged reports no active
+session — you get a guaranteed infinite loop: index.html sees the stale
+flag and sends the user to dashboard.html, dashboard's live check says
+"not signed in" and sends them back to index.html, forever, each hop a
+full page reload.
+
+This is a pre-existing structural gap (nothing keeps the two signals in
+sync), but it's most likely to actually trigger right after a deploy:
+public/sw.js bumps CACHE_NAME on every deploy (per its own comment), so
+right after a release, clients are revalidating against a new cache
+generation instead of serving from bfcache/warm cache — exactly the
+situation where Firebase's session restore can momentarily disagree with
+a stale localStorage flag from before the deploy. That's consistent with
+this being reported as a post-deploy symptom even though the root cause
+isn't new.
+
+Fix, in order of importance:
+
+1. In init_app.js's onAuthStateChanged else-branch, clear the stale flag
+   before redirecting:
+     } else {
+       localStorage.removeItem("user");
+       window.location.href = "index.html";
+     }
+   This alone breaks the loop: index.html will no longer see a stale
+   "user" entry on the bounce-back, so it won't redirect to dashboard.html
+   again.
+
+2. Structurally, localStorage.user should only ever be used as a
+   last-known-state UI hint (it's already fine for that in index.html's
+   adjust_nav_bar(), which just toggles nav link visibility). It should
+   NOT be the thing that triggers a hard navigation. Change index.html's
+   DOMContentLoaded auto-redirect so it doesn't navigate to dashboard.html
+   on the localStorage check alone — either drop the auto-redirect
+   entirely (let the user click "dashboard" like any other nav link,
+   since dashboard.html's own initApp() will already bounce them back if
+   truly signed out), or gate it behind Firebase's real
+   onAuthStateChanged on index.html instead of a synchronous localStorage
+   read, so index.html and dashboard.html are both deciding off the same
+   live signal instead of two different ones.
+
+3. As a defense-in-depth safety net (in case any other page/script path
+   still ends up bouncing), add a simple loop guard: before either
+   redirect fires, check a short-lived marker (e.g. a
+   sessionStorage timestamp/counter) recording the last auto-redirect. If
+   two auto-redirects between these two pages happen within a few seconds
+   of each other, stop redirecting, clear localStorage.user, and let the
+   page render normally instead of navigating again. This is a backstop,
+   not a substitute for fixing #1 and #2 — implement it only after those
+   two are in place.
+
+4. While in init_app.js, check whether onAuthStateChanged's very first
+   callback can legitimately fire with user === null before Firebase has
+   finished restoring a persisted session (a known race in some SDK
+   versions/init orders), which would cause a real, currently-valid
+   session to be treated as signed-out on first load. If you find
+   evidence of that race, report it before changing anything else in this
+   function — it would need a different fix (waiting for the SDK's
+   "auth ready" signal rather than acting on the first callback) and
+   shouldn't be bundled into this diff.
+
+After the fix, confirm by simulating the disagreement locally: set
+localStorage.user to any truthy value without an active Firebase session,
+load dashboard.html, and verify it lands on index.html exactly once with
+no further redirect.
