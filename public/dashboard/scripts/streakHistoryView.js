@@ -268,15 +268,31 @@ function renderExportButtons() {
     return html;
 }
 
-function exportStreakImage() {
-    if (typeof html2canvas === 'undefined') {
-        loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js', function() {
-            doExportImage();
-        });
-    } else {
-        doExportImage();
+// Prefer the already-bundled local copy; fall back to CDN only when the
+    // local file is genuinely unavailable (e.g. a plain web build where the
+    // CDN->local swap never ran).
+    var HTML2CANVAS_LOCAL = 'js/lib/html2canvas.min.js';
+    var HTML2CANVAS_CDN = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+
+    function loadHtml2canvas(callback) {
+        var local = document.createElement('script');
+        local.src = HTML2CANVAS_LOCAL;
+        local.onload = callback;
+        local.onerror = function () {
+            loadScript(HTML2CANVAS_CDN, callback);
+        };
+        document.head.appendChild(local);
     }
-}
+
+    function exportStreakImage() {
+        if (typeof html2canvas === 'undefined') {
+            loadHtml2canvas(function() {
+                doExportImage();
+            });
+        } else {
+            doExportImage();
+        }
+    }
 
 function doExportImage() {
     var element = document.getElementById('streak-history-container');
@@ -298,7 +314,7 @@ function doExportImage() {
 
 function exportStreakPDF() {
     if (typeof html2canvas === 'undefined') {
-        loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js', function() {
+        loadHtml2canvas(function() {
             doExportPDF();
         });
     } else {

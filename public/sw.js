@@ -111,13 +111,28 @@ var CDN_STYLES = [
 ];
 
 // ── Local JS Libraries (offline-capable) ──
+// Every file that actually exists in public/js/lib, so nothing falls back
+// to a CDN copy that the packaged app never bundled.
 var LOCAL_LIBS = [
   '/js/lib/jquery.min.js',
   '/js/lib/bootstrap.min.js',
-  '/js/lib/highcharts.min.js',
+  '/js/lib/highcharts.js',
   '/js/lib/highcharts-more.js',
   '/js/lib/solid-gauge.js',
   '/js/lib/bundle.js',
+  '/js/lib/exporting.js',
+  '/js/lib/data.js',
+  '/js/lib/drilldown.js',
+  '/js/lib/heatmap.js',
+  '/js/lib/treemap.js',
+  '/js/lib/export-data.js',
+  '/js/lib/accessibility.js',
+  '/js/lib/dark-unica.js',
+  '/js/lib/jspdf.umd.min.js',
+  '/js/lib/html2canvas.min.js',
+  '/js/lib/material.orange-indigo.min.css',
+  '/js/lib/animate.min.css',
+  '/js/lib/firebase.js',
 ];
 
 // ── Images ──
@@ -137,14 +152,21 @@ var IMAGES = [
 ];
 
 // ── Combine all ──
-var ALL_CACHED = [].concat(
-  PAGES,
-  STYLES_INDEX, STYLES_DASHBOARD, CDN_STYLES,
-  SCRIPTS_INDEX, SCRIPTS_DASHBOARD,
-  FIREBASE_SDK, CDN_SCRIPTS,
-  LOCAL_LIBS,
-  IMAGES
-);
+// In a packaged Capacitor app the CDN copies are never needed (the local
+// files are already bundled), so skip FIREBASE_SDK / CDN_SCRIPTS / CDN_STYLES
+// entirely and avoid re-downloading >1MB of CDN weight on every cache bust.
+// On plain web/PWA the CDN sets are still cached so the app stays usable
+// before the user has visited the dashboard.
+var ALL_CACHED = IS_CAPACITOR
+  ? [].concat(PAGES, STYLES_INDEX, STYLES_DASHBOARD,
+              SCRIPTS_INDEX, SCRIPTS_DASHBOARD,
+              LOCAL_LIBS, IMAGES)
+  : [].concat(PAGES,
+              STYLES_INDEX, STYLES_DASHBOARD, CDN_STYLES,
+              SCRIPTS_INDEX, SCRIPTS_DASHBOARD,
+              FIREBASE_SDK, CDN_SCRIPTS,
+              LOCAL_LIBS,
+              IMAGES);
 
 
 // ─────────────────────────────────────────────

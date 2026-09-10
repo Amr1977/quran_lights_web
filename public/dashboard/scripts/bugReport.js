@@ -206,13 +206,29 @@
         });
     }
 
+    // Prefer the already-bundled local copy; fall back to CDN only when the
+    // local file is genuinely unavailable (e.g. a plain web build where the
+    // CDN->local swap never ran).
+    var HTML2CANVAS_LOCAL = 'js/lib/html2canvas.min.js';
+    var HTML2CANVAS_CDN = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+
+    function loadHtml2canvas(onSuccess, onFail) {
+        var local = document.createElement('script');
+        local.src = HTML2CANVAS_LOCAL;
+        local.onload = onSuccess;
+        local.onerror = function () {
+            var cdn = document.createElement('script');
+            cdn.src = HTML2CANVAS_CDN;
+            cdn.onload = onSuccess;
+            cdn.onerror = onFail;
+            document.head.appendChild(cdn);
+        };
+        document.head.appendChild(local);
+    }
+
     function doScreenshot(onSuccess, onFail) {
         if (typeof html2canvas === 'undefined') {
-            var s = document.createElement('script');
-            s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
-            s.onload = function () { doCapture(onSuccess, onFail); };
-            s.onerror = onFail;
-            document.head.appendChild(s);
+            loadHtml2canvas(function () { doCapture(onSuccess, onFail); }, onFail);
         } else {
             doCapture(onSuccess, onFail);
         }

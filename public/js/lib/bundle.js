@@ -1,7 +1,8 @@
 // =====================================================
 // bundle.js — Offline-capable library loader
 // =====================================================
-// Tries CDN first when online, falls back gracefully when offline
+// Local-first: prefers the bundled copy under js/lib and only falls back
+// to CDN when the local file is genuinely unavailable.
 // =====================================================
 
 (function() {
@@ -34,7 +35,10 @@
             return;
         }
         
-        var url = isOnline ? cdnLibs[name] : localLibs[name];
+        // Local-first: the packaged app (and the offline-capable PWA) already
+    // bundles every lib under js/lib, so prefer it and only fall back to CDN
+    // when the local file is genuinely unavailable.
+    var url = localLibs[name] || cdnLibs[name];
         if (!url) {
             console.warn('Unknown library:', name);
             if (callback) callback(false);
@@ -49,13 +53,13 @@
             if (callback) callback(true);
         };
         script.onerror = function() {
-            // Try fallback
-            if (isOnline && localLibs[name]) {
-                isOnline = false;
-                script.src = localLibs[name];
+            // Try fallback: CDN only if local was tried first and failed
+            var fallback = cdnLibs[name];
+            if (fallback && fallback !== url) {
+                script.src = fallback;
                 script.onload = function() {
                     loadedLibs[name] = true;
-                    console.log('Loaded fallback:', name);
+                    console.log('Loaded fallback (CDN):', name);
                     if (callback) callback(true);
                 };
                 script.onerror = function() {
