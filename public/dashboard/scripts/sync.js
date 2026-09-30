@@ -68,7 +68,12 @@ function dispatch_uploads() {
 
   //TODO start handling upload transactions records here
   var uid = firebase.auth().currentUser && firebase.auth().currentUser.uid;
-  if (!uid) { console.log("[Sync] Auth not ready, deferring upload"); return; }
+  if (!uid) {
+    console.log("[Sync] Auth not ready, deferring upload and rescheduling");
+    clearTimeout(reference_to_scheduled_upload_function);
+    reference_to_scheduled_upload_function = setTimeout(dispatch_uploads, UPLOAD_DISPATCH_DAMPING_DELAY);
+    return;
+  }
 
   var updates = {};
   get_upload_queue().forEach((transacton_record) => {

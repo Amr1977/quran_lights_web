@@ -65,7 +65,12 @@ function sortByKey(array, key) {
 }
 
 function get_local_storage_object(key) {
-  var object = is_json_string(localStorage.getItem(myUserId + "_" + key));
+  var uid = (typeof myUserId !== 'undefined' && myUserId) 
+    ? myUserId 
+    : (firebase.auth().currentUser && firebase.auth().currentUser.uid) 
+    ? firebase.auth().currentUser.uid 
+    : 'anonymous';
+  var object = is_json_string(localStorage.getItem(uid + "_" + key));
   if (object[0]) {
     return object[1];
   }
@@ -74,8 +79,13 @@ function get_local_storage_object(key) {
 }
 
 function set_local_storage_object(key, value) {
+  var uid = (typeof myUserId !== 'undefined' && myUserId) 
+    ? myUserId 
+    : (firebase.auth().currentUser && firebase.auth().currentUser.uid) 
+    ? firebase.auth().currentUser.uid 
+    : 'anonymous';
   var saved = JSON.stringify(value);
-  localStorage.setItem(myUserId + "_" + key, saved);
+  localStorage.setItem(uid + "_" + key, saved);
 
   return saved;
 }
