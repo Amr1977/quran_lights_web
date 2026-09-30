@@ -12,9 +12,6 @@ echo "Deploying v$VERSION"
 # Ensure public/js/version.js mirrors public/VERSION (in case it was edited manually).
 echo "var APP_VERSION = \"$VERSION\";" > public/js/version.js
 
-# Update HTML files that have hardcoded version placeholders
-find public -name '*.html' -exec sed -i "s/v[0-9]\+\.[0-9]\+\.[0-9]\+/v$VERSION/g" {} +
-
 # Cache bust all static resources
 TS=$(date +%s)
 find public -name '*.html' -exec sed -i "s/v=[0-9]\+/v=$TS/g" {} +
