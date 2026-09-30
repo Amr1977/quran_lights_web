@@ -4,7 +4,8 @@ function set_memorization(suraIndex, state) {
     op: "memorize",
     sura: suraIndex,
     state: state,
-    time: get_time_stamp()
+    time: get_time_stamp(),
+    uuid: generate_uuid()
   };
   var transactions_records = [];
   transactions_records.push(transaction_record);

@@ -140,12 +140,13 @@ function generate_uuid() {
 }
 
 /**
-   * returns timestamp in microseconds with server skew offset
+   * returns timestamp in microseconds with server skew offset + random suffix for uniqueness
    */
 function get_time_stamp() {
   var millis = window.performance.timing.navigationStart + window.performance.now();
   var transactionTimeStamp = (millis + serverOffset) * 1000;
-  return transactionTimeStamp;
+  // Add random suffix to ensure uniqueness for rapid refreshes
+  return transactionTimeStamp + '_' + Math.random().toString(36).substr(2, 9);
 }
 
 function sort_transactions_by_timestamp(array) {

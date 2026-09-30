@@ -195,7 +195,8 @@ function refresh_range(start_sura_index, start_verse, end_sura_index, end_verse,
     end_sura: end_sura_index,
     end_verse: end_verse,
     count: refresh_count,
-    time: refresh_time_stamp
+    time: refresh_time_stamp,
+    uuid: generate_uuid()
   };
 
   var range_transactions_records = [];
@@ -206,7 +207,8 @@ function refresh_range(start_sura_index, start_verse, end_sura_index, end_verse,
     var per_sura_record = {
       op: "refresh",
       sura: suraIndex,
-      time: refresh_time_stamp
+      time: refresh_time_stamp,
+      uuid: generate_uuid()
     };
 
     var per_sura_records = [];

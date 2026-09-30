@@ -74,7 +74,8 @@ function create_refresh_transaction_record(sura_index, timestamp){
   var transaction_record = {
     op: "refresh",
     sura: sura_index,
-    time: timestamp
+    time: timestamp,
+    uuid: generate_uuid()
   };
 
  return transaction_record;
@@ -85,7 +86,8 @@ function create_memorization_transaction_record(sura_index, timestamp, memorizat
     op: "memorize",
     sura: sura_index,
     state: memorization_state,
-    time: timestamp
+    time: timestamp,
+    uuid: generate_uuid()
   };
 
  return transaction_record;
