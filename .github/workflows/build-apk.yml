@@ -33,6 +33,12 @@ jobs:
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
+        with:
+          api-level: 36
+          ndk-version: r27c
+          build-tools-version: 36.0.0
+          cmdline-tools-version: 13.0
+          emulator: false
 
       - name: Sync web assets to Android
         run: npx cap sync android
