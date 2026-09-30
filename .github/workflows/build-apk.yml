@@ -98,9 +98,9 @@ jobs:
         run: |
           cd android
           ./gradlew assembleRelease \
-            -PkeystorePassword=$KEYSTORE_PASSWORD \
-            -PkeyAlias=$KEY_ALIAS \
-            -PkeyPassword=$KEY_PASSWORD
+            -Pkeystorepassword=$KEYSTORE_PASSWORD \
+            -Pkeyalias=$KEY_ALIAS \
+            -Pkeypassword=$KEY_PASSWORD
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
