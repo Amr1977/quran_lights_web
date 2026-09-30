@@ -12,6 +12,8 @@ test-results/
 Thumbs.db
 desktop.ini
 *.Zone.Identifier
+*Zone.Identifier*
+*:Zone.Identifier
 
 # IDE / Editor files
 .vscode/
