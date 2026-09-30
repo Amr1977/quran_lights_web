@@ -1,0 +1,36 @@
+# GitHub Secrets Setup for APK Build
+
+Add these secrets to your GitHub repository:
+**Settings → Secrets and variables → Actions → New repository secret**
+
+## Required Secrets
+
+| Secret Name | Value |
+|-------------|-------|
+| `KEYSTORE_BASE64` | MIIK4AIBAzCCCooGCSqGSIb3DQEHAaCCCnsEggp3MIIKczCCBboGCSqGSIb3DQEHAaCCBasEggWnMIIFozCCBZ8GCyqGSIb3DQEMCgECoIIFQDCCBTwwZgYJKoZIhvcNAQUNMFkwOAYJKoZIhvcNAQUMMCsEFCN+QWLMUrN5MhCagV2/i1g3nJYkAgInEAIBIDAMBggqhkiG9w0CCQUAMB0GCWCGSAFlAwQBKgQQU472JAb60uZzGvwLztXoyASCBNA33H6qMp2Cfn8kOQGETg5P46RT7cXUhUVOlOw04IejsMCra6RrdQh6em2a9+HUUjHuKhBHf8ibCctQWp42VsvhvF8B+EgiL4Y/Dw6UzpmUqBOG9N7YcSbs6SvAvPM2xREG2gzs8VNPwF2ELBpx4LT+JAhJV166NYraj0KdrvXHlVgwBynX5+4FXgj2iqG4/UeY1E0eP3ouRrbvrcmMWihDWcVV/CF1C3AGF5UuUl3X+RrUINOhIP4ET3vvyV8hq0sbkADVlASF2ycjyKrI5VSGj937/9giTJCaJH6QFwdKzPThMhnvzK2Y+CimcjW4lj03KN9gIirc5Os+Jv4dtk4amftYV7tAbUBYrVQ4XSysrPMG23UrKsi/ZKcn5dIy1GW8QXtd3ss75vnPz3s/iK7XbI3DZoSfwCUR7e6UfaRijW/dv524F+ZyfNRVy7+vKYpPyzNKnAV5U18zaWQY5GBDULWGkK5HBB454sfmwDEhMhNmripHQhmiqFk6H8tP7icPCxLm5RCHGErxVGswGHsdpPfRxsmpvknnDw/SbBldE1/0/qsGEbFmzgQ1SBoPCIR7DG0hCp/o43XwSlv7qn9lZ9isUzKeUgzikD+0Mn9KkKs7wtXnxVc+baM91KVVPlhMQc7iL38djHYN7czzCM3dqmoG7NKU81zrHsHZ/tzERYKbr8ovvp4RPcDL6sSsKcp0nOVUvxbO+9bu0Pf+ybQekAC5FbvZJWJ1FhtSnd/W6qAKZDUUaoF3TO0+8Ox+kMNd0cYyoYrinmOcSjNagt+Cnd8MLIUX870aFIUUBJlMjQJjVDOH3IglfdCxgysOb0Fl9zXNVU4J/PR1RXwqyrXT7ZEmRX3SA3sF7EPLjOnCLNddfNld/aG63RM62JK6rXzukPiWWf/g/qp3fSt7TAv6kpe9U2RGlb5DrR1sDSPmDPvYoQc5bsYruRpJNCrSv0A3JRAcbYKR3CCFkP/zqivxUZ9op1LHdKbJUXr9J/TneVZ/bF1FYOyeAb++YNR4J/3+NgqiT7ypdA7btSCB2VxP2Px1tC4eWN0kN6e26TZl87sOGxD2EHn/gR0ydgc5SxJV4ZEU04vJO6tHvg1LzgTXWWNEM0zOmkUIxt5WJ4wMtE2DxN1Mah5TbPxGdfhaurB4jsOv+sdwbWHIfBr3LcNNrZA+AxwLIrY4jcnaTQF38qK5ZYPgO0jcjaySXWONM2RCr7ctJmwqTcvjcxj5XyzxSTYjQuo7OXwBW87rDQ5v7GzK1iqkYYdr7DOeJZkOCF/akPuIbtHMaRIoQ+1ieQqdBw6l87TIlxT9EsF68uMUM6HQl320FEYDVw0fOJNZRKIhyajZ5SGqJ1o5/sBR7aulKZkWfj6H7w5Q2Cpq/iIz/QQ/cwBjHnHuvyWl4J/YWWqNLWQfmx0b6xBG877gs8KtwdvTof0yYTNzChJMIyb2tk3InmlvcjzU9NND4CnFf9ZJSytb3HucCyUJ8zgmvqEiFXKusZjGF+7hOhgL0iBbQb2uW0x/sjaf0IZvCkRbVhJQKrSFV3jh882/RXhwkpruMGujR8M4axHqJULBhFuvm/qk51z8rZOcJoDIUzzVh8/xW7uZpr6ZqvwaJ3TyJs4XvVq2sc3vBWuLIsdWl46MHjFMMCcGCSqGSIb3DQEJFDEaHhgAcQB1AHIAYQBuAC0AbABpAGcAaAB0AHMwIQYJKoZIhvcNAQkVMRQEElRpbWUgMTc3NjExMjMxMDEyNjCCBLEGCSqGSIb3DQEHBqCCBKIwggSeAgEAMIIElwYJKoZIhvcNAQcBMGYGCSqGSIb3DQEFDTBZMDgGCSqGSIb3DQEFDDArBBRdK3L59lwfXq/j2t2fjpBmxe889wICJxACASAwDAYIKoZIhvcNAgkFADAdBglghkgBZQMEASoEEPO8L9pUhLT2KOHC2RZuKBKAggQgtu+oB9UTMhFrtJS0KbuAz7jdzunQ8NPXQtq6O21ILco+2bya9DYe2JN80zHr+e640NgtpvxK/hHiLi+w7Gm1rGR70WVlQm5+46U6cfFYiVSJXc5/KKY4YHT1eMjLlzuvEvl1r0ODNa1J8cb2HqAeF1JnkoEGKg2c+1JHh6ab1MrgImrrZOrF6Nqxiib0TK8TQN1BEgsSw8qb9NLQ0m9z+3p68GR4GiKdK9DqxNadb4RYSfYMGc2+2k4Y/+p578tCSnUEoxdzMUzPnGB3x4bhFP3kTWezf9CPRkWSSWckHVgK08xGqfu9DWh9FaMrHf5VNs+K0F51C5C49c2Vg+P6Rj0Dv7y5JerHoWJxas80XlO7qcdAUfUiAjpcmC1R6d9s904HIOn+ngfI0PFyg4JK51FvjzSPiKFZvzoa1TC69FrJghsacYHfWALkkEGmjwp5rC5AtfmmOdu0Q7D77l87FyjUUtDOo/4GYc59GseKvokPWOoQ9Y0TOR0tBlg4+J1PVHIBByBDq8g/E4ls6MBx+icoJaLjr5N9waQca50VAXxjwjh1tG++FwSjHBR1scIsBLCzHwQnxyQRstzBDb5aSVpN8nWP4LrmByYzkNtgAy3ZedINcs9EcGMJvOV1LdQKIojCni6evjvv5mDgM3K8bIPHTQV1gILH62+AUyz84HvqJcg5+Ut09nZdYWqLC1DBgiRb4ir31cQRP5CqhFVUgKsc7kvAVzwpMVpFlyW8/ozI8tASXH062fJUXucxtnY709HEfZnlbOdA2YvVO3d1Y0tsZG/u/PwA90/aEEczIcIjYPZQJBKEJB3HZ+yqlZi2cja9z14Vj32PjggsB0TvvJITLsmLKq/SKpds7xIyIXkCz2Xx34dxYM0tS2IN3pMfca4+YiF8ZWIznhoMF9FaYWXAApWOXYyPYOcb9zpPkPlN7pRm2Iskgt6hmvrahb35C80Zw0InxXAIfeHZMRqXlg6f1l/s05NUh5Km4vdWbTW+i8XXLDaGkL5HLZgOFyDttTOVXskFy3nHoNk2hk5DhofKJ2s2Qjt0yuEktU70IJBTtVD+q1ywtFKZx42q2wTrKvoDs/iQCFvWTWQhIEtfO7zYl+P4zvNZNsBHMyA5hXG5MbUIAXLytsGFExGr9x5NQXRmlfIuTNRqT1aNnSJPz8sw1iVwrRPicI5h7lXqbtuaQXMA1wmZaQIwXR9MtFZPHIuKajy0uDQPQ00tSaSg24W/L1RCC7+S4bli2R5fLTCa90xpraU3alI4Pf8oJnvTqEpBWU7y8Baws/a7JG4wzhCFYDKTVxJBuVzDYzy6bA5DWX1ycgOEV34TeU6CjkH6Rl7DXuvLZ9e+SgmO8yRGECX5LBSCvnJzE1nZ6wM8c6dA6YORowdTzIvBUxII+limME0wMTANBglghkgBZQMEAgEFAAQgpczbStS+0ru4oVUbjfXjNKw+Z2FJyY4Xor0PKcGIlSUEFBg+rql1JyHi6+p+VR2JC09yB65oAgInEA== |
+| `KEYSTORE_PASSWORD` | quranlights2024 |
+| `KEY_ALIAS` | quran-lights |
+| `KEY_PASSWORD` | quranlights2024 |
+
+## Optional Secrets (if using Firebase in-app)
+
+| Secret Name | Description |
+|-------------|-------------|
+| `FIREBASE_SERVICE_ACCOUNT` | Service account JSON for Firebase Admin SDK (not needed for APK build) |
+
+## Verify Build
+
+After adding secrets, trigger the workflow:
+1. Go to **Actions** tab
+2. Select **Build** workflow
+3. Click **Run workflow** → **Run workflow**
+
+Or push to master/main branch.
+
+## Notes
+
+- The keystore password and key password are the same: `quranlights2024`
+- The key alias is: `quran-lights`
+- The base64 keystore was generated from `/home/amr/apps/quran_lights_web/android/app/quran-lights-release.keystore`
+- Version code is auto-computed from `public/VERSION` (format: MAJOR*1000000 + MINOR*1000 + PATCH)
+- Current version: 1.3.7 → versionCode: 1003007

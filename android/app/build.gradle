@@ -19,9 +19,9 @@ android {
     signingConfigs {
         release {
             storeFile file("quran-lights-release.keystore")
-            storePassword "quranlights2024"
-            keyAlias "quran-lights"
-            keyPassword "quranlights2024"
+            storePassword project.hasProperty('keystorePassword') ? keystorePassword : "quranlights2024"
+            keyAlias project.hasProperty('keyAlias') ? keyAlias : "quran-lights"
+            keyPassword project.hasProperty('keyPassword') ? keyPassword : "quranlights2024"
         }
     }
 

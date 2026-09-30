@@ -75,13 +75,28 @@ jobs:
             -e 's|https://cdnjs\.cloudflare\.com/ajax/libs/animate\.css/3\.2\.0/animate\.min\.css|js/lib/animate.min.css|g' \
             {} +
 
+      - name: Setup keystore from secrets
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > android/app/quran-lights-release.keystore
+          echo "KEYSTORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD }}" >> $GITHUB_ENV
+          echo "KEY_ALIAS=${{ secrets.KEY_ALIAS }}" >> $GITHUB_ENV
+          echo "KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}" >> $GITHUB_ENV
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+
       - name: Grant Gradle executable permission
         run: chmod +x android/gradlew
 
       - name: Build release APK
         run: |
           cd android
-          ./gradlew assembleRelease
+          ./gradlew assembleRelease \
+            -PkeystorePassword=$KEYSTORE_PASSWORD \
+            -PkeyAlias=$KEY_ALIAS \
+            -PkeyPassword=$KEY_PASSWORD
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
