@@ -152,8 +152,9 @@ function add_to_transactions_history(transactions_records) {
   var transactions_history = get_transactions_history();
 
   transactions_records = transactions_records.filter(function(transaction) {
-    for(var old_transaction in transactions_history) {
-      if (old_transaction.uuid == transaction.uuid) {
+    for (var i = 0; i < transactions_history.length; i++) {
+      var old_transaction = transactions_history[i];
+      if (old_transaction && old_transaction.uuid == transaction.uuid) {
         return false;
       }
     }
